@@ -111,11 +111,9 @@ function InsightRow({
   isOpen: boolean;
   onToggle: () => void;
 }) {
-  const ref = useReveal<HTMLAnchorElement>();
   return (
     <a
-      className={"page-insight-row reveal" + (isOpen ? " is-open" : "")}
-      ref={ref}
+      className={"page-insight-row" + (isOpen ? " is-open" : "")}
       onMouseEnter={onToggle}
       onFocus={onToggle}
     >
