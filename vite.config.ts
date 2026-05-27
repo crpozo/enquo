@@ -3,10 +3,10 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 //
-// `base` must match the GitHub Pages path. For `crpozo.github.io/enquo/` that
-// is `/enquo/`. Override via env if you ever serve from a different path:
-//   VITE_BASE=/ npm run build   (root domain)
+// `base` must match the GitHub Pages path. The site is served from
+// `crpozo.github.io/enquo/`, so the base is `/enquo/`. If you ever move it
+// (custom domain at root, different repo name), edit this single line.
 export default defineConfig({
-  base: process.env.VITE_BASE ?? "/enquo/",
+  base: "/enquo/",
   plugins: [react()],
 });
