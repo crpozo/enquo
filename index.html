@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enquo — Human driven data solutions</title>
+
+    <!-- Fontshare: General Sans as BW Gradual stand-in (BW Gradual is paid; General Sans is the closest free humanist-geometric sans) -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Single Page Apps for GitHub Pages — restore the deep-link path that
+         404.html packed into the query string. Must run before React boots. -->
+    <script>
+      (function () {
+        var l = window.location;
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) { return s.replace(/~and~/g, "&"); })
+            .join("?");
+          window.history.replaceState(null, "", l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
