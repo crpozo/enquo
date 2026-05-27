@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage";
 import { ServicesPage } from "./pages/ServicesPage";
 import { IndustriesPage } from "./pages/IndustriesPage";
 import { CaseStudiesPage } from "./pages/CaseStudiesPage";
+import { CaseStudyDetailPage } from "./pages/CaseStudyDetailPage";
 import { InsightsPage } from "./pages/InsightsPage";
 import { WhoWeArePage } from "./pages/WhoWeArePage";
 import { CareersPage } from "./pages/CareersPage";
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/industries" element={<IndustriesPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/who-we-are" element={<WhoWeArePage />} />
           <Route path="/careers" element={<CareersPage />} />

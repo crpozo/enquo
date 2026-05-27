@@ -1116,3 +1116,240 @@
   .operator { padding-block: 48px; }
   .operator__attr { font-size: 10px; }
 }
+
+/* ==========================================================================
+   CASE STUDY DETAIL — /case-studies/:slug
+   ========================================================================== */
+
+.case-detail__back {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 180ms ease;
+}
+.case-detail__back:hover { color: var(--ink); }
+
+.case-detail__hero {
+  max-width: 1200px;
+}
+.case-detail__client {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--purple-200);
+  margin: 0 0 24px 0;
+  font-weight: 500;
+}
+.case-detail__headline {
+  font-size: clamp(36px, 5.4vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 48px 0;
+}
+.case-detail__result-band {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 28px 32px;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.32);
+  border-radius: var(--r);
+  margin-bottom: 36px;
+}
+.case-detail__result-label {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--purple-200);
+  font-weight: 500;
+}
+.case-detail__result-text {
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+.case-detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.case-detail__duration { padding-right: 18px; border-right: 1px solid var(--hairline); }
+.case-detail__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.case-detail__tag {
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.case-detail__block { border-top: 1px solid var(--hairline); }
+.case-detail__block--shade { background: var(--bg-2); }
+
+.case-detail__prose {
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.case-detail__prose p {
+  font-size: clamp(16px, 1.3vw, 19px);
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.case-detail__stack {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hairline);
+}
+.case-detail__stack-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.case-detail__stack-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.case-detail__stack-tag {
+  padding: 8px 14px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--purple-200);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.28);
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.case-detail__outcomes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.case-detail__outcome {
+  padding: 28px 24px;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 180px;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1), background 220ms ease;
+}
+.case-detail__outcome:hover {
+  transform: translateY(-3px);
+  background: var(--bg-3);
+}
+.case-detail__outcome-metric {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: var(--grad-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+.case-detail__outcome-label {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+
+@media (max-width: 1080px) {
+  .case-detail__outcomes { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .case-detail__outcomes { grid-template-columns: 1fr; }
+  .case-detail__result-band { grid-template-columns: 1fr; gap: 12px; padding: 22px 20px; }
+}
+
+.case-detail__related {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.case-detail__related-card {
+  padding: 28px;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1), background 220ms ease, box-shadow 320ms ease;
+}
+.case-detail__related-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-3);
+  box-shadow: 0 24px 60px -20px rgba(124, 58, 237, 0.25);
+}
+.case-detail__related-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.case-detail__related-num { color: var(--purple-400); }
+.case-detail__related-industry { color: var(--muted); }
+.case-detail__related-card h3 {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+}
+.case-detail__related-card p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin: 0 0 auto 0;
+  font-feature-settings: "tnum" 1;
+}
+.case-detail__related-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple-200);
+  font-weight: 500;
+  margin-top: 6px;
+}
+.case-detail__related-cta svg { transition: transform 200ms ease; }
+.case-detail__related-card:hover .case-detail__related-cta svg { transform: translateX(3px); }
+
+@media (max-width: 760px) {
+  .case-detail__related { grid-template-columns: 1fr; }
+}
