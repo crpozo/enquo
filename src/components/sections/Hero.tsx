@@ -8,19 +8,14 @@ export type HeroVariant = "manifesto" | "editorial" | "promise";
 type Props = { variant?: HeroVariant };
 
 /**
- * Hero background video — swappable.
+ * Hero background video — self-hosted in /public/videos/hero.mp4.
+ * Vite's BASE_URL prefix makes this work both in dev (`/`) and on GitHub
+ * Pages (`/enquo/`). Swap the filename if you want to A/B different clips.
  *
- * Replace with your own self-hosted MP4 for production. Requirements:
- *   - H.264 MP4 (best cross-browser support); WebM optional as a <source> sibling
- *   - 1080p max (don't ship 4K to the browser — bandwidth waste)
- *   - 8–20s seamless loop, no audio track
- *   - Dark, abstract, slow motion (the aurora + overlay tint it purple)
- *
- * The default below is a free Pexels CDN clip. Browsers that block autoplay
- * or fail to load it gracefully degrade to the animated aurora behind.
+ * Heads up: the file is currently 43 MB (4K source). Consider compressing
+ * to 1080p H.264 (~8 MB) for better first-paint performance.
  */
-const HERO_VIDEO_URL =
-  "https://videos.pexels.com/video-files/3163534/3163534-hd_1920_1080_30fps.mp4";
+const HERO_VIDEO_URL = import.meta.env.BASE_URL + "videos/hero.mp4";
 
 export function Hero({ variant = "manifesto" }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
