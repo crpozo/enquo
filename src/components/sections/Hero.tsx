@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 
-import { ConcentricPulse } from "./StarTrails";
 
 export type HeroVariant = "manifesto" | "editorial" | "promise";
 
@@ -55,7 +54,6 @@ export function Hero({ variant = "manifesto" }: Props) {
           <div className="hero__aurora-layer hero__aurora-layer--b" />
           <div className="hero__aurora-layer hero__aurora-layer--c" />
         </div>
-        <ConcentricPulse cx={900} cy={300} />
         <div className="hero__grain" />
         <div className="hero__grid" />
       </div>
