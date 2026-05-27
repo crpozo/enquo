@@ -4,7 +4,6 @@ import { FinalCTA } from "../components/sections/FinalCTA";
 import { Hero } from "../components/sections/Hero";
 import { Industries } from "../components/sections/Industries";
 import { Manifesto } from "../components/sections/Manifesto";
-import { OperatorStatement } from "../components/sections/OperatorStatement";
 import { Products } from "../components/sections/Products";
 import { ScrollPrompt } from "../components/sections/ScrollPrompt";
 import { Services } from "../components/sections/Services";
@@ -20,8 +19,6 @@ export function HomePage() {
   return (
     <>
       <Hero variant="manifesto" />
-
-      <OperatorStatement />
 
       <Era />
       <ScrollPrompt />
