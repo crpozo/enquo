@@ -1577,14 +1577,8 @@
   box-shadow: 0 0 12px var(--purple-500);
 }
 
-/* Cursor "magnetic" idle indicator on big titles */
-.hero__title:hover .accent {
-  animation: accent-throb 2s ease-in-out infinite;
-}
-@keyframes accent-throb {
-  0%, 100% { letter-spacing: -0.03em; }
-  50%      { letter-spacing: 0; }
-}
+/* (Removed: accent-throb on hero hover — caused jittery letter-spacing on
+   "DRIVEN" when the cursor crossed it.) */
 
 /* Era visual ambience — make the bg drift visibly */
 .era__bg {
