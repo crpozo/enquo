@@ -60,10 +60,6 @@ export function Hero({ variant = "manifesto" }: Props) {
 
       <div className="hero__inner">
         <div className="hero__meta">
-          <div className="hero__meta-left">
-            <span className="pulse" />
-            <span>Sprint '26 · New York · New Jersey</span>
-          </div>
           <div className="hero__meta-right">
             A purpose driven
             <br />
