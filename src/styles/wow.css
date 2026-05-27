@@ -186,8 +186,8 @@ em.accent,
   object-position: center;
   z-index: 0;
   pointer-events: none;
-  /* slight desaturation + brightness drop keeps the video moody and on-brand */
-  filter: saturate(0.85) brightness(0.55) contrast(1.05);
+  /* Light grade only — keep the video readable, don't crush blacks */
+  filter: saturate(0.95) brightness(0.78) contrast(1.04);
   /* fade-in on load so a flash of black isn't visible */
   opacity: 0;
   animation: hero-video-fade 1200ms ease-out 400ms forwards;
@@ -196,7 +196,7 @@ em.accent,
   to { opacity: 1; }
 }
 
-/* Purple brand tint over the video + bottom darken for text legibility */
+/* Light tint over the video — mostly a bottom darken for text legibility. */
 .hero__video-tint {
   position: absolute;
   inset: 0;
@@ -204,12 +204,9 @@ em.accent,
   pointer-events: none;
   background:
     /* Bottom darken so lead copy stays readable */
-    linear-gradient(to bottom, rgba(10, 10, 15, 0.15) 0%, rgba(10, 10, 15, 0.05) 45%, rgba(10, 10, 15, 0.75) 100%),
-    /* Brand purple wash */
-    linear-gradient(135deg, rgba(91, 33, 182, 0.35) 0%, rgba(124, 58, 237, 0.22) 40%, rgba(192, 38, 211, 0.18) 100%),
-    /* Right-side accent so the title area has slight depth */
-    radial-gradient(circle at 80% 20%, rgba(192, 38, 211, 0.18), transparent 55%);
-  mix-blend-mode: normal;
+    linear-gradient(to bottom, rgba(10, 10, 15, 0.08) 0%, rgba(10, 10, 15, 0) 35%, rgba(10, 10, 15, 0.6) 100%),
+    /* Very soft brand wash — almost invisible, just keeps the palette aligned */
+    linear-gradient(135deg, rgba(91, 33, 182, 0.08) 0%, rgba(192, 38, 211, 0.04) 100%);
 }
 
 .hero__aurora {
@@ -218,9 +215,8 @@ em.accent,
   z-index: 1;
   pointer-events: none;
   filter: blur(70px) saturate(130%);
-  /* Lowered so the video reads through — aurora now just contributes
-     ambient color motion on top of the imagery. */
-  opacity: 0.45;
+  /* Much lower — aurora is now a subtle ambient hue, not a wash. */
+  opacity: 0.22;
   mix-blend-mode: screen;
 }
 .hero__aurora-layer {
