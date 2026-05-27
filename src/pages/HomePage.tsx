@@ -4,6 +4,7 @@ import { FinalCTA } from "../components/sections/FinalCTA";
 import { Hero } from "../components/sections/Hero";
 import { Industries } from "../components/sections/Industries";
 import { Manifesto } from "../components/sections/Manifesto";
+import { OperatorStatement } from "../components/sections/OperatorStatement";
 import { Products } from "../components/sections/Products";
 import { ScrollPrompt } from "../components/sections/ScrollPrompt";
 import { Services } from "../components/sections/Services";
@@ -20,19 +21,7 @@ export function HomePage() {
     <>
       <Hero variant="manifesto" />
 
-      <Ticker
-        items={[
-          "Human driven data solutions",
-          "✦",
-          "Enquo 2026",
-          "✦",
-          "Built on humility",
-          "✦",
-          "AI · Data · BCI",
-          "✦",
-        ]}
-        variant="solid"
-      />
+      <OperatorStatement />
 
       <Era />
       <ScrollPrompt />

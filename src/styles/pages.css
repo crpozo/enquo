@@ -1035,3 +1035,84 @@
   .page-role { grid-template-columns: 50px 1fr 30px; gap: 16px; }
   .page-role__meta { grid-column: 2 / span 1; flex-direction: row; flex-wrap: wrap; gap: 12px; padding-top: 8px; }
 }
+
+/* ==========================================================================
+   OPERATOR STATEMENT — full-bleed white band between hero + Era moment
+   ========================================================================== */
+.operator {
+  background: var(--ink);
+  color: var(--bg);
+  padding: clamp(56px, 8vw, 96px) var(--pad-x);
+  position: relative;
+  overflow: hidden;
+}
+.operator::before {
+  /* gradient bleed from the dark hero into this section's top edge */
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: linear-gradient(to bottom, rgba(10, 10, 15, 0.5), transparent);
+  pointer-events: none;
+}
+.operator__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.operator__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(10, 10, 15, 0.6);
+  margin: 0 0 28px 0;
+}
+.operator__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--purple-500);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.55);
+  animation: pulse 2s ease-in-out infinite;
+}
+.operator__line {
+  font-size: clamp(36px, 5.8vw, 88px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--bg);
+  margin: 0;
+  max-width: 1200px;
+}
+.operator__accent {
+  background: var(--grad-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 500;
+}
+.operator__attr {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 15, 0.55);
+  margin: 36px 0 0 0;
+  font-weight: 500;
+}
+.operator__rule {
+  width: 40px;
+  height: 1px;
+  background: rgba(10, 10, 15, 0.35);
+}
+@media (max-width: 760px) {
+  .operator { padding-block: 48px; }
+  .operator__attr { font-size: 10px; }
+}
