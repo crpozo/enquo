@@ -1,54 +1,48 @@
 /**
- * Horizontal light sweeps — long-exposure light painting across the sky.
- * Inspired by sidewave.it's hero treatment (the second variant with horizontal
- * neon streaks). Pure SVG + CSS, no WebGL.
- *
- * Renders ~7 curved horizontal paths with gradient strokes, each independently
- * animated with subtle horizontal drift + opacity pulse so the field reads as
- * continuous motion without being noisy.
+ * Horizontal light beams — long-exposure light painting across the sky.
+ * Inspired by sidewave.it's hero. Nearly-straight neon streaks (not curves),
+ * high contrast, strong glow. Pure SVG + CSS.
  */
 
-type Sweep = {
-  /** Vertical position in SVG units (0-800 viewBox) */
+type Beam = {
+  /** Vertical position in SVG units (0-800 viewBox). */
   y: number;
-  /** Wave amplitude — controls how curved the line is */
-  amp: number;
-  /** Stroke width */
+  /** Small sag amplitude (px) — keep tiny, almost straight. */
+  sag: number;
+  /** Stroke width — some thin (1-1.5), some hero beams (3-6). */
   w: number;
-  /** Animation duration in seconds */
-  dur: number;
-  /** Animation phase offset */
-  delay: number;
-  /** Which gradient to use */
-  gradient: "purple" | "pink" | "white" | "soft";
-  /** Base opacity */
+  /** Gradient id — different palettes for variety. */
+  grad: "magenta" | "hotpink" | "white" | "lavender";
+  /** Base opacity. */
   opacity: number;
+  /** Drift animation duration (s). */
+  dur: number;
+  /** Animation delay (negative starts mid-loop). */
+  delay: number;
+  /** Whether to apply the heavy glow filter (big bright beams only). */
+  glow?: boolean;
 };
 
-const SWEEPS: Sweep[] = [
-  { y: 120, amp: 30, w: 2.5, dur: 22, delay: 0,   gradient: "pink",   opacity: 0.85 },
-  { y: 160, amp: 22, w: 1.2, dur: 28, delay: 4,   gradient: "white",  opacity: 0.55 },
-  { y: 200, amp: 38, w: 3.5, dur: 19, delay: 1.5, gradient: "purple", opacity: 0.95 },
-  { y: 240, amp: 18, w: 1.0, dur: 31, delay: 7,   gradient: "soft",   opacity: 0.45 },
-  { y: 290, amp: 45, w: 4.2, dur: 25, delay: 2.5, gradient: "pink",   opacity: 0.8  },
-  { y: 340, amp: 25, w: 1.5, dur: 33, delay: 6,   gradient: "white",  opacity: 0.6  },
-  { y: 400, amp: 30, w: 2.0, dur: 27, delay: 3,   gradient: "purple", opacity: 0.7  },
-  { y: 470, amp: 20, w: 1.0, dur: 35, delay: 8,   gradient: "soft",   opacity: 0.5  },
+const BEAMS: Beam[] = [
+  { y: 90,  sag: 6,  w: 1.2, grad: "white",    opacity: 0.6, dur: 28, delay: 0   },
+  { y: 130, sag: 12, w: 5.5, grad: "hotpink",  opacity: 1.0, dur: 22, delay: 3,  glow: true },
+  { y: 175, sag: 8,  w: 1.0, grad: "lavender", opacity: 0.55, dur: 31, delay: 6  },
+  { y: 210, sag: 14, w: 6.5, grad: "magenta",  opacity: 1.0, dur: 19, delay: 1,  glow: true },
+  { y: 250, sag: 5,  w: 0.8, grad: "white",    opacity: 0.45, dur: 35, delay: 8  },
+  { y: 285, sag: 10, w: 3.5, grad: "hotpink",  opacity: 0.95, dur: 24, delay: 4, glow: true },
+  { y: 325, sag: 7,  w: 1.5, grad: "magenta",  opacity: 0.7, dur: 27, delay: 2   },
+  { y: 365, sag: 15, w: 4.5, grad: "hotpink",  opacity: 0.9, dur: 21, delay: 5,  glow: true },
+  { y: 410, sag: 6,  w: 1.0, grad: "lavender", opacity: 0.5, dur: 33, delay: 7   },
+  { y: 450, sag: 9,  w: 2.5, grad: "magenta",  opacity: 0.8, dur: 25, delay: 9   },
 ];
 
-function buildPath(y: number, amp: number): string {
-  // A smooth wavy path that extends past the viewBox so the drift looks endless
+function beamPath(y: number, sag: number): string {
+  // Nearly-straight horizontal line with a tiny sag in the middle so
+  // it looks like real long-exposure light, not a CSS rule.
   const startX = -200;
   const endX = 2200;
-  const midX1 = 500;
-  const midX2 = 1200;
-  const midX3 = 1700;
-  return [
-    `M ${startX} ${y}`,
-    `Q ${midX1} ${y - amp}, ${midX2} ${y + amp * 0.4}`,
-    `T ${midX3} ${y - amp * 0.3}`,
-    `T ${endX} ${y + amp * 0.2}`,
-  ].join(" ");
+  const midX = 1000;
+  return `M ${startX} ${y - sag * 0.3} Q ${midX} ${y + sag}, ${endX} ${y - sag * 0.2}`;
 }
 
 export function LightSweeps() {
@@ -60,54 +54,65 @@ export function LightSweeps() {
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="lsw-purple" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"  stopColor="rgba(124, 58, 237, 0)" />
-          <stop offset="22%" stopColor="rgba(124, 58, 237, 0.6)" />
-          <stop offset="50%" stopColor="rgba(192, 38, 211, 1)" />
-          <stop offset="78%" stopColor="rgba(244, 114, 182, 0.7)" />
+        {/* Hot magenta beam — strong center, fade at the ends */}
+        <linearGradient id="lsw-magenta" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stopColor="rgba(192, 38, 211, 0)" />
+          <stop offset="15%" stopColor="rgba(192, 38, 211, 0.7)" />
+          <stop offset="38%" stopColor="rgba(244, 114, 182, 1)" />
+          <stop offset="50%" stopColor="rgba(255, 255, 255, 1)" />
+          <stop offset="62%" stopColor="rgba(244, 114, 182, 1)" />
+          <stop offset="85%" stopColor="rgba(192, 38, 211, 0.7)" />
+          <stop offset="100%" stopColor="rgba(192, 38, 211, 0)" />
+        </linearGradient>
+        {/* Hot pink beam — saturated, white core */}
+        <linearGradient id="lsw-hotpink" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stopColor="rgba(244, 114, 182, 0)" />
+          <stop offset="18%" stopColor="rgba(244, 114, 182, 0.85)" />
+          <stop offset="45%" stopColor="rgba(255, 255, 255, 1)" />
+          <stop offset="55%" stopColor="rgba(255, 255, 255, 1)" />
+          <stop offset="82%" stopColor="rgba(244, 114, 182, 0.85)" />
           <stop offset="100%" stopColor="rgba(244, 114, 182, 0)" />
         </linearGradient>
-        <linearGradient id="lsw-pink" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"  stopColor="rgba(244, 114, 182, 0)" />
-          <stop offset="28%" stopColor="rgba(244, 114, 182, 0.65)" />
-          <stop offset="50%" stopColor="rgba(255, 255, 255, 0.95)" />
-          <stop offset="72%" stopColor="rgba(192, 38, 211, 0.7)" />
-          <stop offset="100%" stopColor="rgba(124, 58, 237, 0)" />
-        </linearGradient>
+        {/* Sharp white beam — high-key, thin, intense */}
         <linearGradient id="lsw-white" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%"  stopColor="rgba(255, 255, 255, 0)" />
-          <stop offset="40%" stopColor="rgba(255, 255, 255, 0.55)" />
-          <stop offset="60%" stopColor="rgba(255, 255, 255, 0.55)" />
+          <stop offset="35%" stopColor="rgba(255, 255, 255, 0.85)" />
+          <stop offset="50%" stopColor="rgba(255, 255, 255, 1)" />
+          <stop offset="65%" stopColor="rgba(255, 255, 255, 0.85)" />
           <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
         </linearGradient>
-        <linearGradient id="lsw-soft" x1="0" y1="0" x2="1" y2="0">
+        {/* Lavender soft accent */}
+        <linearGradient id="lsw-lavender" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%"  stopColor="rgba(199, 182, 255, 0)" />
-          <stop offset="50%" stopColor="rgba(199, 182, 255, 0.5)" />
+          <stop offset="50%" stopColor="rgba(199, 182, 255, 0.7)" />
           <stop offset="100%" stopColor="rgba(199, 182, 255, 0)" />
         </linearGradient>
-        {/* Glow filter for the brightest sweeps */}
-        <filter id="lsw-glow" x="-10%" y="-50%" width="120%" height="200%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
+
+        {/* Strong neon glow — only applied to the thick "hero" beams */}
+        <filter id="lsw-bigglow" x="-5%" y="-100%" width="110%" height="300%">
+          <feGaussianBlur stdDeviation="6" result="blur1" />
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur2" />
           <feMerge>
-            <feMergeNode in="blur" />
+            <feMergeNode in="blur1" />
+            <feMergeNode in="blur2" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
       </defs>
 
-      {SWEEPS.map((s, i) => (
+      {BEAMS.map((b, i) => (
         <path
           key={i}
           className="light-sweeps__path"
-          d={buildPath(s.y, s.amp)}
-          stroke={`url(#lsw-${s.gradient})`}
-          strokeWidth={s.w}
+          d={beamPath(b.y, b.sag)}
+          stroke={`url(#lsw-${b.grad})`}
+          strokeWidth={b.w}
           strokeLinecap="round"
           fill="none"
-          opacity={s.opacity}
-          filter={s.w > 2 ? "url(#lsw-glow)" : undefined}
+          opacity={b.opacity}
+          filter={b.glow ? "url(#lsw-bigglow)" : undefined}
           style={{
-            animation: `lsw-drift ${s.dur}s ease-in-out ${-s.delay}s infinite alternate`,
+            animation: `lsw-drift ${b.dur}s ease-in-out ${-b.delay}s infinite alternate`,
           }}
         />
       ))}
