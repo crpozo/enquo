@@ -1,5 +1,4 @@
 import { Clients } from "../components/sections/Clients";
-import { Era } from "../components/sections/Era";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { Hero } from "../components/sections/Hero";
 import { Industries } from "../components/sections/Industries";
@@ -19,8 +18,6 @@ export function HomePage() {
   return (
     <>
       <Hero variant="manifesto" />
-
-      <Era />
       <ScrollPrompt />
       <Manifesto />
 
