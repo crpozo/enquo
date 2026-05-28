@@ -59,13 +59,6 @@ export function Hero({ variant = "manifesto" }: Props) {
       </div>
 
       <div className="hero__inner">
-        <div className="hero__meta">
-          <div className="hero__meta-right">
-            A purpose driven
-            <br />
-            technology &amp; data company
-          </div>
-        </div>
 
         {variant === "manifesto" && (
           <h1 className="hero__title">
