@@ -1,59 +1,32 @@
-import { Clients } from "../components/sections/Clients";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { Hero } from "../components/sections/Hero";
-import { Industries } from "../components/sections/Industries";
-import { Manifesto } from "../components/sections/Manifesto";
-import { Products } from "../components/sections/Products";
-import { ScrollPrompt } from "../components/sections/ScrollPrompt";
-import { Services } from "../components/sections/Services";
-import { Team } from "../components/sections/Team";
-import { Ticker } from "../components/sections/Ticker";
+import { HomeCases } from "../components/sections/HomeCases";
+import { HomeIndustries } from "../components/sections/HomeIndustries";
+import { HowWeWork } from "../components/sections/HowWeWork";
+import { WhatWeDo } from "../components/sections/WhatWeDo";
+import { WhatWeFix } from "../components/sections/WhatWeFix";
+import { useParallax } from "../hooks/useParallax";
 
 /**
- * Home — the existing single-page landing.
- * The top nav is the primary navigation; the inner sections still carry
- * IDs so anchor links from the CTA buttons keep working.
+ * Home — leaner narrative, one scroll:
+ *   Hero (video) → What We Fix → How We Work (Design/Build/Run)
+ *   → What We Do (11 practices) → Case Studies → Industries → CTA.
+ *
+ * The whole page runs subtle scroll parallax: each section carries a
+ * `data-parallax` glow layer driven by `useParallax`.
  */
 export function HomePage() {
+  const parallaxRef = useParallax<HTMLDivElement>();
+
   return (
-    <>
+    <div className="home" ref={parallaxRef}>
       <Hero variant="manifesto" />
-      <ScrollPrompt />
-      <Manifesto />
-
-      <Ticker
-        sm
-        items={[
-          "Services · 02",
-          "Six interlocking practices",
-          "Three sub-groups",
-          "One outcome: unlocked potential",
-          "✦",
-        ]}
-        variant="grad"
-      />
-
-      <Services />
-
-      <Ticker
-        items={[
-          "Proprietary tooling",
-          "✦",
-          "Harmony · Elevate · VisionX",
-          "✦",
-          "Sentinel ADV · EACS",
-          "✦",
-          "DataFuse · GovernX",
-          "✦",
-        ]}
-        reverse
-      />
-
-      <Products />
-      <Industries />
-      <Clients />
-      <Team />
+      <WhatWeFix />
+      <HowWeWork />
+      <WhatWeDo />
+      <HomeCases />
+      <HomeIndustries />
       <FinalCTA />
-    </>
+    </div>
   );
 }
