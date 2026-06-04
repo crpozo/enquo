@@ -4,30 +4,60 @@ import { CASES, type CaseStudy } from "../data/cases";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 
-function StudyCard({ s }: { s: CaseStudy }) {
+/* Rich brand tints cycled across the bento tiles (no photos needed). */
+const TINTS = ["violet", "teal", "rose", "orange", "magenta", "indigo"] as const;
+
+function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
   const ref = useReveal<HTMLAnchorElement>();
+  const featured = i === 0;
   return (
-    <Link to={`/case-studies/${s.slug}`} className="page-case reveal" ref={ref}>
-      <header className="page-case__head">
-        <span className="page-case__num">Case · {s.num}</span>
-        <span className="page-case__industry">{s.industry}</span>
-      </header>
-      <h3 className="page-case__headline">{s.headline}</h3>
-      <p className="page-case__client">{s.client}</p>
-      <div className="page-case__result">
-        <span className="page-case__result-label">Result</span>
-        <p className="page-case__result-text">{s.result}</p>
+    <Link
+      to={`/case-studies/${s.slug}`}
+      className="case-tile reveal"
+      data-tint={TINTS[i % TINTS.length]}
+      data-feat={featured}
+      ref={ref}
+    >
+      <div className="case-tile__art" aria-hidden="true">
+        <div className="case-tile__grad" />
+        <div className="case-tile__halftone" />
+        <svg className="case-tile__motif" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1">
+            <circle cx="100" cy="100" r="34" />
+            <circle cx="100" cy="100" r="64" strokeOpacity="0.3" />
+            <circle cx="100" cy="100" r="92" strokeOpacity="0.16" />
+            <circle cx="100" cy="38" r="4" fill="#fff" stroke="none" />
+            <circle cx="158" cy="120" r="4" fill="#fff" stroke="none" />
+            <circle cx="52" cy="142" r="4" fill="#fff" stroke="none" />
+            <path d="M100 38 L100 100 L158 120 M100 100 L52 142" strokeOpacity="0.3" />
+          </g>
+        </svg>
+        <span className="case-tile__watermark">{s.num}</span>
       </div>
-      <footer className="page-case__foot">
-        <span className="page-case__duration">{s.duration}</span>
-        <div className="page-case__tags">
-          {s.tags.map((t) => (
-            <span key={t} className="page-case__tag">
-              {t}
-            </span>
-          ))}
+
+      <div className="case-tile__scrim" aria-hidden="true" />
+
+      <div className="case-tile__body">
+        <div className="case-tile__top">
+          <span className="case-tile__num">Case · {s.num}</span>
+          <span className="case-tile__industry">{s.industry}</span>
         </div>
-      </footer>
+
+        <h3 className="case-tile__headline">{s.headline}</h3>
+
+        <div className="case-tile__meta">
+          <p className="case-tile__result">{s.result}</p>
+          <div className="case-tile__foot">
+            <span className="case-tile__duration">{s.duration}</span>
+            <span className="case-tile__cta">
+              Read case
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
     </Link>
   );
 }
@@ -69,9 +99,9 @@ export function CaseStudiesPage() {
             <span className="dash" />
           </div>
 
-          <div className="page-case-grid">
-            {CASES.map((s) => (
-              <StudyCard key={s.num} s={s} />
+          <div className="case-bento">
+            {CASES.map((s, i) => (
+              <CaseTile key={s.num} s={s} i={i} />
             ))}
           </div>
         </div>
