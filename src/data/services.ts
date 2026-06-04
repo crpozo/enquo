@@ -8,11 +8,18 @@ export type ServiceCard = {
   triggers: string[];
 };
 
+/** Optional real media for a stage hero banner. Drop a file in
+ *  /public/services (e.g. design.jpg or build.mp4) and point `src` at it
+ *  ("services/design.jpg"); leave undefined to use the generated visual. */
+export type StageMedia = { type: "image" | "video"; src: string };
+
 export type Stage = {
   num: string;
   tag: "Design" | "Build" | "Run";
   statement: string;
   metric: string;
+  /** Swap-in banner media; falls back to generated brand art when absent. */
+  media?: StageMedia;
   cards: ServiceCard[];
 };
 

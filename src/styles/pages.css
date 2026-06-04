@@ -270,6 +270,113 @@
   background: var(--grad-primary); opacity: 0.12;
 }
 
+/* ---- Stage hero banner (generated brand visual + media swap-in) ---- */
+.stage-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--hairline);
+  min-height: clamp(260px, 30vw, 360px);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(28px, 4vw, 52px);
+  margin-bottom: 56px;
+}
+/* Real media (when provided) covers the whole banner */
+.stage-hero__media { position: absolute; inset: 0; z-index: 0; }
+.stage-hero__media img,
+.stage-hero__media video { width: 100%; height: 100%; object-fit: cover; }
+
+/* Generated art layers */
+.stage-hero__art { position: absolute; inset: 0; z-index: 0; }
+.stage-hero__grad { position: absolute; inset: 0; }
+.stage-hero[data-tint="teal"]   .stage-hero__grad { background: var(--grad-teal); }
+.stage-hero[data-tint="rose"]   .stage-hero__grad { background: var(--grad-rose); }
+.stage-hero[data-tint="orange"] .stage-hero__grad { background: var(--grad-orange); }
+.stage-hero__grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse at 70% 60%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 70% 60%, black, transparent 75%);
+}
+.stage-hero__orb { position: absolute; border-radius: 50%; filter: blur(48px); will-change: transform; }
+.stage-hero__orb--a {
+  top: -25%; right: 8%; width: 46%; height: 130%;
+  background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 65%);
+  opacity: 0.5;
+}
+.stage-hero__orb--b {
+  bottom: -40%; left: -8%; width: 42%; height: 120%;
+  background: radial-gradient(circle, rgba(10,10,15,0.55), transparent 70%);
+  opacity: 0.55;
+}
+.stage-hero__motif { position: absolute; inset: 0; width: 100%; height: 100%; }
+.stage-hero__num {
+  position: absolute;
+  top: clamp(14px, 2vw, 28px);
+  right: clamp(20px, 3vw, 44px);
+  font-size: clamp(72px, 12vw, 168px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(255,255,255,0.16);
+  font-feature-settings: "tnum" 1;
+}
+
+/* Legibility scrim over whichever background is showing */
+.stage-hero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(105deg, rgba(10,10,15,0.62) 0%, rgba(10,10,15,0.3) 42%, rgba(10,10,15,0.05) 100%);
+}
+
+.stage-hero__content { position: relative; z-index: 2; max-width: 760px; }
+.stage-hero__tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #0A0A0F;
+  background: #fff;
+  padding: 7px 14px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+.stage-hero__statement {
+  font-size: clamp(24px, 3.2vw, 46px);
+  line-height: 1.04;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin: 0 0 20px;
+  text-shadow: 0 2px 20px rgba(10,10,15,0.4);
+}
+.stage-hero__metric {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+  background: rgba(10,10,15,0.32);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 999px;
+  padding: 9px 16px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.stage-hero__metric em { font-style: normal; font-weight: 600; }
+
+@media (max-width: 720px) {
+  .stage-hero { min-height: 240px; }
+  .stage-hero__num { font-size: clamp(56px, 18vw, 96px); }
+}
+
 /* ==========================================================================
    SERVICES — how services combine (§05)
    ========================================================================== */

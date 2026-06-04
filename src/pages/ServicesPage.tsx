@@ -1,6 +1,7 @@
 import { useReveal } from "../hooks/useReveal";
 import { useParallax } from "../hooks/useParallax";
 import { FinalCTA } from "../components/sections/FinalCTA";
+import { StageHero } from "../components/sections/StageHero";
 import {
   STAGES,
   STAGE_OFFSETS,
@@ -52,7 +53,6 @@ function SvcCard({
 }
 
 function StageBlock({ stage, base }: { stage: Stage; base: number }) {
-  const ref = useReveal<HTMLDivElement>();
   return (
     <section
       className="page-stage section"
@@ -71,13 +71,7 @@ function StageBlock({ stage, base }: { stage: Stage; base: number }) {
           <span className="dash" />
         </div>
 
-        <div className="page-stage__banner reveal" ref={ref}>
-          <span className="page-stage__tag">{stage.tag}</span>
-          <p className="page-stage__statement">{stage.statement}</p>
-          <span className="page-stage__metric">
-            Result from our work, <em>{stage.metric}</em>
-          </span>
-        </div>
+        <StageHero stage={stage} />
 
         <div
           className="page-stage__grid"
