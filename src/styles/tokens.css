@@ -172,9 +172,9 @@ img, svg { display: block; max-width: 100%; }
 }
 .btn:hover .arrow { transform: translateX(3px); }
 
-/* Section number + label */
+/* Section number + label — removed site-wide per design direction. */
 .sec-label {
-  display: flex; align-items: baseline; gap: 18px;
+  display: none; align-items: baseline; gap: 18px;
   font-size: 12px;
   color: var(--muted);
   letter-spacing: 0.18em;
