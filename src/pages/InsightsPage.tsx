@@ -66,33 +66,42 @@ const INSIGHTS: Insight[] = [
 function FeaturedInsight({ ins }: { ins: Insight }) {
   const ref = useReveal<HTMLAnchorElement>();
   return (
-    <a className="page-insight-featured reveal" ref={ref}>
-      <div className="page-insight-featured__num">{ins.num}</div>
-      <div className="page-insight-featured__body">
-        <header className="page-insight-featured__head">
-          <span className="page-insight-featured__cat">{ins.category}</span>
-          <span className="page-insight-featured__meta">
+    <a className="insight-feat reveal" data-cat={ins.category} ref={ref}>
+      <div className="insight-feat__cover" aria-hidden="true">
+        <div className="insight-card__grad" />
+        <div className="insight-card__halftone" />
+        <svg className="insight-card__motif insight-feat__motif" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1">
+            <circle cx="100" cy="100" r="30" />
+            <circle cx="100" cy="100" r="58" strokeOpacity="0.3" />
+            <circle cx="100" cy="100" r="86" strokeOpacity="0.16" />
+            <circle cx="100" cy="42" r="4" fill="#fff" stroke="none" />
+            <circle cx="158" cy="118" r="4" fill="#fff" stroke="none" />
+            <circle cx="48" cy="140" r="4" fill="#fff" stroke="none" />
+            <path d="M100 42 L100 100 L158 118 M100 100 L48 140" strokeOpacity="0.3" />
+          </g>
+        </svg>
+        <span className="insight-feat__num">{ins.num}</span>
+        <span className="insight-card__badge">{ins.category}</span>
+      </div>
+
+      <div className="insight-feat__body">
+        <div className="insight-feat__top">
+          <span className="insight-feat__pill">Featured · This week</span>
+          <span className="insight-feat__meta">
             {ins.readTime} &middot; {ins.date}
           </span>
-        </header>
+        </div>
 
-        <h2 className="page-insight-featured__title">{ins.title}</h2>
-        <p className="page-insight-featured__dek">{ins.dek}</p>
+        <h2 className="insight-feat__title">{ins.title}</h2>
+        <p className="insight-feat__dek">{ins.dek}</p>
 
-        <footer className="page-insight-featured__foot">
-          <span className="page-insight-featured__pill">Featured · This week</span>
-          <span className="page-insight-featured__cta">
-            Read full essay
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </span>
-        </footer>
-      </div>
-      <div className="page-insight-featured__decor" aria-hidden="true">
-        <span />
-        <span />
-        <span />
+        <span className="insight-feat__cta">
+          Read full essay
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
       </div>
     </a>
   );
