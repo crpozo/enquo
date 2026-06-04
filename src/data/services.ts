@@ -150,3 +150,28 @@ export const STAGES: Stage[] = [
 
 /** Total practices across all stages (Design 3 + Build 4 + Run 4 = 11). */
 export const SERVICE_COUNT = STAGES.reduce((n, s) => n + s.cards.length, 0);
+
+/** Cumulative card index where each stage begins — lets the page tint cards
+ *  (orange · rosado · turquesa) on a single running sequence across stages. */
+export const STAGE_OFFSETS: number[] = STAGES.reduce<number[]>((acc, _s, i) => {
+  acc.push(i === 0 ? 0 : acc[i - 1] + STAGES[i - 1].cards.length);
+  return acc;
+}, []);
+
+/** Real problems rarely map to one practice — these show common combinations. */
+export type ServiceCombo = { problem: string; combo: string };
+
+export const SERVICE_COMBOS: ServiceCombo[] = [
+  {
+    problem: "Our reports never match across teams.",
+    combo: "Data Foundation + KPI Governance + Analytics",
+  },
+  {
+    problem: "A system we launched 6 months ago is already failing.",
+    combo: "Managed Operations + Quality Engineering",
+  },
+  {
+    problem: "We're about to run a major integration. We can't afford failure.",
+    combo: "Solution Design + Systems Integration + Managed Operations",
+  },
+];

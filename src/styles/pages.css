@@ -125,9 +125,41 @@
   flex-direction: column;
   gap: 24px;
   min-height: 360px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   transition: background 220ms ease;
 }
-.page-svc:hover { background: var(--bg-3); }
+/* Brand gradient wash behind each service — naranja · rosado · turquesa.
+   Sits below the content; lifts on hover so the card stops feeling flat. */
+.page-svc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--svc-grad, var(--grad-primary));
+  opacity: 0.12;
+  transition: opacity 280ms ease;
+}
+.page-svc::after {
+  content: "";
+  position: absolute;
+  right: -30%;
+  bottom: -45%;
+  width: 80%;
+  height: 90%;
+  z-index: -1;
+  background: var(--svc-grad, var(--grad-primary));
+  filter: blur(60px);
+  opacity: 0.22;
+  border-radius: 50%;
+  transition: opacity 280ms ease;
+}
+.page-svc:hover::before { opacity: 0.2; }
+.page-svc:hover::after  { opacity: 0.38; }
+.page-svc[data-tint="orange"] { --svc-grad: var(--grad-orange); --svc-accent: #FB923C; }
+.page-svc[data-tint="rose"]   { --svc-grad: var(--grad-rose);   --svc-accent: #F472B6; }
+.page-svc[data-tint="teal"]   { --svc-grad: var(--grad-teal);   --svc-accent: #2DD4BF; }
 
 .page-svc__head {
   display: flex;
@@ -138,7 +170,7 @@
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--purple-400);
+  color: var(--svc-accent, var(--purple-400));
   font-weight: 500;
   font-feature-settings: "tnum" 1;
 }
@@ -189,7 +221,7 @@
   top: 9px;
   width: 8px;
   height: 1px;
-  background: var(--purple-400);
+  background: var(--svc-accent, var(--purple-400));
 }
 
 @media (max-width: 1100px) {
@@ -203,6 +235,135 @@
     gap: 16px;
   }
   .page-stage__metric { white-space: normal; }
+}
+
+/* ---- Services page: full-page parallax glows ---- */
+.services-page { position: relative; overflow-x: clip; }
+/* Keep section content above the decorative glow layers. */
+.services-page .page-hero .wrap-lg,
+.services-page .page-stage .wrap-lg,
+.services-page .combine .wrap-lg { position: relative; z-index: 1; }
+
+.px-glow--svc-hero {
+  top: -10%; right: -6%;
+  width: 46vw; height: 46vw; max-width: 720px; max-height: 720px;
+  background: var(--grad-primary);
+}
+.px-glow--stage {
+  width: 42vw; height: 42vw; max-width: 640px; max-height: 640px;
+}
+.page-stage[data-stage="Design"] .px-glow--stage {
+  top: 6%; right: -8%;
+  background: radial-gradient(circle, rgba(45,212,191,0.65), transparent 70%);
+}
+.page-stage[data-stage="Build"] .px-glow--stage {
+  top: 12%; left: -10%;
+  background: radial-gradient(circle, rgba(236,72,153,0.6), transparent 70%);
+}
+.page-stage[data-stage="Run"] .px-glow--stage {
+  top: 4%; right: -7%;
+  background: radial-gradient(circle, rgba(249,115,22,0.55), transparent 70%);
+}
+.px-glow--combine {
+  bottom: -8%; left: -6%;
+  width: 44vw; height: 44vw; max-width: 680px; max-height: 680px;
+  background: var(--grad-primary); opacity: 0.12;
+}
+
+/* ==========================================================================
+   SERVICES — how services combine (§05)
+   ========================================================================== */
+.combine { border-top: 1px solid var(--hairline); }
+.combine__grid {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.combine__title {
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 1.04;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+.combine__title em {
+  font-style: italic;
+  font-weight: 300;
+  background: var(--grad-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.combine__copy {
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 38ch;
+}
+.combine__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.combine__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 24px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r);
+  background: rgba(20, 20, 30, 0.5);
+  transition: border-color 240ms ease, transform 240ms ease, background 240ms ease;
+}
+.combine__row:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  transform: translateY(-3px);
+  background: rgba(28, 24, 42, 0.6);
+}
+.combine__problem {
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+  font-style: italic;
+}
+.combine__arrow { color: var(--muted); }
+.combine__arrow svg { width: 18px; height: 18px; }
+.combine__combo {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--hairline-2);
+  border-radius: 999px;
+  padding: 10px 16px;
+  white-space: nowrap;
+  background-image: var(--grad-soft);
+}
+
+/* reveal stagger for combine rows */
+.combine__rows .combine__row { opacity: 0; transform: translateY(18px); transition: opacity 520ms cubic-bezier(0.2,0.6,0.2,1), transform 520ms cubic-bezier(0.2,0.6,0.2,1), border-color 240ms ease, background 240ms ease; }
+.combine__rows.in .combine__row { opacity: 1; transform: translateY(0); }
+.combine__rows.in .combine__row:nth-child(2) { transition-delay: 90ms; }
+.combine__rows.in .combine__row:nth-child(3) { transition-delay: 180ms; }
+
+@media (max-width: 900px) {
+  .combine__grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .combine__row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .combine__arrow { transform: rotate(90deg); width: max-content; }
+  .combine__combo { white-space: normal; }
 }
 
 /* ==========================================================================

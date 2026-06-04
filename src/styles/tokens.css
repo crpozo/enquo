@@ -37,6 +37,11 @@
   --grad-soft:    linear-gradient(135deg, rgba(124,58,237,0.18), rgba(192,38,211,0.10) 60%, rgba(244,114,182,0.06) 100%);
   --grad-line:    linear-gradient(90deg, transparent, rgba(124,58,237,0.6) 50%, transparent);
 
+  /* Extended brand gradients — naranja · rosado · turquesa */
+  --grad-orange:  linear-gradient(135deg, #FBBF24 0%, #F97316 48%, #DC2626 100%);
+  --grad-rose:    linear-gradient(135deg, #F9A8D4 0%, #EC4899 48%, #C026D3 100%);
+  --grad-teal:    linear-gradient(135deg, #5EEAD4 0%, #2DD4BF 48%, #0891B2 100%);
+
   /* Radii */
   --r-sm: 6px;
   --r:    12px;

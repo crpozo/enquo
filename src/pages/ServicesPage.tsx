@@ -1,13 +1,34 @@
 import { useReveal } from "../hooks/useReveal";
+import { useParallax } from "../hooks/useParallax";
 import { FinalCTA } from "../components/sections/FinalCTA";
-import { STAGES, type Stage, type ServiceCard } from "../data/services";
+import {
+  STAGES,
+  STAGE_OFFSETS,
+  SERVICE_COMBOS,
+  type Stage,
+  type ServiceCard,
+} from "../data/services";
+
+/* Orange · rosado · turquesa, cycled across the eleven services so each card
+   carries one of the brand gradients behind it. */
+const TINTS = ["orange", "rose", "teal"] as const;
 
 /* ============================================================
    Reusable card
    ============================================================ */
-function SvcCard({ card, stage, i }: { card: ServiceCard; stage: Stage; i: number }) {
+function SvcCard({
+  card,
+  stage,
+  i,
+  globalI,
+}: {
+  card: ServiceCard;
+  stage: Stage;
+  i: number;
+  globalI: number;
+}) {
   return (
-    <article className="page-svc">
+    <article className="page-svc" data-tint={TINTS[globalI % TINTS.length]}>
       <header className="page-svc__head">
         <span className="page-svc__num">
           {stage.num}/{String(i + 1).padStart(2, "0")}
@@ -30,10 +51,19 @@ function SvcCard({ card, stage, i }: { card: ServiceCard; stage: Stage; i: numbe
   );
 }
 
-function StageBlock({ stage }: { stage: Stage }) {
+function StageBlock({ stage, base }: { stage: Stage; base: number }) {
   const ref = useReveal<HTMLDivElement>();
   return (
-    <section className="page-stage section" id={stage.tag.toLowerCase()}>
+    <section
+      className="page-stage section"
+      id={stage.tag.toLowerCase()}
+      data-stage={stage.tag}
+    >
+      <div
+        className="px-glow px-glow--stage"
+        data-parallax="0.08"
+        aria-hidden="true"
+      />
       <div className="wrap-lg">
         <div className="sec-label">
           <span className="num">§{stage.num} · Stage</span>
@@ -54,8 +84,64 @@ function StageBlock({ stage }: { stage: Stage }) {
           data-cols={stage.cards.length === 3 ? "3" : "4"}
         >
           {stage.cards.map((card, i) => (
-            <SvcCard key={card.title} card={card} stage={stage} i={i} />
+            <SvcCard
+              key={card.title}
+              card={card}
+              stage={stage}
+              i={i}
+              globalI={base + i}
+            />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   How services combine — real problems need multiple services
+   ============================================================ */
+function Combine() {
+  const introRef = useReveal<HTMLDivElement>();
+  const rowsRef = useReveal<HTMLDivElement>();
+  return (
+    <section className="combine section" id="combine">
+      <div
+        className="px-glow px-glow--combine"
+        data-parallax="0.07"
+        aria-hidden="true"
+      />
+      <div className="wrap-lg">
+        <div className="sec-label">
+          <span className="num">§05 · How services combine</span>
+          <span>Real problems need multiple services</span>
+          <span className="dash" />
+        </div>
+
+        <div className="combine__grid">
+          <div className="combine__intro reveal" ref={introRef}>
+            <h2 className="combine__title">
+              Most real problems don&rsquo;t live in <em>one service</em>.
+            </h2>
+            <p className="combine__copy">
+              They need a combination. Here&rsquo;s how we approach the ones we
+              hear most.
+            </p>
+          </div>
+
+          <div className="combine__rows reveal" ref={rowsRef}>
+            {SERVICE_COMBOS.map((c) => (
+              <div className="combine__row" key={c.problem}>
+                <span className="combine__problem">&ldquo;{c.problem}&rdquo;</span>
+                <span className="combine__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span className="combine__combo">{c.combo}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -66,10 +152,13 @@ function StageBlock({ stage }: { stage: Stage }) {
    Page
    ============================================================ */
 export function ServicesPage() {
+  const parallaxRef = useParallax<HTMLDivElement>();
   const heroRef = useReveal<HTMLDivElement>();
+
   return (
-    <>
+    <div className="services-page" ref={parallaxRef}>
       <section className="page-hero section" id="top">
+        <div className="px-glow px-glow--svc-hero" data-parallax="0.1" aria-hidden="true" />
         <div className="wrap-lg">
           <div className="sec-label">
             <span className="num">§01 · Services</span>
@@ -93,11 +182,13 @@ export function ServicesPage() {
         </div>
       </section>
 
-      {STAGES.map((stage) => (
-        <StageBlock key={stage.tag} stage={stage} />
+      {STAGES.map((stage, i) => (
+        <StageBlock key={stage.tag} stage={stage} base={STAGE_OFFSETS[i]} />
       ))}
 
+      <Combine />
+
       <FinalCTA />
-    </>
+    </div>
   );
 }
