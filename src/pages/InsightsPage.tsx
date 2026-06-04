@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 
@@ -102,37 +100,40 @@ function FeaturedInsight({ ins }: { ins: Insight }) {
 
 /* ============================================================ */
 
-function InsightRow({
-  ins,
-  isOpen,
-  onToggle,
-}: {
-  ins: Insight;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
+function InsightCard({ ins }: { ins: Insight }) {
+  const ref = useReveal<HTMLAnchorElement>();
   return (
-    <a
-      className={"page-insight-row" + (isOpen ? " is-open" : "")}
-      onMouseEnter={onToggle}
-      onFocus={onToggle}
-    >
-      <span className="page-insight-row__num">{ins.num}</span>
-      <span className="page-insight-row__cat">{ins.category}</span>
-      <div className="page-insight-row__main">
-        <h3 className="page-insight-row__title">{ins.title}</h3>
-        <p className="page-insight-row__dek">{ins.dek}</p>
-      </div>
-      <span className="page-insight-row__meta">
-        {ins.readTime}
-        <br />
-        {ins.date}
-      </span>
-      <span className="page-insight-row__arrow" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M5 12h14M13 5l7 7-7 7" />
+    <a className="insight-card reveal" data-cat={ins.category} ref={ref}>
+      <div className="insight-card__cover" aria-hidden="true">
+        <div className="insight-card__grad" />
+        <div className="insight-card__halftone" />
+        <svg className="insight-card__motif" viewBox="0 0 160 120" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1">
+            <circle cx="80" cy="60" r="22" />
+            <circle cx="80" cy="60" r="40" strokeOpacity="0.28" />
+            <circle cx="80" cy="22" r="3" fill="#fff" stroke="none" />
+            <circle cx="124" cy="76" r="3" fill="#fff" stroke="none" />
+            <circle cx="40" cy="84" r="3" fill="#fff" stroke="none" />
+            <path d="M80 22 L80 60 L124 76 M80 60 L40 84" strokeOpacity="0.3" />
+          </g>
         </svg>
-      </span>
+        <span className="insight-card__num">{ins.num}</span>
+        <span className="insight-card__badge">{ins.category}</span>
+      </div>
+      <div className="insight-card__body">
+        <div className="insight-card__top">
+          <span className="insight-card__date">{ins.date}</span>
+          <span className="insight-card__read">{ins.readTime} read</span>
+        </div>
+        <h3 className="insight-card__title">{ins.title}</h3>
+        <p className="insight-card__dek">{ins.dek}</p>
+        <span className="insight-card__cta">
+          Read
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+      </div>
     </a>
   );
 }
@@ -141,7 +142,6 @@ function InsightRow({
 
 export function InsightsPage() {
   const heroRef = useReveal<HTMLDivElement>();
-  const [hovered, setHovered] = useState<string | null>(null);
 
   const [featured, ...rest] = INSIGHTS;
 
@@ -191,22 +191,9 @@ export function InsightsPage() {
             <span className="dash" />
           </div>
 
-          <div className="page-insight-list">
-            <header className="page-insight-list__head">
-              <span>№</span>
-              <span>Category</span>
-              <span>Title</span>
-              <span className="page-insight-list__head-meta">Length · Date</span>
-              <span />
-            </header>
-
+          <div className="insight-grid">
             {rest.map((ins) => (
-              <InsightRow
-                key={ins.num}
-                ins={ins}
-                isOpen={hovered === ins.num}
-                onToggle={() => setHovered(ins.num)}
-              />
+              <InsightCard key={ins.num} ins={ins} />
             ))}
           </div>
         </div>

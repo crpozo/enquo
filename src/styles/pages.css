@@ -1147,6 +1147,140 @@
 
 
 /* ==========================================================================
+   INSIGHTS — archive card grid (cover thumbnails, calendar-style)
+   ========================================================================== */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--bg-2);
+  cursor: pointer;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 320ms ease, border-color 320ms ease;
+}
+.insight-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 28px 64px -26px rgba(0, 0, 0, 0.65);
+}
+
+/* --- generated cover thumbnail --- */
+.insight-card__cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.insight-card__grad { position: absolute; inset: 0; }
+.insight-card[data-cat="Essay"]      .insight-card__grad { background: var(--grad-primary); }
+.insight-card[data-cat="Field note"] .insight-card__grad { background: var(--grad-teal); }
+.insight-card[data-cat="Brief"]      .insight-card__grad { background: var(--grad-orange); }
+.insight-card__halftone {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.22) 1px, transparent 1.6px);
+  background-size: 9px 9px;
+  mask-image: radial-gradient(ellipse at 78% 22%, black, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse at 78% 22%, black, transparent 72%);
+  opacity: 0.55;
+}
+.insight-card__motif {
+  position: absolute;
+  right: -6%; bottom: -10%;
+  width: 52%; max-width: 200px;
+  opacity: 0.5;
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.insight-card:hover .insight-card__motif { transform: rotate(24deg); }
+.insight-card__num {
+  position: absolute;
+  left: 14px; bottom: -0.2em;
+  font-size: clamp(64px, 8vw, 104px);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: rgba(255, 255, 255, 0.16);
+  font-feature-settings: "tnum" 1;
+}
+.insight-card__badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #0A0A0F;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 6px 11px;
+  border-radius: 999px;
+}
+
+/* --- body --- */
+.insight-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  flex: 1;
+}
+.insight-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.insight-card__title {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+.insight-card__dek {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.insight-card__cta {
+  margin-top: auto;
+  padding-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink);
+}
+.insight-card__cta svg { transition: transform 200ms ease; }
+.insight-card:hover .insight-card__cta svg { transform: translateX(4px); }
+.insight-card:hover .insight-card__cta { color: var(--purple-200); }
+
+@media (max-width: 980px) {
+  .insight-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .insight-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
    INSIGHTS — featured card + editorial archive index
    ========================================================================== */
 
