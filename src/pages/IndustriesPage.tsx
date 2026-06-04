@@ -19,8 +19,22 @@ type Industry = {
 
 const INDUSTRIES: Industry[] = [
   {
-    key: "sports-media",
-    tag: "Sports & Media",
+    key: "tech",
+    tag: "Tech",
+    headline: "Ship fast without the platform buckling later.",
+    sub: "Velocity that doesn't mortgage tomorrow's stability.",
+    categories: ["Design + Build", "Platform Engineering", "Data Ops"],
+    pains: [
+      "The last platform needed hotfixes in week one",
+      "Scaling events expose what testing never did",
+      "Tech debt now slows every release",
+    ],
+    enters:
+      "We design and build platforms that stay stable well beyond go-live, and we own the on-call once they ship.",
+  },
+  {
+    key: "sports",
+    tag: "Sports",
     headline: "Operations that hold when 50M people are watching.",
     sub: "Live events don't tolerate retries.",
     categories: ["Build + Run", "Integrations", "Data Ops"],
@@ -33,8 +47,36 @@ const INDUSTRIES: Industry[] = [
       "We take ownership of the operational backbone so the platform performs under any condition.",
   },
   {
-    key: "financial-healthcare",
-    tag: "Financial & Healthcare",
+    key: "media-entertainment",
+    tag: "Media & Entertainment",
+    headline: "Audience scale without the pipeline breaking.",
+    sub: "Every stream, every drop, every spike, accounted for.",
+    categories: ["Build + Run", "Platform Engineering", "Analytics"],
+    pains: [
+      "Traffic spikes turn launches into incidents",
+      "Content and audience data live in separate silos",
+      "Monetization decisions wait on reconciled numbers",
+    ],
+    enters:
+      "We run the distribution and data backbone so launches scale and the numbers stay trustworthy in real time.",
+  },
+  {
+    key: "oil-gas",
+    tag: "Oil & Gas",
+    headline: "Decisions you can defend, from the field to the board.",
+    sub: "Where downtime and compliance both carry a heavy price.",
+    categories: ["Design + Build", "Systems Integration", "Data Trust"],
+    pains: [
+      "Operational data is trapped in legacy and proprietary systems",
+      "Regulatory reporting is a manual, error-prone cycle",
+      "Asset decisions rely on numbers no one fully trusts",
+    ],
+    enters:
+      "We integrate operational and enterprise data into one trustworthy foundation, auditable by default.",
+  },
+  {
+    key: "financial-services",
+    tag: "Financial Services",
     headline: "Decisions auditable line by line, system by system.",
     sub: "Where every action leaves a record, and every record gets read.",
     categories: ["Design + Build", "Compliance", "Data Trust"],
@@ -47,18 +89,18 @@ const INDUSTRIES: Industry[] = [
       "We design data foundations and controls so the system is audit-ready by default, not by remediation.",
   },
   {
-    key: "nonprofits-public",
-    tag: "Non-Profits & Public Orgs",
-    headline: "Reporting that doesn't drown the mission.",
-    sub: "Funders, regulators, and beneficiaries, all served from one truth.",
-    categories: ["Run", "Process Automation", "Reporting"],
+    key: "healthcare",
+    tag: "Healthcare",
+    headline: "Clinical-grade data everyone can agree on.",
+    sub: "When the numbers change treatment, they have to be right.",
+    categories: ["Design + Build + Run", "KPI Governance", "Analytics"],
     pains: [
-      "Field teams spend more time reporting than serving",
-      "Each funder demands a different format of the same data",
-      "Manual reporting introduces errors that erode trust",
+      "The same KPI carries three definitions across institutions",
+      "Board and clinical reporting take weeks to reconcile",
+      "Disagreement over data delays decisions that matter",
     ],
     enters:
-      "We automate the reporting backbone so the team spends their time on the mission, not on spreadsheets.",
+      "We build the KPI canon and the data foundation beneath it, so one version of truth drives every decision.",
   },
 ];
 
