@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { ENQUO_INDUSTRIES } from "../../data/enquo";
 import { useReveal } from "../../hooks/useReveal";
-import { IndViz } from "./IndViz";
+import { IndustryArt } from "./IndustryArt";
 
 /**
  * Industries (home) — each square is a sector. The label sits quiet by
@@ -35,9 +35,9 @@ export function HomeIndustries() {
 
         <div className="inds-grid" ref={gridRef}>
           {ENQUO_INDUSTRIES.map((ind) => (
-            <Link to="/industries" className="ind-sq" key={ind.num}>
-              <div className="ind-sq__viz" aria-hidden="true">
-                <IndViz kind={ind.viz} />
+            <Link to="/industries" className="ind-sq" data-theme={ind.viz} key={ind.num}>
+              <div className="ind-sq__art" aria-hidden="true">
+                <IndustryArt ind={ind} />
               </div>
               <div className="ind-sq__overlay" aria-hidden="true" />
               <span className="ind-sq__num">04 / {ind.num}</span>

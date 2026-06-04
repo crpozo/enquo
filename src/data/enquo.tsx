@@ -29,6 +29,9 @@ export type Industry = {
   name: string;
   desc: string;
   viz: IndustryVizKind;
+  /** Optional real cover image. Drop a file in /public/industries (e.g.
+   *  retail.jpg) and set "industries/retail.jpg"; falls back to themed art. */
+  image?: string;
 };
 
 export type Pillar = {
