@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import type { Industry, IndustryVizKind } from "../../data/enquo";
 
 /**
@@ -78,19 +80,28 @@ function ThemeIcon({ viz }: { viz: IndustryVizKind }) {
 }
 
 export function IndustryArt({ ind }: { ind: Industry }) {
+  const [imgFailed, setImgFailed] = useState(false);
   const img = ind.image ? import.meta.env.BASE_URL + ind.image : null;
-
-  if (img) {
-    return <img className="ind-sq__img" src={img} alt="" loading="lazy" />;
-  }
+  const showImage = img && !imgFailed;
 
   return (
     <>
+      {/* Themed art is always rendered, so a missing/failed photo degrades to it. */}
       <div className="ind-sq__grad" />
       <div className="ind-sq__halftone" />
       <div className="ind-sq__icon">
         <ThemeIcon viz={ind.viz} />
       </div>
+
+      {showImage && (
+        <img
+          className="ind-sq__img"
+          src={img}
+          alt=""
+          loading="lazy"
+          onError={() => setImgFailed(true)}
+        />
+      )}
     </>
   );
 }
