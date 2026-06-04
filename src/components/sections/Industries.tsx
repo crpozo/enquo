@@ -23,7 +23,7 @@ export function Industries() {
           role="From financial services to brain-computer interfaces in sports"
           duration="02:24"
           vizKind="sectors"
-          posterHint="Seven verticals — Retail · Energy · Finance · Gov · Health · TMT · Sports."
+          posterHint="Seven verticals, Retail · Energy · Finance · Gov · Health · TMT · Sports."
         />
 
         <div className="ind-grid" ref={gridRef}>
@@ -39,7 +39,7 @@ export function Industries() {
             </article>
           ))}
 
-          {/* CTA card — fills the 8th cell of the 4×2 grid so there's no
+          {/* CTA card, fills the 8th cell of the 4×2 grid so there's no
               empty placeholder slot. Doubles as a conversion path. */}
           <a className="ind ind--cta" href="#contact">
             <div className="ind__viz ind__viz--cta" aria-hidden="true">
@@ -71,7 +71,7 @@ export function Industries() {
             <div className="ind__num">04 / 08</div>
             <h3 className="ind__name">Your sector?</h3>
             <p className="ind__desc">
-              We bridge any business need — no matter how big or small. Tell us
+              We bridge any business need, no matter how big or small. Tell us
               about yours.
             </p>
             <div className="ind__more ind__more--cta">Let&rsquo;s talk →</div>

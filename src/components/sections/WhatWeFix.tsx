@@ -9,7 +9,7 @@ const PROBLEMS = [
   {
     k: "01",
     t: "Systems fail at peak",
-    d: "The platform buckles during the live event, the launch, the quarter-close — the exact moment that matters most.",
+    d: "The platform buckles during the live event, the launch, the quarter-close, the exact moment that matters most.",
   },
   {
     k: "02",
@@ -42,7 +42,7 @@ export function WhatWeFix() {
             Data systems break <em>where it matters most.</em>
           </h2>
           <p className="fix__sub">
-            Not in the demo — in production, under real load, real audits, real
+            Not in the demo, in production, under real load, real audits, real
             deadlines. That gap is the whole job.
           </p>
         </div>
@@ -58,7 +58,7 @@ export function WhatWeFix() {
         </div>
 
         <p className="fix__close">
-          We take ownership of the operational backbone — and we stay
+          We take ownership of the operational backbone, and we stay
           accountable for it.{" "}
           <a className="fix__link" href="#how">
             See how we work

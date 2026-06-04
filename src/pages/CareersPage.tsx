@@ -18,7 +18,7 @@ const ROLES: Role[] = [
     location: "New York, NY · Hybrid",
     type: "Full-time",
     blurb:
-      "Own the architecture from first whiteboard through go-live. We do not hand off — you stay through the first 90 days of operations.",
+      "Own the architecture from first whiteboard through go-live. We do not hand off, you stay through the first 90 days of operations.",
   },
   {
     num: "02",
@@ -36,11 +36,11 @@ const ROLES: Role[] = [
     location: "Remote (Americas)",
     type: "Full-time",
     blurb:
-      "Own the on-call for systems we built. We do not subcontract operations — incidents are ours, the fix is ours.",
+      "Own the on-call for systems we built. We do not subcontract operations, incidents are ours, the fix is ours.",
   },
   {
     num: "04",
-    title: "Industry Partner — Sports & Media",
+    title: "Industry Partner, Sports & Media",
     team: "Industry",
     location: "New York, NY",
     type: "Full-time",
@@ -128,8 +128,7 @@ export function CareersPage() {
               We&rsquo;re hiring for the part <em>after</em> the demo.
             </h1>
             <p className="page-hero__lead">
-              The team is structured around three stages — Design, Build, Run —
-              and one accountability: the people who design the system are the
+              The team is structured around three stages, Design, Build, Run,               and one accountability: the people who design the system are the
               people who operate it.
             </p>
             <p className="page-hero__statement">

@@ -33,7 +33,7 @@ export function IntroOverlay() {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const total = 3400; // ms — must match CSS keyframes total duration
+    const total = 3400; // ms, must match CSS keyframes total duration
     const t = window.setTimeout(() => {
       window.sessionStorage.setItem(SESSION_KEY, "1");
       setActive(false);

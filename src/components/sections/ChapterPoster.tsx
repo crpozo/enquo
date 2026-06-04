@@ -204,7 +204,7 @@ function SectorsArt() {
   const sectors = ["RTL", "ENG", "FIN", "GOV", "HLT", "TMT", "SPT"];
   return (
     <g>
-      {/* radial guides — soft, no center dot */}
+      {/* radial guides, soft, no center dot */}
       {Array.from({ length: 12 }).map((_, i) => {
         const ang = (i / 12) * Math.PI * 2 - Math.PI / 2;
         const inner = 50; // start outside the play CTA

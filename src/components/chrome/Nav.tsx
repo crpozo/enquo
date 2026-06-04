@@ -31,7 +31,7 @@ export function Nav() {
       </div>
 
       <div className="nav__cta">
-        {/* Every page ends with a FinalCTA whose id is "contact" — Lenis
+        {/* Every page ends with a FinalCTA whose id is "contact", Lenis
             intercepts the hash link and smooth-scrolls there. */}
         <a className="btn btn--primary" href="#contact">
           Let&rsquo;s talk

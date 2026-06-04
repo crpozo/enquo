@@ -25,7 +25,7 @@ export function StarTrails({ cx = 600, cy = 300, duration = 120 }: Props) {
     const rand = seed / 233280;
     const angle = (i / LINE_COUNT) * Math.PI * 2;
 
-    const innerR = 60 + rand * 80; // start radius — keep a clear core
+    const innerR = 60 + rand * 80; // start radius, keep a clear core
     const outerR = innerR + 80 + rand * 320; // varied trail length
     const opacity = 0.15 + ((i * 7) % 13) / 30; // 0.15 .. 0.6
     const stroke = (i * 5) % 23 === 0 ? "#F472B6" : (i * 11) % 17 === 0 ? "#C7B6FF" : "#FFFFFF";

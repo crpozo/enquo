@@ -91,7 +91,7 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         <div className="hero__lead">
           <p className="hero__lead-text">
-            We use data and technology as catalysts for positive change — pairing
+            We use data and technology as catalysts for positive change, pairing
             world-class expertise with the humility to ask better questions. The
             future is not loud, it is built.
           </p>

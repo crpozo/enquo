@@ -19,7 +19,7 @@ const INSIGHTS: Insight[] = [
     readTime: "12 min",
     date: "May 2026",
     title: "The handoff is the bug.",
-    dek: "Why critical systems should never be “delivered” — and what changes when the team that designs them owns the operations.",
+    dek: "Why critical systems should never be “delivered”, and what changes when the team that designs them owns the operations.",
   },
   {
     num: "02",
@@ -27,7 +27,7 @@ const INSIGHTS: Insight[] = [
     readTime: "6 min",
     date: "Apr 2026",
     title: "Reconciliation as a leading indicator.",
-    dek: "Three signals that your data foundation will fail an audit — and the architecture moves that fix them before the auditor arrives.",
+    dek: "Three signals that your data foundation will fail an audit, and the architecture moves that fix them before the auditor arrives.",
   },
   {
     num: "03",
@@ -51,7 +51,7 @@ const INSIGHTS: Insight[] = [
     readTime: "5 min",
     date: "Mar 2026",
     title: "AI adoption stops at the operator.",
-    dek: "Why every AI rollout we’ve recovered failed the same way — and the operator-side instrumentation we install on day one.",
+    dek: "Why every AI rollout we’ve recovered failed the same way, and the operator-side instrumentation we install on day one.",
   },
   {
     num: "06",

@@ -63,7 +63,7 @@ export function Services() {
           num="02 / Services"
           kind="Practice Overview"
           title={<>Six interlocking <em>practices.</em></>}
-          quote="We are ready to unlock your true potential — discovering the most optimal, approachable and trustworthy tech and data solutions."
+          quote="We are ready to unlock your true potential, discovering the most optimal, approachable and trustworthy tech and data solutions."
           byline="Service Architecture"
           role="Six practices, one outcome"
           duration="03:12"

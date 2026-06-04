@@ -77,7 +77,7 @@ export const ENQUO_SERVICES: Service[] = [
   {
     num: "04",
     title: "Artificial Intelligence",
-    desc: "We prepare and optimize your organization to harness AI's full potential — from strategy to deployment.",
+    desc: "We prepare and optimize your organization to harness AI's full potential, from strategy to deployment.",
     icon: (
       <svg viewBox="0 0 24 24">
         <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
@@ -88,7 +88,7 @@ export const ENQUO_SERVICES: Service[] = [
   {
     num: "05",
     title: "Brain-Computer Interface",
-    desc: "Bridging the gap between the human mind and external devices — the future of human-machine interaction.",
+    desc: "Bridging the gap between the human mind and external devices, the future of human-machine interaction.",
     icon: (
       <svg viewBox="0 0 24 24">
         <path d="M9 4a4 4 0 0 0-4 4v1a3 3 0 0 0 0 6v1a4 4 0 0 0 4 4h1V4H9z" />
@@ -122,12 +122,12 @@ export const ENQUO_PRODUCTS: Product[] = [
 
 export const ENQUO_INDUSTRIES: Industry[] = [
   { num: "01", name: "Consumer, Retail & Logistics", desc: "Connect consumers with products through physical and digital channels.", viz: "wave" },
-  { num: "02", name: "Energy & Industrial",          desc: "Energy fuels society — industry builds the foundations of our economy.", viz: "bars" },
+  { num: "02", name: "Energy & Industrial",          desc: "Energy fuels society, industry builds the foundations of our economy.", viz: "bars" },
   { num: "03", name: "Financial Services",           desc: "Navigate markets, ensure security, maximize returns with intelligent tech.", viz: "candles" },
   { num: "04", name: "Government & Public Sector",   desc: "Serving citizens and promoting well-being through efficient operations.", viz: "grid" },
-  { num: "05", name: "Health Care",                  desc: "From diagnosis to treatment — improving human health and well-being.", viz: "pulse" },
-  { num: "06", name: "Tech, Telecom & Media",        desc: "Hardware, software, communication, entertainment — keeping the world connected.", viz: "network" },
-  { num: "07", name: "Sports",                       desc: "Performance, operations, fan engagement — transforming into intelligent enterprises.", viz: "arc" },
+  { num: "05", name: "Health Care",                  desc: "From diagnosis to treatment, improving human health and well-being.", viz: "pulse" },
+  { num: "06", name: "Tech, Telecom & Media",        desc: "Hardware, software, communication, entertainment, keeping the world connected.", viz: "network" },
+  { num: "07", name: "Sports",                       desc: "Performance, operations, fan engagement, transforming into intelligent enterprises.", viz: "arc" },
 ];
 
 export const ENQUO_PILLARS: Pillar[] = [
@@ -139,7 +139,7 @@ export const ENQUO_PILLARS: Pillar[] = [
   {
     num: "02",
     title: "Agility & Adaptability",
-    body: "We bridge any business need with data solutions — no matter how big or small.",
+    body: "We bridge any business need with data solutions, no matter how big or small.",
   },
   {
     num: "03",

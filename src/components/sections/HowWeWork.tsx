@@ -28,7 +28,7 @@ export function HowWeWork() {
             One team, <em>three stages</em>, one accountability.
           </h2>
           <p className="how__sub">
-            The team that designs the system is the team that builds it — and
+            The team that designs the system is the team that builds it, and
             the team that runs it in production. Pick a stage.
           </p>
         </div>
@@ -58,7 +58,7 @@ export function HowWeWork() {
             <span className="how__panel-tag">{stage.tag}</span>
             <p className="how__statement">{stage.statement}</p>
             <span className="how__metric">
-              Result from our work — <em>{stage.metric}</em>
+              Result from our work, <em>{stage.metric}</em>
             </span>
           </div>
 

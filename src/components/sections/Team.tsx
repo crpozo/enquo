@@ -55,7 +55,7 @@ export function Team() {
           <div className="team__viz">
             <div className="team__viz-grid" />
 
-            {/* Portrait mosaic — placeholder headshots suggesting the team */}
+            {/* Portrait mosaic, placeholder headshots suggesting the team */}
             <div className="team__mosaic" aria-hidden="true">
               {Array.from({ length: 20 }).map((_, i) => (
                 <span
@@ -66,7 +66,7 @@ export function Team() {
               ))}
             </div>
 
-            {/* Top strip — section tag + live count */}
+            {/* Top strip, section tag + live count */}
             <div className="team__viz-top">
               <span className="team__tag">
                 <span className="team__tag-dot" />

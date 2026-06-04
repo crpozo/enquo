@@ -45,7 +45,7 @@ function StageBlock({ stage }: { stage: Stage }) {
           <span className="page-stage__tag">{stage.tag}</span>
           <p className="page-stage__statement">{stage.statement}</p>
           <span className="page-stage__metric">
-            Result from our work — <em>{stage.metric}</em>
+            Result from our work, <em>{stage.metric}</em>
           </span>
         </div>
 

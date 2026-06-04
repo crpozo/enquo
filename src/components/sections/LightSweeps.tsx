@@ -54,7 +54,7 @@ export function LightSweeps() {
       aria-hidden="true"
     >
       <defs>
-        {/* Hot magenta beam — strong center, fade at the ends */}
+        {/* Hot magenta beam, strong center, fade at the ends */}
         <linearGradient id="lsw-magenta" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%"  stopColor="rgba(192, 38, 211, 0)" />
           <stop offset="15%" stopColor="rgba(192, 38, 211, 0.7)" />
@@ -64,7 +64,7 @@ export function LightSweeps() {
           <stop offset="85%" stopColor="rgba(192, 38, 211, 0.7)" />
           <stop offset="100%" stopColor="rgba(192, 38, 211, 0)" />
         </linearGradient>
-        {/* Hot pink beam — saturated, white core */}
+        {/* Hot pink beam, saturated, white core */}
         <linearGradient id="lsw-hotpink" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%"  stopColor="rgba(244, 114, 182, 0)" />
           <stop offset="18%" stopColor="rgba(244, 114, 182, 0.85)" />
@@ -73,7 +73,7 @@ export function LightSweeps() {
           <stop offset="82%" stopColor="rgba(244, 114, 182, 0.85)" />
           <stop offset="100%" stopColor="rgba(244, 114, 182, 0)" />
         </linearGradient>
-        {/* Sharp white beam — high-key, thin, intense */}
+        {/* Sharp white beam, high-key, thin, intense */}
         <linearGradient id="lsw-white" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%"  stopColor="rgba(255, 255, 255, 0)" />
           <stop offset="35%" stopColor="rgba(255, 255, 255, 0.85)" />
@@ -88,7 +88,7 @@ export function LightSweeps() {
           <stop offset="100%" stopColor="rgba(199, 182, 255, 0)" />
         </linearGradient>
 
-        {/* Strong neon glow — only applied to the thick "hero" beams */}
+        {/* Strong neon glow, only applied to the thick "hero" beams */}
         <filter id="lsw-bigglow" x="-5%" y="-100%" width="110%" height="300%">
           <feGaussianBlur stdDeviation="6" result="blur1" />
           <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur2" />

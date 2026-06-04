@@ -25,7 +25,7 @@ const INDUSTRIES: Industry[] = [
     sub: "Live events don't tolerate retries.",
     categories: ["Build + Run", "Integrations", "Data Ops"],
     pains: [
-      "Systems fail during peak events — the moments that matter most",
+      "Systems fail during peak events, the moments that matter most",
       "Too many vendors, no one accountable end-to-end",
       "Data inconsistency when revenue decisions are made in real time",
     ],
@@ -36,7 +36,7 @@ const INDUSTRIES: Industry[] = [
     key: "financial-healthcare",
     tag: "Financial & Healthcare",
     headline: "Decisions auditable line by line, system by system.",
-    sub: "Where every action leaves a record — and every record gets read.",
+    sub: "Where every action leaves a record, and every record gets read.",
     categories: ["Design + Build", "Compliance", "Data Trust"],
     pains: [
       "Audit findings live longer than the systems that caused them",
@@ -50,7 +50,7 @@ const INDUSTRIES: Industry[] = [
     key: "nonprofits-public",
     tag: "Non-Profits & Public Orgs",
     headline: "Reporting that doesn't drown the mission.",
-    sub: "Funders, regulators, and beneficiaries — all served from one truth.",
+    sub: "Funders, regulators, and beneficiaries, all served from one truth.",
     categories: ["Run", "Process Automation", "Reporting"],
     pains: [
       "Field teams spend more time reporting than serving",
@@ -63,7 +63,7 @@ const INDUSTRIES: Industry[] = [
 ];
 
 /* ============================================================
-   Hero — manifesto reel placeholder
+   Hero, manifesto reel placeholder
    ============================================================ */
 
 function ReelHero() {
@@ -90,7 +90,7 @@ function ReelHero() {
 
           <div className="page-reel__bot">
             <p className="page-reel__caption">
-              Fragmented moments across industries — a platform crashing during a
+              Fragmented moments across industries, a platform crashing during a
               live event, a compliance audit, a non-profit drowning in manual
               reporting. No voiceover. Just the pain. Brand anchor at the end.
             </p>
@@ -103,7 +103,7 @@ function ReelHero() {
 }
 
 /* ============================================================
-   Industry tabs — sticky-left + content-right
+   Industry tabs, sticky-left + content-right
    ============================================================ */
 
 function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; total: number }) {
@@ -181,7 +181,7 @@ export function IndustriesPage() {
           </div>
 
           <div className="page-ind__tabs" role="tablist">
-            <span className="page-ind__tabs-label">Jump to —</span>
+            <span className="page-ind__tabs-label">Jump to, </span>
             {INDUSTRIES.map((i) => (
               <button
                 key={i.key}

@@ -24,18 +24,18 @@ export function Manifesto() {
           role="Centered on learning, community and purpose"
           duration="01:42"
           vizKind="manifesto"
-          posterHint="Human · Agility · Experts — our three pillars."
+          posterHint="Human · Agility · Experts, our three pillars."
         />
 
         <p className="manifesto__quote reveal" ref={introRef}>
           We are <em>centered on learning, community and purpose.</em> A team
-          that bridges any business need — <span className="strike">complicated</span> simply.
+          that bridges any business need, <span className="strike">complicated</span> simply.
         </p>
 
         <div className="pillars" ref={pillarsRef}>
           {ENQUO_PILLARS.map((p) => (
             <div className="pillar" key={p.num}>
-              <div className="pillar__num">{p.num} —</div>
+              <div className="pillar__num">{p.num}, </div>
               <h3 className="pillar__title">{p.title}</h3>
               <p className="pillar__body">{p.body}</p>
             </div>

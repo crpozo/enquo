@@ -44,7 +44,7 @@ export function EnquoLogo({ height = 28, static_, className }: Props) {
         </linearGradient>
       </defs>
 
-      {/* Wordmark — uses currentColor so it can be tinted (white on dark,
+      {/* Wordmark, uses currentColor so it can be tinted (white on dark,
           black on light) by setting `color` on a parent. */}
       <path
         fill="currentColor"
@@ -70,7 +70,7 @@ export function EnquoLogo({ height = 28, static_, className }: Props) {
            C966.5,89.4,970.1,99.3,977.3,107z"
       />
 
-      {/* Isotype (n+u) — fixed blue→purple gradient per brand book */}
+      {/* Isotype (n+u), fixed blue→purple gradient per brand book */}
       <path
         fill={`url(#${gradId})`}
         d="M270.5,63c-7.6-8.8-17.9-14.7-30.8-17.6v-7.6l18,4.9h21.5V14.7H66.6c-19.1,0-33.5,4.6-43.3,13.8
@@ -85,7 +85,7 @@ export function EnquoLogo({ height = 28, static_, className }: Props) {
   if (static_) return svg;
 
   return (
-    <Link className="nav__logo" to="/" aria-label="Enquo — Home">
+    <Link className="nav__logo" to="/" aria-label="Enquo, Home">
       {svg}
     </Link>
   );

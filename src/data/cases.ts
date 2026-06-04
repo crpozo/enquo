@@ -33,8 +33,8 @@ export const CASES: CaseStudy[] = [
     duration: "11 months · Build + Run",
     tags: ["Platform Engineering", "Managed Operations", "Data Trust"],
     situation: [
-      "The client's prior platform had survived two seasons by accident — incidents during live games were absorbed by a 24/7 vendor rotation paid by the minute, and the on-call rotation for the in-house team had quietly become unsustainable. A 50M-viewer playoff bracket was 11 months away. Senior leadership knew the architecture wouldn't survive it.",
-      "Three vendors owned overlapping slices of the pipeline. Nobody could answer a single end-to-end question about a stream — origin, encoding, CDN, analytics — without a meeting. Cost per stream had drifted 22% over the prior season with no one accountable for it.",
+      "The client's prior platform had survived two seasons by accident, incidents during live games were absorbed by a 24/7 vendor rotation paid by the minute, and the on-call rotation for the in-house team had quietly become unsustainable. A 50M-viewer playoff bracket was 11 months away. Senior leadership knew the architecture wouldn't survive it.",
+      "Three vendors owned overlapping slices of the pipeline. Nobody could answer a single end-to-end question about a stream, origin, encoding, CDN, analytics, without a meeting. Cost per stream had drifted 22% over the prior season with no one accountable for it.",
     ],
     approach: [
       "We took ownership of the operational backbone end-to-end. The first 8 weeks were design + decomposition: every vendor seam mapped, every alarm catalogued, every metric reconciled to a single source of truth. We rewrote the runbooks on the way through, not after.",
@@ -60,12 +60,12 @@ export const CASES: CaseStudy[] = [
     duration: "9 months · Design + Build",
     tags: ["Systems Integration", "KPI Governance", "Compliance"],
     situation: [
-      "Three consecutive audits had cited the same data lineage finding. The bank's reconciliation cycle was a seven-day human assembly line of CSV exports across 14 systems — including two cores acquired in the last decade that nobody had migrated off.",
+      "Three consecutive audits had cited the same data lineage finding. The bank's reconciliation cycle was a seven-day human assembly line of CSV exports across 14 systems, including two cores acquired in the last decade that nobody had migrated off.",
       "The CFO needed numbers she could defend on the morning of every audit, not three weeks later. The risk team had stopped trusting the dashboards.",
     ],
     approach: [
-      "We designed the reconciliation layer as a contract first, code second. Each balance reported by each system became a typed assertion against a canonical model — every disagreement raised, every reconciliation step logged with the human who touched it.",
-      "The 14 systems were integrated under the same contract over four phases, sequenced so the highest-risk regulatory reports landed first. We did not wait for a 'big bang' cutover — each phase generated audit-defensible numbers from week one.",
+      "We designed the reconciliation layer as a contract first, code second. Each balance reported by each system became a typed assertion against a canonical model, every disagreement raised, every reconciliation step logged with the human who touched it.",
+      "The 14 systems were integrated under the same contract over four phases, sequenced so the highest-risk regulatory reports landed first. We did not wait for a 'big bang' cutover, each phase generated audit-defensible numbers from week one.",
       "We sat with the audit team during two real audits and let them break it. Each finding became a regression test.",
     ],
     outcomes: [
@@ -88,11 +88,11 @@ export const CASES: CaseStudy[] = [
     tags: ["Data Foundation", "KPI Governance", "Analytics"],
     situation: [
       "Three institutions had merged on paper but not on data. Each KPI on the board pack had three definitions, three owners, and three calculation methods. Quarterly board prep had become a five-week negotiation about whose number was right.",
-      "Clinical KPIs were the highest stakes: readmission rates, infection rates, staffing ratios. Disagreement here doesn't just embarrass leadership — it changes treatment decisions.",
+      "Clinical KPIs were the highest stakes: readmission rates, infection rates, staffing ratios. Disagreement here doesn't just embarrass leadership, it changes treatment decisions.",
     ],
     approach: [
-      "We ran a KPI canon: 412 metrics, one definition each, owned by exactly one role. Definitions were ratified by the clinicians and finance leads together — every disagreement resolved on the record, never deferred.",
-      "The data foundation followed the canon, not the reverse. We rebuilt the warehousing layer with KPI definitions as code, lineage end-to-end, and access tied to clinical role. Reports rendered against the canon — never against ad-hoc queries.",
+      "We ran a KPI canon: 412 metrics, one definition each, owned by exactly one role. Definitions were ratified by the clinicians and finance leads together, every disagreement resolved on the record, never deferred.",
+      "The data foundation followed the canon, not the reverse. We rebuilt the warehousing layer with KPI definitions as code, lineage end-to-end, and access tied to clinical role. Reports rendered against the canon, never against ad-hoc queries.",
       "We then handed the canon to a permanent governance council with quarterly review and a deprecation process. Nothing on the dashboard exists without an owner.",
     ],
     outcomes: [
@@ -113,7 +113,7 @@ export const CASES: CaseStudy[] = [
     duration: "6 months · Process Automation",
     tags: ["Process Automation", "Reporting", "Run"],
     situation: [
-      "The NGO served 14 countries and answered to 23 funders, each with a bespoke reporting template. Field staff — the people closest to the mission — were spending 30-40% of their week generating reports.",
+      "The NGO served 14 countries and answered to 23 funders, each with a bespoke reporting template. Field staff, the people closest to the mission, were spending 30-40% of their week generating reports.",
       "Errors in manual reporting had cost two funder relationships the previous year. Trust was the issue, not effort.",
     ],
     approach: [
@@ -139,11 +139,11 @@ export const CASES: CaseStudy[] = [
     duration: "14 months · Build + Run",
     tags: ["Migration", "Data Ops", "Quality Engineering"],
     situation: [
-      "The legacy subscriber platform had been declared end-of-life by its vendor 18 months earlier. 3.2 PB of data — billing records, service config, lawful intercept obligations — had to move to a modern stack with no margin for customer impact.",
+      "The legacy subscriber platform had been declared end-of-life by its vendor 18 months earlier. 3.2 PB of data, billing records, service config, lawful intercept obligations, had to move to a modern stack with no margin for customer impact.",
       "Prior migrations at the company had each lost data. None had been completed without a regulatory disclosure. Leadership had no appetite for a third.",
     ],
     approach: [
-      "We treated the migration as a steady-state operation, not a project. The system ran in dual-write for 9 months, with continuous reconciliation between source and target — every disagreement triaged within the hour.",
+      "We treated the migration as a steady-state operation, not a project. The system ran in dual-write for 9 months, with continuous reconciliation between source and target, every disagreement triaged within the hour.",
       "Cutover was a non-event by design. By the time we flipped the read path, the target had served identical reads to the source for 11 weeks in shadow. The cutover window itself was 38 minutes.",
       "Quality engineering was the spine: 100% of reconciliation logic was tested against synthetic and replayed production traffic before each migration phase.",
     ],
@@ -169,8 +169,8 @@ export const CASES: CaseStudy[] = [
       "Two of the contractors had open compliance findings against them. The agency wanted one number it could publish.",
     ],
     approach: [
-      "We consolidated nine systems into one queue and one definition of SLA — citizen-facing, not contractor-facing. We took over operations of that queue end-to-end under a single accountability.",
-      "The 11 contractors' workflows were preserved internally; only the citizen-facing surface and the metric were unified. We didn't try to rebuild what was working — we made the system answer for itself, not for each contractor.",
+      "We consolidated nine systems into one queue and one definition of SLA, citizen-facing, not contractor-facing. We took over operations of that queue end-to-end under a single accountability.",
+      "The 11 contractors' workflows were preserved internally; only the citizen-facing surface and the metric were unified. We didn't try to rebuild what was working, we made the system answer for itself, not for each contractor.",
       "Eighteen months in, we still own the on-call. The number publishes monthly to the agency's transparency dashboard.",
     ],
     outcomes: [

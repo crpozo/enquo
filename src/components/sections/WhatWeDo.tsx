@@ -52,6 +52,24 @@ export function WhatWeDo() {
               </span>
             </Link>
           ))}
+
+          {/* 12th cell, fills the empty slot left by 11 cards in a 3-col grid
+              and doubles as the conversion path to the full services page. */}
+          <Link to="/services" className="do-card do-card--cta">
+            <div className="do-card__top">
+              <span className="do-card__stage" data-stage="Run">Design · Build · Run</span>
+              <span className="do-card__num">{SERVICE_COUNT}</span>
+            </div>
+            <h3 className="do-card__title">Explore all practices</h3>
+            <p className="do-card__outcome">
+              One accountable team across every stage. See how the eleven fit together.
+            </p>
+            <span className="do-card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </div>
     </section>

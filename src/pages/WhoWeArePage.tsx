@@ -8,7 +8,7 @@ import { useReveal } from "../hooks/useReveal";
 const PRINCIPLES = [
   {
     num: "01",
-    text: "Critical systems require long-term commitment — not just delivery.",
+    text: "Critical systems require long-term commitment, not just delivery.",
   },
   {
     num: "02",
@@ -31,8 +31,8 @@ const TEAM = [
   { role: "Run Lead",           focus: "Operations · Production ownership" },
   { role: "Data Lead",          focus: "Governance · KPI trust" },
   { role: "AI Lead",            focus: "Applied intelligence · Adoption" },
-  { role: "Industry Partner",   focus: "Sports & Media — live operations" },
-  { role: "Industry Partner",   focus: "Financial & Healthcare — controls" },
+  { role: "Industry Partner",   focus: "Sports & Media, live operations" },
+  { role: "Industry Partner",   focus: "Financial & Healthcare, controls" },
 ];
 
 /* ============================================================
@@ -101,7 +101,7 @@ export function WhoWeArePage() {
               Enquo started as a refusal to leave at go-live. The same people
               who design the architecture run the operations. The same people
               who build the integrations own the incidents. Accountability is a
-              single number — and that number stays with us.
+              single number, and that number stays with us.
             </p>
             <p>
               We measure ourselves on what stays standing six, twelve, twenty-four

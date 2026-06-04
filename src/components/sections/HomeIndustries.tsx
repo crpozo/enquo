@@ -28,7 +28,7 @@ export function HomeIndustries() {
             Bridging any need. <em>Any sector.</em>
           </h2>
           <p className="inds__sub">
-            Seven verticals, one playbook. Hover a tile to explore — open the
+            Seven verticals, one playbook. Hover a tile to explore, open the
             full map for how we enter each.
           </p>
         </div>
@@ -61,7 +61,7 @@ export function HomeIndustries() {
             <div className="ind-sq__reveal ind-sq__reveal--cta">
               <h3 className="ind-sq__name">Your sector?</h3>
               <p className="ind-sq__desc">
-                We bridge any business need — no matter how big or small.
+                We bridge any business need, no matter how big or small.
               </p>
               <span className="ind-sq__cta">
                 See all industries
