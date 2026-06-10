@@ -1,5 +1,6 @@
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 type Role = {
   num: string;
@@ -116,6 +117,7 @@ export function CareersPage() {
   return (
     <>
       <section className="page-hero section" id="top">
+        <PageHeroArt src="img/heroes/careers.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
             <span className="num">§01 · Careers</span>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CASES, type CaseStudy } from "../data/cases";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 /* Rich brand tints cycled across the bento tiles (no photos needed). */
 const TINTS = ["violet", "teal", "rose", "orange", "magenta", "indigo"] as const;
@@ -46,7 +47,6 @@ function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
         <h3 className="case-tile__headline">{s.headline}</h3>
 
         <div className="case-tile__meta">
-          <p className="case-tile__result">{s.result}</p>
           <div className="case-tile__foot">
             <span className="case-tile__duration">{s.duration}</span>
             <span className="case-tile__cta">
@@ -67,6 +67,7 @@ export function CaseStudiesPage() {
   return (
     <>
       <section className="page-hero section" id="top">
+        <PageHeroArt src="img/heroes/cases.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
             <span className="num">§01 · Case Studies</span>

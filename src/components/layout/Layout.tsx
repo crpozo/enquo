@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-import { CursorHalo } from "../CursorHalo";
 import { IntroOverlay } from "../IntroOverlay";
 import { Footer } from "../chrome/Footer";
 import { Nav } from "../chrome/Nav";
@@ -57,7 +56,6 @@ export function Layout() {
   return (
     <>
       <IntroOverlay />
-      <CursorHalo />
 
       <div className="scroll-progress" aria-hidden="true">
         <div className="scroll-progress__bar" ref={progressRef} />

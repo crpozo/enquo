@@ -52,8 +52,10 @@
   --pad-section: 160px;
   --pad-x:       clamp(24px, 5vw, 96px);
 
-  /* Type */
-  --font-sans: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  /* Type — Switzer for body, Clash Display for headlines: deliberately off
+     the Inter/General Sans path that generic AI sites default to. */
+  --font-sans: "Switzer", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Clash Display", "Switzer", -apple-system, system-ui, sans-serif;
 }
 
 /* Density tweak */
@@ -90,6 +92,13 @@ html, body {
   text-rendering: optimizeLegibility;
   overscroll-behavior: none;
 }
+/* Headlines carry the display face; cards/body stay on the grotesque. */
+h1, h2,
+.how__statement,
+.stage-hero__statement {
+  font-family: var(--font-display);
+}
+
 body {
   font-size: 16px;
   line-height: 1.55;

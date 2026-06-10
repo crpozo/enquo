@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 /* ============================================================
    Data
@@ -114,6 +115,7 @@ function ReelHero() {
   const ref = useReveal<HTMLDivElement>();
   return (
     <section className="page-hero page-hero--reel section" id="top">
+      <PageHeroArt src="img/heroes/industries.webp" />
       <div className="page-reel reveal" ref={ref}>
         <div className="page-reel__visual">
           <div className="page-reel__bg" />

@@ -13,7 +13,6 @@ export function FinalCTA() {
       </div>
       <div className="wrap-lg">
         <div className="cta__inner reveal" ref={ref}>
-          <div className="cta__eyebrow">06 / Let's talk</div>
           <h2 className="cta__title">
             One Team. One Partner.
             <br />

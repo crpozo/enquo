@@ -1,5 +1,6 @@
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 type Insight = {
   num: string;
@@ -157,6 +158,7 @@ export function InsightsPage() {
   return (
     <>
       <section className="page-hero section" id="top">
+        <PageHeroArt src="img/heroes/insights.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
             <span className="num">§01 · Insights</span>

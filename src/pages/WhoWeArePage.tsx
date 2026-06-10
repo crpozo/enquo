@@ -1,5 +1,6 @@
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 /* ============================================================
    Data — copy aligned to the commercial deck (pp. 4, 5, 13, 17)
@@ -99,6 +100,7 @@ export function WhoWeArePage() {
   return (
     <>
       <section className="page-hero section" id="top">
+        <PageHeroArt src="img/heroes/who.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
             <span className="num">§01 · Who We Are</span>

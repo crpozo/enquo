@@ -3,6 +3,7 @@ import { useParallax } from "../hooks/useParallax";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { StageHero } from "../components/sections/StageHero";
 import { PlatformsStrip } from "../components/sections/PlatformsStrip";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 import {
   ENABLERS,
   STAGES,
@@ -154,6 +155,7 @@ export function ServicesPage() {
   return (
     <div className="services-page" ref={parallaxRef}>
       <section className="page-hero section" id="top">
+        <PageHeroArt src="img/heroes/services.webp" />
         <div className="px-glow px-glow--svc-hero" data-parallax="0.1" aria-hidden="true" />
         <div className="wrap-lg">
           <div className="sec-label">
