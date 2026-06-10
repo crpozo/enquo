@@ -1,7 +1,7 @@
 /* Services — single source of truth for the Design / Build / Run model.
    Used by /services (full page) and the home page (How We Work + What We Do).
-   Copy aligned to the Enquo commercial deck (pp. 6–7, 12): one continuous
-   execution lifecycle, fifteen capabilities, six enablers, one accountability. */
+   Copy aligned to the Enquo commercial deck + frame: one continuous
+   execution lifecycle, fourteen capabilities, five enablers, one accountability. */
 
 export type ServiceCard = {
   title: string;
@@ -54,16 +54,6 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Business Architecture",
-        outcome:
-          "Clear, validated requirements and operating models that reduce execution risk.",
-        triggers: [
-          "Scope keeps shifting mid-build",
-          "Stakeholders aren't aligned on what success looks like",
-          "Past project failed on requirements, not engineering",
-        ],
-      },
-      {
         title: "Enterprise Architecture",
         outcome: "A production-ready architecture that reduces rework.",
         triggers: [
@@ -103,7 +93,7 @@ export const STAGES: Stage[] = [
     media: { type: "image", src: "img/services/build.webp" },
     cards: [
       {
-        title: "Data & Integration Engineering",
+        title: "Data Engineering",
         outcome:
           "A unified, trustworthy data backbone where information flows consistently.",
         triggers: [
@@ -123,7 +113,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Automation & Orchestration",
+        title: "Automation",
         outcome:
           "Faster, more consistent operations with full audit traceability.",
         triggers: [
@@ -133,7 +123,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Platform Engineering & DevOps",
+        title: "Platform Engineering",
         outcome: "Platforms that remain stable well beyond go-live.",
         triggers: [
           "Last platform required hotfixes in week one",
@@ -162,9 +152,9 @@ export const STAGES: Stage[] = [
     media: { type: "image", src: "img/services/run.webp" },
     cards: [
       {
-        title: "Managed Services · AMS · IMS · QMS",
+        title: "Managed Services",
         outcome:
-          "An accountable team that keeps applications, infrastructure and quality healthy day to day.",
+          "An accountable team that keeps applications, infrastructure and quality healthy day to day (AMS · IMS · QMS).",
         triggers: [
           "Internal team can't sustain after-hours coverage",
           "Vendors point fingers when incidents happen",
@@ -172,21 +162,12 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Analytics & Executive Intelligence",
+        title: "Analytics",
         outcome: "Decision-grade dashboards leadership actually trusts.",
         triggers: [
           "Board reviews are blocked on data reconciliation",
           "Numbers in the deck don't match the system",
           "Each team brings its own version of the truth",
-        ],
-      },
-      {
-        title: "Data Trust & KPI Governance",
-        outcome: "Definitions, lineage and SLAs everyone agrees on.",
-        triggers: [
-          "Same KPI calculated 3 ways across the company",
-          "Audit asks how a metric is derived",
-          "Decisions get reversed when the data is questioned",
         ],
       },
       {
@@ -200,13 +181,23 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "AI Operations & Optimization",
+        title: "AI Operations",
         outcome:
           "Models monitored, governed and improving in production — with humans in the loop.",
         triggers: [
           "Nobody watches the model after launch",
           "Drift erodes accuracy quarter over quarter",
           "Automated decisions lack confidence thresholds",
+        ],
+      },
+      {
+        title: "Governance",
+        outcome:
+          "Definitions, lineage and SLAs everyone agrees on — data everyone trusts.",
+        triggers: [
+          "Same KPI calculated 3 ways across the company",
+          "Audit asks how a metric is derived",
+          "Decisions get reversed when the data is questioned",
         ],
       },
     ],
@@ -218,14 +209,13 @@ export type Enabler = { title: string; desc: string };
 
 export const ENABLERS: Enabler[] = [
   { title: "Security & Compliance", desc: "Controls designed in from week one, audit-ready by default." },
-  { title: "Cloud Agnostic", desc: "Your cloud, your VPC, your IAM — we operate inside it." },
-  { title: "People & Culture", desc: "Operators embedded with your teams, capability that stays." },
-  { title: "Change & Adoption", desc: "Systems people actually use, measured by adoption." },
-  { title: "FinOps & Value Realization", desc: "Cost and value tracked with the same rigor as uptime." },
+  { title: "Cloud", desc: "Cloud agnostic — your cloud, your VPC, your IAM. We operate inside it." },
+  { title: "Change Management", desc: "Systems people actually use, measured by adoption." },
+  { title: "FinOps", desc: "Cost and value tracked with the same rigor as uptime." },
   { title: "AI & Data Excellence", desc: "Standards that keep data and models trustworthy at scale." },
 ];
 
-/** Total practices across all stages (Design 5 + Build 5 + Run 5 = 15). */
+/** Total practices across all stages (Design 4 + Build 5 + Run 5 = 14). */
 export const SERVICE_COUNT = STAGES.reduce((n, s) => n + s.cards.length, 0);
 
 /** Cumulative card index where each stage begins — lets the page tint cards
@@ -241,7 +231,7 @@ export type ServiceCombo = { problem: string; combo: string };
 export const SERVICE_COMBOS: ServiceCombo[] = [
   {
     problem: "Our reports never match across teams.",
-    combo: "Data & Integration Engineering + Data Trust & KPI Governance + Analytics",
+    combo: "Data Engineering + Governance + Analytics",
   },
   {
     problem: "A system we launched 6 months ago is already failing.",
@@ -249,6 +239,6 @@ export const SERVICE_COMBOS: ServiceCombo[] = [
   },
   {
     problem: "We're about to run a major integration. We can't afford failure.",
-    combo: "Enterprise Architecture + Data & Integration Engineering + Managed Services",
+    combo: "Enterprise Architecture + Data Engineering + Managed Services",
   },
 ];

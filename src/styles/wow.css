@@ -1093,8 +1093,8 @@ html.lenis body {
 }
 .do-grid {
   display: grid;
-  /* 15 capabilities + the CTA cell = a clean 4×4 */
-  grid-template-columns: repeat(4, 1fr);
+  /* 14 capabilities + the CTA cell = a clean 5×3 */
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--hairline);
   border: 1px solid var(--hairline);

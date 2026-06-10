@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { STAGES, SERVICE_COUNT } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
-/** The fifteen capabilities, flattened from the three stages, in a compact grid. */
+/** The fourteen capabilities, flattened from the three stages, in a compact grid. */
 const PRACTICES = STAGES.flatMap((s) =>
   s.cards.map((c) => ({ title: c.title, outcome: c.outcome, stage: s.tag })),
 );
@@ -53,7 +53,7 @@ export function WhatWeDo() {
             </Link>
           ))}
 
-          {/* 16th cell, completes the 4×4 grid left by 15 capability cards
+          {/* 15th cell, completes the 5×3 grid left by 14 capability cards
               and doubles as the conversion path to the full services page. */}
           <Link to="/services" className="do-card do-card--cta">
             <div className="do-card__top">

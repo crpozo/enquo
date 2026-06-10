@@ -5,7 +5,7 @@ import { useReveal } from "../hooks/useReveal";
    Data — copy aligned to the commercial deck (pp. 4, 5, 13, 17)
    ============================================================ */
 
-/** How we think — what years of enterprise execution taught us (deck p.17). */
+/** How we think — Ownership · Outcomes · Reliability · Continuity (deck p.17). */
 const TRUTHS = [
   {
     num: "01",
@@ -14,72 +14,74 @@ const TRUTHS = [
   },
   {
     num: "02",
-    title: "Reliability must be engineered from day one.",
-    text: "Operational resilience cannot be retrofitted later.",
-  },
-  {
-    num: "03",
     title: "Outcomes matter more than deliverables.",
     text: "Execution should create measurable business clarity.",
   },
   {
+    num: "03",
+    title: "Reliability must be engineered from day one.",
+    text: "Operational resilience cannot be retrofitted later.",
+  },
+  {
     num: "04",
-    title: "Design, build, and run must operate as one.",
+    title: "Continuity: design, build, and run operate as one.",
     text: "Disconnected execution creates long-term operational drift.",
   },
 ];
 
-/** We do four things differently — and four things we refuse to do (deck p.5). */
-const WE_DO = [
-  "Own design, build, AND run — the same senior team from day one to year three.",
-  "Stake fees to outcomes. If it doesn't ship, we don't get paid in full.",
-  "Embed operators, not just engineers. People who've owned a P&L.",
-  "Leave you with code, data and capability you control — not lock-in.",
-];
-const WE_DONT = [
-  "Hand off strategy to a different vendor to build, or the build to a third to run. Unless you ask.",
-  "Bill armies of juniors against a senior pitch deck.",
-  "Sell pilots designed to live forever in proof-of-concept.",
-  "Lock you in to platforms or staffing you can't unwind.",
+/** Four things we refuse to do (deck p.5). */
+const REFUSALS = [
+  {
+    label: "Endless pilots",
+    text: "Pilots designed to live forever in proof-of-concept. If it can't ship, we say so.",
+  },
+  {
+    label: "Vendor handoffs",
+    text: "Strategy handed to a different vendor to build, the build to a third to run. Unless you ask.",
+  },
+  {
+    label: "Junior-heavy delivery",
+    text: "Armies of juniors billed against a senior pitch deck.",
+  },
+  {
+    label: "Client lock-in",
+    text: "Platforms or staffing you can't unwind. You keep the code, the data, and the capability.",
+  },
 ];
 
-/** Trust — the four hard questions every CFO and CIO raises (deck p.13). */
+/** Our approach — one continuous lifecycle, one accountable partner (deck p.17). */
+const APPROACH = [
+  { tag: "Design", items: "Strategy · Architecture · Roadmap" },
+  { tag: "Build", items: "Engineering · Integration · Automation" },
+  { tag: "Run", items: "Operations · Performance · Reliability" },
+];
+
+/** Trust — Security · Governance · Compliance · AI Risk (deck p.13). */
 const HARD_QUESTIONS = [
   {
     num: "01",
-    tag: "Delivery risk",
-    q: "What if it doesn't work in production?",
-    a: "Every system ships with monitoring, rollback paths, and acceptance criteria signed off before go-live. No “it worked in dev” handoffs — we stay until it's stable in production.",
-  },
-  {
-    num: "02",
-    tag: "Data & privacy",
+    tag: "Security",
     q: "Where does our data live?",
     a: "Your data stays in your cloud. We build in your VPC, against your IAM, with logging your security team controls. SOC 2 Type II controls applied to every engagement.",
   },
   {
+    num: "02",
+    tag: "Governance",
+    q: "What if it doesn't work in production?",
+    a: "Every system ships with monitoring, rollback paths, and acceptance criteria signed off before go-live. No “it worked in dev” handoffs — we stay until it's stable in production.",
+  },
+  {
     num: "03",
-    tag: "Regulatory & audit",
+    tag: "Compliance",
     q: "Will this pass audit?",
     a: "GDPR, SOC 2, and sector-specific compliance (HIPAA, PCI, EU AI Act when applicable) designed in from week one. Every decision logged, traceable, and ready for auditors.",
   },
   {
     num: "04",
-    tag: "AI-specific risk",
+    tag: "AI Risk",
     q: "What if the model is wrong?",
     a: "Every AI system ships with explainability, drift monitoring, and human-in-the-loop fallback. Confidence thresholds gate every automated decision. EU AI Act controls baked in.",
   },
-];
-
-const TEAM = [
-  { role: "Founder & Operator", focus: "Strategy · Long-term commitments" },
-  { role: "Design Lead",        focus: "Architecture · Solution design" },
-  { role: "Build Lead",         focus: "Engineering · Platform delivery" },
-  { role: "Run Lead",           focus: "Operations · Production ownership" },
-  { role: "Data Lead",          focus: "Governance · KPI trust" },
-  { role: "AI Lead",            focus: "Applied intelligence · Adoption" },
-  { role: "Industry Partner",   focus: "Sports & Media, live operations" },
-  { role: "Industry Partner",   focus: "Financial & Healthcare, controls" },
 ];
 
 /* ============================================================
@@ -91,8 +93,8 @@ export function WhoWeArePage() {
   const beliefRef = useReveal<HTMLDivElement>();
   const truthsRef = useReveal<HTMLDivElement>();
   const refuseRef = useReveal<HTMLDivElement>();
+  const approachRef = useReveal<HTMLDivElement>();
   const trustRef = useReveal<HTMLDivElement>();
-  const teamRef = useReveal<HTMLDivElement>();
 
   return (
     <>
@@ -195,40 +197,60 @@ export function WhoWeArePage() {
         <div className="wrap-lg">
           <div className="sec-label">
             <span className="num">§04 · What we refuse to do</span>
-            <span>Four things, stated plainly</span>
+            <span>Four things we don&rsquo;t do</span>
             <span className="dash" />
           </div>
 
           <h2 className="page-who__refuse-title reveal">
-            We do four things <em>differently.</em> And four things we refuse
-            to do.
+            Four things we <em>don&rsquo;t do.</em>
           </h2>
 
-          <div className="page-who__refuse-grid reveal" ref={refuseRef}>
-            <div className="page-who__refuse-col" data-kind="do">
-              <h3>We do</h3>
-              <ul>
-                {WE_DO.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="page-who__refuse-col" data-kind="dont">
-              <h3>We don&rsquo;t</h3>
-              <ul>
-                {WE_DONT.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
-            </div>
+          <div className="page-who__refuse-list reveal" ref={refuseRef}>
+            {REFUSALS.map((r, i) => (
+              <article className="page-who__refusal" key={r.label}>
+                <span className="page-who__refusal-num">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="page-who__refusal-label">{r.label}</h3>
+                <p className="page-who__refusal-text">{r.text}</p>
+              </article>
+            ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section page-who__approach" id="approach">
+        <div className="wrap-lg">
+          <div className="sec-label">
+            <span className="num">§05 · Our approach</span>
+            <span>One accountable partner</span>
+            <span className="dash" />
+          </div>
+
+          <h2 className="page-who__approach-title reveal">
+            One continuous lifecycle. <em>One accountable partner.</em>
+          </h2>
+
+          <div className="page-who__approach-flow reveal" ref={approachRef}>
+            {APPROACH.map((p, i) => (
+              <div className="page-who__approach-phase" key={p.tag}>
+                <span className="page-who__approach-num">0{i + 1}</span>
+                <h3 className="page-who__approach-tag">{p.tag}</h3>
+                <p className="page-who__approach-items">{p.items}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="page-who__approach-note">
+            We remove complexity so you can focus on <em>impact.</em>
+          </p>
         </div>
       </section>
 
       <section className="section page-who__trust" id="trust">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§05 · Trust</span>
+            <span className="num">§06 · Trust</span>
             <span>We answer the hard questions before you ask</span>
             <span className="dash" />
           </div>
@@ -260,43 +282,6 @@ export function WhoWeArePage() {
             in scope. Either way, the answer is the same: <em>built in, not
             bolted on.</em>
           </p>
-        </div>
-      </section>
-
-      <section className="section page-who__team" id="team">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">§06 · Team</span>
-            <span>Roles, not bios</span>
-            <span className="dash" />
-          </div>
-
-          <div className="page-who__team-lede">
-            <p className="page-who__team-intro">
-              We list roles, not bios. The work is owned by the function, not by
-              an individual&rsquo;s biography. Every name behind a role is
-              available the moment you sign.
-            </p>
-            <figure className="page-who__team-media" aria-hidden="true">
-              <img
-                src={import.meta.env.BASE_URL + "img/who/team.webp"}
-                alt=""
-                loading="lazy"
-              />
-            </figure>
-          </div>
-
-          <div className="page-who__team-grid" ref={teamRef}>
-            {TEAM.map((m, i) => (
-              <article key={i} className="page-who__teammate">
-                <div className="page-who__teammate-avatar" aria-hidden="true">
-                  <span />
-                </div>
-                <h3 className="page-who__teammate-role">{m.role}</h3>
-                <p className="page-who__teammate-focus">{m.focus}</p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
