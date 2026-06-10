@@ -1545,9 +1545,16 @@ html.lenis body {
   border-radius: var(--r-lg);
   overflow: hidden;
   border: 1px solid var(--hairline);
-  height: 220px;
+  height: clamp(300px, 34vw, 420px);
 }
-.how__panel-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.how__panel-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* subject of these renders sits low/centre — bias the crop downward */
+  object-position: center 72%;
+  display: block;
+}
 
 /* Final CTA — hand reaching for the orb, anchored right, faded into the bg */
 .cta__art {
@@ -1608,7 +1615,7 @@ html.lenis body {
 @media (max-width: 900px) {
   .fix__lede--media { grid-template-columns: 1fr; gap: 28px; }
   .fix__media { max-height: 220px; }
-  .how__panel-art { height: 160px; }
+  .how__panel-art { height: clamp(200px, 52vw, 300px); }
   .cta__art { display: none; }
   .platforms__track { gap: 44px; }
   .platforms__logo { height: 24px; }

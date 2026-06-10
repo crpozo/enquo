@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { DISCOVER, STAGES } from "../../data/services";
+import { STAGES } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
 /** Per-stage brand art from the deck: architecture / engineering / performance. */
@@ -35,17 +35,6 @@ export function HowWeWork() {
             four — because the team that designed it is the team that runs it.
           </p>
         </div>
-
-        <aside className="how__discover">
-          <div className="how__discover-head">
-            <span className="how__discover-num">0/ {DISCOVER.tag}</span>
-            <span className="how__discover-badge">Optional entry</span>
-          </div>
-          <p className="how__discover-statement">{DISCOVER.statement}</p>
-          <p className="how__discover-outcome">
-            Outcome — <em>{DISCOVER.outcome}</em>
-          </p>
-        </aside>
 
         <div className="how__tabs" role="tablist" aria-label="Delivery stages">
           {STAGES.map((s, i) => (
