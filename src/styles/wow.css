@@ -910,33 +910,34 @@ html.lenis body {
   max-width: 600px;
   margin: 22px 0 0;
 }
+/* Typographic stage index — open text, no boxed tabs. */
 .how__tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
+  display: flex;
+  gap: clamp(40px, 6vw, 96px);
+  border: none;
+  background: none;
 }
 .how__tab {
-  background: var(--bg-2);
+  background: none;
   border: none;
   text-align: left;
-  padding: 26px 28px;
+  padding: 0 0 14px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
   color: var(--ink);
-  transition: background 250ms ease;
   position: relative;
+  opacity: 0.45;
+  transition: opacity 250ms ease;
 }
-.how__tab:hover { background: var(--bg-3); }
-.how__tab.active { background: var(--grad-soft); }
+.how__tab:hover { opacity: 0.8; }
+.how__tab.active { opacity: 1; }
 .how__tab.active::after {
   content: "";
   position: absolute;
   left: 0; bottom: 0;
-  width: 100%; height: 2px;
+  width: 48px; height: 2px;
   background: var(--grad-primary);
 }
 .how__tab-num {
@@ -947,7 +948,7 @@ html.lenis body {
   font-feature-settings: "tnum" 1;
 }
 .how__tab-label {
-  font-size: clamp(22px, 2.4vw, 34px);
+  font-size: clamp(28px, 3.2vw, 48px);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -1474,7 +1475,7 @@ html.lenis body {
 @media (max-width: 760px) {
   .case-feat { grid-template-columns: 1fr; }
   .case-feat__media { min-height: 220px; }
-  .how__tabs { grid-template-columns: 1fr; }
+  .how__tabs { flex-direction: column; gap: 24px; }
   .do-grid { grid-template-columns: 1fr; }
   .inds-grid { grid-template-columns: repeat(2, 1fr); }
 }
