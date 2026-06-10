@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 
 import { CASES } from "../../data/cases";
-import { ENQUO_CLIENTS } from "../../data/enquo";
 import { useReveal } from "../../hooks/useReveal";
-import { Ticker } from "./Ticker";
 
 /**
  * Case Studies (home) — one featured case shown large, the rest as a compact
- * list below, all linking through to the full pages. Closes with the client
- * logo strip as extra social proof.
+ * list below, all linking through to the full pages.
  */
 export function HomeCases() {
   const [featured, ...rest] = CASES;
@@ -84,13 +81,6 @@ export function HomeCases() {
             </svg>
           </Link>
         </div>
-      </div>
-
-      <div className="cases__proof">
-        <div className="cases__proof-label">
-          Trusted by <em>industry leaders</em> across the Americas
-        </div>
-        <Ticker items={ENQUO_CLIENTS.map((c) => ({ text: c }))} variant="default" />
       </div>
     </section>
   );
