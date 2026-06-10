@@ -1616,29 +1616,6 @@ html.lenis body {
 
 /* ---------- DECK CONTENT ALIGNMENT ---------- */
 
-/* Hero proof stats (deck p.3: $3B+ / 30+ / 98%) */
-.hero__stats {
-  display: flex;
-  gap: 48px;
-  margin: 40px 0 0;
-}
-.hero__stats > div { max-width: 180px; }
-.hero__stats dt {
-  font-size: clamp(26px, 2.6vw, 36px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  background: linear-gradient(120deg, var(--purple-400), #b487ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero__stats dd {
-  margin: 6px 0 0;
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: var(--ink-2);
-}
-
 /* The compound cost of disconnected execution (deck p.4) */
 .fix__costs {
   display: grid;
@@ -1700,6 +1677,5 @@ html.lenis body {
 .how__discover-outcome em { font-style: normal; color: var(--purple-400); }
 
 @media (max-width: 900px) {
-  .hero__stats { gap: 28px; flex-wrap: wrap; }
   .fix__costs { grid-template-columns: 1fr; }
 }

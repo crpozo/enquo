@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 
 export type HeroVariant = "manifesto" | "editorial" | "promise";
@@ -62,12 +63,11 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         {variant === "manifesto" && (
           <h1 className="hero__title">
-            <span>Design.</span>
-            <span className="line2">
+            <span className="line">Design.</span>
+            <span className="line line2">
               <em className="accent">Build.</em>
             </span>
-            <span>Run.</span>
-            <span className="line2 stroke">One team.</span>
+            <span className="line line3 stroke">Run.</span>
           </h1>
         )}
         {variant === "editorial" && (
@@ -91,33 +91,19 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         <div className="hero__lead">
           <p className="hero__lead-text">
-            The operational backbone of modern enterprises, built for the human
-            rhythm. Human-driven data solutions, owned end-to-end by the partner
-            who designed them. No handoffs.
+            The operational backbone of modern enterprises,
+            <br />
+            built for the human rhythm.
           </p>
           <div className="hero__ctas">
             <a className="btn btn--primary" href="#services">
-              Explore our work
+              Explore services
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
-            <a className="btn" href="#contact">Let's talk</a>
+            <Link className="btn" to="/who-we-are">Who we are</Link>
           </div>
-          <dl className="hero__stats">
-            <div>
-              <dt>$3B+</dt>
-              <dd>Value delivered across engagements</dd>
-            </div>
-            <div>
-              <dt>30+</dt>
-              <dd>Enterprise clients across 6 industries</dd>
-            </div>
-            <div>
-              <dt>98%</dt>
-              <dd>Client retention through multi-year programs</dd>
-            </div>
-          </dl>
         </div>
 
         <div className="hero__scroll" aria-hidden="true">
