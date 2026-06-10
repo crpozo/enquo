@@ -41,6 +41,7 @@ export const STAGES: Stage[] = [
     statement:
       "Design that survives contact with production. Every architecture decision is made by the people who will operate it. No throwaway slideware.",
     metric: "Average delivery confidence improves 3.4× post-design phase",
+    media: { type: "image", src: "img/services/design.webp" },
     cards: [
       {
         title: "Strategic Advisory",
@@ -99,6 +100,7 @@ export const STAGES: Stage[] = [
     statement:
       "Build with operators in the room. Engineers, data scientists, and SREs work together from day one — not in sequence.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
+    media: { type: "image", src: "img/services/build.webp" },
     cards: [
       {
         title: "Data & Integration Engineering",
@@ -157,6 +159,7 @@ export const STAGES: Stage[] = [
     statement:
       "Run with accountability for outcomes. We measure success by what's still working in year three, not what shipped in week eight.",
     metric: "Mean time to recovery cut by 71% under our ownership",
+    media: { type: "image", src: "img/services/run.webp" },
     cards: [
       {
         title: "Managed Services · AMS · IMS · QMS",

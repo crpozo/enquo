@@ -15,14 +15,19 @@ const resized = [
   [`${A}/ChatGPT Image 13 may 2026, 09_51_51 a.m.png`, "public/img/industries/retail.webp", 900],
   [`${A}/ChatGPT Image 18 may 2026, 02_36_04 p.m.png`, "public/img/industries/energy.webp", 900],
   [`${A}/IMAGENES/ASSETS ENQUO-29.png`, "public/img/industries/financial.webp", 900],
-  [`${A}/IMAGENES/ASSETS ENQUO-27.png`, "public/img/industries/manufacturing.webp", 900],
+  // Manufacturing & Industrial → blue metallic ribbons w/ data labels (precision)
+  [`${A}/ChatGPT Image 19 may 2026, 03_29_10 p.m.png`, "public/img/industries/manufacturing.webp", 900],
   [`${A}/Gemini_Generated_Image_d39hcad39hcad39h - Topaz Bloom, escala 2x.png`, "public/img/industries/health.webp", 900],
   [`${A}/Gemini_Generated_Image_ra47dwra47dwra47.png`, "public/img/industries/sports.webp", 900],
-  // how we work lifecycle (discover is the optional entry phase)
+  // how we work lifecycle — orange (discover/run) · magenta (build) · teal (design)
   [`${A}/ChatGPT Image 19 may 2026, 02_26_38 p.m.png`, "public/img/how/discover.webp", 900],
-  [`${A}/IMAGENES/ASSETS ENQUO-16.png`, "public/img/how/design.webp", 1200],
+  [`${A}/Gemini_Generated_Image_7mdqef7mdqef7mdq - Topaz Bloom, escala 2x.png`, "public/img/how/design.webp", 1200],
   [`${A}/IMAGENES/ASSETS ENQUO-15.png`, "public/img/how/build.webp", 1200],
-  [`${A}/IMAGENES/ASSETS ENQUO-28.png`, "public/img/how/run.webp", 1200],
+  [`${A}/Gemini_Generated_Image_a5fht6a5fht6a5fh.png`, "public/img/how/run.webp", 1200],
+  // services stage heroes — teal (design) · magenta (build) · orange (run)
+  [`${A}/Gemini_Generated_Image_6mkzuh6mkzuh6mkz - Topaz Bloom, escala 2x.png`, "public/img/services/design.webp", 1400],
+  [`${A}/IMAGENES/ASSETS ENQUO-16.png`, "public/img/services/build.webp", 1400],
+  [`${A}/Gemini_Generated_Image_3c6elg3c6elg3c6e.png`, "public/img/services/run.webp", 1400],
   // who we are
   [`${A}/IMAGENES/ASSETS ENQUO-09.png`, "public/img/who/founding.webp", 1400],
   [`${A}/IMAGENES/ASSETS ENQUO-04.png`, "public/img/who/team.webp", 1200],
@@ -40,7 +45,7 @@ const logos = [
   ["56", "data-factory"], ["58", "cybersource"], ["61", "erwin"],
 ];
 
-for (const dir of ["public/img/industries", "public/img/how", "public/img/who", "public/img/partners"]) {
+for (const dir of ["public/img/industries", "public/img/how", "public/img/services", "public/img/who", "public/img/partners"]) {
   mkdirSync(dir, { recursive: true });
 }
 
