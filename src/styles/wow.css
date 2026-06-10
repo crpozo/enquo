@@ -344,32 +344,50 @@ em.accent,
   background-size: 180px 180px;
 }
 
-/* ---------- CURSOR HALO ---------- */
-.cursor-halo {
+/* ---------- RING CURSOR (replaces the generic blurred glow) ---------- */
+.cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 380px;
-  height: 380px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(124, 58, 237, 0.35) 0%,
-    rgba(192, 38, 211, 0.18) 35%,
-    transparent 70%
-  );
-  filter: blur(40px);
+  border: 1.5px solid rgba(199, 182, 255, 0.7);
   transform: translate3d(-50%, -50%, 0);
   pointer-events: none;
   z-index: 9000;
-  mix-blend-mode: screen;
   opacity: 0;
-  transition: opacity 400ms ease;
+  transition: opacity 300ms ease,
+              width 240ms cubic-bezier(0.2, 0.7, 0.2, 1),
+              height 240ms cubic-bezier(0.2, 0.7, 0.2, 1),
+              background-color 240ms ease,
+              border-color 240ms ease;
   will-change: transform;
 }
-.cursor-halo.is-visible { opacity: 1; }
+.cursor-ring__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--purple-400, #c7b6ff);
+  transform: translate(-50%, -50%);
+  transition: opacity 200ms ease;
+}
+.cursor-ring.is-visible { opacity: 1; }
+/* expand + tint over interactive elements */
+.cursor-ring.is-active {
+  width: 58px;
+  height: 58px;
+  border-color: rgba(199, 182, 255, 0.9);
+  background: rgba(124, 58, 237, 0.12);
+}
+.cursor-ring.is-active .cursor-ring__dot { opacity: 0; }
+/* press feedback */
+.cursor-ring.is-down { width: 26px; height: 26px; }
 @media (hover: none), (prefers-reduced-motion: reduce) {
-  .cursor-halo { display: none; }
+  .cursor-ring { display: none; }
 }
 
 /* Lenis — recommended baseline so html doesn't fight with the smooth scroll. */
@@ -1535,9 +1553,9 @@ html.lenis body {
   border-radius: var(--r-lg);
   overflow: hidden;
   border: 1px solid var(--hairline);
-  max-height: 340px;
+  max-height: 440px;
 }
-.fix__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fix__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; display: block; }
 
 /* How We Work — per-stage art above the statement */
 .how__panel-art {
@@ -1614,7 +1632,7 @@ html.lenis body {
 
 @media (max-width: 900px) {
   .fix__lede--media { grid-template-columns: 1fr; gap: 28px; }
-  .fix__media { max-height: 220px; }
+  .fix__media { max-height: 300px; }
   .how__panel-art { height: clamp(200px, 52vw, 300px); }
   .cta__art { display: none; }
   .platforms__track { gap: 44px; }

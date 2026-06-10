@@ -14,7 +14,7 @@ const resized = [
   // industries tiles
   [`${A}/ChatGPT Image 13 may 2026, 09_51_51 a.m.png`, "public/img/industries/retail.webp", 900],
   [`${A}/ChatGPT Image 18 may 2026, 02_36_04 p.m.png`, "public/img/industries/energy.webp", 900],
-  [`${A}/IMAGENES/ASSETS ENQUO-29.png`, "public/img/industries/financial.webp", 900],
+  [`${A}/IMAGENES/ASSETS ENQUO-27.png`, "public/img/industries/financial.webp", 900],
   // Manufacturing & Industrial → blue metallic ribbons w/ data labels (precision)
   [`${A}/ChatGPT Image 19 may 2026, 03_29_10 p.m.png`, "public/img/industries/manufacturing.webp", 900],
   [`${A}/Gemini_Generated_Image_d39hcad39hcad39h - Topaz Bloom, escala 2x.png`, "public/img/industries/health.webp", 900],
@@ -31,8 +31,8 @@ const resized = [
   // who we are
   [`${A}/IMAGENES/ASSETS ENQUO-09.png`, "public/img/who/founding.webp", 1400],
   [`${A}/IMAGENES/ASSETS ENQUO-04.png`, "public/img/who/team.webp", 1200],
-  // what we fix + final cta
-  [`${A}/Gemini_Generated_Image_hnv6oehnv6oehnv6.png`, "public/img/fix-switch.webp", 1000],
+  // the problem → executive with spyglass on a glowing pedestal (vision)
+  [`${A}/ChatGPT Image 19 may 2026, 02_26_38 p.m.png`, "public/img/problem.webp", 1100],
   [`${A}/IMAGENES/ASSETS ENQUO-21.png`, "public/img/cta-hand.webp", 1400],
 ];
 

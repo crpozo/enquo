@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Soft blurred purple glow that lerps toward the cursor.
- * Hidden on touch devices and prefers-reduced-motion (via CSS).
+ * Minimal ring cursor — a crisp outlined ring that trails the pointer and
+ * expands over interactive elements. Replaces the generic blurred "AI glow".
+ * Disabled on touch devices and prefers-reduced-motion (also via CSS).
  */
+const INTERACTIVE = 'a, button, [role="tab"], input, textarea, select, label, .ind-sq, .do-card';
+
 export function CursorHalo() {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -32,15 +35,21 @@ export function CursorHalo() {
         el.classList.add("is-visible");
         visible = true;
       }
+      // expand when hovering something clickable
+      const interactive = (e.target as HTMLElement)?.closest?.(INTERACTIVE);
+      el.classList.toggle("is-active", !!interactive);
     };
     const onLeave = () => {
       el.classList.remove("is-visible");
       visible = false;
     };
+    const onDown = () => el.classList.add("is-down");
+    const onUp = () => el.classList.remove("is-down");
 
     const tick = () => {
-      x += (tx - x) * 0.12;
-      y += (ty - y) * 0.12;
+      // light trailing lag so the ring feels alive but stays near the pointer
+      x += (tx - x) * 0.22;
+      y += (ty - y) * 0.22;
       el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
       rafId = requestAnimationFrame(tick);
     };
@@ -48,13 +57,21 @@ export function CursorHalo() {
 
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseout", onLeave);
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseout", onLeave);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
     };
   }, []);
 
-  return <div className="cursor-halo" ref={ref} aria-hidden="true" />;
+  return (
+    <div className="cursor-ring" ref={ref} aria-hidden="true">
+      <span className="cursor-ring__dot" />
+    </div>
+  );
 }

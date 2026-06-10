@@ -55,7 +55,7 @@ export function WhatWeFix() {
           </div>
           <figure className="fix__media" aria-hidden="true">
             <img
-              src={import.meta.env.BASE_URL + "img/fix-switch.webp"}
+              src={import.meta.env.BASE_URL + "img/problem.webp"}
               alt=""
               loading="lazy"
             />
