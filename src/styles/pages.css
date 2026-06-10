@@ -354,7 +354,9 @@
 /* Legibility scrim over whichever background is showing */
 .stage-hero__scrim {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(105deg, rgba(10,10,15,0.62) 0%, rgba(10,10,15,0.3) 42%, rgba(10,10,15,0.05) 100%);
+  background:
+    linear-gradient(105deg, rgba(5,5,9,0.88) 0%, rgba(5,5,9,0.6) 45%, rgba(5,5,9,0.2) 100%),
+    linear-gradient(to top, rgba(5,5,9,0.5) 0%, rgba(5,5,9,0) 40%);
 }
 
 .stage-hero__content { position: relative; z-index: 2; max-width: 760px; }

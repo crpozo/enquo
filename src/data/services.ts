@@ -39,7 +39,7 @@ export const STAGES: Stage[] = [
     num: "02",
     tag: "Design",
     statement:
-      "Design that survives contact with production. Every architecture decision is made by the people who will operate it. No throwaway slideware.",
+      "Design that survives contact with production.",
     metric: "Average delivery confidence improves 3.4× post-design phase",
     media: { type: "image", src: "img/services/design.webp" },
     cards: [
@@ -88,7 +88,7 @@ export const STAGES: Stage[] = [
     num: "03",
     tag: "Build",
     statement:
-      "Build with operators in the room. Engineers, data scientists, and SREs work together from day one — not in sequence.",
+      "Build with operators in the room.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
     media: { type: "image", src: "img/services/build.webp" },
     cards: [
@@ -147,7 +147,7 @@ export const STAGES: Stage[] = [
     num: "04",
     tag: "Run",
     statement:
-      "Run with accountability for outcomes. We measure success by what's still working in year three, not what shipped in week eight.",
+      "Run with accountability for outcomes.",
     metric: "Mean time to recovery cut by 71% under our ownership",
     media: { type: "image", src: "img/services/run.webp" },
     cards: [
