@@ -125,12 +125,6 @@ export function WhoWeArePage() {
                 deliver systems. We take responsibility for them.
               </p>
             </div>
-
-            <div className="page-who__opening-visual" aria-hidden="true">
-              <div className="page-who__opening-grid" />
-              <div className="page-who__opening-glow" />
-              <span className="page-who__opening-label">Team · Office</span>
-            </div>
           </div>
         </div>
       </section>

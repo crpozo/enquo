@@ -108,40 +108,23 @@ const INDUSTRIES: Industry[] = [
 ];
 
 /* ============================================================
-   Hero, manifesto reel placeholder
+   Hero — standard page hero with brand backdrop
    ============================================================ */
 
 function ReelHero() {
   const ref = useReveal<HTMLDivElement>();
   return (
-    <section className="page-hero page-hero--reel section" id="top">
+    <section className="page-hero section" id="top">
       <PageHeroArt src="img/heroes/industries.webp" />
-      <div className="page-reel reveal" ref={ref}>
-        <div className="page-reel__visual">
-          <div className="page-reel__bg" />
-          <div className="page-reel__grid" />
-
-          <button className="page-reel__play" aria-label="Play manifesto reel">
-            <svg viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </button>
-
-          <div className="page-reel__top">
-            <span className="page-reel__tag">
-              <span className="page-reel__tag-dot" /> §01 · Manifesto reel
-            </span>
-            <span className="page-reel__duration">00:58</span>
-          </div>
-
-          <div className="page-reel__bot">
-            <p className="page-reel__caption">
-              Fragmented moments across industries, a platform crashing during a
-              live event, a compliance audit, a non-profit drowning in manual
-              reporting. No voiceover. Just the pain. Brand anchor at the end.
-            </p>
-            <span className="page-reel__badge">Play manifesto · 00:58</span>
-          </div>
+      <div className="wrap-lg">
+        <div className="page-hero__inner reveal" ref={ref}>
+          <h1 className="page-hero__title">
+            Execution across <em>complex industries.</em>
+          </h1>
+          <p className="page-hero__lead">
+            Six verticals, one playbook. The operational pains differ by sector;
+            the discipline that fixes them doesn&rsquo;t.
+          </p>
         </div>
       </div>
     </section>

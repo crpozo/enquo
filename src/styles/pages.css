@@ -2062,13 +2062,9 @@
 .enablers__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-lg);
-  overflow: hidden;
+  gap: 48px 56px;
 }
-.enablers__item { background: var(--bg-2); padding: 32px 28px; }
+.enablers__item { border-top: 1px solid var(--hairline); padding: 22px 0 0; }
 .enablers__title { margin: 0 0 10px; font-size: 16px; font-weight: 600; color: var(--ink); }
 .enablers__desc { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
 
@@ -2092,15 +2088,11 @@
 .page-who__refuse-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-lg);
-  overflow: hidden;
+  gap: 56px;
 }
 .page-who__refusal {
-  background: var(--bg);
-  padding: 32px 28px;
+  border-top: 1px solid var(--hairline);
+  padding: 24px 0 0;
 }
 .page-who__refusal-num {
   display: block;
@@ -2140,15 +2132,13 @@
 }
 .page-who__approach-phase {
   position: relative;
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-lg);
-  background: var(--bg-2);
-  padding: 32px 30px;
+  border-top: 1px solid var(--hairline);
+  padding: 24px 0 0;
 }
 .page-who__approach-phase:not(:last-child)::after {
   content: "→";
   position: absolute;
-  right: -19px;
+  right: -36px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted);
@@ -2205,21 +2195,16 @@
   gap: 24px;
 }
 .page-who__trust-card {
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-lg);
-  background: var(--bg-2);
-  padding: 32px 30px;
+  border-top: 1px solid var(--hairline);
+  padding: 24px 0 0;
 }
 .page-who__trust-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
 .page-who__trust-num { font-size: 13px; color: var(--muted); font-feature-settings: "tnum" 1; }
 .page-who__trust-tag {
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--purple-400);
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  padding: 4px 12px;
 }
 .page-who__trust-q { margin: 0 0 12px; font-size: 19px; font-weight: 500; color: var(--ink); }
 .page-who__trust-a { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); font-weight: 300; }

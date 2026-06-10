@@ -32,7 +32,7 @@ const resized = [
   [`${A}/IMAGENES/ASSETS ENQUO-22.png`, "public/img/heroes/services.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-26.png`, "public/img/heroes/industries.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-01.png`, "public/img/heroes/cases.webp", 1900],
-  [`${A}/IMAGENES/ASSETS ENQUO-30.png`, "public/img/heroes/insights.webp", 1900],
+  [`${A}/IMAGENES/ASSETS ENQUO-05.png`, "public/img/heroes/insights.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-02.png`, "public/img/heroes/who.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-12.png`, "public/img/heroes/careers.webp", 1900],
   // who we are
