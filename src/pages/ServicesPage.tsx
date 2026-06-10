@@ -2,7 +2,9 @@ import { useReveal } from "../hooks/useReveal";
 import { useParallax } from "../hooks/useParallax";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { StageHero } from "../components/sections/StageHero";
+import { PlatformsStrip } from "../components/sections/PlatformsStrip";
 import {
+  ENABLERS,
   STAGES,
   STAGE_OFFSETS,
   SERVICE_COMBOS,
@@ -161,12 +163,13 @@ export function ServicesPage() {
           </div>
           <div className="page-hero__inner reveal" ref={heroRef}>
             <h1 className="page-hero__title">
-              We design, build, and <em>run</em> the systems we ship.
+              From strategy <em>to operations.</em>
             </h1>
             <p className="page-hero__lead">
-              Three stages, eleven practices, one accountability: from first
-              architecture to ongoing operations, the team that designs the
-              system is the team that owns it in production.
+              Integrated capabilities across the enterprise lifecycle. We
+              transform, build, and run for impact — from first architecture to
+              ongoing operations, the team that designs the system is the team
+              that owns it in production.
             </p>
             <p className="page-hero__statement">
               <span className="page-hero__statement-mark" /> If we build it, we
@@ -180,9 +183,49 @@ export function ServicesPage() {
         <StageBlock key={stage.tag} stage={stage} base={STAGE_OFFSETS[i]} />
       ))}
 
+      <Enablers />
+
       <Combine />
+
+      <section className="page-tech section" id="technology">
+        <div className="wrap-lg">
+          <div className="sec-label">
+            <span className="num">§07 · Technology</span>
+            <span>Built around your ecosystem</span>
+            <span className="dash" />
+          </div>
+        </div>
+        <PlatformsStrip />
+      </section>
 
       <FinalCTA />
     </div>
+  );
+}
+
+/* ============================================================
+   Foundational enablers — present across every stage (deck p.7)
+   ============================================================ */
+function Enablers() {
+  const gridRef = useReveal<HTMLDivElement>();
+  return (
+    <section className="enablers section" id="enablers">
+      <div className="wrap-lg">
+        <div className="sec-label">
+          <span className="num">§06 · Foundational enablers</span>
+          <span>Everything required for enterprise execution</span>
+          <span className="dash" />
+        </div>
+
+        <div className="enablers__grid reveal" ref={gridRef}>
+          {ENABLERS.map((e) => (
+            <article className="enablers__item" key={e.title}>
+              <h3 className="enablers__title">{e.title}</h3>
+              <p className="enablers__desc">{e.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

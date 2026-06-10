@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { STAGES } from "../../data/services";
+import { DISCOVER, STAGES } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
-/** Per-stage brand art from the deck: vision / architecture / performance. */
+/** Per-stage brand art from the deck: architecture / engineering / performance. */
 const STAGE_ART = ["img/how/design.webp", "img/how/build.webp", "img/how/run.webp"];
 
 /**
@@ -22,19 +22,30 @@ export function HowWeWork() {
       <div className="wrap-lg">
         <div className="sec-label">
           <span className="num">02 / How we work</span>
-          <span>Design · Build · Run</span>
+          <span>Discover · Design · Build · Run</span>
           <span className="dash" />
         </div>
 
         <div className="how__head reveal" ref={headRef}>
           <h2 className="how__title">
-            One team, <em>three stages</em>, one accountability.
+            One continuous <em>execution lifecycle.</em>
           </h2>
           <p className="how__sub">
-            The team that designs the system is the team that builds it, and
-            the team that runs it in production. Pick a stage.
+            Most clients start with one phase. Those who stay see us across all
+            four — because the team that designed it is the team that runs it.
           </p>
         </div>
+
+        <aside className="how__discover">
+          <div className="how__discover-head">
+            <span className="how__discover-num">0/ {DISCOVER.tag}</span>
+            <span className="how__discover-badge">Optional entry</span>
+          </div>
+          <p className="how__discover-statement">{DISCOVER.statement}</p>
+          <p className="how__discover-outcome">
+            Outcome — <em>{DISCOVER.outcome}</em>
+          </p>
+        </aside>
 
         <div className="how__tabs" role="tablist" aria-label="Delivery stages">
           {STAGES.map((s, i) => (

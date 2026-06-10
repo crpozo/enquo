@@ -25,10 +25,10 @@ export function HomeIndustries() {
 
         <div className="inds__head reveal" ref={headRef}>
           <h2 className="inds__title">
-            Bridging any need. <em>Any sector.</em>
+            Execution across <em>complex industries.</em>
           </h2>
           <p className="inds__sub">
-            Seven verticals, one playbook. Hover a tile to explore, open the
+            Six verticals, one playbook. Hover a tile to explore, open the
             full map for how we enter each.
           </p>
         </div>

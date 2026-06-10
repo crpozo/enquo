@@ -18,12 +18,12 @@ export function Industries() {
           num="04 / Industries"
           kind="Sector Reach"
           title={<>Bridging any need. <em>Any sector.</em></>}
-          quote="Decades of cross-sector expertise compressed into every engagement. Seven verticals, one playbook for transformation."
+          quote="Decades of cross-sector expertise compressed into every engagement. Six verticals, one playbook for transformation."
           byline="Industry Coverage"
           role="From financial services to brain-computer interfaces in sports"
           duration="02:24"
           vizKind="sectors"
-          posterHint="Seven verticals, Retail · Energy · Finance · Gov · Health · TMT · Sports."
+          posterHint="Six verticals, Healthcare · Sports & Media · Finance · Manufacturing · Retail · Energy."
         />
 
         <div className="ind-grid" ref={gridRef}>

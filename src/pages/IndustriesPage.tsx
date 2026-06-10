@@ -17,69 +17,43 @@ type Industry = {
   enters: string;
 };
 
+/* The six verticals from the commercial deck (p.8), in the same order as
+   the home tiles. Focus areas per industry come straight from the deck. */
 const INDUSTRIES: Industry[] = [
   {
-    key: "tech",
-    tag: "Tech",
-    headline: "Ship fast without the platform buckling later.",
-    sub: "Velocity that doesn't mortgage tomorrow's stability.",
-    categories: ["Design + Build", "Platform Engineering", "Data Ops"],
+    key: "healthcare",
+    tag: "Healthcare & Pharma",
+    headline: "Clinical-grade data everyone can agree on.",
+    sub: "When the numbers change treatment, they have to be right.",
+    categories: ["Patient Data Platforms", "Real-World Analytics", "Regulatory Reporting"],
     pains: [
-      "The last platform needed hotfixes in week one",
-      "Scaling events expose what testing never did",
-      "Tech debt now slows every release",
+      "The same KPI carries three definitions across institutions",
+      "Board and clinical reporting take weeks to reconcile",
+      "Disagreement over data delays decisions that matter",
     ],
     enters:
-      "We design and build platforms that stay stable well beyond go-live, and we own the on-call once they ship.",
+      "We build the KPI canon and the data foundation beneath it, so one version of truth drives every decision.",
   },
   {
-    key: "sports",
-    tag: "Sports",
+    key: "sports-media",
+    tag: "Sports & Media",
     headline: "Operations that hold when 50M people are watching.",
     sub: "Live events don't tolerate retries.",
-    categories: ["Build + Run", "Integrations", "Data Ops"],
+    categories: ["Fan Engagement Platforms", "Content & Rights Management", "Data & Analytics"],
     pains: [
       "Systems fail during peak events, the moments that matter most",
       "Too many vendors, no one accountable end-to-end",
-      "Data inconsistency when revenue decisions are made in real time",
-    ],
-    enters:
-      "We take ownership of the operational backbone so the platform performs under any condition.",
-  },
-  {
-    key: "media-entertainment",
-    tag: "Media & Entertainment",
-    headline: "Audience scale without the pipeline breaking.",
-    sub: "Every stream, every drop, every spike, accounted for.",
-    categories: ["Build + Run", "Platform Engineering", "Analytics"],
-    pains: [
-      "Traffic spikes turn launches into incidents",
-      "Content and audience data live in separate silos",
       "Monetization decisions wait on reconciled numbers",
     ],
     enters:
-      "We run the distribution and data backbone so launches scale and the numbers stay trustworthy in real time.",
-  },
-  {
-    key: "oil-gas",
-    tag: "Oil & Gas",
-    headline: "Decisions you can defend, from the field to the board.",
-    sub: "Where downtime and compliance both carry a heavy price.",
-    categories: ["Design + Build", "Systems Integration", "Data Trust"],
-    pains: [
-      "Operational data is trapped in legacy and proprietary systems",
-      "Regulatory reporting is a manual, error-prone cycle",
-      "Asset decisions rely on numbers no one fully trusts",
-    ],
-    enters:
-      "We integrate operational and enterprise data into one trustworthy foundation, auditable by default.",
+      "We take ownership of the operational backbone so the platform performs under any condition — every stream, every drop, every spike.",
   },
   {
     key: "financial-services",
     tag: "Financial Services",
     headline: "Decisions auditable line by line, system by system.",
     sub: "Where every action leaves a record, and every record gets read.",
-    categories: ["Design + Build", "Compliance", "Data Trust"],
+    categories: ["Risk Data Platforms", "Customer 360", "Compliance & Controls"],
     pains: [
       "Audit findings live longer than the systems that caused them",
       "Reconciliation between systems is a quarterly fire drill",
@@ -89,18 +63,46 @@ const INDUSTRIES: Industry[] = [
       "We design data foundations and controls so the system is audit-ready by default, not by remediation.",
   },
   {
-    key: "healthcare",
-    tag: "Healthcare",
-    headline: "Clinical-grade data everyone can agree on.",
-    sub: "When the numbers change treatment, they have to be right.",
-    categories: ["Design + Build + Run", "KPI Governance", "Analytics"],
+    key: "manufacturing",
+    tag: "Manufacturing & Industrial",
+    headline: "The plant floor and the boardroom, one source of truth.",
+    sub: "Where downtime is measured in money per minute.",
+    categories: ["Smart Manufacturing", "IoT & Predictive Maintenance", "Quality & Operations Analytics"],
     pains: [
-      "The same KPI carries three definitions across institutions",
-      "Board and clinical reporting take weeks to reconcile",
-      "Disagreement over data delays decisions that matter",
+      "Operational data is trapped in machines and proprietary systems",
+      "Maintenance is reactive because the data arrives too late",
+      "Quality issues surface in the field, not on the line",
     ],
     enters:
-      "We build the KPI canon and the data foundation beneath it, so one version of truth drives every decision.",
+      "We connect operational and enterprise data into one backbone, so maintenance becomes predictive and quality is caught at the source.",
+  },
+  {
+    key: "retail",
+    tag: "Retail & Consumer",
+    headline: "Every channel, one customer, numbers that agree.",
+    sub: "Where margins are thin and decisions can't wait for reconciliation.",
+    categories: ["Omnichannel Platforms", "Customer Analytics", "Supply-Chain Visibility"],
+    pains: [
+      "Online and in-store data describe two different customers",
+      "Stockouts and overstock coexist in the same quarter",
+      "Promotions are evaluated on gut feel, not lift",
+    ],
+    enters:
+      "We unify commerce, customer and supply-chain data so every channel runs on the same numbers, in time to act on them.",
+  },
+  {
+    key: "energy",
+    tag: "Energy, Oil & Gas",
+    headline: "Decisions you can defend, from the field to the board.",
+    sub: "Where downtime and compliance both carry a heavy price.",
+    categories: ["Asset Performance", "Energy Trading", "Sustainability & ESG"],
+    pains: [
+      "Operational data is trapped in legacy and proprietary systems",
+      "Regulatory reporting is a manual, error-prone cycle",
+      "Asset decisions rely on numbers no one fully trusts",
+    ],
+    enters:
+      "We integrate operational and enterprise data into one trustworthy foundation, auditable by default.",
   },
 ];
 

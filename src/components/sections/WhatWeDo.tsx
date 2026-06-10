@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { STAGES, SERVICE_COUNT } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
-/** The eleven practices, flattened from the three stages, in a compact 3-col grid. */
+/** The fifteen capabilities, flattened from the three stages, in a compact grid. */
 const PRACTICES = STAGES.flatMap((s) =>
   s.cards.map((c) => ({ title: c.title, outcome: c.outcome, stage: s.tag })),
 );
@@ -17,14 +17,14 @@ export function WhatWeDo() {
       <div className="px-glow px-glow--do" data-parallax="0.07" aria-hidden="true" />
       <div className="wrap-lg">
         <div className="sec-label">
-          <span className="num">03 / What we do</span>
-          <span>{SERVICE_COUNT} practices</span>
+          <span className="num">03 / Services</span>
+          <span>{SERVICE_COUNT} capabilities</span>
           <span className="dash" />
         </div>
 
         <div className="do__head reveal" ref={headRef}>
           <h2 className="do__title">
-            Eleven practices. <em>One outcome.</em>
+            Integrated capabilities across the <em>enterprise lifecycle.</em>
           </h2>
           <Link className="btn" to="/services">
             All services
@@ -53,7 +53,7 @@ export function WhatWeDo() {
             </Link>
           ))}
 
-          {/* 12th cell, fills the empty slot left by 11 cards in a 3-col grid
+          {/* 16th cell, completes the 4×4 grid left by 15 capability cards
               and doubles as the conversion path to the full services page. */}
           <Link to="/services" className="do-card do-card--cta">
             <div className="do-card__top">

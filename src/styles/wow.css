@@ -1092,7 +1092,8 @@ html.lenis body {
 }
 .do-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* 15 capabilities + the CTA cell = a clean 4×4 */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--hairline);
   border: 1px solid var(--hairline);
@@ -1153,7 +1154,7 @@ html.lenis body {
 .do-card--cta .do-card__title { color: var(--ink); }
 .do-card--cta .do-card__arrow { color: var(--purple-200); }
 
-/* do grid stagger reveal (up to 12) */
+/* do grid stagger reveal (up to 16) */
 .do-grid .do-card { opacity: 0; transform: translateY(22px); transition: all 520ms cubic-bezier(0.2,0.6,0.2,1); }
 .do-grid.in .do-card { opacity: 1; transform: translateY(0); }
 .do-grid.in .do-card:nth-child(1)  { transition-delay: 0ms; }
@@ -1168,6 +1169,10 @@ html.lenis body {
 .do-grid.in .do-card:nth-child(10) { transition-delay: 450ms; }
 .do-grid.in .do-card:nth-child(11) { transition-delay: 500ms; }
 .do-grid.in .do-card:nth-child(12) { transition-delay: 550ms; }
+.do-grid.in .do-card:nth-child(13) { transition-delay: 600ms; }
+.do-grid.in .do-card:nth-child(14) { transition-delay: 650ms; }
+.do-grid.in .do-card:nth-child(15) { transition-delay: 700ms; }
+.do-grid.in .do-card:nth-child(16) { transition-delay: 750ms; }
 
 /* ---- Home vertical rhythm ----
    The site-wide 160px section padding left too much dead air between the
@@ -1606,4 +1611,94 @@ html.lenis body {
   .cta__art { display: none; }
   .platforms__track { gap: 44px; }
   .platforms__logo { height: 24px; }
+}
+
+/* ---------- DECK CONTENT ALIGNMENT ---------- */
+
+/* Hero proof stats (deck p.3: $3B+ / 30+ / 98%) */
+.hero__stats {
+  display: flex;
+  gap: 48px;
+  margin: 40px 0 0;
+}
+.hero__stats > div { max-width: 180px; }
+.hero__stats dt {
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--purple-400), #b487ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero__stats dd {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+/* The compound cost of disconnected execution (deck p.4) */
+.fix__costs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: 56px 0 0;
+}
+.fix__costs > div { background: var(--bg-2); padding: 28px 32px; }
+.fix__costs dt {
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--purple-400);
+}
+.fix__costs dd { margin: 8px 0 0; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+
+/* Discover — the optional entry phase before the lifecycle tabs */
+.how__discover {
+  margin-top: 40px;
+  padding: 28px 32px;
+  border: 1px dashed var(--hairline-2, var(--hairline));
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  max-width: 760px;
+}
+.how__discover-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.how__discover-num {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--purple-400);
+  font-weight: 600;
+}
+.how__discover-badge {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.how__discover-statement {
+  margin: 0 0 10px;
+  font-size: 16.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.how__discover-outcome { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+.how__discover-outcome em { font-style: normal; color: var(--purple-400); }
+
+@media (max-width: 900px) {
+  .hero__stats { gap: 28px; flex-wrap: wrap; }
+  .fix__costs { grid-template-columns: 1fr; }
 }

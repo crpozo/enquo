@@ -13,24 +13,25 @@ export function FinalCTA() {
       </div>
       <div className="wrap-lg">
         <div className="cta__inner reveal" ref={ref}>
-          <div className="cta__eyebrow">06 / Let's build</div>
+          <div className="cta__eyebrow">06 / Let's talk</div>
           <h2 className="cta__title">
-            The future is not loud.
+            One Team. One Partner.
             <br />
-            It is <em>built</em>.
+            <em>One Outcome.</em>
           </h2>
           <p className="cta__sub">
-            We envision a world where every person uses data to reach their full
-            potential. Let's connect.
+            30 minutes with our leadership team. If we can't shorten your
+            time-to-production, we'll tell you who can. We respond within one
+            business day — global teams, local time.
           </p>
           <div className="cta__actions">
-            <a className="btn btn--primary">
-              Get a quote
+            <a className="btn btn--primary" href="mailto:contact@enquo.com">
+              Book a strategy discussion
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
-            <a className="btn">sales@enquotech.com</a>
+            <a className="btn" href="mailto:contact@enquo.com">contact@enquo.com</a>
           </div>
         </div>
       </div>

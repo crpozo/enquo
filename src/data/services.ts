@@ -1,6 +1,7 @@
 /* Services — single source of truth for the Design / Build / Run model.
    Used by /services (full page) and the home page (How We Work + What We Do).
-   Three stages, eleven practices, one accountability. */
+   Copy aligned to the Enquo commercial deck (pp. 6–7, 12): one continuous
+   execution lifecycle, fifteen capabilities, six enablers, one accountability. */
 
 export type ServiceCard = {
   title: string;
@@ -23,12 +24,22 @@ export type Stage = {
   cards: ServiceCard[];
 };
 
+/** Discover — the optional entry phase before the lifecycle (deck p.12).
+ *  Not a stage with practices; it produces the case for everything after. */
+export const DISCOVER = {
+  num: "01",
+  tag: "Discover",
+  statement:
+    "Assess the current state, identify gaps and opportunities, and build the business case.",
+  outcome: "A decision-grade roadmap, a 90-day plan, and an investment thesis.",
+};
+
 export const STAGES: Stage[] = [
   {
     num: "02",
     tag: "Design",
     statement:
-      "We design systems built to run in production, not just in presentations.",
+      "Design that survives contact with production. Every architecture decision is made by the people who will operate it. No throwaway slideware.",
     metric: "Average delivery confidence improves 3.4× post-design phase",
     cards: [
       {
@@ -42,8 +53,9 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Business Analysis",
-        outcome: "Clear, validated requirements that reduce execution risk.",
+        title: "Business Architecture",
+        outcome:
+          "Clear, validated requirements and operating models that reduce execution risk.",
         triggers: [
           "Scope keeps shifting mid-build",
           "Stakeholders aren't aligned on what success looks like",
@@ -51,12 +63,32 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Solution Design",
+        title: "Enterprise Architecture",
         outcome: "A production-ready architecture that reduces rework.",
         triggers: [
           "Past systems had to be rebuilt within 18 months",
           "Multiple vendors propose conflicting approaches",
           "New platform spans more than 3 integrations",
+        ],
+      },
+      {
+        title: "Process Intelligence",
+        outcome:
+          "A factual picture of how work actually flows — and where it breaks.",
+        triggers: [
+          "Nobody can describe the end-to-end process",
+          "Handoffs disappear into inboxes and spreadsheets",
+          "Automation candidates are chosen by anecdote",
+        ],
+      },
+      {
+        title: "Transformation Strategy",
+        outcome:
+          "A sequenced roadmap leadership can fund and teams can execute.",
+        triggers: [
+          "Transformation stalled after the kickoff deck",
+          "Competing priorities with no sequencing logic",
+          "Investment case can't survive a CFO review",
         ],
       },
     ],
@@ -65,29 +97,31 @@ export const STAGES: Stage[] = [
     num: "03",
     tag: "Build",
     statement:
-      "We build systems that perform under real conditions, not just pass initial testing.",
+      "Build with operators in the room. Engineers, data scientists, and SREs work together from day one — not in sequence.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
     cards: [
       {
-        title: "Data Foundation & Architecture",
-        outcome: "A data foundation leadership can rely on.",
+        title: "Data & Integration Engineering",
+        outcome:
+          "A unified, trustworthy data backbone where information flows consistently.",
         triggers: [
           "Reports don't match between systems",
-          "BI tools query directly from production DBs",
-          "Data lineage is institutional knowledge",
-        ],
-      },
-      {
-        title: "Systems Integration",
-        outcome: "A unified ecosystem where data flows consistently.",
-        triggers: [
-          "Multiple tools, no single source of truth",
           "Manual exports between systems are a daily ritual",
           "Acquisition or merger requires consolidation",
         ],
       },
       {
-        title: "Process Automation",
+        title: "Application Development",
+        outcome:
+          "Software shipped to production by the team that will operate it.",
+        triggers: [
+          "Critical workflows still live in spreadsheets",
+          "Off-the-shelf tools can't carry the core process",
+          "Previous builds arrived without owners",
+        ],
+      },
+      {
+        title: "Automation & Orchestration",
         outcome:
           "Faster, more consistent operations with full audit traceability.",
         triggers: [
@@ -97,7 +131,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Platform Engineering",
+        title: "Platform Engineering & DevOps",
         outcome: "Platforms that remain stable well beyond go-live.",
         triggers: [
           "Last platform required hotfixes in week one",
@@ -105,18 +139,29 @@ export const STAGES: Stage[] = [
           "Scale-up event is on the roadmap",
         ],
       },
+      {
+        title: "AI Enablement",
+        outcome:
+          "AI capabilities grounded in your data and governed from day one.",
+        triggers: [
+          "AI pilots never reach production",
+          "Models lack the connected context to be useful",
+          "Compliance blocks every AI initiative at review",
+        ],
+      },
     ],
   },
   {
     num: "04",
     tag: "Run",
-    statement: "If we build it, we run it. If it breaks, we own the fix.",
+    statement:
+      "Run with accountability for outcomes. We measure success by what's still working in year three, not what shipped in week eight.",
     metric: "Mean time to recovery cut by 71% under our ownership",
     cards: [
       {
-        title: "Managed Operations",
+        title: "Managed Services · AMS · IMS · QMS",
         outcome:
-          "An accountable team that keeps the system healthy day to day.",
+          "An accountable team that keeps applications, infrastructure and quality healthy day to day.",
         triggers: [
           "Internal team can't sustain after-hours coverage",
           "Vendors point fingers when incidents happen",
@@ -133,7 +178,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "KPI Governance & Data Trust",
+        title: "Data Trust & KPI Governance",
         outcome: "Definitions, lineage and SLAs everyone agrees on.",
         triggers: [
           "Same KPI calculated 3 ways across the company",
@@ -142,20 +187,42 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Quality Engineering",
+        title: "Reliability Engineering",
         outcome:
-          "Confidence that every release behaves like the last good one.",
+          "Operational resilience engineered in, not patched on after the incident.",
         triggers: [
           "Regression bugs hit production",
-          "Releases take a week of manual QA",
-          "Test suite is older than the system under test",
+          "Recovery depends on the one engineer who remembers",
+          "Peak events are scheduled; confidence isn't",
+        ],
+      },
+      {
+        title: "AI Operations & Optimization",
+        outcome:
+          "Models monitored, governed and improving in production — with humans in the loop.",
+        triggers: [
+          "Nobody watches the model after launch",
+          "Drift erodes accuracy quarter over quarter",
+          "Automated decisions lack confidence thresholds",
         ],
       },
     ],
   },
 ];
 
-/** Total practices across all stages (Design 3 + Build 4 + Run 4 = 11). */
+/** Foundational enablers (deck p.7) — present across every stage. */
+export type Enabler = { title: string; desc: string };
+
+export const ENABLERS: Enabler[] = [
+  { title: "Security & Compliance", desc: "Controls designed in from week one, audit-ready by default." },
+  { title: "Cloud Agnostic", desc: "Your cloud, your VPC, your IAM — we operate inside it." },
+  { title: "People & Culture", desc: "Operators embedded with your teams, capability that stays." },
+  { title: "Change & Adoption", desc: "Systems people actually use, measured by adoption." },
+  { title: "FinOps & Value Realization", desc: "Cost and value tracked with the same rigor as uptime." },
+  { title: "AI & Data Excellence", desc: "Standards that keep data and models trustworthy at scale." },
+];
+
+/** Total practices across all stages (Design 5 + Build 5 + Run 5 = 15). */
 export const SERVICE_COUNT = STAGES.reduce((n, s) => n + s.cards.length, 0);
 
 /** Cumulative card index where each stage begins — lets the page tint cards
@@ -171,14 +238,14 @@ export type ServiceCombo = { problem: string; combo: string };
 export const SERVICE_COMBOS: ServiceCombo[] = [
   {
     problem: "Our reports never match across teams.",
-    combo: "Data Foundation + KPI Governance + Analytics",
+    combo: "Data & Integration Engineering + Data Trust & KPI Governance + Analytics",
   },
   {
     problem: "A system we launched 6 months ago is already failing.",
-    combo: "Managed Operations + Quality Engineering",
+    combo: "Managed Services + Reliability Engineering",
   },
   {
     problem: "We're about to run a major integration. We can't afford failure.",
-    combo: "Solution Design + Systems Integration + Managed Operations",
+    combo: "Enterprise Architecture + Data & Integration Engineering + Managed Services",
   },
 ];

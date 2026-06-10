@@ -124,13 +124,12 @@ export const ENQUO_PRODUCTS: Product[] = [
 ];
 
 export const ENQUO_INDUSTRIES: Industry[] = [
-  { num: "01", name: "Consumer, Retail & Logistics", desc: "Connect consumers with products through physical and digital channels.", viz: "wave", image: "img/industries/retail.webp" },
-  { num: "02", name: "Energy & Industrial",          desc: "Energy fuels society, industry builds the foundations of our economy.", viz: "bars", image: "img/industries/energy.webp" },
-  { num: "03", name: "Financial Services",           desc: "Navigate markets, ensure security, maximize returns with intelligent tech.", viz: "candles", image: "img/industries/financial.webp" },
-  { num: "04", name: "Government & Public Sector",   desc: "Serving citizens and promoting well-being through efficient operations.", viz: "grid", image: "img/industries/government.webp" },
-  { num: "05", name: "Health Care",                  desc: "From diagnosis to treatment, improving human health and well-being.", viz: "pulse", image: "img/industries/health.webp" },
-  { num: "06", name: "Tech, Telecom & Media",        desc: "Hardware, software, communication, entertainment, keeping the world connected.", viz: "network", image: "img/industries/tech.webp" },
-  { num: "07", name: "Sports",                       desc: "Performance, operations, fan engagement, transforming into intelligent enterprises.", viz: "arc", image: "img/industries/sports.webp" },
+  { num: "01", name: "Healthcare & Pharma",          desc: "Patient data platforms, real-world analytics, regulatory reporting.", viz: "pulse", image: "img/industries/health.webp" },
+  { num: "02", name: "Sports & Media",               desc: "Fan engagement platforms, content & rights management, live data & analytics.", viz: "arc", image: "img/industries/sports.webp" },
+  { num: "03", name: "Financial Services",           desc: "Risk data platforms, Customer 360, audit-ready reporting and controls.", viz: "candles", image: "img/industries/financial.webp" },
+  { num: "04", name: "Manufacturing & Industrial",   desc: "Smart manufacturing, IoT & predictive maintenance, quality & operations analytics.", viz: "grid", image: "img/industries/manufacturing.webp" },
+  { num: "05", name: "Retail & Consumer",            desc: "Omnichannel platforms, customer analytics, supply-chain visibility.", viz: "wave", image: "img/industries/retail.webp" },
+  { num: "06", name: "Energy, Oil & Gas",            desc: "Asset performance, energy trading, sustainability & ESG.", viz: "bars", image: "img/industries/energy.webp" },
 ];
 
 export const ENQUO_PILLARS: Pillar[] = [

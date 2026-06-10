@@ -62,12 +62,12 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         {variant === "manifesto" && (
           <h1 className="hero__title">
-            <span>Human</span>
+            <span>Design.</span>
             <span className="line2">
-              <em className="accent">driven</em>
+              <em className="accent">Build.</em>
             </span>
-            <span>data</span>
-            <span className="line2 stroke">solutions.</span>
+            <span>Run.</span>
+            <span className="line2 stroke">One team.</span>
           </h1>
         )}
         {variant === "editorial" && (
@@ -91,9 +91,9 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         <div className="hero__lead">
           <p className="hero__lead-text">
-            We use data and technology as catalysts for positive change, pairing
-            world-class expertise with the humility to ask better questions. The
-            future is not loud, it is built.
+            The operational backbone of modern enterprises, built for the human
+            rhythm. Human-driven data solutions, owned end-to-end by the partner
+            who designed them. No handoffs.
           </p>
           <div className="hero__ctas">
             <a className="btn btn--primary" href="#services">
@@ -102,13 +102,27 @@ export function Hero({ variant = "manifesto" }: Props) {
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
-            <a className="btn" href="#contact">Get a quote</a>
+            <a className="btn" href="#contact">Let's talk</a>
           </div>
+          <dl className="hero__stats">
+            <div>
+              <dt>$3B+</dt>
+              <dd>Value delivered across engagements</dd>
+            </div>
+            <div>
+              <dt>30+</dt>
+              <dd>Enterprise clients across 6 industries</dd>
+            </div>
+            <div>
+              <dt>98%</dt>
+              <dd>Client retention through multi-year programs</dd>
+            </div>
+          </dl>
         </div>
 
         <div className="hero__scroll" aria-hidden="true">
           <span className="line" />
-          <span>Scroll to see 20+ capabilities</span>
+          <span>Scroll to see the lifecycle</span>
         </div>
       </div>
     </section>

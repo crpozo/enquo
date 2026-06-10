@@ -45,7 +45,7 @@ export function Footer() {
         <div className="footer__col">
           <h4>Contact</h4>
           <ul>
-            <li>sales@enquotech.com</li>
+            <li>contact@enquo.com</li>
             <li>(551) 258-4342</li>
             <li>Fax (551) 258-2451</li>
           </ul>
