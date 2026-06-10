@@ -3,6 +3,9 @@ import { useState } from "react";
 import { STAGES } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
+/** Per-stage brand art from the deck: vision / architecture / performance. */
+const STAGE_ART = ["img/how/design.webp", "img/how/build.webp", "img/how/run.webp"];
+
 /**
  * How We Work — Design / Build / Run.
  * The three stages are tabs; selecting one reveals that stage's statement,
@@ -55,6 +58,13 @@ export function HowWeWork() {
         {/* keyed on tag → remounts so the entrance animation re-fires per switch */}
         <div className="how__panel" key={stage.tag}>
           <div className="how__panel-main">
+            <figure className="how__panel-art" aria-hidden="true">
+              <img
+                src={import.meta.env.BASE_URL + STAGE_ART[active]}
+                alt=""
+                loading="lazy"
+              />
+            </figure>
             <span className="how__panel-tag">{stage.tag}</span>
             <p className="how__statement">{stage.statement}</p>
             <span className="how__metric">

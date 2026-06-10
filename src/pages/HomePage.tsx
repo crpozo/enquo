@@ -2,6 +2,7 @@ import { Hero } from "../components/sections/Hero";
 import { HomeCases } from "../components/sections/HomeCases";
 import { HomeIndustries } from "../components/sections/HomeIndustries";
 import { HowWeWork } from "../components/sections/HowWeWork";
+import { PlatformsStrip } from "../components/sections/PlatformsStrip";
 import { WhatWeDo } from "../components/sections/WhatWeDo";
 import { WhatWeFix } from "../components/sections/WhatWeFix";
 import { useParallax } from "../hooks/useParallax";
@@ -23,6 +24,7 @@ export function HomePage() {
       <WhatWeFix />
       <HowWeWork />
       <WhatWeDo />
+      <PlatformsStrip />
       <HomeCases />
       <HomeIndustries />
     </div>

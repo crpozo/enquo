@@ -1513,3 +1513,97 @@ html.lenis body {
   .how__list-item { animation: none; }
   .px-glow { transform: none !important; }
 }
+
+/* ---------- DECK IMAGERY (brand photos from /assets, served from /public/img) ---------- */
+
+/* What We Fix — lede splits into copy + the "OFF switch" art */
+.fix__lede--media {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: none;
+}
+.fix__media {
+  margin: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  max-height: 340px;
+}
+.fix__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* How We Work — per-stage art above the statement */
+.how__panel-art {
+  margin: 0 0 28px 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  height: 220px;
+}
+.how__panel-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Final CTA — hand reaching for the orb, anchored right, faded into the bg */
+.cta__art {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(44%, 560px);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to left, black 55%, transparent);
+  mask-image: linear-gradient(to left, black 55%, transparent);
+  opacity: 0.5;
+}
+.cta__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Platforms strip — partner logo marquee (white deck variants on dark) */
+.platforms {
+  padding-block: 48px;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.platforms__label {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.platforms__label em { font-style: normal; color: var(--purple-400); }
+.platforms__viewport {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+.platforms__track {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  width: max-content;
+  animation: ticker-roll 48s linear infinite;
+}
+.platforms__logo {
+  height: 30px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  opacity: 0.75;
+  filter: grayscale(0.2);
+  transition: opacity 200ms ease, filter 200ms ease;
+}
+.platforms__logo:hover { opacity: 1; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .platforms__track { animation: none; flex-wrap: wrap; justify-content: center; }
+}
+
+@media (max-width: 900px) {
+  .fix__lede--media { grid-template-columns: 1fr; gap: 28px; }
+  .fix__media { max-height: 220px; }
+  .how__panel-art { height: 160px; }
+  .cta__art { display: none; }
+  .platforms__track { gap: 44px; }
+  .platforms__logo { height: 24px; }
+}

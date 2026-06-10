@@ -4,6 +4,13 @@ export function FinalCTA() {
   const ref = useReveal<HTMLDivElement>();
   return (
     <section className="cta section" id="contact">
+      <div className="cta__art" aria-hidden="true">
+        <img
+          src={import.meta.env.BASE_URL + "img/cta-hand.webp"}
+          alt=""
+          loading="lazy"
+        />
+      </div>
       <div className="wrap-lg">
         <div className="cta__inner reveal" ref={ref}>
           <div className="cta__eyebrow">06 / Let's build</div>

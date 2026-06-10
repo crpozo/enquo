@@ -29,8 +29,8 @@ export type Industry = {
   name: string;
   desc: string;
   viz: IndustryVizKind;
-  /** Optional real cover image. Drop a file in /public/industries (e.g.
-   *  retail.jpg) and set "industries/retail.jpg"; falls back to themed art. */
+  /** Optional real cover image under /public (e.g. "img/industries/retail.webp");
+   *  falls back to themed art when missing or failing to load. */
   image?: string;
 };
 
@@ -124,13 +124,13 @@ export const ENQUO_PRODUCTS: Product[] = [
 ];
 
 export const ENQUO_INDUSTRIES: Industry[] = [
-  { num: "01", name: "Consumer, Retail & Logistics", desc: "Connect consumers with products through physical and digital channels.", viz: "wave" },
-  { num: "02", name: "Energy & Industrial",          desc: "Energy fuels society, industry builds the foundations of our economy.", viz: "bars" },
-  { num: "03", name: "Financial Services",           desc: "Navigate markets, ensure security, maximize returns with intelligent tech.", viz: "candles" },
-  { num: "04", name: "Government & Public Sector",   desc: "Serving citizens and promoting well-being through efficient operations.", viz: "grid" },
-  { num: "05", name: "Health Care",                  desc: "From diagnosis to treatment, improving human health and well-being.", viz: "pulse" },
-  { num: "06", name: "Tech, Telecom & Media",        desc: "Hardware, software, communication, entertainment, keeping the world connected.", viz: "network" },
-  { num: "07", name: "Sports",                       desc: "Performance, operations, fan engagement, transforming into intelligent enterprises.", viz: "arc" },
+  { num: "01", name: "Consumer, Retail & Logistics", desc: "Connect consumers with products through physical and digital channels.", viz: "wave", image: "img/industries/retail.webp" },
+  { num: "02", name: "Energy & Industrial",          desc: "Energy fuels society, industry builds the foundations of our economy.", viz: "bars", image: "img/industries/energy.webp" },
+  { num: "03", name: "Financial Services",           desc: "Navigate markets, ensure security, maximize returns with intelligent tech.", viz: "candles", image: "img/industries/financial.webp" },
+  { num: "04", name: "Government & Public Sector",   desc: "Serving citizens and promoting well-being through efficient operations.", viz: "grid", image: "img/industries/government.webp" },
+  { num: "05", name: "Health Care",                  desc: "From diagnosis to treatment, improving human health and well-being.", viz: "pulse", image: "img/industries/health.webp" },
+  { num: "06", name: "Tech, Telecom & Media",        desc: "Hardware, software, communication, entertainment, keeping the world connected.", viz: "network", image: "img/industries/tech.webp" },
+  { num: "07", name: "Sports",                       desc: "Performance, operations, fan engagement, transforming into intelligent enterprises.", viz: "arc", image: "img/industries/sports.webp" },
 ];
 
 export const ENQUO_PILLARS: Pillar[] = [

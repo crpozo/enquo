@@ -90,6 +90,14 @@ export function WhoWeArePage() {
             <span className="dash" />
           </div>
 
+          <figure className="page-who__founding-media reveal" aria-hidden="true">
+            <img
+              src={import.meta.env.BASE_URL + "img/who/founding.webp"}
+              alt=""
+              loading="lazy"
+            />
+          </figure>
+
           <div className="page-who__founding-text reveal" ref={foundingRef}>
             <p>
               We&rsquo;ve seen too many critical systems shipped on slide decks
@@ -139,11 +147,20 @@ export function WhoWeArePage() {
             <span className="dash" />
           </div>
 
-          <p className="page-who__team-intro">
-            We list roles, not bios. The work is owned by the function, not by
-            an individual&rsquo;s biography. Every name behind a role is
-            available the moment you sign.
-          </p>
+          <div className="page-who__team-lede">
+            <p className="page-who__team-intro">
+              We list roles, not bios. The work is owned by the function, not by
+              an individual&rsquo;s biography. Every name behind a role is
+              available the moment you sign.
+            </p>
+            <figure className="page-who__team-media" aria-hidden="true">
+              <img
+                src={import.meta.env.BASE_URL + "img/who/team.webp"}
+                alt=""
+                loading="lazy"
+              />
+            </figure>
+          </div>
 
           <div className="page-who__team-grid" ref={teamRef}>
             {TEAM.map((m, i) => (

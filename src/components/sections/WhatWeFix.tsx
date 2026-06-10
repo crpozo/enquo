@@ -37,14 +37,23 @@ export function WhatWeFix() {
           <span className="dash" />
         </div>
 
-        <div className="fix__lede reveal" ref={ledeRef}>
-          <h2 className="fix__title">
-            Data systems break <em>where it matters most.</em>
-          </h2>
-          <p className="fix__sub">
-            Not in the demo, in production, under real load, real audits, real
-            deadlines. That gap is the whole job.
-          </p>
+        <div className="fix__lede fix__lede--media reveal" ref={ledeRef}>
+          <div>
+            <h2 className="fix__title">
+              Data systems break <em>where it matters most.</em>
+            </h2>
+            <p className="fix__sub">
+              Not in the demo, in production, under real load, real audits, real
+              deadlines. That gap is the whole job.
+            </p>
+          </div>
+          <figure className="fix__media" aria-hidden="true">
+            <img
+              src={import.meta.env.BASE_URL + "img/fix-switch.webp"}
+              alt=""
+              loading="lazy"
+            />
+          </figure>
         </div>
 
         <div className="fix-grid" ref={gridRef}>
