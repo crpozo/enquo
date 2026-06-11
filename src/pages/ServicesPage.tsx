@@ -173,10 +173,6 @@ export function ServicesPage() {
               ongoing operations, the team that designs the system is the team
               that owns it in production.
             </p>
-            <p className="page-hero__statement">
-              <span className="page-hero__statement-mark" /> If we build it, we
-              run it. If it breaks, we own it.
-            </p>
           </div>
         </div>
       </section>
