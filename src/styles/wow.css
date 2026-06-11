@@ -1141,17 +1141,7 @@ html.lenis body {
 .do-grid.in .do-card:nth-child(15) { transition-delay: 700ms; }
 .do-grid.in .do-card:nth-child(16) { transition-delay: 750ms; }
 
-/* ---- Home vertical rhythm ----
-   The site-wide 160px section padding left too much dead air between the
-   home's content sections. Tighten just the home stack (hero keeps its own). */
-.fix.section,
-.how.section,
-.do.section,
-.cases.section,
-.inds.section {
-  padding-top: clamp(72px, 8vw, 112px);
-  padding-bottom: clamp(72px, 8vw, 112px);
-}
+/* Section rhythm is uniform site-wide via --pad-section (tokens.css). */
 
 /* ==========================================================================
    04 — CASE STUDIES (1 featured + list + social proof)

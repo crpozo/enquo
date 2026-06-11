@@ -159,8 +159,16 @@ function ServiceMark({ svc }: { svc: Svc }) {
    Page
    ============================================================ */
 
+type Step = "intro" | "stack" | "goals" | "dash";
+const STEP_INDEX: Record<Step, number> = { intro: 0, stack: 1, goals: 2, dash: 3 };
+
 export function DemoPage() {
   const heroRef = useReveal<HTMLDivElement>();
+  const [step, setStep] = useState<Step>("intro");
+  const go = (s: Step) => {
+    setStep(s);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [goals, setGoals] = useState<string[]>([]);
   const [note, setNote] = useState("");
@@ -178,148 +186,189 @@ export function DemoPage() {
 
   const coverage = Math.min(100, selected.length * 12 + goals.length * 8);
 
+  const stepNum = STEP_INDEX[step];
+
   return (
     <div className="demo-page">
-      <section className="page-hero section" id="top">
-        <PageHeroArt src="img/heroes/demo.webp" />
-        <div className="wrap-lg">
-          <div className="page-hero__inner reveal" ref={heroRef}>
-            <span className="demo-hero__eyebrow">Interactive demo · live preview</span>
-            <h1 className="page-hero__title">
-              Your stack, <em>connected.</em>
-            </h1>
-            <p className="page-hero__lead">
-              Drag the tools you already run into the workflow, tell us what you
-              want to achieve, and watch a working dashboard take shape — the
-              same way an Enquo engagement does, in miniature.
-            </p>
-            <div className="demo-hero__steps">
-              <span><b>01</b> Drop your services</span>
-              <span><b>02</b> Set your objectives</span>
-              <span><b>03</b> Generate the dashboard</span>
-            </div>
+      {/* Progress rail (steps 1-3) */}
+      {step !== "intro" && (
+        <div className="demo-progress" aria-hidden="true">
+          <div className="demo-progress__meta">
+            <span>Step {stepNum} / 3</span>
+            <span>
+              {step === "stack" && "Your services"}
+              {step === "goals" && "Your objectives"}
+              {step === "dash" && "Your dashboard"}
+            </span>
+          </div>
+          <div className="demo-progress__bar">
+            <i style={{ width: `${(stepNum / 3) * 100}%` }} />
           </div>
         </div>
-      </section>
+      )}
 
-      <section className="section demo" id="builder">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">01 / Build your workflow</span>
-            <span>Drag, drop, describe</span>
-            <span className="dash" />
+      {/* ---- STEP 0 · Intro (full viewport) ---- */}
+      {step === "intro" && (
+        <section className="demo-step demo-step--intro section" id="top">
+          <PageHeroArt src="img/heroes/demo.webp" />
+          <div className="wrap-lg">
+            <div className="page-hero__inner reveal" ref={heroRef}>
+              <span className="demo-hero__eyebrow">Interactive demo · live preview</span>
+              <h1 className="page-hero__title">
+                Your stack, <em>connected.</em>
+              </h1>
+              <p className="page-hero__lead">
+                Drag the tools you already run into the workflow, tell us what
+                you want to achieve, and watch a working dashboard take shape —
+                the same way an Enquo engagement does, in miniature.
+              </p>
+              <div className="demo-hero__steps">
+                <span><b>01</b> Drop your services</span>
+                <span><b>02</b> Set your objectives</span>
+                <span><b>03</b> Generate the dashboard</span>
+              </div>
+              <div className="demo-step__nav">
+                <button type="button" className="btn btn--primary" onClick={() => go("stack")}>
+                  Start building
+                  <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
           </div>
+        </section>
+      )}
 
-          <div className="demo__builder">
-            {/* Palette — logo blocks */}
-            <div className="demo__palette">
-              <h3 className="demo__zone-title">Your services</h3>
-              <p className="demo__zone-hint">Drag a block into the workflow — or tap it.</p>
-              <div className="demo__blocks">
-                {SERVICES.map((s) => {
-                  const used = selectedIds.includes(s.id);
-                  return (
-                    <button
-                      key={s.id}
-                      type="button"
-                      className={"demo-block" + (used ? " is-used" : "")}
-                      draggable={!used}
-                      onDragStart={(e) => e.dataTransfer.setData("text/plain", s.id)}
-                      onClick={() => (used ? remove(s.id) : add(s.id))}
-                      style={{ "--chip-accent": CAT_ACCENT[s.cat] } as React.CSSProperties}
-                      title={s.name}
-                    >
-                      <ServiceMark svc={s} />
-                    </button>
-                  );
-                })}
+      {/* ---- STEP 1 · Services (full viewport) ---- */}
+      {step === "stack" && (
+        <section className="demo-step section" id="builder">
+          <div className="wrap-lg">
+            <h2 className="demo-step__title">
+              Drop the services <em>you already run.</em>
+            </h2>
+
+            <div className="demo__builder">
+              <div className="demo__palette">
+                <h3 className="demo__zone-title">Your services</h3>
+                <p className="demo__zone-hint">Drag a block into the workflow — or tap it.</p>
+                <div className="demo__blocks">
+                  {SERVICES.map((s) => {
+                    const used = selectedIds.includes(s.id);
+                    return (
+                      <button
+                        key={s.id}
+                        type="button"
+                        className={"demo-block" + (used ? " is-used" : "")}
+                        draggable={!used}
+                        onDragStart={(e) => e.dataTransfer.setData("text/plain", s.id)}
+                        onClick={() => (used ? remove(s.id) : add(s.id))}
+                        style={{ "--chip-accent": CAT_ACCENT[s.cat] } as React.CSSProperties}
+                        title={s.name}
+                      >
+                        <ServiceMark svc={s} />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div
+                className={"demo__canvas" + (dragOver ? " is-over" : "")}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => { e.preventDefault(); setDragOver(false);
+                  const id = e.dataTransfer.getData("text/plain"); if (id) add(id); }}
+              >
+                <h3 className="demo__zone-title">Your workflow</h3>
+                {selected.length === 0 ? (
+                  <p className="demo__canvas-empty">Drop services here to connect them.</p>
+                ) : (
+                  <div className="demo__flow">
+                    <div className="demo__flow-col">
+                      <span className="demo__flow-label">Sources</span>
+                      <div className="demo__flow-nodes">
+                        {selected.map((s) => (
+                          <button key={s.id} type="button" className="demo-node" onClick={() => remove(s.id)}
+                            style={{ "--chip-accent": CAT_ACCENT[s.cat] } as React.CSSProperties} title="Remove">
+                            <ServiceMark svc={s} />
+                            <span className="demo-node__x">×</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <span className="demo__flow-arrow" aria-hidden="true">→</span>
+                    <div className="demo__flow-col">
+                      <span className="demo__flow-label">Enquo layer</span>
+                      <div className="demo__flow-engine">
+                        <span>Ingest</span><span>Reconcile</span><span>Automate</span><span>Govern</span>
+                      </div>
+                    </div>
+                    <span className="demo__flow-arrow" aria-hidden="true">→</span>
+                    <div className="demo__flow-col">
+                      <span className="demo__flow-label">Output</span>
+                      <span className="demo-node demo-node--dash">Dashboard</span>
+                    </div>
+                  </div>
+                )}
+                {selected.length > 0 && (
+                  <div className="demo__coverage">
+                    <span>Workflow coverage</span>
+                    <div className="demo__coverage-bar"><i style={{ width: coverage + "%" }} /></div>
+                    <strong>{coverage}%</strong>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Canvas — three-stage workflow */}
-            <div
-              className={"demo__canvas" + (dragOver ? " is-over" : "")}
-              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={(e) => { e.preventDefault(); setDragOver(false);
-                const id = e.dataTransfer.getData("text/plain"); if (id) add(id); }}
-            >
-              <h3 className="demo__zone-title">Your workflow</h3>
-              {selected.length === 0 ? (
-                <p className="demo__canvas-empty">Drop services here to connect them.</p>
-              ) : (
-                <div className="demo__flow">
-                  <div className="demo__flow-col">
-                    <span className="demo__flow-label">Sources</span>
-                    <div className="demo__flow-nodes">
-                      {selected.map((s) => (
-                        <button key={s.id} type="button" className="demo-node" onClick={() => remove(s.id)}
-                          style={{ "--chip-accent": CAT_ACCENT[s.cat] } as React.CSSProperties} title="Remove">
-                          <ServiceMark svc={s} />
-                          <span className="demo-node__x">×</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <span className="demo__flow-arrow" aria-hidden="true">→</span>
-                  <div className="demo__flow-col">
-                    <span className="demo__flow-label">Enquo layer</span>
-                    <div className="demo__flow-engine">
-                      <span>Ingest</span><span>Reconcile</span><span>Automate</span><span>Govern</span>
-                    </div>
-                  </div>
-                  <span className="demo__flow-arrow" aria-hidden="true">→</span>
-                  <div className="demo__flow-col">
-                    <span className="demo__flow-label">Output</span>
-                    <span className="demo-node demo-node--dash">Dashboard</span>
-                  </div>
-                </div>
-              )}
-              {selected.length > 0 && (
-                <div className="demo__coverage">
-                  <span>Workflow coverage</span>
-                  <div className="demo__coverage-bar"><i style={{ width: coverage + "%" }} /></div>
-                  <strong>{coverage}%</strong>
-                </div>
-              )}
+            <div className="demo-step__nav">
+              <button type="button" className="btn" onClick={() => go("intro")}>Back</button>
+              <button type="button" className="btn btn--primary" disabled={selected.length === 0} onClick={() => go("goals")}>
+                Continue
+                <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+              </button>
+              {selected.length === 0 && <span className="demo__actions-hint">Pick at least one service.</span>}
             </div>
           </div>
+        </section>
+      )}
 
-          {/* Goals */}
-          <div className="demo__goals">
-            <h3 className="demo__zone-title">What do you want to achieve?</h3>
-            <div className="demo__chips">
-              {GOALS.map((g) => (
-                <button key={g} type="button"
-                  className={"demo-goal" + (goals.includes(g) ? " is-on" : "")}
-                  onClick={() => toggleGoal(g)}>{g}</button>
-              ))}
-            </div>
-            <input className="demo__note" type="text"
-              placeholder="Anything specific? e.g. board reporting every Monday at 8am…"
-              value={note} onChange={(e) => setNote(e.target.value)} />
-          </div>
-
-          <div className="demo__actions">
-            <button type="button" className="btn btn--primary" disabled={!ready} onClick={() => setGenerated(true)}>
-              Generate dashboard
-              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-            </button>
-            {!ready && <span className="demo__actions-hint">Pick at least one service and one objective.</span>}
-            {(selected.length > 0 || goals.length > 0) && <button type="button" className="btn" onClick={reset}>Reset</button>}
-          </div>
-        </div>
-      </section>
-
-      {generated && (
-        <section className="section demo-dash" id="dashboard">
+      {/* ---- STEP 2 · Objectives (full viewport) ---- */}
+      {step === "goals" && (
+        <section className="demo-step section" id="objectives">
           <div className="wrap-lg">
-            <div className="sec-label">
-              <span className="num">02 / Your dashboard</span>
-              <span>Live preview · placeholder data</span>
-              <span className="dash" />
+            <h2 className="demo-step__title">
+              What do you want to <em>achieve?</em>
+            </h2>
+
+            <div className="demo__goals">
+              <div className="demo__chips demo__chips--lg">
+                {GOALS.map((g) => (
+                  <button key={g} type="button"
+                    className={"demo-goal" + (goals.includes(g) ? " is-on" : "")}
+                    onClick={() => toggleGoal(g)}>{g}</button>
+                ))}
+              </div>
+              <input className="demo__note" type="text"
+                placeholder="Anything specific? e.g. board reporting every Monday at 8am…"
+                value={note} onChange={(e) => setNote(e.target.value)} />
             </div>
 
+            <div className="demo-step__nav">
+              <button type="button" className="btn" onClick={() => go("stack")}>Back</button>
+              <button type="button" className="btn btn--primary" disabled={!ready}
+                onClick={() => { setGenerated(true); go("dash"); }}>
+                Generate dashboard
+                <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+              </button>
+              {!ready && <span className="demo__actions-hint">Pick at least one objective.</span>}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ---- STEP 3 · Dashboard (full viewport) ---- */}
+      {step === "dash" && generated && (
+        <section className="demo-step section" id="dashboard">
+          <div className="wrap-lg">
             <div className="demo-dash__head">
               <h2 className="demo-dash__title">{goals[0] ?? "Operations"}, <em>in one place.</em></h2>
               <p className="demo-dash__sub">
@@ -328,7 +377,6 @@ export function DemoPage() {
               </p>
             </div>
 
-            {/* status bar */}
             <div className="demo-dash__bar">
               <div><span>Connected sources</span><strong>{selected.length}</strong></div>
               <div><span>Objectives</span><strong>{goals.length}</strong></div>
@@ -358,6 +406,10 @@ export function DemoPage() {
               ))}
             </div>
 
+            <div className="demo-step__nav">
+              <button type="button" className="btn" onClick={() => go("goals")}>Back</button>
+              <button type="button" className="btn" onClick={() => { reset(); go("intro"); }}>Start over</button>
+            </div>
             <p className="demo-dash__note">
               Placeholder data. In a real engagement this is your live operational
               backbone — designed, built, and run by the same team.
@@ -366,7 +418,7 @@ export function DemoPage() {
         </section>
       )}
 
-      <FinalCTA />
+      {step === "dash" && <FinalCTA />}
     </div>
   );
 }
