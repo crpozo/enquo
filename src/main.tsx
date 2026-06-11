@@ -43,22 +43,13 @@ const pageRoutes = (
   </>
 );
 
-const wireframeRoutes = (
-  <>
-    <Route index element={<HomePage />} />
-    <Route path="services" element={<ServicesPage />} />
-    <Route path="who-we-are" element={<WhoWeArePage />} />
-    {/* Anything else inside the wireframe → its home */}
-    <Route path="*" element={<HomePage />} />
-  </>
-);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter basename={basename || "/"}>
       <Routes>
         <Route path="/wireframe" element={<Layout />}>
-          {wireframeRoutes}
+          {pageRoutes}
         </Route>
         <Route path="/" element={<Layout />}>
           {pageRoutes}

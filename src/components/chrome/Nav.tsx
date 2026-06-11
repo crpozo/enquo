@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { NAV_ITEMS } from "../../data/nav";
 import { EnquoLogo } from "./EnquoLogo";
 
-const WIREFRAME_NAV = ["/services", "/who-we-are"];
-
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const { pathname } = useLocation();
-  const isWireframe = pathname === "/wireframe" || pathname.startsWith("/wireframe/");
-  const items = isWireframe
-    ? NAV_ITEMS.filter((i) => WIREFRAME_NAV.includes(i.path))
-    : NAV_ITEMS;
+  const items = NAV_ITEMS;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
