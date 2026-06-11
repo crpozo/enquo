@@ -35,6 +35,7 @@ const resized = [
   [`${A}/IMAGENES/ASSETS ENQUO-05.png`, "public/img/heroes/insights.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-02.png`, "public/img/heroes/who.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-12.png`, "public/img/heroes/careers.webp", 1900],
+  [`${A}/Gemini_Generated_Image_oclhq1oclhq1oclh.png`, "public/img/heroes/demo.webp", 1900],
   // services preview lifecycle panels (distinct from the How We Work art)
   [`${A}/Gemini_Generated_Image_vkw0rovkw0rovkw0 - Topaz Bloom, escala 2x.png`, "public/img/lifecycle/design.webp", 1100],
   [`${A}/IMAGENES/ASSETS ENQUO-11.png`, "public/img/lifecycle/build.webp", 1100],
