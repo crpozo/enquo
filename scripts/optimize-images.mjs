@@ -38,8 +38,8 @@ const resized = [
   // who we are
   [`${A}/IMAGENES/ASSETS ENQUO-09.png`, "public/img/who/founding.webp", 1400],
   [`${A}/IMAGENES/ASSETS ENQUO-04.png`, "public/img/who/team.webp", 1200],
-  // the problem → executive with spyglass on a glowing pedestal (vision)
-  [`${A}/ChatGPT Image 19 may 2026, 02_26_38 p.m.png`, "public/img/problem.webp", 1100],
+  // the problem → glass core on a grid of dark tiles (fragmented systems)
+  [`${A}/IMAGENES/ASSETS ENQUO-15.png`, "public/img/problem.webp", 1100],
   [`${A}/IMAGENES/ASSETS ENQUO-21.png`, "public/img/cta-hand.webp", 1400],
 ];
 

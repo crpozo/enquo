@@ -85,7 +85,6 @@ export function StageHero({ stage }: { stage: Stage }) {
       <div className="stage-hero__scrim" aria-hidden="true" />
 
       <div className="stage-hero__content">
-        <span className="stage-hero__tag">{stage.tag}</span>
         <h2 className="stage-hero__statement">{stage.statement}</h2>
         <span className="stage-hero__metric">
           Result from our work, <em>{stage.metric}</em>

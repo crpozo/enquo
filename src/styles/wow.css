@@ -1503,7 +1503,7 @@ html.lenis body {
   border: 1px solid var(--hairline);
   max-height: 440px;
 }
-.fix__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; display: block; }
+.fix__media img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
 
 /* How We Work — per-stage art above the statement */
 .how__panel-art {
