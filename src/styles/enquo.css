@@ -31,8 +31,8 @@
   /* Width is set via the SVG's width attribute (derived from height × aspect). */
 }
 .nav__links {
-  display: flex; gap: 36px;
-  font-size: 13px;
+  display: flex; gap: 40px;
+  font-size: 15px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 400;
