@@ -86,9 +86,14 @@ export function StageHero({ stage }: { stage: Stage }) {
 
       <div className="stage-hero__content">
         <h2 className="stage-hero__statement">{stage.statement}</h2>
-        <span className="stage-hero__metric">
-          Result from our work, <em>{stage.metric}</em>
-        </span>
+        <div className="stage-hero__result">
+          <span className="stage-hero__result-eyebrow">Result from our work</span>
+          <div className="stage-hero__result-row">
+            <strong className="stage-hero__result-value">{stage.metricValue}</strong>
+            <span className="stage-hero__result-rule" aria-hidden="true" />
+            <p className="stage-hero__result-label">{stage.metricLabel}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -19,6 +19,9 @@ export type Stage = {
   tag: "Design" | "Build" | "Run";
   statement: string;
   metric: string;
+  /** Structured metric for the stage banner: big value + supporting label. */
+  metricValue: string;
+  metricLabel: string;
   /** Swap-in banner media; falls back to generated brand art when absent. */
   media?: StageMedia;
   cards: ServiceCard[];
@@ -41,6 +44,8 @@ export const STAGES: Stage[] = [
     statement:
       "Design that survives contact with production.",
     metric: "Average delivery confidence improves 3.4× post-design phase",
+    metricValue: "3.4×",
+    metricLabel: "Average delivery confidence improvement post-design phase.",
     media: { type: "image", src: "img/services/design.webp" },
     cards: [
       {
@@ -90,6 +95,8 @@ export const STAGES: Stage[] = [
     statement:
       "Build with operators in the room.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
+    metricValue: "−62%",
+    metricLabel: "Production incidents vs. prior delivery teams.",
     media: { type: "image", src: "img/services/build.webp" },
     cards: [
       {
@@ -149,6 +156,8 @@ export const STAGES: Stage[] = [
     statement:
       "Run with accountability for outcomes.",
     metric: "Mean time to recovery cut by 71% under our ownership",
+    metricValue: "−71%",
+    metricLabel: "Mean time to recovery under our ownership.",
     media: { type: "image", src: "img/services/run.webp" },
     cards: [
       {

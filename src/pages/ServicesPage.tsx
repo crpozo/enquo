@@ -68,12 +68,6 @@ function StageBlock({ stage, base }: { stage: Stage; base: number }) {
         aria-hidden="true"
       />
       <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">§{stage.num} · Stage</span>
-          <span>{stage.tag}</span>
-          <span className="dash" />
-        </div>
-
         <StageHero stage={stage} />
 
         <div
