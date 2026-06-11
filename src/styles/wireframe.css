@@ -150,3 +150,33 @@
   padding: 8px 12px;
   pointer-events: none;
 }
+
+/* Entrance animations are disabled above, which would freeze elements at
+   their pre-animation opacity:0 — force everything visible instead. */
+:root[data-wireframe] *,
+:root[data-wireframe] *::before,
+:root[data-wireframe] *::after {
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* (more specific than the * reset, so placeholders stay hidden) */
+:root[data-wireframe] img,
+:root[data-wireframe] video {
+  opacity: 0 !important;
+}
+
+/* Hero: collapse the 100vh stage into a structured banner block. */
+:root[data-wireframe] .hero.section {
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  padding: 150px var(--pad-x) 64px;
+  background:
+    repeating-linear-gradient(45deg, #f7f7f7, #f7f7f7 14px, #efefef 14px, #efefef 28px) !important;
+  border-bottom: 1px solid #ccc;
+}
+:root[data-wireframe] .hero__title,
+:root[data-wireframe] .hero__title .line,
+:root[data-wireframe] .hero__lead-text {
+  color: #1a1a1a !important;
+}

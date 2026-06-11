@@ -219,14 +219,19 @@ function Enablers() {
           <span className="dash" />
         </div>
 
-        <div className="enablers__grid reveal" ref={gridRef}>
-          {ENABLERS.map((e) => (
-            <article className="enablers__item" key={e.title}>
+        <p className="enablers__lede reveal" ref={gridRef}>
+          Not add-ons. Security, cost discipline and adoption are{" "}
+          <em>built into every stage</em> of every engagement.
+        </p>
+        <ol className="enablers__list">
+          {ENABLERS.map((e, i) => (
+            <li className="enablers__item" key={e.title}>
+              <span className="enablers__num">0{i + 1}</span>
               <h3 className="enablers__title">{e.title}</h3>
               <p className="enablers__desc">{e.desc}</p>
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
