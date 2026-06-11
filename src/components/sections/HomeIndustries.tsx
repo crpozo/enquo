@@ -1,75 +1,86 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ENQUO_INDUSTRIES } from "../../data/enquo";
 import { useReveal } from "../../hooks/useReveal";
-import { IndustryArt } from "./IndustryArt";
+
+/** "platforms, analytics, reporting." → "platforms · analytics · reporting" */
+const dotted = (s: string) => s.replace(/\.$/, "").split(", ").join(" · ");
 
 /**
- * Industries (home) — each square is a sector. The label sits quiet by
- * default; on hover the tile lifts, the viz brightens and a short reveal
- * panel rises with the description and a link into the Industries page.
+ * Industries (home) — horizontal scroll carousel per the approved design:
+ * tall image cards with a corner number, name + arrow and focus areas below
+ * each card, a "Scroll →" hint and a progress track underneath.
  */
 export function HomeIndustries() {
   const headRef = useReveal<HTMLDivElement>();
-  const gridRef = useReveal<HTMLDivElement>();
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [progress, setProgress] = useState(0);
+
+  const onScroll = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+  };
 
   return (
     <section className="inds section" id="industries">
       <div className="px-glow px-glow--inds" data-parallax="0.06" aria-hidden="true" />
       <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">05 / Industries</span>
-          <span>Where we operate</span>
-          <span className="dash" />
-        </div>
-
         <div className="inds__head reveal" ref={headRef}>
-          <h2 className="inds__title">
-            Execution across <em>complex industries.</em>
-          </h2>
-          <p className="inds__sub">
-            Six verticals, one playbook. Hover a tile to explore, open the
-            full map for how we enter each.
-          </p>
+          <div>
+            <span className="inds__eyebrow">Industries</span>
+            <h2 className="inds__title">
+              Execution across
+              <br />
+              <em>complex sectors.</em>
+            </h2>
+          </div>
+          <span className="inds__hint" aria-hidden="true">
+            Scroll <i /> →
+          </span>
         </div>
+      </div>
 
-        <div className="inds-grid" ref={gridRef}>
-          {ENQUO_INDUSTRIES.map((ind) => (
-            <Link to="/industries" className="ind-sq" data-theme={ind.viz} key={ind.num}>
-              <div className="ind-sq__art" aria-hidden="true">
-                <IndustryArt ind={ind} />
-              </div>
-              <div className="ind-sq__overlay" aria-hidden="true" />
-              <span className="ind-sq__label">{ind.name}</span>
-              <div className="ind-sq__reveal">
-                <h3 className="ind-sq__name">{ind.name}</h3>
-                <p className="ind-sq__desc">{ind.desc}</p>
-                <span className="ind-sq__cta">
-                  Explore
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-          ))}
-
-          <Link to="/industries" className="ind-sq ind-sq--cta">
-            <div className="ind-sq__overlay" aria-hidden="true" />
-            <span className="ind-sq__label">All industries</span>
-            <div className="ind-sq__reveal ind-sq__reveal--cta">
-              <h3 className="ind-sq__name">Your sector?</h3>
-              <p className="ind-sq__desc">
-                We bridge any business need, no matter how big or small.
-              </p>
-              <span className="ind-sq__cta">
-                See all industries
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </span>
+      <div className="inds-scroller" ref={scrollerRef} onScroll={onScroll}>
+        {ENQUO_INDUSTRIES.map((ind, i) => (
+          <Link to="/industries" className="ind-card" key={ind.num}>
+            <div className="ind-card__media">
+              <span className="ind-card__num">0{i + 1}</span>
+              {ind.image && (
+                <img
+                  src={import.meta.env.BASE_URL + ind.image}
+                  alt=""
+                  loading="lazy"
+                />
+              )}
             </div>
+            <div className="ind-card__row">
+              <h3 className="ind-card__name">{ind.name}</h3>
+              <span className="ind-card__arrow" aria-hidden="true">→</span>
+            </div>
+            <p className="ind-card__desc">{dotted(ind.desc)}</p>
           </Link>
+        ))}
+
+        <Link to="/industries" className="ind-card ind-card--cta">
+          <div className="ind-card__media ind-card__media--cta">
+            <span className="ind-card__cta-big">Your sector?</span>
+          </div>
+          <div className="ind-card__row">
+            <h3 className="ind-card__name">All industries</h3>
+            <span className="ind-card__arrow" aria-hidden="true">→</span>
+          </div>
+          <p className="ind-card__desc">
+            We bridge any business need, no matter how big or small
+          </p>
+        </Link>
+      </div>
+
+      <div className="wrap-lg">
+        <div className="inds-track" aria-hidden="true">
+          <i style={{ width: `${10 + progress * 90}%` }} />
         </div>
       </div>
     </section>

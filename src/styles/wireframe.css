@@ -180,3 +180,11 @@
 :root[data-wireframe] .hero__lead-text {
   color: #1a1a1a !important;
 }
+
+/* Industries carousel cards read as hatched media placeholders. */
+:root[data-wireframe] .ind-card__media {
+  background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 12px, #e2e2e2 12px, #e2e2e2 24px) !important;
+  outline: 1px dashed #aaaaaa;
+  outline-offset: -1px;
+  border-color: #cfcfcf !important;
+}
