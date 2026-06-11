@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import { STAGES, SERVICE_COUNT } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
+/** Column-top art per stage, color-matched to the stage accents. */
+const STAGE_MEDIA: Record<string, string> = {
+  Design: "img/how/design.webp",
+  Build: "img/how/build.webp",
+  Run: "img/how/run.webp",
+};
+
 /**
  * Services Preview — the lifecycle, made visible: three stage columns
  * (Design → Build → Run) with their capabilities listed inside each,
@@ -37,6 +44,14 @@ export function WhatWeDo() {
         <div className="do-flow reveal" ref={flowRef}>
           {STAGES.map((s, i) => (
             <div className="do-stage" data-stage={s.tag} key={s.tag}>
+              <figure className="do-stage__media" aria-hidden="true">
+                <img
+                  src={import.meta.env.BASE_URL + STAGE_MEDIA[s.tag]}
+                  alt=""
+                  loading="lazy"
+                />
+              </figure>
+
               <header className="do-stage__head">
                 <span className="do-stage__num">0{i + 1}</span>
                 <h3 className="do-stage__name">{s.tag}</h3>
@@ -44,11 +59,17 @@ export function WhatWeDo() {
               </header>
 
               <ul className="do-stage__list">
-                {s.cards.map((c) => (
+                {s.cards.map((c, j) => (
                   <li key={c.title}>
                     <Link to="/services" className="do-stage__item">
-                      <span className="do-stage__item-title">{c.title}</span>
-                      <span className="do-stage__item-outcome">{c.outcome}</span>
+                      <span className="do-stage__item-num">
+                        {String(j + 1).padStart(2, "0")}
+                      </span>
+                      <span className="do-stage__item-body">
+                        <span className="do-stage__item-title">{c.title}</span>
+                        <span className="do-stage__item-outcome">{c.outcome}</span>
+                      </span>
+                      <span className="do-stage__item-arrow" aria-hidden="true">→</span>
                     </Link>
                   </li>
                 ))}
