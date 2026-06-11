@@ -30,11 +30,15 @@ const resized = [
   [`${A}/Gemini_Generated_Image_3c6elg3c6elg3c6e.png`, "public/img/services/run.webp", 1400],
   // page-hero backdrops (wide, copy space) — home-banner-like atmosphere
   [`${A}/IMAGENES/ASSETS ENQUO-22.png`, "public/img/heroes/services.webp", 1900],
-  [`${A}/IMAGENES/ASSETS ENQUO-26.png`, "public/img/heroes/industries.webp", 1900],
+  [`${A}/IMAGENES/ASSETS ENQUO-16.png`, "public/img/heroes/industries.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-01.png`, "public/img/heroes/cases.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-05.png`, "public/img/heroes/insights.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-02.png`, "public/img/heroes/who.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-12.png`, "public/img/heroes/careers.webp", 1900],
+  // insights card art by category
+  [`${A}/IMAGENES/ASSETS ENQUO-24.png`, "public/img/insights/essay.webp", 1100],
+  [`${A}/IMAGENES/ASSETS ENQUO-06.png`, "public/img/insights/field-note.webp", 1100],
+  [`${A}/IMAGENES/ASSETS ENQUO-07.png`, "public/img/insights/brief.webp", 1100],
   // who we are
   [`${A}/IMAGENES/ASSETS ENQUO-09.png`, "public/img/who/founding.webp", 1400],
   [`${A}/IMAGENES/ASSETS ENQUO-04.png`, "public/img/who/team.webp", 1200],
@@ -52,7 +56,7 @@ const logos = [
   ["56", "data-factory"], ["58", "cybersource"], ["61", "erwin"],
 ];
 
-for (const dir of ["public/img/industries", "public/img/how", "public/img/heroes", "public/img/services", "public/img/who", "public/img/partners"]) {
+for (const dir of ["public/img/industries", "public/img/how", "public/img/heroes", "public/img/insights", "public/img/services", "public/img/who", "public/img/partners"]) {
   mkdirSync(dir, { recursive: true });
 }
 

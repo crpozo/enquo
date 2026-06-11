@@ -208,11 +208,11 @@ export const STAGES: Stage[] = [
 export type Enabler = { title: string; desc: string };
 
 export const ENABLERS: Enabler[] = [
-  { title: "Security & Compliance", desc: "Controls designed in from week one, audit-ready by default." },
-  { title: "Cloud", desc: "Cloud agnostic — your cloud, your VPC, your IAM. We operate inside it." },
-  { title: "Change Management", desc: "Systems people actually use, measured by adoption." },
-  { title: "FinOps", desc: "Cost and value tracked with the same rigor as uptime." },
-  { title: "AI & Data Excellence", desc: "Standards that keep data and models trustworthy at scale." },
+  { title: "Security & Compliance", desc: "Audit-ready from week one." },
+  { title: "Cloud", desc: "Agnostic. We build in yours." },
+  { title: "Change Management", desc: "Adoption, measured." },
+  { title: "FinOps", desc: "Cost tracked like uptime." },
+  { title: "AI & Data Excellence", desc: "Trustworthy at scale." },
 ];
 
 /** Total practices across all stages (Design 4 + Build 5 + Run 5 = 14). */

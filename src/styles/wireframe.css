@@ -1,0 +1,152 @@
+/* ==========================================================================
+   WIREFRAME MODE — /wireframe/*
+   The same pages with the design stripped: white canvas, gray structure,
+   neutral type, image placeholders. Driven entirely by `data-wireframe` on
+   <html>, so content edits to the real site flow through automatically.
+   ========================================================================== */
+
+/* Re-point the design tokens at grayscale — most components follow. */
+:root[data-wireframe] {
+  --bg: #ffffff;
+  --bg-2: #f5f5f5;
+  --bg-3: #ededed;
+  --ink: #1a1a1a;
+  --ink-2: #444444;
+  --muted: #777777;
+  --muted-2: #999999;
+  --hairline: #cfcfcf;
+  --hairline-2: #bbbbbb;
+  --purple-500: #555555;
+  --purple-400: #555555;
+  --purple-200: #333333;
+  --grad-primary: linear-gradient(#3a3a3a, #3a3a3a);
+  --grad-soft: linear-gradient(#eeeeee, #eeeeee);
+  --grad-orange: linear-gradient(#d8d8d8, #d8d8d8);
+  --grad-rose: linear-gradient(#d8d8d8, #d8d8d8);
+  --grad-teal: linear-gradient(#d8d8d8, #d8d8d8);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-display: Arial, Helvetica, sans-serif;
+}
+
+:root[data-wireframe] body {
+  background: #fff;
+  color: var(--ink);
+}
+
+/* Flatten all motion and ornament. */
+:root[data-wireframe] *,
+:root[data-wireframe] *::before,
+:root[data-wireframe] *::after {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* Atmosphere layers off. */
+:root[data-wireframe] .intro,
+:root[data-wireframe] .px-glow,
+:root[data-wireframe] .hero__aurora,
+:root[data-wireframe] .hero__grain,
+:root[data-wireframe] .hero__video-tint,
+:root[data-wireframe] .hero__bg,
+:root[data-wireframe] .page-hero__art-tint,
+:root[data-wireframe] .stage-hero__scrim,
+:root[data-wireframe] .ind-sq__grad,
+:root[data-wireframe] .ind-sq__halftone,
+:root[data-wireframe] .case-tile__grad,
+:root[data-wireframe] .case-tile__halftone,
+:root[data-wireframe] .scroll-progress {
+  display: none !important;
+}
+
+/* Media → classic wireframe placeholders (hatched gray box). */
+:root[data-wireframe] img,
+:root[data-wireframe] video {
+  opacity: 0 !important;
+}
+:root[data-wireframe] figure,
+:root[data-wireframe] .hero__bg-wire,
+:root[data-wireframe] .page-hero__art,
+:root[data-wireframe] .stage-hero__media,
+:root[data-wireframe] .stage-hero__art,
+:root[data-wireframe] .ind-sq__art,
+:root[data-wireframe] .case-tile__art,
+:root[data-wireframe] .cta__art {
+  background: repeating-linear-gradient(
+    45deg,
+    #f0f0f0,
+    #f0f0f0 12px,
+    #e2e2e2 12px,
+    #e2e2e2 24px
+  ) !important;
+  outline: 1px dashed #aaaaaa;
+  outline-offset: -1px;
+}
+
+/* Sections sit on white with hairline separation. */
+:root[data-wireframe] section,
+:root[data-wireframe] .section {
+  background: #fff !important;
+  border-color: var(--hairline) !important;
+}
+
+/* Gradient-clipped display text falls back to flat dark gray. */
+:root[data-wireframe] .hero__title .accent,
+:root[data-wireframe] .how__tab.active .how__tab-label,
+:root[data-wireframe] [class*="__title"] em,
+:root[data-wireframe] [class*="__statement"] em {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: #1a1a1a !important;
+}
+:root[data-wireframe] .hero__title .stroke {
+  -webkit-text-stroke: 0;
+  color: #9a9a9a;
+}
+
+/* Buttons & pills: plain outlines. */
+:root[data-wireframe] .btn,
+:root[data-wireframe] .btn--primary {
+  background: #fff !important;
+  color: #1a1a1a !important;
+  border: 1px solid #888 !important;
+}
+
+/* Nav/footer flatten. */
+:root[data-wireframe] .nav,
+:root[data-wireframe] .nav.is-scrolled {
+  background: #fff !important;
+  border-bottom: 1px solid var(--hairline);
+}
+:root[data-wireframe] .footer {
+  background: #fafafa !important;
+}
+
+/* Partner logos read as gray boxes with even sizing. */
+:root[data-wireframe] .platforms__logo {
+  opacity: 1 !important;
+  background: #e6e6e6;
+  outline: 1px dashed #aaa;
+  min-width: 90px;
+}
+
+/* Always-on label so nobody mistakes the wireframe for the real site. */
+:root[data-wireframe] body::after {
+  content: "WIREFRAME · no visual design";
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 99999;
+  background: #1a1a1a;
+  color: #fff;
+  font: 11px/1 Arial, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  pointer-events: none;
+}

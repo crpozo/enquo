@@ -40,7 +40,6 @@ export function HomeIndustries() {
                 <IndustryArt ind={ind} />
               </div>
               <div className="ind-sq__overlay" aria-hidden="true" />
-              <span className="ind-sq__num">04 / {ind.num}</span>
               <span className="ind-sq__label">{ind.name}</span>
               <div className="ind-sq__reveal">
                 <h3 className="ind-sq__name">{ind.name}</h3>

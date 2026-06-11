@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { IntroOverlay } from "../IntroOverlay";
 import { Footer } from "../chrome/Footer";
@@ -20,10 +20,16 @@ const DEFAULTS: Theme = {
  * Persistent shell shared by every page: intro overlay (first visit), cursor
  * halo, scroll-progress bar, top nav, footer. The active route renders into
  * <Outlet />.
+ *
+ * Wireframe mode: the same shell + pages mounted under /wireframe get
+ * `data-wireframe` on <html> (styled by wireframe.css) and internal link
+ * clicks are rewritten so navigation stays inside /wireframe.
  */
 export function Layout() {
   const progressRef = useRef<HTMLDivElement | null>(null);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const isWireframe = pathname === "/wireframe" || pathname.startsWith("/wireframe/");
   useLenis();
 
   // Apply theming data attrs to <html>
@@ -31,6 +37,15 @@ export function Layout() {
     document.documentElement.dataset.accent = DEFAULTS.accent;
     document.documentElement.dataset.density = DEFAULTS.density;
   }, []);
+
+  // Wireframe mode flag on <html>
+  useEffect(() => {
+    if (isWireframe) {
+      document.documentElement.dataset.wireframe = "true";
+    } else {
+      delete document.documentElement.dataset.wireframe;
+    }
+  }, [isWireframe]);
 
   // Scroll progress bar
   useEffect(() => {
@@ -53,8 +68,25 @@ export function Layout() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname]);
 
+  // In wireframe mode, keep internal navigation inside /wireframe so the
+  // whole site can be walked through without leaving the undesigned view.
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (!isWireframe) return;
+    const a = (e.target as HTMLElement).closest?.("a");
+    if (!a) return;
+    const rawHref = a.getAttribute("href") ?? "";
+    if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:")) return;
+    if (a.origin !== window.location.origin) return;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+    let path = a.pathname;
+    if (base && path.startsWith(base)) path = path.slice(base.length) || "/";
+    if (path === "/wireframe" || path.startsWith("/wireframe/")) return;
+    e.preventDefault();
+    navigate("/wireframe" + (path === "/" ? "" : path) + a.hash);
+  };
+
   return (
-    <>
+    <div onClickCapture={onClickCapture}>
       <IntroOverlay />
 
       <div className="scroll-progress" aria-hidden="true">
@@ -68,6 +100,6 @@ export function Layout() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

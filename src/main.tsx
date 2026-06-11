@@ -16,26 +16,39 @@ import "./styles/tokens.css";
 import "./styles/enquo.css";
 import "./styles/wow.css";
 import "./styles/pages.css";
+import "./styles/wireframe.css";
 
 // `basename` makes BrowserRouter aware of the GitHub Pages sub-path.
 // Vite injects BASE_URL ("/enquo/" in prod, "/" in dev) at build time.
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
 
+/* One route table, mounted twice: at "/" (designed site) and under
+   "/wireframe" (same pages, design stripped by wireframe.css). Keeping a
+   single source of routes guarantees both stay in sync. */
+const pageRoutes = (
+  <>
+    <Route index element={<HomePage />} />
+    <Route path="services" element={<ServicesPage />} />
+    <Route path="industries" element={<IndustriesPage />} />
+    <Route path="case-studies" element={<CaseStudiesPage />} />
+    <Route path="case-studies/:slug" element={<CaseStudyDetailPage />} />
+    <Route path="insights" element={<InsightsPage />} />
+    <Route path="who-we-are" element={<WhoWeArePage />} />
+    <Route path="careers" element={<CareersPage />} />
+    {/* Catch-all → home */}
+    <Route path="*" element={<HomePage />} />
+  </>
+);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter basename={basename || "/"}>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/industries" element={<IndustriesPage />} />
-          <Route path="/case-studies" element={<CaseStudiesPage />} />
-          <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
-          <Route path="/insights" element={<InsightsPage />} />
-          <Route path="/who-we-are" element={<WhoWeArePage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          {/* Catch-all → home */}
-          <Route path="*" element={<HomePage />} />
+        <Route path="/wireframe" element={<Layout />}>
+          {pageRoutes}
+        </Route>
+        <Route path="/" element={<Layout />}>
+          {pageRoutes}
         </Route>
       </Routes>
     </BrowserRouter>

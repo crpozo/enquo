@@ -133,10 +133,6 @@ export function CareersPage() {
               The team is structured around three stages, Design, Build, Run,               and one accountability: the people who design the system are the
               people who operate it.
             </p>
-            <p className="page-hero__statement">
-              <span className="page-hero__statement-mark" /> Operators welcome.
-              Consultants who don&rsquo;t run what they build, less so.
-            </p>
           </div>
         </div>
       </section>

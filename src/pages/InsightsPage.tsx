@@ -2,6 +2,16 @@ import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
 
+const ART: Record<string, string> = {
+  "Essay": "img/insights/essay.webp",
+  "Field note": "img/insights/field-note.webp",
+  "Brief": "img/insights/brief.webp",
+};
+const artFor = (category: string) =>
+  import.meta.env.BASE_URL + (ART[category] ?? ART["Essay"]);
+
+
+
 type Insight = {
   num: string;
   category: "Field note" | "Essay" | "Brief";
@@ -69,8 +79,7 @@ function FeaturedInsight({ ins }: { ins: Insight }) {
   return (
     <a className="insight-feat reveal" data-cat={ins.category} ref={ref}>
       <div className="insight-feat__cover" aria-hidden="true">
-        <div className="insight-card__grad" />
-        <div className="insight-card__halftone" />
+        <img className="insight-card__img" src={artFor(ins.category)} alt="" loading="lazy" />
         <svg className="insight-card__motif insight-feat__motif" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
           <g fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1">
             <circle cx="100" cy="100" r="30" />
@@ -115,8 +124,7 @@ function InsightCard({ ins }: { ins: Insight }) {
   return (
     <a className="insight-card reveal" data-cat={ins.category} ref={ref}>
       <div className="insight-card__cover" aria-hidden="true">
-        <div className="insight-card__grad" />
-        <div className="insight-card__halftone" />
+        <img className="insight-card__img" src={artFor(ins.category)} alt="" loading="lazy" />
         <svg className="insight-card__motif" viewBox="0 0 160 120" preserveAspectRatio="xMidYMid meet">
           <g fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1">
             <circle cx="80" cy="60" r="22" />

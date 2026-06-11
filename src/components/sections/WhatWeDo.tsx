@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { STAGES, SERVICE_COUNT } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 
-/** The fourteen capabilities, flattened from the three stages, in a compact grid. */
-const PRACTICES = STAGES.flatMap((s) =>
-  s.cards.map((c) => ({ title: c.title, outcome: c.outcome, stage: s.tag })),
-);
-
+/**
+ * Services Preview — the lifecycle, made visible: three stage columns
+ * (Design → Build → Run) with their capabilities listed inside each,
+ * connected by flow arrows. Open layout, no boxed cards.
+ */
 export function WhatWeDo() {
   const headRef = useReveal<HTMLDivElement>();
-  const gridRef = useReveal<HTMLDivElement>();
+  const flowRef = useReveal<HTMLDivElement>();
 
   return (
     <section className="do section" id="services">
@@ -18,7 +18,7 @@ export function WhatWeDo() {
       <div className="wrap-lg">
         <div className="sec-label">
           <span className="num">03 / Services</span>
-          <span>{SERVICE_COUNT} capabilities</span>
+          <span>{SERVICE_COUNT} capabilities · one lifecycle</span>
           <span className="dash" />
         </div>
 
@@ -34,42 +34,27 @@ export function WhatWeDo() {
           </Link>
         </div>
 
-        <div className="do-grid" ref={gridRef}>
-          {PRACTICES.map((p, i) => (
-            <Link to="/services" className="do-card" key={p.title}>
-              <div className="do-card__top">
-                <span className="do-card__stage" data-stage={p.stage}>
-                  {p.stage}
-                </span>
-                <span className="do-card__num">{String(i + 1).padStart(2, "0")}</span>
-              </div>
-              <h3 className="do-card__title">{p.title}</h3>
-              <p className="do-card__outcome">{p.outcome}</p>
-              <span className="do-card__arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </span>
-            </Link>
-          ))}
+        <div className="do-flow reveal" ref={flowRef}>
+          {STAGES.map((s, i) => (
+            <div className="do-stage" data-stage={s.tag} key={s.tag}>
+              <header className="do-stage__head">
+                <span className="do-stage__num">0{i + 1}</span>
+                <h3 className="do-stage__name">{s.tag}</h3>
+                <p className="do-stage__statement">{s.statement}</p>
+              </header>
 
-          {/* 15th cell, completes the 5×3 grid left by 14 capability cards
-              and doubles as the conversion path to the full services page. */}
-          <Link to="/services" className="do-card do-card--cta">
-            <div className="do-card__top">
-              <span className="do-card__stage" data-stage="Run">Design · Build · Run</span>
-              <span className="do-card__num">{SERVICE_COUNT}</span>
+              <ul className="do-stage__list">
+                {s.cards.map((c) => (
+                  <li key={c.title}>
+                    <Link to="/services" className="do-stage__item">
+                      <span className="do-stage__item-title">{c.title}</span>
+                      <span className="do-stage__item-outcome">{c.outcome}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 className="do-card__title">Explore all practices</h3>
-            <p className="do-card__outcome">
-              One accountable team across every stage. See how the eleven fit together.
-            </p>
-            <span className="do-card__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+          ))}
         </div>
       </div>
     </section>

@@ -137,7 +137,7 @@ export function WhoWeArePage() {
             <span className="dash" />
           </div>
 
-          <figure className="page-who__founding-media reveal" aria-hidden="true">
+          <figure className="page-who__founding-media" aria-hidden="true">
             <img
               src={import.meta.env.BASE_URL + "img/who/founding.webp"}
               alt=""
@@ -197,7 +197,7 @@ export function WhoWeArePage() {
             <span className="dash" />
           </div>
 
-          <h2 className="page-who__refuse-title reveal">
+          <h2 className="page-who__refuse-title">
             Four things we <em>don&rsquo;t do.</em>
           </h2>
 
@@ -223,7 +223,7 @@ export function WhoWeArePage() {
             <span className="dash" />
           </div>
 
-          <h2 className="page-who__approach-title reveal">
+          <h2 className="page-who__approach-title">
             One continuous lifecycle. <em>One accountable partner.</em>
           </h2>
 
@@ -251,10 +251,10 @@ export function WhoWeArePage() {
             <span className="dash" />
           </div>
 
-          <h2 className="page-who__trust-title reveal">
+          <h2 className="page-who__trust-title">
             We answer the hard questions — <em>before you ask.</em>
           </h2>
-          <p className="page-who__trust-sub reveal">
+          <p className="page-who__trust-sub">
             Four risks every CFO and CIO raises. Four answers built into every
             Enquo engagement — whether you&rsquo;re hiring us for a dashboard, a
             data platform, app development, managed services, or production AI.
