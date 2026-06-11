@@ -218,7 +218,7 @@
   font-size: clamp(40px, 7.6vw, 132px);
   line-height: 0.9;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: -0.04em;
   /* auto top+bottom margins center the title vertically while the lead is
      pushed to the bottom — keeps it off the very top on short viewports. */
@@ -831,7 +831,7 @@
   font-size: clamp(32px, 4.4vw, 72px);
   line-height: 1;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: -0.04em;
   margin: 0 0 48px 0;
   max-width: 1200px;

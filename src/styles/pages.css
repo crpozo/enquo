@@ -39,7 +39,7 @@
   font-size: clamp(40px, 6.5vw, 96px);
   line-height: 0.95;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: -0.03em;
   margin: 0 0 40px 0;
 }
@@ -376,7 +376,7 @@
   font-size: clamp(24px, 3.2vw, 46px);
   line-height: 1.04;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: -0.025em;
   color: #fff;
   margin: 0 0 20px;
@@ -417,7 +417,7 @@
   font-size: clamp(28px, 3.6vw, 48px);
   line-height: 1.04;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: -0.02em;
   margin: 0 0 20px;
   color: var(--ink);

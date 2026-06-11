@@ -810,7 +810,7 @@ html.lenis body {
   font-size: clamp(32px, 5vw, 72px);
   line-height: 0.96;
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: -0.03em;
   margin: 0;
 }
