@@ -35,6 +35,10 @@ const resized = [
   [`${A}/IMAGENES/ASSETS ENQUO-05.png`, "public/img/heroes/insights.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-02.png`, "public/img/heroes/who.webp", 1900],
   [`${A}/IMAGENES/ASSETS ENQUO-12.png`, "public/img/heroes/careers.webp", 1900],
+  // services preview lifecycle panels (distinct from the How We Work art)
+  [`${A}/Gemini_Generated_Image_vkw0rovkw0rovkw0 - Topaz Bloom, escala 2x.png`, "public/img/lifecycle/design.webp", 1100],
+  [`${A}/IMAGENES/ASSETS ENQUO-11.png`, "public/img/lifecycle/build.webp", 1100],
+  [`${A}/Gemini_Generated_Image_dpcnf3dpcnf3dpcn.png`, "public/img/lifecycle/run.webp", 1100],
   // insights card art by category
   [`${A}/IMAGENES/ASSETS ENQUO-24.png`, "public/img/insights/essay.webp", 1100],
   [`${A}/IMAGENES/ASSETS ENQUO-06.png`, "public/img/insights/field-note.webp", 1100],
@@ -56,7 +60,7 @@ const logos = [
   ["56", "data-factory"], ["58", "cybersource"], ["61", "erwin"],
 ];
 
-for (const dir of ["public/img/industries", "public/img/how", "public/img/heroes", "public/img/insights", "public/img/services", "public/img/who", "public/img/partners"]) {
+for (const dir of ["public/img/industries", "public/img/how", "public/img/heroes", "public/img/insights", "public/img/lifecycle", "public/img/services", "public/img/who", "public/img/partners"]) {
   mkdirSync(dir, { recursive: true });
 }
 

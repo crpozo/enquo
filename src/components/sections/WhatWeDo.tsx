@@ -5,9 +5,9 @@ import { useReveal } from "../../hooks/useReveal";
 
 /** Column-top art per stage. */
 const STAGE_MEDIA: Record<string, string> = {
-  Design: "img/how/design.webp",
-  Build: "img/how/build.webp",
-  Run: "img/how/run.webp",
+  Design: "img/lifecycle/design.webp",
+  Build: "img/lifecycle/build.webp",
+  Run: "img/lifecycle/run.webp",
 };
 
 /**
