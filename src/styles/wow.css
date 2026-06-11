@@ -1851,14 +1851,14 @@ html.lenis body {
 .inds-scroller::-webkit-scrollbar { display: none; }
 
 .ind-card {
-  flex: 0 0 clamp(290px, 26vw, 430px);
+  flex: 0 0 clamp(240px, 19vw, 320px);
   scroll-snap-align: start;
   color: var(--ink);
   display: block;
 }
 .ind-card__media {
   position: relative;
-  height: clamp(330px, 30vw, 520px);
+  height: clamp(260px, 21vw, 360px);
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--hairline);
@@ -1893,7 +1893,7 @@ html.lenis body {
 }
 .ind-card__name {
   margin: 0;
-  font-size: clamp(17px, 1.5vw, 21px);
+  font-size: clamp(15px, 1.2vw, 17px);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -1906,7 +1906,7 @@ html.lenis body {
 .ind-card:hover .ind-card__arrow { transform: translateX(5px); }
 .ind-card__desc {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.55;
   color: var(--ink-2);
   font-weight: 300;
@@ -1944,5 +1944,5 @@ html.lenis body {
 
 @media (max-width: 760px) {
   .inds__head { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .ind-card { flex-basis: 78vw; }
+  .ind-card { flex-basis: 64vw; }
 }
