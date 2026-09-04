@@ -112,3 +112,37 @@
   .page-partners__grid,
   .page-partners__cta-grid { grid-template-columns: 1fr; gap: 28px; }
 }
+
+/* Who We Are · How We Think: three points on one row */
+.page-who__principles-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) {
+  .page-who__principles-grid { grid-template-columns: 1fr; }
+}
+
+/* Who We Are · Our Approach: arrows anchored to the stage titles, vertically
+   centred on them and sitting in the middle of the column gap. */
+.page-who__approach-phase:not(:last-child)::after { content: none; }
+.page-who__approach-tag { position: relative; }
+.page-who__approach-phase:not(:last-child) .page-who__approach-tag::after {
+  content: "→";
+  position: absolute;
+  right: -37px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+}
+@media (max-width: 860px) {
+  .page-who__approach-phase:not(:last-child) .page-who__approach-tag::after { content: none; }
+}
+
+/* Partnerships · What we do: right column aligned to the top of the headline
+   (offset equals the eyebrow line + its margin). */
+.page-partners__intro .page-partners__grid { align-items: start; }
+.page-partners__intro .page-partners__copy { padding-top: 36px; }
+@media (max-width: 860px) {
+  .page-partners__intro .page-partners__copy { padding-top: 0; }
+}
