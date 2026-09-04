@@ -80,9 +80,8 @@ export function CaseStudiesPage() {
               The systems we ran are <em>still running</em>.
             </h1>
             <p className="page-hero__lead">
-              Each case below names the industry, the outcome, the duration we
-              owned the work, and the practices involved. We&rsquo;d rather
-              publish numbers than testimonials.
+              Each case below names the industry, the outcome, how long we were
+              engaged, and the practices applied.
             </p>
             <p className="page-hero__statement">
               <span className="page-hero__statement-mark" /> Every metric on
@@ -99,6 +98,7 @@ export function CaseStudiesPage() {
             <span>{CASES.length} cases</span>
             <span className="dash" />
           </div>
+          <h2 className="page-cases__title">Selected Case Studies</h2>
 
           <div className="case-bento">
             {CASES.map((s, i) => (

@@ -97,9 +97,9 @@ function FeaturedInsight({ ins }: { ins: Insight }) {
 
       <div className="insight-feat__body">
         <div className="insight-feat__top">
-          <span className="insight-feat__pill">Featured · This week</span>
+          <span className="insight-feat__pill">Featured</span>
           <span className="insight-feat__meta">
-            {ins.readTime} &middot; {ins.date}
+            {ins.date} &middot; {ins.readTime} read
           </span>
         </div>
 

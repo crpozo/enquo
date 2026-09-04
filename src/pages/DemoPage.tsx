@@ -223,7 +223,7 @@ export function DemoPage() {
                 the same way an Enquo engagement does, in miniature.
               </p>
               <div className="demo-hero__steps">
-                <span><b>01</b> Drop your services</span>
+                <span><b>01</b> Add your tools</span>
                 <span><b>02</b> Set your objectives</span>
                 <span><b>03</b> Generate the dashboard</span>
               </div>

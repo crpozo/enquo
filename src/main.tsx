@@ -12,11 +12,13 @@ import { InsightsPage } from "./pages/InsightsPage";
 import { WhoWeArePage } from "./pages/WhoWeArePage";
 import { CareersPage } from "./pages/CareersPage";
 import { DemoPage } from "./pages/DemoPage";
+import { PartnershipsPage } from "./pages/PartnershipsPage";
 
 import "./styles/tokens.css";
 import "./styles/enquo.css";
 import "./styles/wow.css";
 import "./styles/pages.css";
+import "./styles/client-pass.css";
 import "./styles/wireframe.css";
 
 // `basename` makes BrowserRouter aware of the GitHub Pages sub-path.
@@ -38,6 +40,7 @@ const pageRoutes = (
     <Route path="who-we-are" element={<WhoWeArePage />} />
     <Route path="careers" element={<CareersPage />} />
     <Route path="demo" element={<DemoPage />} />
+    <Route path="partnerships" element={<PartnershipsPage />} />
     {/* Catch-all → home */}
     <Route path="*" element={<HomePage />} />
   </>

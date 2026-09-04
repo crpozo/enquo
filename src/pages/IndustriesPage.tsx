@@ -33,7 +33,7 @@ const INDUSTRIES: Industry[] = [
       "Disagreement over data delays decisions that matter",
     ],
     enters:
-      "We build the KPI canon and the data foundation beneath it, so one version of truth drives every decision.",
+      "We build the KPI canon and the data foundation beneath it, so the number that changes a treatment plan is one no clinician disputes.",
   },
   {
     key: "sports-media",
@@ -89,7 +89,7 @@ const INDUSTRIES: Industry[] = [
       "Promotions are evaluated on gut feel, not lift",
     ],
     enters:
-      "We unify commerce, customer and supply-chain data so every channel runs on the same numbers, in time to act on them.",
+      "We unify commerce, customer and supply-chain data so stockouts and overstock stop coexisting, and promotions get judged on lift, not gut feel.",
   },
   {
     key: "energy",
@@ -103,7 +103,7 @@ const INDUSTRIES: Industry[] = [
       "Asset decisions rely on numbers no one fully trusts",
     ],
     enters:
-      "We integrate operational and enterprise data into one trustworthy foundation, auditable by default.",
+      "We integrate operational and enterprise data so asset decisions stop resting on numbers nobody trusts, and regulatory reporting stops being a manual cycle.",
   },
 ];
 
@@ -122,8 +122,9 @@ function ReelHero() {
             Execution across <em>complex industries.</em>
           </h1>
           <p className="page-hero__lead">
-            Six verticals, one playbook. The operational pains differ by sector;
-            the discipline that fixes them doesn&rsquo;t.
+            Six verticals, one playbook: data, technology, and execution applied
+            to operational outcomes. The pains differ by sector; the discipline
+            that fixes them doesn&rsquo;t.
           </p>
         </div>
       </div>
@@ -169,17 +170,11 @@ function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; t
         </div>
 
         <div className="page-ind__block">
-          <span className="page-ind__block-label">How Enquo enters</span>
+          <span className="page-ind__block-label">How Enquo helps</span>
           <p className="page-ind__enters">{ind.enters}</p>
           <div className="page-ind__actions">
             <a className="btn" href="/services">
-              See related services
-              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a className="btn btn--primary" href="#contact">
-              Talk to us
+              Explore the services behind it
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>

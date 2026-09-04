@@ -1,0 +1,114 @@
+/* ==========================================================================
+   CLIENT COPY PASS — additive styles (footer services, case-studies heading,
+   who-we-are approach arrows, partnerships page). Loaded after pages.css.
+   ========================================================================== */
+
+/* Footer services — grouped by stage, fed from the Services page data */
+.footer__stage { margin-bottom: 18px; }
+.footer__stage:last-child { margin-bottom: 0; }
+.footer__stage-name {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--purple-400);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.footer__stage li { padding: 4px 0; font-size: 13.5px; }
+
+/* Case studies list heading */
+.page-cases__title {
+  margin: 0 0 40px;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* Who We Are · approach arrows: sit in the gap, aligned with the stage names */
+.page-who__approach-flow { gap: 56px; }
+.page-who__approach-phase:not(:last-child)::after {
+  right: -38px;
+  top: 50px;
+  transform: none;
+}
+
+/* ==========================================================================
+   PARTNERSHIPS
+   ========================================================================== */
+.page-partners__grid,
+.page-partners__cta-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: end;
+}
+.page-partners__eyebrow {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple-400);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.page-partners__title {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--ink);
+}
+.page-partners__title em { font-style: normal; color: var(--purple-400); }
+.page-partners__copy {
+  margin: 0;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+}
+.page-partners__strip .platforms { border-left: none; border-right: none; }
+.page-partners__lede {
+  margin: 0 0 28px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.page-partners__cta-grid { align-items: center; }
+.page-partners__cta .page-partners__title { margin-bottom: 18px; }
+.page-partners__doors { display: flex; flex-direction: column; }
+.page-partners__door {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink);
+  transition: border-color 200ms ease;
+}
+.page-partners__door:last-child { border-bottom: 1px solid var(--hairline); }
+.page-partners__door:hover { border-top-color: var(--purple-400); }
+.page-partners__door-label {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.page-partners__door-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.page-partners__door-cta svg { width: 20px; height: 20px; color: var(--purple-400); transition: transform 200ms ease; }
+.page-partners__door:hover .page-partners__door-cta svg { transform: translateX(5px); }
+
+@media (max-width: 860px) {
+  .page-partners__grid,
+  .page-partners__cta-grid { grid-template-columns: 1fr; gap: 28px; }
+}

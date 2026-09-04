@@ -23,11 +23,6 @@ const TRUTHS = [
     title: "Reliability must be engineered from day one.",
     text: "Operational resilience cannot be retrofitted later.",
   },
-  {
-    num: "04",
-    title: "Continuity: design, build, and run operate as one.",
-    text: "Disconnected execution creates long-term operational drift.",
-  },
 ];
 
 /** Four things we refuse to do (deck p.5). */
@@ -146,12 +141,6 @@ export function WhoWeArePage() {
           </figure>
 
           <div className="page-who__founding-text reveal" ref={beliefRef}>
-            <p>
-              Execution depends on connection. Disconnected systems break
-              execution, slow decisions, and increase operational risk — and the
-              longer fragmentation persists, the more organizations lose in
-              time, money, trust, and operational clarity.
-            </p>
             <p>
               Enquo started as a refusal to leave at go-live. The same people
               who design the architecture run the operations. The same people

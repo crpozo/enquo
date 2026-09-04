@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+
+import { STAGES } from "../../data/services";
+
 export function Footer() {
   return (
     <footer className="footer">
@@ -5,8 +9,8 @@ export function Footer() {
         <div className="footer__brand">
           <h3>Enquo</h3>
           <p>
-            A purpose driven technology company passionate about using data and
-            technology as catalyst for positive change.
+            A purpose-driven technology company passionate about using data and
+            technology as a catalyst for positive change.
           </p>
           <div className="footer__addr">
             1270 Ave of the Americas
@@ -19,16 +23,22 @@ export function Footer() {
             Ridgefield Park, NJ 07660
           </div>
         </div>
-        <div className="footer__col">
+        <div className="footer__col footer__col--services">
           <h4>Services</h4>
-          <ul>
-            <li>Enterprise Technology</li>
-            <li>Data Management</li>
-            <li>Data Analytics</li>
-            <li>Artificial Intelligence</li>
-            <li>Brain-Computer Interface</li>
-            <li>Managed Services</li>
-          </ul>
+          {STAGES.map((stage) => (
+            <div className="footer__stage" key={stage.tag}>
+              <Link className="footer__stage-name" to={`/services#${stage.tag.toLowerCase()}`}>
+                {stage.tag}
+              </Link>
+              <ul>
+                {stage.cards.map((c) => (
+                  <li key={c.title}>
+                    <Link to="/services">{c.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div className="footer__col">
           <h4>Products</h4>

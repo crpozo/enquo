@@ -11,7 +11,7 @@ export function PlatformsStrip() {
   return (
     <section className="platforms" aria-label="Platforms we build on">
       <div className="platforms__label">
-        The platforms we <em>design, build and run on</em>
+        The platforms <em>behind our work.</em>
       </div>
       <div className="platforms__viewport">
         <div className="platforms__track">

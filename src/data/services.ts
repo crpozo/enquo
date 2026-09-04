@@ -95,7 +95,7 @@ export const STAGES: Stage[] = [
     statement:
       "Build with operators in the room.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
-    metricValue: "−62%",
+    metricValue: "62%",
     metricLabel: "Production incidents vs. prior delivery teams.",
     media: { type: "image", src: "img/services/build.webp" },
     cards: [
@@ -156,7 +156,7 @@ export const STAGES: Stage[] = [
     statement:
       "Run with accountability for outcomes.",
     metric: "Mean time to recovery cut by 71% under our ownership",
-    metricValue: "−71%",
+    metricValue: "71%",
     metricLabel: "Mean time to recovery under our ownership.",
     media: { type: "image", src: "img/services/run.webp" },
     cards: [
