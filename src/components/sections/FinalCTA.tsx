@@ -1,7 +1,17 @@
+import { useLocation } from "react-router-dom";
+
 import { useReveal } from "../../hooks/useReveal";
+
+/** The closing CTA is deliberately not on every page — only where a visitor
+ *  is most likely ready to talk. Other pages rely on the nav's "Let's talk". */
+const SHOW_ON = ["/", "/services"];
 
 export function FinalCTA() {
   const ref = useReveal<HTMLDivElement>();
+  const { pathname } = useLocation();
+  const path = pathname.replace(/^\/wireframe/, "") || "/";
+  if (!SHOW_ON.includes(path)) return null;
+
   return (
     <section className="cta section" id="contact">
       <div className="cta__art" aria-hidden="true">

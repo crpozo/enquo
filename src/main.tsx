@@ -19,6 +19,7 @@ import "./styles/enquo.css";
 import "./styles/wow.css";
 import "./styles/pages.css";
 import "./styles/client-pass.css";
+import "./styles/theme-light.css";
 import "./styles/wireframe.css";
 
 // `basename` makes BrowserRouter aware of the GitHub Pages sub-path.

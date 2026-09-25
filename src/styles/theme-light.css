@@ -1,0 +1,109 @@
+/* ==========================================================================
+   LIGHT THEME — toggled from the nav, stored per visitor, applied as
+   `data-theme="light"` on <html>. Dark stays the brand default.
+   Most of the UI follows the tokens; the rules below cover the places that
+   hard-code white/black for the dark canvas.
+   ========================================================================== */
+:root[data-theme="light"] {
+  --bg:         #F7F7FA;
+  --bg-2:       #FFFFFF;
+  --bg-3:       #EFEFF5;
+  --hairline:   rgba(10, 10, 15, 0.10);
+  --hairline-2: rgba(10, 10, 15, 0.18);
+  --ink:        #0F0F18;
+  --ink-2:      #3B3B48;
+  --muted:      #6B6B7A;
+  --muted-2:    #9A9AAA;
+  --purple-400: #6D28D9;
+  --purple-200: #5B21B6;
+  --grad-soft:  linear-gradient(135deg, rgba(124,58,237,0.10), rgba(192,38,211,0.06) 60%, rgba(244,114,182,0.04) 100%);
+}
+:root[data-theme="light"] body { background: var(--bg); color: var(--ink); }
+
+/* Nav & footer chrome */
+:root[data-theme="light"] .nav {
+  background: linear-gradient(to bottom, rgba(247,247,250,0.92), rgba(247,247,250,0));
+}
+:root[data-theme="light"] .nav.is-scrolled { background: rgba(247,247,250,0.85); }
+:root[data-theme="light"] .btn--primary { color: #fff; }
+:root[data-theme="light"] .btn--primary:hover { color: #fff; }
+:root[data-theme="light"] .btn:hover { background: rgba(10,10,15,0.04); border-color: rgba(10,10,15,0.28); }
+
+/* Theme toggle */
+.nav__theme {
+  width: 38px; height: 38px;
+  display: inline-grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-2);
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+.nav__theme svg { width: 18px; height: 18px; }
+.nav__theme:hover { color: var(--ink); border-color: var(--purple-400); }
+
+/* Imagery-led heroes stay dark: keep their copy white on the render */
+:root[data-theme="light"] .hero__title,
+:root[data-theme="light"] .hero__title .line,
+:root[data-theme="light"] .hero__lead-text,
+:root[data-theme="light"] .page-hero__title,
+:root[data-theme="light"] .page-hero__lead,
+:root[data-theme="light"] .page-hero__statement,
+:root[data-theme="light"] .demo-hero__steps,
+:root[data-theme="light"] .demo-step--intro .demo-hero__eyebrow {
+  color: #F4F4F7;
+}
+:root[data-theme="light"] .page-hero__lead,
+:root[data-theme="light"] .hero__lead-text { color: rgba(244,244,247,0.85); }
+:root[data-theme="light"] .hero__title .stroke { -webkit-text-stroke-color: rgba(244,244,247,0.8); }
+:root[data-theme="light"] .page-hero__art-tint {
+  background:
+    linear-gradient(to right, rgba(5,5,9,0.88) 0%, rgba(5,5,9,0.55) 40%, rgba(5,5,9,0.15) 70%),
+    linear-gradient(to bottom, rgba(5,5,9,0.3) 0%, rgba(5,5,9,0) 40%, var(--bg) 100%);
+}
+:root[data-theme="light"] .hero .btn { border-color: rgba(244,244,247,0.4); color: #F4F4F7; }
+:root[data-theme="light"] .hero .btn--primary { background: #F4F4F7; color: #0A0A0F; }
+:root[data-theme="light"] .page-hero .btn { border-color: rgba(244,244,247,0.4); color: #F4F4F7; }
+:root[data-theme="light"] .page-hero .btn--primary,
+:root[data-theme="light"] .demo-step--intro .btn--primary { background: #F4F4F7; color: #0A0A0F; }
+
+/* Sections with a dark wash → light lavender wash */
+:root[data-theme="light"] .how {
+  background:
+    linear-gradient(180deg, #F7F7FA 0%, rgba(247,247,250,0) 26%, rgba(247,247,250,0) 70%, #F7F7FA 100%),
+    radial-gradient(110% 85% at 12% 22%, rgba(124,58,237,0.16), rgba(91,33,182,0.05) 48%, transparent 78%),
+    linear-gradient(180deg, #EEEAFB 0%, #F1EEFB 60%, var(--bg) 100%);
+}
+
+/* Panels that use a faint white fill on dark → faint ink fill on light */
+:root[data-theme="light"] .do-stage,
+:root[data-theme="light"] .demo-block,
+:root[data-theme="light"] .demo-node,
+:root[data-theme="light"] .demo-widget { background: rgba(10,10,15,0.02); }
+:root[data-theme="light"] .do-stage__media::after {
+  background: linear-gradient(180deg, transparent 30%, rgba(255,255,255,0.96) 100%);
+}
+:root[data-theme="light"] .do-stage__phase { color: var(--purple-400); }
+:root[data-theme="light"] .do-stage__item:hover { color: var(--purple-400); }
+:root[data-theme="light"] .do-rail__node::before { background: linear-gradient(90deg, rgba(124,58,237,0.45), rgba(192,38,211,0.45)); }
+
+/* Cards/tiles that hard-code white type over imagery keep it; those over
+   gradients get a darker scrim so white stays legible */
+:root[data-theme="light"] .case-tile__scrim,
+:root[data-theme="light"] .stage-hero__scrim { filter: brightness(0.9); }
+:root[data-theme="light"] .ind-card__num { color: #fff; }
+
+/* Demo dashboard chrome */
+:root[data-theme="light"] .demo-dash__bar > div { background: #fff; }
+:root[data-theme="light"] .demo-donut circle:first-child { stroke: rgba(10,10,15,0.1); }
+:root[data-theme="light"] .demo__flow-engine span { background: rgba(124,58,237,0.08); }
+
+/* Platform logos are white-on-transparent marks: give them a dark plate */
+:root[data-theme="light"] .platforms { background: #0F0F18; border-color: transparent; }
+:root[data-theme="light"] .platforms__label { color: #C6C6D0; }
+
+/* Footer */
+:root[data-theme="light"] .footer { background: #FFFFFF; }
+
+/* The wireframe has its own palette — never themed */
