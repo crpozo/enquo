@@ -12,12 +12,25 @@ export function Nav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  // Every page opens on a dark, imagery-led hero. While the nav floats over
+  // it we keep the dark treatment (even in light mode) and only switch to the
+  // theme's bar once the hero has scrolled past.
+  const [overHero, setOverHero] = useState(true);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const hero = document.querySelector<HTMLElement>(".hero, .page-hero, .demo-step--intro");
+      setOverHero(hero ? hero.getBoundingClientRect().bottom > 80 : false);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   // "Let's talk": scroll to the closing CTA when the page has one, otherwise
   // go to the home page's CTA (the banner is intentionally not on every page).
@@ -33,7 +46,7 @@ export function Nav() {
   };
 
   return (
-    <nav className={"nav" + (scrolled ? " is-scrolled" : "")}>
+    <nav className={"nav" + (scrolled ? " is-scrolled" : "") + (overHero ? " is-over-hero" : "")}>
       <EnquoLogo />
 
       <div className="nav__sections">

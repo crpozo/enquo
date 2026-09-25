@@ -4,7 +4,7 @@ import { useReveal } from "../../hooks/useReveal";
 
 /** The closing CTA is deliberately not on every page — only where a visitor
  *  is most likely ready to talk. Other pages rely on the nav's "Let's talk". */
-const SHOW_ON = ["/", "/services"];
+const SHOW_ON = ["/", "/services", "/industries", "/who-we-are"];
 
 export function FinalCTA() {
   const ref = useReveal<HTMLDivElement>();
