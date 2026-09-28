@@ -184,3 +184,239 @@
 :root[lang="es"] .how__title,
 :root[lang="es"] .do__title,
 :root[lang="es"] .inds__title { text-transform: none; }
+
+/* ============================================================
+   Home · 10/09 pass — sentence hero, four-panel operating model,
+   proven impact, compact industries, technology banner
+   ============================================================ */
+
+/* Hero: sentence headline with the mantra above it */
+.hero__title--sentence {
+  font-size: clamp(34px, 4.9vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 15ch;
+  text-transform: none;
+}
+.hero__title--sentence .line { display: block; }
+.hero__title--sentence .accent { filter: none; }
+.hero__mantra {
+  display: block;
+  font-family: var(--font-body, inherit);
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #C7B6FF;
+  font-weight: 600;
+  margin-bottom: 26px;
+}
+.hero__lead-text { max-width: 560px; }
+
+/* Our services: supporting copy under the centred head */
+.do__sub {
+  max-width: 640px;
+  margin: 22px auto 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+}
+.do-rail--4 { grid-template-columns: repeat(4, 1fr); }
+.do-flow--4 { grid-template-columns: repeat(4, 1fr); gap: clamp(18px, 2vw, 28px); }
+.do-stage__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  font-weight: 300;
+}
+.do-stage__label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--purple-400);
+  font-weight: 600;
+  margin: auto 0 8px;
+  padding-top: 8px;
+}
+.do-stage--discover .do-stage__body { justify-content: flex-start; }
+.do-stage[data-stage="Discover"] .do-stage__phase { color: #C7B6FF; }
+.do__close {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid var(--hairline);
+}
+.do__closing {
+  margin: 0;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.4;
+  color: var(--ink);
+  font-weight: 300;
+}
+.do__cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  justify-self: end;
+}
+.do__cta-q { font-size: 15px; color: var(--ink-2); }
+
+/* Proven impact */
+.proof { position: relative; }
+.proof .wrap-lg { position: relative; z-index: 1; }
+.proof__head { max-width: 760px; }
+.proof__title { max-width: 11ch; }
+.proof__eyebrow,
+.inds-compact__head .inds__eyebrow {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple-400);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.proof__title {
+  margin: 0;
+  font-size: clamp(34px, 4.2vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  color: var(--ink);
+}
+.proof__title em { font-style: normal; color: var(--purple-200, #C7B6FF); }
+.proof__sub {
+  margin: 20px 0 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 560px;
+}
+.proof__nums {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  margin: 64px 0 0;
+  padding: 0;
+}
+.proof__num { position: relative; padding-left: 22px; }
+.proof__num::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 10px; bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--proof-tint, var(--purple-400));
+  box-shadow: 0 0 18px var(--proof-tint, var(--purple-400));
+}
+.proof__num[data-tint="teal"]   { --proof-tint: #2DD4BF; }
+.proof__num[data-tint="rose"]   { --proof-tint: #F472B6; }
+.proof__num[data-tint="orange"] { --proof-tint: #FB923C; }
+.proof__num dt {
+  font-size: clamp(56px, 7vw, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-weight: 400;
+  font-feature-settings: "tnum" 1;
+  background: linear-gradient(135deg, #fff 0%, var(--proof-tint, #C7B6FF) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.proof__num dd {
+  margin: 14px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.proof__tease {
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) auto;
+  gap: 48px;
+  align-items: center;
+}
+.proof__tease-title {
+  margin: 0;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  color: var(--ink);
+}
+.proof__tease-copy {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 560px;
+}
+
+/* Industries · compact */
+.inds-compact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.inds-compact__head .inds__title { margin-bottom: 20px; }
+.inds-compact__sub {
+  margin: 0 0 28px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 460px;
+}
+.inds-compact__list { display: flex; flex-direction: column; border-top: 1px solid var(--hairline); }
+.inds-compact__row {
+  display: grid;
+  grid-template-columns: 64px 40px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink);
+  transition: padding-left 180ms ease, color 180ms ease;
+}
+.inds-compact__row:hover { padding-left: 8px; color: #C7B6FF; }
+.inds-compact__thumb {
+  display: block;
+  width: 64px; height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.inds-compact__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.inds-compact__num { font-size: 12px; letter-spacing: 0.18em; color: var(--ink-3); font-feature-settings: "tnum" 1; }
+.inds-compact__name { font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; letter-spacing: -0.01em; }
+.inds-compact__arrow { color: var(--purple-400); font-size: 18px; transition: transform 200ms ease; }
+.inds-compact__row:hover .inds-compact__arrow { transform: translateX(5px); }
+
+/* Technology banner on the home page */
+.home-tech { position: relative; padding: 0; }
+:root[data-theme="light"] .inds-compact__row:hover { color: var(--purple-400); }
+
+@media (max-width: 1100px) {
+  .do-flow--4 { grid-template-columns: repeat(2, 1fr); }
+  .do-rail--4 { display: none; }
+}
+@media (max-width: 900px) {
+  .do-flow--4 { grid-template-columns: 1fr; }
+  .do__close, .proof__tease, .inds-compact { grid-template-columns: 1fr; }
+  .do__cta-row { justify-self: start; }
+  .proof__nums { grid-template-columns: 1fr; gap: 36px; }
+}
+.do-flow--4 .do-stage__name { font-size: clamp(20px, 1.75vw, 28px); letter-spacing: 0; overflow-wrap: anywhere; }

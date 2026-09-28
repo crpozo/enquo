@@ -1,89 +1,55 @@
-import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ENQUO_INDUSTRIES } from "../../data/enquo";
 import { useReveal } from "../../hooks/useReveal";
 import { useLang } from "../../i18n/lang";
 
-/** "platforms, analytics, reporting." → "platforms · analytics · reporting" */
-const dotted = (s: string) => s.replace(/\.$/, "").split(", ").join(" · ");
-
 /**
- * Industries (home) — horizontal scroll carousel per the approved design:
- * tall image cards with a corner number, name + arrow and focus areas below
- * each card, a "Scroll →" hint and a progress track underneath.
+ * Industries (home) — deliberately compact: context, not the focus. Six
+ * rows with a small image, the sector name and an arrow, then one CTA
+ * into the full industries page.
  */
 export function HomeIndustries() {
   const headRef = useReveal<HTMLDivElement>();
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0);
+  const listRef = useReveal<HTMLDivElement>();
   const { t, tr } = useLang();
   const industries = tr(ENQUO_INDUSTRIES);
 
-  const onScroll = () => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    setProgress(max > 0 ? el.scrollLeft / max : 0);
-  };
-
   return (
-    <section className="inds section" id="industries">
+    <section className="inds inds--compact section" id="industries">
       <div className="px-glow px-glow--inds" data-parallax="0.06" aria-hidden="true" />
       <div className="wrap-lg">
-        <div className="inds__head reveal" ref={headRef}>
-          <div>
+        <div className="inds-compact">
+          <div className="inds-compact__head reveal" ref={headRef}>
             <span className="inds__eyebrow">{t("Industries")}</span>
             <h2 className="inds__title">
-              {t("Execution across")}
+              {t("Industry context")}
               <br />
-              <em>{t("complex sectors.")}</em>
+              <em>{t("changes the work.")}</em>
             </h2>
+            <p className="inds-compact__sub">
+              {t("The systems, constraints, and priorities are different in every industry. Our experience helps us understand that context before the work begins.")}
+            </p>
+            <Link className="btn" to="/industries">
+              {t("Explore our industries")}
+              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
-          <span className="inds__hint" aria-hidden="true">
-            {t("Scroll")} <i /> →
-          </span>
-        </div>
-      </div>
 
-      <div className="inds-scroller" ref={scrollerRef} onScroll={onScroll}>
-        {industries.map((ind, i) => (
-          <Link to="/industries" className="ind-card" key={ind.num}>
-            <div className="ind-card__media">
-              <span className="ind-card__num">0{i + 1}</span>
-              {ind.image && (
-                <img
-                  src={import.meta.env.BASE_URL + ind.image}
-                  alt=""
-                  loading="lazy"
-                />
-              )}
-            </div>
-            <div className="ind-card__row">
-              <h3 className="ind-card__name">{ind.name}</h3>
-              <span className="ind-card__arrow" aria-hidden="true">→</span>
-            </div>
-            <p className="ind-card__desc">{dotted(ind.desc)}</p>
-          </Link>
-        ))}
-
-        <Link to="/industries" className="ind-card ind-card--cta">
-          <div className="ind-card__media ind-card__media--cta">
-            <span className="ind-card__cta-big">{t("Your sector?")}</span>
+          <div className="inds-compact__list reveal" ref={listRef}>
+            {industries.map((ind, i) => (
+              <Link to="/industries" className="inds-compact__row" key={ind.num}>
+                <span className="inds-compact__thumb" aria-hidden="true">
+                  {ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />}
+                </span>
+                <span className="inds-compact__num">0{i + 1}</span>
+                <span className="inds-compact__name">{ind.name}</span>
+                <span className="inds-compact__arrow" aria-hidden="true">→</span>
+              </Link>
+            ))}
           </div>
-          <div className="ind-card__row">
-            <h3 className="ind-card__name">{t("All industries")}</h3>
-            <span className="ind-card__arrow" aria-hidden="true">→</span>
-          </div>
-          <p className="ind-card__desc">
-            {t("We bridge any business need, no matter how big or small")}
-          </p>
-        </Link>
-      </div>
-
-      <div className="wrap-lg">
-        <div className="inds-track" aria-hidden="true">
-          <i style={{ width: `${10 + progress * 90}%` }} />
         </div>
       </div>
     </section>

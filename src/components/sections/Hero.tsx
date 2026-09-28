@@ -65,12 +65,11 @@ export function Hero({ variant = "manifesto" }: Props) {
       <div className="hero__inner">
 
         {variant === "manifesto" && (
-          <h1 className="hero__title">
-            <span className="line">{t("Design.")}</span>
-            <span className="line line2">
-              <em className="accent">{t("Build.")}</em>
+          <h1 className="hero__title hero__title--sentence">
+            <span className="hero__mantra">{t("Design")} · {t("Build")} · {t("Run")}</span>
+            <span className="line">
+              {t("We")} <em className="accent">{t("design, build, and run")}</em> {t("intelligent systems across your enterprise.")}
             </span>
-            <span className="line line3 stroke">{t("Run.")}</span>
           </h1>
         )}
         {variant === "editorial" && (
@@ -94,18 +93,16 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         <div className="hero__lead">
           <p className="hero__lead-text">
-            {t("The operational backbone of modern enterprises,")}
-            <br />
-            {t("built for the human rhythm.")}
+            {t("Enquo connects data, applications, automation, and AI into systems built for production and owned through operation.")}
           </p>
           <div className="hero__ctas">
-            <a className="btn btn--primary" href="#services">
-              {t("Explore services")}
+            <Link className="btn btn--primary" to="/services">
+              {t("Explore our services")}
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
-            </a>
-            <Link className="btn" to="/who-we-are">{t("Who we are")}</Link>
+            </Link>
+            <Link className="btn" to="/case-studies">{t("See our work")}</Link>
           </div>
         </div>
 

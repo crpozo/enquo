@@ -42,6 +42,75 @@ export const ES: Record<string, string> = {
   "Run.": "Operar.",
 
   /* ---------- Home · Hero ---------- */
+  "We": "Nosotros",
+  "design, build, and run": "diseñamos, construimos y operamos",
+  "intelligent systems across your enterprise.": "sistemas inteligentes en toda tu empresa.",
+  "Enquo connects data, applications, automation, and AI into systems built for production and owned through operation.":
+    "Enquo conecta datos, aplicaciones, automatización e IA en sistemas construidos para producción y asumidos durante la operación.",
+  "Explore our services": "Explora nuestros servicios",
+  "See our work": "Mira nuestro trabajo",
+  "Execution depends on": "La ejecución depende de",
+  "connected systems.": "sistemas conectados.",
+  "When systems operate in isolation, decisions slow down and manual work fills the gaps.":
+    "Cuando los sistemas operan aislados, las decisiones se frenan y el trabajo manual llena los vacíos.",
+  "We connect the systems behind the work, so data and context can move across the enterprise.":
+    "Conectamos los sistemas detrás del trabajo, para que los datos y el contexto puedan moverse por toda la empresa.",
+  "Our services": "Nuestros servicios",
+  "Built around": "Construidos alrededor de",
+  "Start where you need us. We bring the right capabilities and stay accountable as the work evolves.":
+    "Empieza donde nos necesites. Traemos las capacidades adecuadas y seguimos siendo responsables a medida que el trabajo evoluciona.",
+  "Find where the value is and define the path forward.": "Encontrar dónde está el valor y definir el camino a seguir.",
+  "We work with leadership and technical teams to understand the current environment, identify the right opportunities, and determine what comes next.":
+    "Trabajamos con la dirección y los equipos técnicos para entender el entorno actual, identificar las oportunidades correctas y definir qué sigue.",
+  "What we bring to the work:": "Lo que aportamos al trabajo:",
+  "Different challenges call for different capabilities. We bring the right expertise together based on your business priorities.":
+    "Distintos retos exigen distintas capacidades. Reunimos la experiencia adecuada según las prioridades de tu negocio.",
+  "Want to see what Enquo could do for your business?": "¿Quieres ver lo que Enquo podría hacer por tu negocio?",
+  "Try our demo": "Prueba nuestra demo",
+  "Proven impact": "Impacto comprobado",
+  "The numbers": "Los números",
+  "behind the work.": "detrás del trabajo.",
+  "Enquo delivers measurable outcomes across complex enterprise environments.":
+    "Enquo entrega resultados medibles en entornos empresariales complejos.",
+  "Value delivered": "Valor entregado",
+  "Enterprise clients": "Clientes corporativos",
+  "Client retention": "Retención de clientes",
+  "Want to see how 7 days of reporting became less than an hour?":
+    "¿Quieres ver cómo 7 días de reportes se convirtieron en menos de una hora?",
+  "Explore the work behind the results and see how Enquo solves complex enterprise challenges in practice.":
+    "Explora el trabajo detrás de los resultados y mira cómo Enquo resuelve retos empresariales complejos en la práctica.",
+  "Explore our case studies": "Explora nuestros casos de éxito",
+  "Industry context": "El contexto de la industria",
+  "changes the work.": "cambia el trabajo.",
+  "The systems, constraints, and priorities are different in every industry. Our experience helps us understand that context before the work begins.":
+    "Los sistemas, las restricciones y las prioridades son distintos en cada industria. Nuestra experiencia nos ayuda a entender ese contexto antes de empezar el trabajo.",
+  "Explore our industries": "Explora nuestras industrias",
+  "Built alongside": "Construido junto a",
+  "the best in technology.": "los mejores en tecnología.",
+  "Design with production in mind from the start.": "Diseñar con producción en mente desde el inicio.",
+  "Build with operators involved from day one.": "Construir con los operadores involucrados desde el primer día.",
+  "Stay accountable for what happens in production.": "Seguir siendo responsables de lo que pasa en producción.",
+  "Business Architecture": "Arquitectura de negocio",
+  "Capabilities, processes and ownership mapped so technology decisions follow the business, not the reverse.":
+    "Capacidades, procesos y responsables mapeados para que las decisiones tecnológicas sigan al negocio, y no al revés.",
+  "Business and IT describe the same operation differently": "Negocio y TI describen la misma operación de forma distinta",
+  "Investments are approved without a capability map": "Las inversiones se aprueban sin un mapa de capacidades",
+  "Reorganisation or merger changes who owns what": "Una reorganización o fusión cambia quién es dueño de qué",
+  "Data & Integration Engineering": "Ingeniería de datos e integración",
+  "Automation & Orchestration": "Automatización y orquestación",
+  "Platform Engineering & DevOps": "Ingeniería de plataformas y DevOps",
+  "Analytics & Executive Intelligence": "Analítica e inteligencia ejecutiva",
+  "AI Operations & Optimization": "Operaciones y optimización de IA",
+  "Data Trust & KPI Governance": "Confianza en los datos y gobernanza de KPIs",
+  "Our reporting is slow and our KPIs do not match.": "Nuestros reportes son lentos y nuestros KPIs no coinciden.",
+  "Data & Integration Engineering + Analytics & Executive Intelligence + Data Trust & KPI Governance":
+    "Ingeniería de datos e integración + Analítica e inteligencia ejecutiva + Confianza en los datos y gobernanza de KPIs",
+  "Our platform is live, but it is becoming harder to support.": "Nuestra plataforma está en producción, pero cada vez cuesta más soportarla.",
+  "Managed Services + Reliability Engineering + Platform Engineering & DevOps":
+    "Servicios gestionados + Ingeniería de confiabilidad + Ingeniería de plataformas y DevOps",
+  "We need to modernize a critical process without disrupting operations.": "Necesitamos modernizar un proceso crítico sin interrumpir la operación.",
+  "Enterprise Architecture + Automation & Orchestration + Data & Integration Engineering":
+    "Arquitectura empresarial + Automatización y orquestación + Ingeniería de datos e integración",
   "The operational backbone of modern enterprises,": "La columna vertebral operativa de las empresas modernas,",
   "built for the human rhythm.": "construida al ritmo de las personas.",
   "Explore services": "Explorar servicios",

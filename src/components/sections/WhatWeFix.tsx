@@ -50,10 +50,10 @@ export function WhatWeFix() {
         <div className="fix__lede fix__lede--media reveal" ref={ledeRef}>
           <div>
             <h2 className="fix__title">
-              {t("Enterprise transformation breaks")} <em>{t("between teams.")}</em>
+              {t("Execution depends on")} <em>{t("connected systems.")}</em>
             </h2>
             <p className="fix__sub">
-              {t("Disconnected systems break execution, slow decisions, and increase operational risk — in three critical places.")}
+              {t("When systems operate in isolation, decisions slow down and manual work fills the gaps.")}
             </p>
           </div>
           <figure className="fix__media" aria-hidden="true">
@@ -85,7 +85,7 @@ export function WhatWeFix() {
         </dl>
 
         <p className="fix__close">
-          {t("Execution depends on connection. Enquo connects strategy to execution — end to end.")}{" "}
+          {t("We connect the systems behind the work, so data and context can move across the enterprise.")}{" "}
           <a className="fix__link" href="#how">
             {t("See how we work")}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">

@@ -2,20 +2,25 @@ import { FinalCTA } from "../components/sections/FinalCTA";
 import { Hero } from "../components/sections/Hero";
 import { HomeIndustries } from "../components/sections/HomeIndustries";
 import { HowWeWork } from "../components/sections/HowWeWork";
+import { PlatformsStrip } from "../components/sections/PlatformsStrip";
+import { Proof } from "../components/sections/Proof";
 import { WhatWeDo } from "../components/sections/WhatWeDo";
 import { WhatWeFix } from "../components/sections/WhatWeFix";
+import { useLang } from "../i18n/lang";
 import { useParallax } from "../hooks/useParallax";
 
 /**
- * Home — the frame structure, one scroll:
- *   Hero (Design. Build. Run.) → The Problem → Our Model (lifecycle)
- *   → Services Preview → Industries → CTA.
+ * Home — one scroll:
+ *   Hero → The Problem → How we work (lifecycle) → Our Services (Discover /
+ *   Design / Build / Run) → Proven impact → Industries (compact) →
+ *   Built alongside the best in technology (logos) → CTA.
  *
  * The whole page runs subtle scroll parallax: each section carries a
  * `data-parallax` glow layer driven by `useParallax`.
  */
 export function HomePage() {
   const parallaxRef = useParallax<HTMLDivElement>();
+  const { t } = useLang();
 
   return (
     <div className="home" ref={parallaxRef}>
@@ -23,7 +28,17 @@ export function HomePage() {
       <WhatWeFix />
       <HowWeWork />
       <WhatWeDo />
+      <Proof />
       <HomeIndustries />
+      <section className="home-tech" id="technology">
+        <PlatformsStrip
+          label={
+            <>
+              {t("Built alongside")} <em>{t("the best in technology.")}</em>
+            </>
+          }
+        />
+      </section>
       <FinalCTA />
     </div>
   );

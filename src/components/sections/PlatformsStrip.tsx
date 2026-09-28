@@ -6,15 +6,21 @@ const LOGOS = [
   "questionpro", "erwin", "cybersource", "capital-one",
 ];
 
+import type { ReactNode } from "react";
+
 import { useLang } from "../../i18n/lang";
 
-export function PlatformsStrip() {
+export function PlatformsStrip({ label }: { label?: ReactNode }) {
   const { t } = useLang();
   const doubled = [...LOGOS, ...LOGOS];
   return (
     <section className="platforms" aria-label={t("Platforms we build on")}>
       <div className="platforms__label">
-        {t("The platforms")} <em>{t("behind our work.")}</em>
+        {label ?? (
+          <>
+            {t("The platforms")} <em>{t("behind our work.")}</em>
+          </>
+        )}
       </div>
       <div className="platforms__viewport">
         <div className="platforms__track">

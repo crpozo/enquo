@@ -32,17 +32,18 @@ export type Stage = {
 export const DISCOVER = {
   num: "01",
   tag: "Discover",
-  statement:
-    "Assess the current state, identify gaps and opportunities, and build the business case.",
+  statement: "Find where the value is and define the path forward.",
+  description:
+    "We work with leadership and technical teams to understand the current environment, identify the right opportunities, and determine what comes next.",
   outcome: "A decision-grade roadmap, a 90-day plan, and an investment thesis.",
+  media: "img/how/discover.webp",
 };
 
 export const STAGES: Stage[] = [
   {
     num: "02",
     tag: "Design",
-    statement:
-      "Design that survives contact with production.",
+    statement: "Design with production in mind from the start.",
     metric: "Average delivery confidence improves 3.4× post-design phase",
     metricValue: "3.4×",
     metricLabel: "Average delivery confidence improvement post-design phase.",
@@ -56,6 +57,16 @@ export const STAGES: Stage[] = [
           "Leadership disagrees on the roadmap",
           "New tech investment with unclear ROI",
           "Org-wide transformation kickoff",
+        ],
+      },
+      {
+        title: "Business Architecture",
+        outcome:
+          "Capabilities, processes and ownership mapped so technology decisions follow the business, not the reverse.",
+        triggers: [
+          "Business and IT describe the same operation differently",
+          "Investments are approved without a capability map",
+          "Reorganisation or merger changes who owns what",
         ],
       },
       {
@@ -92,15 +103,14 @@ export const STAGES: Stage[] = [
   {
     num: "03",
     tag: "Build",
-    statement:
-      "Build with operators in the room.",
+    statement: "Build with operators involved from day one.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
     metricValue: "62%",
     metricLabel: "Production incidents vs. prior delivery teams.",
     media: { type: "image", src: "img/services/build.webp" },
     cards: [
       {
-        title: "Data Engineering",
+        title: "Data & Integration Engineering",
         outcome:
           "A unified, trustworthy data backbone where information flows consistently.",
         triggers: [
@@ -120,7 +130,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Automation",
+        title: "Automation & Orchestration",
         outcome:
           "Faster, more consistent operations with full audit traceability.",
         triggers: [
@@ -130,7 +140,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Platform Engineering",
+        title: "Platform Engineering & DevOps",
         outcome: "Platforms that remain stable well beyond go-live.",
         triggers: [
           "Last platform required hotfixes in week one",
@@ -153,8 +163,7 @@ export const STAGES: Stage[] = [
   {
     num: "04",
     tag: "Run",
-    statement:
-      "Run with accountability for outcomes.",
+    statement: "Stay accountable for what happens in production.",
     metric: "Mean time to recovery cut by 71% under our ownership",
     metricValue: "71%",
     metricLabel: "Mean time to recovery under our ownership.",
@@ -171,7 +180,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Analytics",
+        title: "Analytics & Executive Intelligence",
         outcome: "Decision-grade dashboards leadership actually trusts.",
         triggers: [
           "Board reviews are blocked on data reconciliation",
@@ -190,7 +199,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "AI Operations",
+        title: "AI Operations & Optimization",
         outcome:
           "Models monitored, governed and improving in production — with humans in the loop.",
         triggers: [
@@ -200,7 +209,7 @@ export const STAGES: Stage[] = [
         ],
       },
       {
-        title: "Governance",
+        title: "Data Trust & KPI Governance",
         outcome:
           "Definitions, lineage and SLAs everyone agrees on — data everyone trusts.",
         triggers: [
@@ -224,7 +233,7 @@ export const ENABLERS: Enabler[] = [
   { title: "AI & Data Excellence", desc: "Trustworthy at scale." },
 ];
 
-/** Total practices across all stages (Design 4 + Build 5 + Run 5 = 14). */
+/** Total practices across all stages (Design 5 + Build 5 + Run 5 = 15). */
 export const SERVICE_COUNT = STAGES.reduce((n, s) => n + s.cards.length, 0);
 
 /** Cumulative card index where each stage begins — lets the page tint cards
@@ -239,15 +248,15 @@ export type ServiceCombo = { problem: string; combo: string };
 
 export const SERVICE_COMBOS: ServiceCombo[] = [
   {
-    problem: "Our reports never match across teams.",
-    combo: "Data Engineering + Governance + Analytics",
+    problem: "Our reporting is slow and our KPIs do not match.",
+    combo: "Data & Integration Engineering + Analytics & Executive Intelligence + Data Trust & KPI Governance",
   },
   {
-    problem: "A system we launched 6 months ago is already failing.",
-    combo: "Managed Services + Reliability Engineering",
+    problem: "Our platform is live, but it is becoming harder to support.",
+    combo: "Managed Services + Reliability Engineering + Platform Engineering & DevOps",
   },
   {
-    problem: "We're about to run a major integration. We can't afford failure.",
-    combo: "Enterprise Architecture + Data Engineering + Managed Services",
+    problem: "We need to modernize a critical process without disrupting operations.",
+    combo: "Enterprise Architecture + Automation & Orchestration + Data & Integration Engineering",
   },
 ];
