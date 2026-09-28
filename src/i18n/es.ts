@@ -56,6 +56,9 @@ export const ES: Record<string, string> = {
   "We connect the systems behind the work, so data and context can move across the enterprise.":
     "Conectamos los sistemas detrás del trabajo, para que los datos y el contexto puedan moverse por toda la empresa.",
   "Our services": "Nuestros servicios",
+  "03 / Our services": "03 / Nuestros servicios",
+  "Entry point": "Punto de partida",
+  "Phase outcome": "Resultado de la fase",
   "Built around": "Construidos alrededor de",
   "Start where you need us. We bring the right capabilities and stay accountable as the work evolves.":
     "Empieza donde nos necesites. Traemos las capacidades adecuadas y seguimos siendo responsables a medida que el trabajo evoluciona.",

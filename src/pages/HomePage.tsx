@@ -4,15 +4,14 @@ import { HomeIndustries } from "../components/sections/HomeIndustries";
 import { HowWeWork } from "../components/sections/HowWeWork";
 import { PlatformsStrip } from "../components/sections/PlatformsStrip";
 import { Proof } from "../components/sections/Proof";
-import { WhatWeDo } from "../components/sections/WhatWeDo";
 import { WhatWeFix } from "../components/sections/WhatWeFix";
 import { useLang } from "../i18n/lang";
 import { useParallax } from "../hooks/useParallax";
 
 /**
  * Home — one scroll:
- *   Hero → The Problem → How we work (lifecycle) → Our Services (Discover /
- *   Design / Build / Run) → Proven impact → Industries (compact) →
+ *   Hero → The Problem → Our Services (Discover / Design / Build / Run
+ *   journey) → Proven impact → Industries (compact) →
  *   Built alongside the best in technology (logos) → CTA.
  *
  * The whole page runs subtle scroll parallax: each section carries a
@@ -27,7 +26,6 @@ export function HomePage() {
       <Hero variant="manifesto" />
       <WhatWeFix />
       <HowWeWork />
-      <WhatWeDo />
       <Proof />
       <HomeIndustries />
       <section className="home-tech" id="technology">
