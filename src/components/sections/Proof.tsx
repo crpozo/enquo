@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useReveal } from "../../hooks/useReveal";
@@ -5,21 +6,62 @@ import { useLang } from "../../i18n/lang";
 
 /** Company proof points — the numbers behind the work. */
 const POINTS = [
-  { value: "$3B+", label: "Value delivered", tint: "teal" },
-  { value: "30+", label: "Enterprise clients", tint: "rose" },
-  { value: "98%", label: "Client retention", tint: "orange" },
+  { prefix: "$", value: 3, suffix: "B+", label: "Value delivered", tint: "teal" },
+  { prefix: "", value: 30, suffix: "+", label: "Enterprise clients", tint: "rose" },
+  { prefix: "", value: 98, suffix: "%", label: "Client retention", tint: "orange" },
 ];
 
+/** Counts every number up from 0 the first time the block enters view. */
+function useCountUp(active: boolean, to: number, dur = 1600) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(eased * to));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active, to, dur]);
+  return n;
+}
+
+function Point({ p, active, delay }: { p: (typeof POINTS)[number]; active: boolean; delay: number }) {
+  const n = useCountUp(active, p.value);
+  return (
+    <div className={"proof__num" + (active ? " is-in" : "")} data-tint={p.tint} style={{ transitionDelay: `${delay}ms` }}>
+      <dt>
+        <span className="proof__num-glow" aria-hidden="true" />
+        {p.prefix}{n}{p.suffix}
+      </dt>
+      <dd>{p.label}</dd>
+    </div>
+  );
+}
+
 /**
- * Proven impact — big, coloured numbers with no boxes, followed by the
- * invitation into the case studies.
+ * Proven impact — big, coloured numbers with no boxes that count up as the
+ * block enters view, followed by the invitation into the case studies.
  */
 export function Proof() {
   const headRef = useReveal<HTMLDivElement>();
-  const numsRef = useReveal<HTMLDListElement>();
   const teaseRef = useReveal<HTMLDivElement>();
+  const numsRef = useRef<HTMLDListElement | null>(null);
+  const [active, setActive] = useState(false);
   const { t, tr } = useLang();
   const points = tr(POINTS);
+
+  useEffect(() => {
+    const el = numsRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setActive(true); io.disconnect(); } }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section className="proof section" id="proof">
@@ -35,12 +77,9 @@ export function Proof() {
           </p>
         </div>
 
-        <dl className="proof__nums reveal" ref={numsRef}>
-          {points.map((p) => (
-            <div className="proof__num" data-tint={p.tint} key={p.value}>
-              <dt>{p.value}</dt>
-              <dd>{p.label}</dd>
-            </div>
+        <dl className="proof__nums" ref={numsRef}>
+          {points.map((p, i) => (
+            <Point key={p.label} p={p} active={active} delay={i * 140} />
           ))}
         </dl>
 

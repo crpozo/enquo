@@ -576,3 +576,115 @@
   .how__tabs--journey .how__tab .how__tab-glyph::after,
   .how__tabs--journey .how__tab.is-last .how__tab-num::after { display: none; }
 }
+
+/* ============================================================
+   Proven impact · count-up numbers with a colour bloom
+   ============================================================ */
+.proof__num { opacity: 0; transform: translateY(16px); transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.proof__num.is-in { opacity: 1; transform: translateY(0); }
+.proof__num dt { position: relative; }
+.proof__num-glow {
+  position: absolute;
+  left: -10%; top: 10%;
+  width: 70%; height: 80%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--proof-tint, #C7B6FF), transparent 70%);
+  opacity: 0;
+  filter: blur(28px);
+  z-index: -1;
+  transition: opacity 900ms ease 200ms;
+}
+.proof__num.is-in .proof__num-glow { opacity: 0.32; }
+.proof__num dt { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
+:root[data-theme="light"] .proof__num dt { background: linear-gradient(135deg, #0A0A0F 0%, var(--proof-tint, #7C3AED) 100%); background-clip: text; -webkit-background-clip: text; }
+:root[data-theme="light"] .proof__num.is-in .proof__num-glow { opacity: 0.18; }
+
+/* ============================================================
+   Industries · six small panels in the services-panel style
+   ============================================================ */
+.inds-panels__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 44px;
+}
+.inds-panels__head .inds__title { margin: 0; }
+.inds-panels__sub {
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 460px;
+  justify-self: end;
+}
+.inds-panels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+.ind-panel {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  overflow: hidden;
+  color: var(--ink);
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.6, 0.2, 1), border-color 200ms ease;
+}
+.inds-panels.in .ind-panel { opacity: 1; transform: translateY(0); }
+.ind-panel:hover { border-color: rgba(124, 58, 237, 0.55); }
+.ind-panel__media {
+  position: relative;
+  margin: 0;
+  height: clamp(120px, 10vw, 150px);
+  background: var(--bg-2);
+}
+.ind-panel__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.ind-panel:hover .ind-panel__media img { transform: scale(1.04); }
+.ind-panel__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(12, 10, 20, 0.9) 100%);
+}
+.ind-panel__num {
+  position: absolute; left: 18px; bottom: 12px; z-index: 1;
+  font-size: 11px; letter-spacing: 0.2em; color: #C7B6FF; font-weight: 600;
+  font-feature-settings: "tnum" 1;
+}
+.ind-panel__body { padding: 18px 20px 20px; }
+.ind-panel__name {
+  margin: 0 0 10px;
+  font-size: clamp(16px, 1.25vw, 18px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.ind-panel__list { list-style: none; margin: 0; padding: 0; }
+.ind-panel__list li {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--hairline);
+  font-size: 13.5px;
+  color: var(--ink-2);
+  text-transform: capitalize;
+}
+.ind-panel__arrow { color: #c084fc; font-size: 13px; }
+.inds-panels__cta { margin-top: 44px; }
+:root[data-theme="light"] .ind-panel { background: rgba(10,10,15,0.02); }
+:root[data-theme="light"] .ind-panel__media::after { background: linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.94) 100%); }
+:root[data-theme="light"] .ind-panel__num { color: var(--purple-400); }
+:root[data-wireframe] .ind-panel__media {
+  background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 12px, #e2e2e2 12px, #e2e2e2 24px) !important;
+  outline: 1px dashed #aaaaaa; outline-offset: -1px;
+}
+:root[data-wireframe] .ind-panel__media img { display: none; }
+@media (max-width: 1000px) { .inds-panels { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) {
+  .inds-panels { grid-template-columns: 1fr; }
+  .inds-panels__head { grid-template-columns: 1fr; gap: 16px; }
+  .inds-panels__sub { justify-self: start; }
+}
