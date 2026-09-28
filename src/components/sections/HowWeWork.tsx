@@ -13,7 +13,7 @@ const STAGE_ART: Record<string, string> = {
   Run: "img/how/run.webp",
 };
 
-const AUTO_MS = 4600;
+const AUTO_MS = 3800;
 
 /* Journey glyphs — scattered → ordered → assembled → flowing.
    Pure SVG, tinted by the tab's current colour. */
@@ -71,6 +71,7 @@ export function HowWeWork() {
   const [auto, setAuto] = useState(true);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
   const headRef = useReveal<HTMLDivElement>();
   const closeRef = useReveal<HTMLDivElement>();
   const { t, tr } = useLang();
@@ -82,20 +83,22 @@ export function HowWeWork() {
   ];
   const stage = journey[active];
 
-  // Auto-play only while the section is on screen and until the visitor
-  // takes over.
+  // Auto-play: once the stepper is on screen the journey advances on its
+  // own, stage by stage, and settles on the last one. Picking a stage
+  // hands control to the visitor.
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = tabsRef.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.35 });
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.6 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
   useEffect(() => {
     if (!auto || !visible) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % journey.length), AUTO_MS);
-    return () => window.clearInterval(id);
-  }, [auto, visible, journey.length]);
+    if (active >= journey.length - 1) { setAuto(false); return; }
+    const id = window.setTimeout(() => setActive((a) => Math.min(a + 1, journey.length - 1)), AUTO_MS);
+    return () => window.clearTimeout(id);
+  }, [auto, visible, active, journey.length]);
 
   const pick = (i: number) => { setAuto(false); setActive(i); };
 
@@ -118,7 +121,7 @@ export function HowWeWork() {
           </p>
         </div>
 
-        <div className="how__tabs how__tabs--journey" role="tablist" aria-label={t("Delivery stages")} data-auto={auto}>
+        <div className="how__tabs how__tabs--journey" role="tablist" aria-label={t("Delivery stages")} data-auto={auto} ref={tabsRef}>
           {journey.map((s, i) => (
             <button
               key={s.tag}
