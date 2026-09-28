@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
+import { useLang } from "../i18n/lang";
 
 /* ============================================================
    Data
@@ -113,18 +115,17 @@ const INDUSTRIES: Industry[] = [
 
 function ReelHero() {
   const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
   return (
     <section className="page-hero section" id="top">
       <PageHeroArt src="img/heroes/industries.webp" />
       <div className="wrap-lg">
         <div className="page-hero__inner reveal" ref={ref}>
           <h1 className="page-hero__title">
-            Execution across <em>complex industries.</em>
+            {t("Execution across")} <em>{t("complex industries.")}</em>
           </h1>
           <p className="page-hero__lead">
-            Six verticals, one playbook: data, technology, and execution applied
-            to operational outcomes. The pains differ by sector; the discipline
-            that fixes them doesn&rsquo;t.
+            {t("Six verticals, one playbook: data, technology, and execution applied to operational outcomes. The pains differ by sector; the discipline that fixes them doesn’t.")}
           </p>
         </div>
       </div>
@@ -139,6 +140,7 @@ function ReelHero() {
 function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; total: number }) {
   const stickyRef = useReveal<HTMLDivElement>();
   const contentRef = useReveal<HTMLDivElement>();
+  const { t } = useLang();
   return (
     <article className="page-ind">
       <div className="page-ind__sticky reveal" ref={stickyRef}>
@@ -148,7 +150,7 @@ function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; t
         <h2 className="page-ind__headline">{ind.headline}</h2>
         <p className="page-ind__sub">{ind.sub}</p>
         <div className="page-ind__tag-strip">
-          <span className="page-ind__tag-main">{ind.tag}</span>
+          <span className="page-ind__tag-main">{t(ind.tag)}</span>
           <div className="page-ind__cats">
             {ind.categories.map((c) => (
               <span key={c} className="page-ind__cat">
@@ -161,7 +163,7 @@ function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; t
 
       <div className="page-ind__content reveal" ref={contentRef}>
         <div className="page-ind__block">
-          <span className="page-ind__block-label">What we hear from your team</span>
+          <span className="page-ind__block-label">{t("What we hear from your team")}</span>
           <ul className="page-ind__pains">
             {ind.pains.map((p) => (
               <li key={p}>{p}</li>
@@ -170,15 +172,15 @@ function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; t
         </div>
 
         <div className="page-ind__block">
-          <span className="page-ind__block-label">How Enquo helps</span>
+          <span className="page-ind__block-label">{t("How Enquo helps")}</span>
           <p className="page-ind__enters">{ind.enters}</p>
           <div className="page-ind__actions">
-            <a className="btn" href="/services">
-              Explore the services behind it
+            <Link className="btn" to="/services">
+              {t("Explore the services behind it")}
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -191,6 +193,8 @@ function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; t
    ============================================================ */
 export function IndustriesPage() {
   const [active, setActive] = useState<string>(INDUSTRIES[0].key);
+  const { t, tr } = useLang();
+  const industries = tr(INDUSTRIES);
 
   return (
     <>
@@ -199,14 +203,14 @@ export function IndustriesPage() {
       <section className="section" id="industries-list">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§02 · Industries</span>
-            <span>Where we operate</span>
+            <span className="num">{t("§02 · Industries")}</span>
+            <span>{t("Where we operate")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-ind__tabs" role="tablist">
-            <span className="page-ind__tabs-label">Jump to, </span>
-            {INDUSTRIES.map((i) => (
+            <span className="page-ind__tabs-label">{t("Jump to,")} </span>
+            {industries.map((i) => (
               <button
                 key={i.key}
                 role="tab"
@@ -217,15 +221,15 @@ export function IndustriesPage() {
                 }}
                 className={"page-ind__tab" + (active === i.key ? " active" : "")}
               >
-                {i.tag}
+                {t(i.tag)}
               </button>
             ))}
           </div>
 
           <div className="page-ind__list">
-            {INDUSTRIES.map((ind, idx) => (
+            {industries.map((ind, idx) => (
               <div key={ind.key} id={"ind-" + ind.key}>
-                <IndustryDetail ind={ind} index={idx} total={INDUSTRIES.length} />
+                <IndustryDetail ind={ind} index={idx} total={industries.length} />
               </div>
             ))}
           </div>

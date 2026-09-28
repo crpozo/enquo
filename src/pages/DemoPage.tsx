@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
 import { useReveal } from "../hooks/useReveal";
+import { useLang } from "../i18n/lang";
 
 /* ============================================================
    Catalog — services the client can drag into the workflow.
@@ -114,37 +115,37 @@ type Widget = {
   chart: "line" | "bars" | "donut" | "feed"; data: number[]; feed?: string[];
 };
 
-function widgetsFor(selected: Svc[]): Widget[] {
+function widgetsFor(selected: Svc[], t: (s: string) => string): Widget[] {
   const out: Widget[] = [];
   const cats = new Set(selected.map((s) => s.cat));
   const names = (c: Cat) => selected.filter((s) => s.cat === c).map((s) => s.name).join(" + ");
   const seed = selected.map((s) => s.id).sort().join("|");
 
   if (cats.has("Cloud"))
-    out.push({ key: "cloud", title: "Cloud spend & uptime", source: names("Cloud"), accent: CAT_ACCENT.Cloud,
-      kpi: `$${n(seed + "spend", 38, 92)}k`, kpiLabel: `monthly · uptime 99.9${n(seed + "up", 1, 8)}%`,
+    out.push({ key: "cloud", title: t("Cloud spend & uptime"), source: names("Cloud"), accent: CAT_ACCENT.Cloud,
+      kpi: `$${n(seed + "spend", 38, 92)}k`, kpiLabel: `${t("monthly · uptime")} 99.9${n(seed + "up", 1, 8)}%`,
       delta: `−${n(seed + "sd", 4, 19)}%`, chart: "line", data: series(seed + "cloud", 12, 30, 95) });
   if (cats.has("Data"))
-    out.push({ key: "data", title: "Pipeline health", source: names("Data"), accent: CAT_ACCENT.Data,
-      kpi: `${n(seed + "fresh", 4, 18)} min`, kpiLabel: "data freshness · sources reconciled",
-      delta: "all green", chart: "bars", data: series(seed + "rows", 10, 20, 100) });
+    out.push({ key: "data", title: t("Pipeline health"), source: names("Data"), accent: CAT_ACCENT.Data,
+      kpi: `${n(seed + "fresh", 4, 18)} min`, kpiLabel: t("data freshness · sources reconciled"),
+      delta: t("all green"), chart: "bars", data: series(seed + "rows", 10, 20, 100) });
   if (cats.has("Productivity"))
-    out.push({ key: "prod", title: "Ops automation", source: names("Productivity"), accent: CAT_ACCENT.Productivity,
-      kpi: `${n(seed + "hrs", 14, 60)} h`, kpiLabel: "manual work removed this week", chart: "feed", data: [],
-      feed: [`${n(seed + "mail", 120, 900)} emails triaged into the CRM`,
-             `${n(seed + "meet", 12, 80)} meetings auto-scheduled`,
-             `${n(seed + "rep", 3, 14)} weekly reports sent automatically`] });
+    out.push({ key: "prod", title: t("Ops automation"), source: names("Productivity"), accent: CAT_ACCENT.Productivity,
+      kpi: `${n(seed + "hrs", 14, 60)} h`, kpiLabel: t("manual work removed this week"), chart: "feed", data: [],
+      feed: [`${n(seed + "mail", 120, 900)} ${t("emails triaged into the CRM")}`,
+             `${n(seed + "meet", 12, 80)} ${t("meetings auto-scheduled")}`,
+             `${n(seed + "rep", 3, 14)} ${t("weekly reports sent automatically")}`] });
   if (cats.has("Marketing"))
-    out.push({ key: "mkt", title: "Campaign performance", source: names("Marketing"), accent: CAT_ACCENT.Marketing,
-      kpi: `${(n(seed + "roas", 21, 58) / 10).toFixed(1)}×`, kpiLabel: "blended ROAS across campaigns",
+    out.push({ key: "mkt", title: t("Campaign performance"), source: names("Marketing"), accent: CAT_ACCENT.Marketing,
+      kpi: `${(n(seed + "roas", 21, 58) / 10).toFixed(1)}×`, kpiLabel: t("blended ROAS across campaigns"),
       delta: `+${n(seed + "md", 6, 24)}%`, chart: "bars", data: series(seed + "camp", 8, 15, 100) });
   if (cats.has("CRM"))
-    out.push({ key: "crm", title: "Revenue pipeline", source: names("CRM"), accent: CAT_ACCENT.CRM,
-      kpi: `$${(n(seed + "pipe", 12, 48) / 10).toFixed(1)}M`, kpiLabel: "open pipeline · reconciled daily",
+    out.push({ key: "crm", title: t("Revenue pipeline"), source: names("CRM"), accent: CAT_ACCENT.CRM,
+      kpi: `$${(n(seed + "pipe", 12, 48) / 10).toFixed(1)}M`, kpiLabel: t("open pipeline · reconciled daily"),
       delta: `+${n(seed + "cd", 5, 18)}%`, chart: "line", data: series(seed + "deals", 12, 20, 90) });
   if (cats.has("BI"))
-    out.push({ key: "bi", title: "Decision adoption", source: names("BI"), accent: CAT_ACCENT.BI,
-      kpi: `${n(seed + "adopt", 62, 97)}%`, kpiLabel: "leadership on the same numbers",
+    out.push({ key: "bi", title: t("Decision adoption"), source: names("BI"), accent: CAT_ACCENT.BI,
+      kpi: `${n(seed + "adopt", 62, 97)}%`, kpiLabel: t("leadership on the same numbers"),
       chart: "donut", data: [n(seed + "adopt", 62, 97)] });
   return out;
 }
@@ -164,6 +165,7 @@ const STEP_INDEX: Record<Step, number> = { intro: 0, stack: 1, goals: 2, dash: 3
 
 export function DemoPage() {
   const heroRef = useReveal<HTMLDivElement>();
+  const { t } = useLang();
   const [step, setStep] = useState<Step>("intro");
   const go = (s: Step) => {
     setStep(s);
@@ -176,7 +178,7 @@ export function DemoPage() {
   const [dragOver, setDragOver] = useState(false);
 
   const selected = SERVICES.filter((s) => selectedIds.includes(s.id));
-  const widgets = useMemo(() => widgetsFor(selected), [selectedIds.join("|")]);
+  const widgets = useMemo(() => widgetsFor(selected, t), [selectedIds.join("|"), t]);
   const ready = selected.length > 0 && goals.length > 0;
 
   const add = (id: string) => setSelectedIds((c) => (c.includes(id) ? c : [...c, id]));
@@ -194,11 +196,11 @@ export function DemoPage() {
       {step !== "intro" && (
         <div className="demo-progress" aria-hidden="true">
           <div className="demo-progress__meta">
-            <span>Step {stepNum} / 3</span>
+            <span>{t("Step")} {stepNum} / 3</span>
             <span>
-              {step === "stack" && "Your services"}
-              {step === "goals" && "Your objectives"}
-              {step === "dash" && "Your dashboard"}
+              {step === "stack" && t("Your services")}
+              {step === "goals" && t("Your objectives")}
+              {step === "dash" && t("Your dashboard")}
             </span>
           </div>
           <div className="demo-progress__bar">
@@ -213,23 +215,21 @@ export function DemoPage() {
           <PageHeroArt src="img/heroes/demo.webp" />
           <div className="wrap-lg">
             <div className="page-hero__inner reveal" ref={heroRef}>
-              <span className="demo-hero__eyebrow">Interactive demo · live preview</span>
+              <span className="demo-hero__eyebrow">{t("Interactive demo · live preview")}</span>
               <h1 className="page-hero__title">
-                Your stack, <em>connected.</em>
+                {t("Your stack,")} <em>{t("connected.")}</em>
               </h1>
               <p className="page-hero__lead">
-                Drag the tools you already run into the workflow, tell us what
-                you want to achieve, and watch a working dashboard take shape —
-                the same way an Enquo engagement does, in miniature.
+                {t("Drag the tools you already run into the workflow, tell us what you want to achieve, and watch a working dashboard take shape — the same way an Enquo engagement does, in miniature.")}
               </p>
               <div className="demo-hero__steps">
-                <span><b>01</b> Add your tools</span>
-                <span><b>02</b> Set your objectives</span>
-                <span><b>03</b> Generate the dashboard</span>
+                <span><b>01</b> {t("Add your tools")}</span>
+                <span><b>02</b> {t("Set your objectives")}</span>
+                <span><b>03</b> {t("Generate the dashboard")}</span>
               </div>
               <div className="demo-step__nav">
                 <button type="button" className="btn btn--primary" onClick={() => go("stack")}>
-                  Start building
+                  {t("Start building")}
                   <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                 </button>
               </div>
@@ -243,13 +243,13 @@ export function DemoPage() {
         <section className="demo-step section" id="builder">
           <div className="wrap-lg">
             <h2 className="demo-step__title">
-              Drop the services <em>you already run.</em>
+              {t("Drop the services")} <em>{t("you already run.")}</em>
             </h2>
 
             <div className="demo__builder">
               <div className="demo__palette">
-                <h3 className="demo__zone-title">Your services</h3>
-                <p className="demo__zone-hint">Drag a block into the workflow — or tap it.</p>
+                <h3 className="demo__zone-title">{t("Your services")}</h3>
+                <p className="demo__zone-hint">{t("Drag a block into the workflow — or tap it.")}</p>
                 <div className="demo__blocks">
                   {SERVICES.map((s) => {
                     const used = selectedIds.includes(s.id);
@@ -278,17 +278,17 @@ export function DemoPage() {
                 onDrop={(e) => { e.preventDefault(); setDragOver(false);
                   const id = e.dataTransfer.getData("text/plain"); if (id) add(id); }}
               >
-                <h3 className="demo__zone-title">Your workflow</h3>
+                <h3 className="demo__zone-title">{t("Your workflow")}</h3>
                 {selected.length === 0 ? (
-                  <p className="demo__canvas-empty">Drop services here to connect them.</p>
+                  <p className="demo__canvas-empty">{t("Drop services here to connect them.")}</p>
                 ) : (
                   <div className="demo__flow">
                     <div className="demo__flow-col">
-                      <span className="demo__flow-label">Sources</span>
+                      <span className="demo__flow-label">{t("Sources")}</span>
                       <div className="demo__flow-nodes">
                         {selected.map((s) => (
                           <button key={s.id} type="button" className="demo-node" onClick={() => remove(s.id)}
-                            style={{ "--chip-accent": CAT_ACCENT[s.cat] } as React.CSSProperties} title="Remove">
+                            style={{ "--chip-accent": CAT_ACCENT[s.cat] } as React.CSSProperties} title={t("Remove")}>
                             <ServiceMark svc={s} />
                             <span className="demo-node__x">×</span>
                           </button>
@@ -297,21 +297,21 @@ export function DemoPage() {
                     </div>
                     <span className="demo__flow-arrow" aria-hidden="true">→</span>
                     <div className="demo__flow-col">
-                      <span className="demo__flow-label">Enquo layer</span>
+                      <span className="demo__flow-label">{t("Enquo layer")}</span>
                       <div className="demo__flow-engine">
-                        <span>Ingest</span><span>Reconcile</span><span>Automate</span><span>Govern</span>
+                        <span>{t("Ingest")}</span><span>{t("Reconcile")}</span><span>{t("Automate")}</span><span>{t("Govern")}</span>
                       </div>
                     </div>
                     <span className="demo__flow-arrow" aria-hidden="true">→</span>
                     <div className="demo__flow-col">
-                      <span className="demo__flow-label">Output</span>
-                      <span className="demo-node demo-node--dash">Dashboard</span>
+                      <span className="demo__flow-label">{t("Output")}</span>
+                      <span className="demo-node demo-node--dash">{t("Dashboard")}</span>
                     </div>
                   </div>
                 )}
                 {selected.length > 0 && (
                   <div className="demo__coverage">
-                    <span>Workflow coverage</span>
+                    <span>{t("Workflow coverage")}</span>
                     <div className="demo__coverage-bar"><i style={{ width: coverage + "%" }} /></div>
                     <strong>{coverage}%</strong>
                   </div>
@@ -320,12 +320,12 @@ export function DemoPage() {
             </div>
 
             <div className="demo-step__nav">
-              <button type="button" className="btn" onClick={() => go("intro")}>Back</button>
+              <button type="button" className="btn" onClick={() => go("intro")}>{t("Back")}</button>
               <button type="button" className="btn btn--primary" disabled={selected.length === 0} onClick={() => go("goals")}>
-                Continue
+                {t("Continue")}
                 <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
               </button>
-              {selected.length === 0 && <span className="demo__actions-hint">Pick at least one service.</span>}
+              {selected.length === 0 && <span className="demo__actions-hint">{t("Pick at least one service.")}</span>}
             </div>
           </div>
         </section>
@@ -336,7 +336,7 @@ export function DemoPage() {
         <section className="demo-step section" id="objectives">
           <div className="wrap-lg">
             <h2 className="demo-step__title">
-              What do you want to <em>achieve?</em>
+              {t("What do you want to")} <em>{t("achieve?")}</em>
             </h2>
 
             <div className="demo__goals">
@@ -344,22 +344,22 @@ export function DemoPage() {
                 {GOALS.map((g) => (
                   <button key={g} type="button"
                     className={"demo-goal" + (goals.includes(g) ? " is-on" : "")}
-                    onClick={() => toggleGoal(g)}>{g}</button>
+                    onClick={() => toggleGoal(g)}>{t(g)}</button>
                 ))}
               </div>
               <input className="demo__note" type="text"
-                placeholder="Anything specific? e.g. board reporting every Monday at 8am…"
+                placeholder={t("Anything specific? e.g. board reporting every Monday at 8am…")}
                 value={note} onChange={(e) => setNote(e.target.value)} />
             </div>
 
             <div className="demo-step__nav">
-              <button type="button" className="btn" onClick={() => go("stack")}>Back</button>
+              <button type="button" className="btn" onClick={() => go("stack")}>{t("Back")}</button>
               <button type="button" className="btn btn--primary" disabled={!ready}
                 onClick={() => { setGenerated(true); go("dash"); }}>
-                Generate dashboard
+                {t("Generate dashboard")}
                 <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
               </button>
-              {!ready && <span className="demo__actions-hint">Pick at least one objective.</span>}
+              {!ready && <span className="demo__actions-hint">{t("Pick at least one objective.")}</span>}
             </div>
           </div>
         </section>
@@ -370,18 +370,17 @@ export function DemoPage() {
         <section className="demo-step section" id="dashboard">
           <div className="wrap-lg">
             <div className="demo-dash__head">
-              <h2 className="demo-dash__title">{goals[0] ?? "Operations"}, <em>in one place.</em></h2>
+              <h2 className="demo-dash__title">{t(goals[0] ?? "Operations")}, <em>{t("in one place.")}</em></h2>
               <p className="demo-dash__sub">
-                {selected.map((s) => s.name).join(" · ")} — unified into a single
-                operational view{note ? ` · "${note}"` : ""}.
+                {selected.map((s) => s.name).join(" · ")} — {t("unified into a single operational view")}{note ? ` · "${note}"` : ""}.
               </p>
             </div>
 
             <div className="demo-dash__bar">
-              <div><span>Connected sources</span><strong>{selected.length}</strong></div>
-              <div><span>Objectives</span><strong>{goals.length}</strong></div>
-              <div><span>Live widgets</span><strong>{widgets.length}</strong></div>
-              <div><span>Status</span><strong className="demo-dash__live">● Live</strong></div>
+              <div><span>{t("Connected sources")}</span><strong>{selected.length}</strong></div>
+              <div><span>{t("Objectives")}</span><strong>{goals.length}</strong></div>
+              <div><span>{t("Live widgets")}</span><strong>{widgets.length}</strong></div>
+              <div><span>{t("Status")}</span><strong className="demo-dash__live">● {t("Live")}</strong></div>
             </div>
 
             <div className="demo-dash__grid">
@@ -407,12 +406,11 @@ export function DemoPage() {
             </div>
 
             <div className="demo-step__nav">
-              <button type="button" className="btn" onClick={() => go("goals")}>Back</button>
-              <button type="button" className="btn" onClick={() => { reset(); go("intro"); }}>Start over</button>
+              <button type="button" className="btn" onClick={() => go("goals")}>{t("Back")}</button>
+              <button type="button" className="btn" onClick={() => { reset(); go("intro"); }}>{t("Start over")}</button>
             </div>
             <p className="demo-dash__note">
-              Placeholder data. In a real engagement this is your live operational
-              backbone — designed, built, and run by the same team.
+              {t("Placeholder data. In a real engagement this is your live operational backbone — designed, built, and run by the same team.")}
             </p>
           </div>
         </section>

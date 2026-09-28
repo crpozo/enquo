@@ -5,6 +5,7 @@ import { IntroOverlay } from "../IntroOverlay";
 import { Footer } from "../chrome/Footer";
 import { Nav } from "../chrome/Nav";
 import { useLenis } from "../../hooks/useLenis";
+import { langFromPath, prefixFromPath, withPrefix } from "../../i18n/lang";
 
 type Theme = {
   accent: "violet" | "electric" | "warm" | "mono";
@@ -30,7 +31,14 @@ export function Layout() {
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
   const isWireframe = pathname === "/wireframe" || pathname.startsWith("/wireframe/");
+  const lang = langFromPath(pathname);
+  const prefix = prefixFromPath(pathname);
   useLenis();
+
+  // Document language follows the URL (/es/...)
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   // Apply theming data attrs to <html>
   useEffect(() => {
@@ -76,10 +84,10 @@ export function Layout() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname, hash]);
 
-  // In wireframe mode, keep internal navigation inside /wireframe so the
-  // whole site can be walked through without leaving the undesigned view.
+  // In wireframe or Spanish mode, keep internal navigation inside the
+  // current prefix so the whole site can be walked through without leaving it.
   const onClickCapture = (e: React.MouseEvent) => {
-    if (!isWireframe) return;
+    if (!prefix) return;
     const a = (e.target as HTMLElement).closest?.("a");
     if (!a) return;
     const rawHref = a.getAttribute("href") ?? "";
@@ -88,9 +96,9 @@ export function Layout() {
     const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     let path = a.pathname;
     if (base && path.startsWith(base)) path = path.slice(base.length) || "/";
-    if (path === "/wireframe" || path.startsWith("/wireframe/")) return;
+    if (path === prefix || path.startsWith(prefix + "/")) return;
     e.preventDefault();
-    navigate("/wireframe" + (path === "/" ? "" : path) + a.hash);
+    navigate(withPrefix(prefix, path) + a.hash);
   };
 
   return (

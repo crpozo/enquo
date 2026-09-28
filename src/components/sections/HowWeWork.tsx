@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { STAGES } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
+import { useLang } from "../../i18n/lang";
 
 /** Per-stage brand art from the deck: architecture / engineering / performance. */
 const STAGE_ART = ["img/how/design.webp", "img/how/build.webp", "img/how/run.webp"];
@@ -14,30 +15,31 @@ const STAGE_ART = ["img/how/design.webp", "img/how/build.webp", "img/how/run.web
 export function HowWeWork() {
   const [active, setActive] = useState(0);
   const headRef = useReveal<HTMLDivElement>();
-  const stage = STAGES[active];
+  const { t, tr } = useLang();
+  const stages = tr(STAGES);
+  const stage = stages[active];
 
   return (
     <section className="how section" id="how">
       <div className="px-glow px-glow--how" data-parallax="0.1" aria-hidden="true" />
       <div className="wrap-lg">
         <div className="sec-label">
-          <span className="num">02 / How we work</span>
+          <span className="num">{t("02 / How we work")}</span>
           <span>Discover · Design · Build · Run</span>
           <span className="dash" />
         </div>
 
         <div className="how__head reveal" ref={headRef}>
           <h2 className="how__title">
-            One continuous <em>execution lifecycle.</em>
+            {t("One continuous")} <em>{t("execution lifecycle.")}</em>
           </h2>
           <p className="how__sub">
-            Most clients start with one phase. Those who stay see us across all
-            four — because the team that designed it is the team that runs it.
+            {t("Most clients start with one phase. Those who stay see us across all four — because the team that designed it is the team that runs it.")}
           </p>
         </div>
 
-        <div className="how__tabs" role="tablist" aria-label="Delivery stages">
-          {STAGES.map((s, i) => (
+        <div className="how__tabs" role="tablist" aria-label={t("Delivery stages")}>
+          {stages.map((s, i) => (
             <button
               key={s.tag}
               role="tab"
@@ -47,9 +49,9 @@ export function HowWeWork() {
               onClick={() => setActive(i)}
             >
               <span className="how__tab-num">0{i + 1}</span>
-              <span className="how__tab-label">{s.tag}</span>
+              <span className="how__tab-label">{t(s.tag)}</span>
               <span className="how__tab-count">
-                {String(s.cards.length).padStart(2, "0")} practices
+                {String(s.cards.length).padStart(2, "0")} {t("practices")}
               </span>
             </button>
           ))}
@@ -65,10 +67,10 @@ export function HowWeWork() {
                 loading="lazy"
               />
             </figure>
-            <span className="how__panel-tag">{stage.tag}</span>
+            <span className="how__panel-tag">{t(stage.tag)}</span>
             <p className="how__statement">{stage.statement}</p>
             <span className="how__metric">
-              Result from our work, <em>{stage.metric}</em>
+              {t("Result from our work,")} <em>{stage.metric}</em>
             </span>
           </div>
 

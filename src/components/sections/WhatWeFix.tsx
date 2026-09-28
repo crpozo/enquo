@@ -1,4 +1,5 @@
 import { useReveal } from "../../hooks/useReveal";
+import { useLang } from "../../i18n/lang";
 
 /**
  * The Problem — deck p.4: enterprise execution breaks in three critical
@@ -32,25 +33,27 @@ const COSTS = [
 export function WhatWeFix() {
   const ledeRef = useReveal<HTMLDivElement>();
   const gridRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const problems = tr(PROBLEMS);
+  const costs = tr(COSTS);
 
   return (
     <section className="fix section" id="fix">
       <div className="px-glow px-glow--fix" data-parallax="0.08" aria-hidden="true" />
       <div className="wrap-lg">
         <div className="sec-label">
-          <span className="num">01 / The problem</span>
-          <span>Stated plainly</span>
+          <span className="num">{t("01 / The problem")}</span>
+          <span>{t("Stated plainly")}</span>
           <span className="dash" />
         </div>
 
         <div className="fix__lede fix__lede--media reveal" ref={ledeRef}>
           <div>
             <h2 className="fix__title">
-              Enterprise transformation breaks <em>between teams.</em>
+              {t("Enterprise transformation breaks")} <em>{t("between teams.")}</em>
             </h2>
             <p className="fix__sub">
-              Disconnected systems break execution, slow decisions, and increase
-              operational risk — in three critical places.
+              {t("Disconnected systems break execution, slow decisions, and increase operational risk — in three critical places.")}
             </p>
           </div>
           <figure className="fix__media" aria-hidden="true">
@@ -63,7 +66,7 @@ export function WhatWeFix() {
         </div>
 
         <div className="fix-grid" ref={gridRef}>
-          {PROBLEMS.map((p) => (
+          {problems.map((p) => (
             <article className="fix-item" key={p.k}>
               <span className="fix-item__num">{p.k}</span>
               <h3 className="fix-item__name">{p.t}</h3>
@@ -72,8 +75,8 @@ export function WhatWeFix() {
           ))}
         </div>
 
-        <dl className="fix__costs" aria-label="The compound cost of disconnected execution">
-          {COSTS.map((c) => (
+        <dl className="fix__costs" aria-label={t("The compound cost of disconnected execution")}>
+          {costs.map((c) => (
             <div key={c.stat}>
               <dt>{c.stat}</dt>
               <dd>{c.d}</dd>
@@ -82,10 +85,9 @@ export function WhatWeFix() {
         </dl>
 
         <p className="fix__close">
-          Execution depends on connection. Enquo connects strategy to execution
-          — end to end.{" "}
+          {t("Execution depends on connection. Enquo connects strategy to execution — end to end.")}{" "}
           <a className="fix__link" href="#how">
-            See how we work
+            {t("See how we work")}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>

@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
+import { useLang } from "../../i18n/lang";
+
 
 export type HeroVariant = "manifesto" | "editorial" | "promise";
 
@@ -18,6 +20,7 @@ const HERO_VIDEO_URL = import.meta.env.BASE_URL + "videos/hero.mp4";
 
 export function Hero({ variant = "manifesto" }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { t } = useLang();
 
   // Defensive: some browsers (esp. Safari) won't honor the `autoplay` attribute
   // when the element is hidden during initial mount or wrapped in transitions.
@@ -63,11 +66,11 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         {variant === "manifesto" && (
           <h1 className="hero__title">
-            <span className="line">Design.</span>
+            <span className="line">{t("Design.")}</span>
             <span className="line line2">
-              <em className="accent">Build.</em>
+              <em className="accent">{t("Build.")}</em>
             </span>
-            <span className="line line3 stroke">Run.</span>
+            <span className="line line3 stroke">{t("Run.")}</span>
           </h1>
         )}
         {variant === "editorial" && (
@@ -91,24 +94,24 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         <div className="hero__lead">
           <p className="hero__lead-text">
-            The operational backbone of modern enterprises,
+            {t("The operational backbone of modern enterprises,")}
             <br />
-            built for the human rhythm.
+            {t("built for the human rhythm.")}
           </p>
           <div className="hero__ctas">
             <a className="btn btn--primary" href="#services">
-              Explore services
+              {t("Explore services")}
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
-            <Link className="btn" to="/who-we-are">Who we are</Link>
+            <Link className="btn" to="/who-we-are">{t("Who we are")}</Link>
           </div>
         </div>
 
         <div className="hero__scroll" aria-hidden="true">
           <span className="line" />
-          <span>Scroll to see the lifecycle</span>
+          <span>{t("Scroll to see the lifecycle")}</span>
         </div>
       </div>
     </section>

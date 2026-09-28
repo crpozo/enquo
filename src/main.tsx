@@ -26,10 +26,10 @@ import "./styles/wireframe.css";
 // Vite injects BASE_URL ("/enquo/" in prod, "/" in dev) at build time.
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-/* One route table, mounted twice: at "/" (designed site) and under
-   "/wireframe" (same pages, design stripped by wireframe.css). Keeping a
-   single source of routes guarantees both stay in sync. The wireframe is
-   intentionally limited to the three pages presented to the client. */
+/* One route table, mounted three times: at "/" (designed site, English),
+   under "/es" (same pages in Spanish — copy resolved through useLang) and
+   under "/wireframe" (same pages, design stripped by wireframe.css). One
+   source of routes guarantees all three stay in sync. */
 const pageRoutes = (
   <>
     <Route index element={<HomePage />} />
@@ -53,6 +53,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter basename={basename || "/"}>
       <Routes>
         <Route path="/wireframe" element={<Layout />}>
+          {pageRoutes}
+        </Route>
+        <Route path="/es" element={<Layout />}>
           {pageRoutes}
         </Route>
         <Route path="/" element={<Layout />}>

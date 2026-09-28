@@ -3,12 +3,14 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../../data/nav";
 import { useTheme } from "../../hooks/useTheme";
+import { useLang } from "../../i18n/lang";
 import { EnquoLogo } from "./EnquoLogo";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const items = NAV_ITEMS;
   const { theme, toggle } = useTheme();
+  const { lang, prefix, t, to, switchLang } = useLang();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -41,8 +43,7 @@ export function Nav() {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-    const base = pathname.startsWith("/wireframe") ? "/wireframe" : "/";
-    navigate(base + "#contact");
+    navigate((prefix || "/") + "#contact");
   };
 
   return (
@@ -53,10 +54,10 @@ export function Nav() {
         {items.map((item) => (
           <NavLink
             key={item.path}
-            to={item.path}
+            to={to(item.path)}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            {item.label}
+            {t(item.label)}
           </NavLink>
         ))}
       </div>
@@ -64,10 +65,21 @@ export function Nav() {
       <div className="nav__cta">
         <button
           type="button"
+          className="nav__lang"
+          onClick={switchLang}
+          aria-label={lang === "es" ? "Switch to English" : "Cambiar a español"}
+          title={lang === "es" ? "English" : "Español"}
+        >
+          <span className={lang === "en" ? "is-on" : ""}>EN</span>
+          <i aria-hidden="true" />
+          <span className={lang === "es" ? "is-on" : ""}>ES</span>
+        </button>
+        <button
+          type="button"
           className="nav__theme"
           onClick={toggle}
-          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          title={theme === "dark" ? "Light mode" : "Dark mode"}
+          aria-label={theme === "dark" ? t("Switch to light mode") : t("Switch to dark mode")}
+          title={theme === "dark" ? t("Light mode") : t("Dark mode")}
         >
           {theme === "dark" ? (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
@@ -81,7 +93,7 @@ export function Nav() {
           )}
         </button>
         <a className="btn btn--primary" href="#contact" onClick={onTalk}>
-          Let&rsquo;s talk
+          {t("Let’s talk")}
           <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>

@@ -1,6 +1,7 @@
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
+import { useLang } from "../i18n/lang";
 
 type Role = {
   num: string;
@@ -46,7 +47,7 @@ const ROLES: Role[] = [
     location: "New York, NY",
     type: "Full-time",
     blurb:
-      "Bring the sector context that turns architecture into operations. You&rsquo;ve lived a live event from the operator side.",
+      "Bring the sector context that turns architecture into operations. You’ve lived a live event from the operator side.",
   },
   {
     num: "05",
@@ -72,12 +73,12 @@ const VALUES = [
   {
     num: "01",
     title: "Stay through it",
-    body: "We don&rsquo;t leave at go-live. If you want to ship and walk, this isn&rsquo;t the team.",
+    body: "We don’t leave at go-live. If you want to ship and walk, this isn’t the team.",
   },
   {
     num: "02",
     title: "Numbers, not narratives",
-    body: "We&rsquo;d rather show a production metric than a slide. Public-facing case studies cite the metric.",
+    body: "We’d rather show a production metric than a slide. Public-facing case studies cite the metric.",
   },
   {
     num: "03",
@@ -88,6 +89,7 @@ const VALUES = [
 
 function RoleRow({ role }: { role: Role }) {
   const ref = useReveal<HTMLAnchorElement>();
+  const { t } = useLang();
   return (
     <a className="page-role reveal" ref={ref}>
       <span className="page-role__num">{role.num}</span>
@@ -96,7 +98,7 @@ function RoleRow({ role }: { role: Role }) {
         <p className="page-role__blurb">{role.blurb}</p>
       </div>
       <div className="page-role__meta">
-        <span className="page-role__team">{role.team}</span>
+        <span className="page-role__team">{t(role.team)}</span>
         <span className="page-role__loc">{role.location}</span>
         <span className="page-role__type">{role.type}</span>
       </div>
@@ -113,6 +115,9 @@ export function CareersPage() {
   const heroRef = useReveal<HTMLDivElement>();
   const valuesRef = useReveal<HTMLDivElement>();
   const rolesRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const roles = tr(ROLES);
+  const values = tr(VALUES);
 
   return (
     <>
@@ -120,18 +125,17 @@ export function CareersPage() {
         <PageHeroArt src="img/heroes/careers.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§01 · Careers</span>
-            <span>Operators welcome</span>
+            <span className="num">{t("§01 · Careers")}</span>
+            <span>{t("Operators welcome")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-hero__inner reveal" ref={heroRef}>
             <h1 className="page-hero__title">
-              We&rsquo;re hiring for the part <em>after</em> the demo.
+              {t("We’re hiring for the part")} <em>{t("after")}</em> {t("the demo.")}
             </h1>
             <p className="page-hero__lead">
-              The team is structured around three stages, Design, Build, Run,               and one accountability: the people who design the system are the
-              people who operate it.
+              {t("The team is structured around three stages, Design, Build, Run, and one accountability: the people who design the system are the people who operate it.")}
             </p>
           </div>
         </div>
@@ -140,19 +144,16 @@ export function CareersPage() {
       <section className="section" id="how-we-work">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§02 · How we work</span>
-            <span>Three constants</span>
+            <span className="num">{t("§02 · How we work")}</span>
+            <span>{t("Three constants")}</span>
             <span className="dash" />
           </div>
           <div className="page-careers__values" ref={valuesRef}>
-            {VALUES.map((v) => (
+            {values.map((v) => (
               <article key={v.num} className="page-careers__value">
                 <span className="page-careers__value-num">{v.num}</span>
                 <h3 className="page-careers__value-title">{v.title}</h3>
-                <p
-                  className="page-careers__value-body"
-                  dangerouslySetInnerHTML={{ __html: v.body }}
-                />
+                <p className="page-careers__value-body">{v.body}</p>
               </article>
             ))}
           </div>
@@ -162,13 +163,13 @@ export function CareersPage() {
       <section className="section" id="open-roles">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§03 · Open roles</span>
-            <span>{ROLES.length} positions</span>
+            <span className="num">{t("§03 · Open roles")}</span>
+            <span>{roles.length} {t("positions")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-role-list" ref={rolesRef}>
-            {ROLES.map((r) => (
+            {roles.map((r) => (
               <RoleRow key={r.num} role={r} />
             ))}
           </div>

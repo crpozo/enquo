@@ -1,6 +1,7 @@
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
+import { useLang } from "../i18n/lang";
 
 /* ============================================================
    Data — copy aligned to the commercial deck (pp. 4, 5, 13, 17)
@@ -91,6 +92,11 @@ export function WhoWeArePage() {
   const refuseRef = useReveal<HTMLDivElement>();
   const approachRef = useReveal<HTMLDivElement>();
   const trustRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const truths = tr(TRUTHS);
+  const refusals = tr(REFUSALS);
+  const approach = tr(APPROACH);
+  const hardQuestions = tr(HARD_QUESTIONS);
 
   return (
     <>
@@ -98,26 +104,23 @@ export function WhoWeArePage() {
         <PageHeroArt src="img/heroes/who.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§01 · Who We Are</span>
-            <span>Philosophy before team</span>
+            <span className="num">{t("§01 · Who We Are")}</span>
+            <span>{t("Philosophy before team")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-who__opening reveal" ref={openingRef}>
             <div className="page-who__opening-text">
               <h1 className="page-hero__title">
-                Human-driven
+                {t("Human-driven")}
                 <br />
-                <em>data solutions.</em>
+                <em>{t("data solutions.")}</em>
               </h1>
               <p className="page-hero__lead">
-                Owned end-to-end by the partner who designed them. Enquo exists
-                for the operators who carry the weight when the deck is gone,
-                the slide closes, and production is live.
+                {t("Owned end-to-end by the partner who designed them. Enquo exists for the operators who carry the weight when the deck is gone, the slide closes, and production is live.")}
               </p>
               <p className="page-hero__statement">
-                <span className="page-hero__statement-mark" /> We don&rsquo;t
-                deliver systems. We take responsibility for them.
+                <span className="page-hero__statement-mark" /> {t("We don’t deliver systems. We take responsibility for them.")}
               </p>
             </div>
           </div>
@@ -127,8 +130,8 @@ export function WhoWeArePage() {
       <section className="section page-who__founding" id="belief">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§02 · Our belief</span>
-            <span>Execution depends on connection</span>
+            <span className="num">{t("§02 · Our belief")}</span>
+            <span>{t("Execution depends on connection")}</span>
             <span className="dash" />
           </div>
 
@@ -142,15 +145,10 @@ export function WhoWeArePage() {
 
           <div className="page-who__founding-text reveal" ref={beliefRef}>
             <p>
-              Enquo started as a refusal to leave at go-live. The same people
-              who design the architecture run the operations. The same people
-              who build the integrations own the incidents. One continuous
-              lifecycle, one accountable partner.
+              {t("Enquo started as a refusal to leave at go-live. The same people who design the architecture run the operations. The same people who build the integrations own the incidents. One continuous lifecycle, one accountable partner.")}
             </p>
             <p>
-              We remove complexity so you can focus on impact. We measure
-              ourselves on what stays standing six, twelve, twenty-four months
-              after handoff. That&rsquo;s the only deliverable we believe in.
+              {t("We remove complexity so you can focus on impact. We measure ourselves on what stays standing six, twelve, twenty-four months after handoff. That’s the only deliverable we believe in.")}
             </p>
           </div>
         </div>
@@ -159,13 +157,13 @@ export function WhoWeArePage() {
       <section className="section page-who__principles" id="how-we-think">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§03 · How we think</span>
-            <span>What enterprise execution taught us</span>
+            <span className="num">{t("§03 · How we think")}</span>
+            <span>{t("What enterprise execution taught us")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-who__principles-grid" ref={truthsRef}>
-            {TRUTHS.map((p) => (
+            {truths.map((p) => (
               <article key={p.num} className="page-who__principle">
                 <span className="page-who__principle-num">{p.num}</span>
                 <div>
@@ -181,17 +179,17 @@ export function WhoWeArePage() {
       <section className="section page-who__refuse" id="refuse">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§04 · What we refuse to do</span>
-            <span>Four things we don&rsquo;t do</span>
+            <span className="num">{t("§04 · What we refuse to do")}</span>
+            <span>{t("Four things we don’t do")}</span>
             <span className="dash" />
           </div>
 
           <h2 className="page-who__refuse-title">
-            Four things we <em>don&rsquo;t do.</em>
+            {t("Four things we")} <em>{t("don’t do.")}</em>
           </h2>
 
           <div className="page-who__refuse-list reveal" ref={refuseRef}>
-            {REFUSALS.map((r, i) => (
+            {refusals.map((r, i) => (
               <article className="page-who__refusal" key={r.label}>
                 <span className="page-who__refusal-num">
                   {String(i + 1).padStart(2, "0")}
@@ -207,27 +205,27 @@ export function WhoWeArePage() {
       <section className="section page-who__approach" id="approach">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§05 · Our approach</span>
-            <span>One accountable partner</span>
+            <span className="num">{t("§05 · Our approach")}</span>
+            <span>{t("One accountable partner")}</span>
             <span className="dash" />
           </div>
 
           <h2 className="page-who__approach-title">
-            One continuous lifecycle. <em>One accountable partner.</em>
+            {t("One continuous lifecycle.")} <em>{t("One accountable partner.")}</em>
           </h2>
 
           <div className="page-who__approach-flow reveal" ref={approachRef}>
-            {APPROACH.map((p, i) => (
+            {approach.map((p, i) => (
               <div className="page-who__approach-phase" key={p.tag}>
                 <span className="page-who__approach-num">0{i + 1}</span>
-                <h3 className="page-who__approach-tag">{p.tag}</h3>
+                <h3 className="page-who__approach-tag">{t(p.tag)}</h3>
                 <p className="page-who__approach-items">{p.items}</p>
               </div>
             ))}
           </div>
 
           <p className="page-who__approach-note">
-            We remove complexity so you can focus on <em>impact.</em>
+            {t("We remove complexity so you can focus on")} <em>{t("impact.")}</em>
           </p>
         </div>
       </section>
@@ -235,26 +233,24 @@ export function WhoWeArePage() {
       <section className="section page-who__trust" id="trust">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§06 · Trust</span>
-            <span>We answer the hard questions before you ask</span>
+            <span className="num">{t("§06 · Trust")}</span>
+            <span>{t("We answer the hard questions before you ask")}</span>
             <span className="dash" />
           </div>
 
           <h2 className="page-who__trust-title">
-            We answer the hard questions — <em>before you ask.</em>
+            {t("We answer the hard questions —")} <em>{t("before you ask.")}</em>
           </h2>
           <p className="page-who__trust-sub">
-            Four risks every CFO and CIO raises. Four answers built into every
-            Enquo engagement — whether you&rsquo;re hiring us for a dashboard, a
-            data platform, app development, managed services, or production AI.
+            {t("Four risks every CFO and CIO raises. Four answers built into every Enquo engagement — whether you’re hiring us for a dashboard, a data platform, app development, managed services, or production AI.")}
           </p>
 
           <div className="page-who__trust-grid" ref={trustRef}>
-            {HARD_QUESTIONS.map((h) => (
+            {hardQuestions.map((h) => (
               <article className="page-who__trust-card" key={h.num}>
                 <div className="page-who__trust-head">
                   <span className="page-who__trust-num">{h.num}</span>
-                  <span className="page-who__trust-tag">{h.tag}</span>
+                  <span className="page-who__trust-tag">{t(h.tag)}</span>
                 </div>
                 <h3 className="page-who__trust-q">{h.q}</h3>
                 <p className="page-who__trust-a">{h.a}</p>
@@ -263,9 +259,7 @@ export function WhoWeArePage() {
           </div>
 
           <p className="page-who__trust-note">
-            Three risks apply to every engagement. The fourth applies when AI is
-            in scope. Either way, the answer is the same: <em>built in, not
-            bolted on.</em>
+            {t("Three risks apply to every engagement. The fourth applies when AI is in scope. Either way, the answer is the same:")} <em>{t("built in, not bolted on.")}</em>
           </p>
         </div>
       </section>

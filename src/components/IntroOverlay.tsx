@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { EnquoLogo } from "./chrome/EnquoLogo";
+import { useLang } from "../i18n/lang";
 
 const SESSION_KEY = "enquo:intro:shown";
 
@@ -14,6 +15,7 @@ const SESSION_KEY = "enquo:intro:shown";
  * during dev. Skips immediately for reduced-motion users.
  */
 export function IntroOverlay() {
+  const { t } = useLang();
   // Decide synchronously whether we should mount at all.
   const [active, setActive] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
@@ -64,7 +66,7 @@ export function IntroOverlay() {
         </span>
       </div>
       <button className="intro__skip" onClick={skip} type="button">
-        Skip
+        {t("Skip")}
       </button>
     </div>
   );

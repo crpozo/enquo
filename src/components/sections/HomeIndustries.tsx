@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { ENQUO_INDUSTRIES } from "../../data/enquo";
 import { useReveal } from "../../hooks/useReveal";
+import { useLang } from "../../i18n/lang";
 
 /** "platforms, analytics, reporting." → "platforms · analytics · reporting" */
 const dotted = (s: string) => s.replace(/\.$/, "").split(", ").join(" · ");
@@ -16,6 +17,8 @@ export function HomeIndustries() {
   const headRef = useReveal<HTMLDivElement>();
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
+  const { t, tr } = useLang();
+  const industries = tr(ENQUO_INDUSTRIES);
 
   const onScroll = () => {
     const el = scrollerRef.current;
@@ -30,21 +33,21 @@ export function HomeIndustries() {
       <div className="wrap-lg">
         <div className="inds__head reveal" ref={headRef}>
           <div>
-            <span className="inds__eyebrow">Industries</span>
+            <span className="inds__eyebrow">{t("Industries")}</span>
             <h2 className="inds__title">
-              Execution across
+              {t("Execution across")}
               <br />
-              <em>complex sectors.</em>
+              <em>{t("complex sectors.")}</em>
             </h2>
           </div>
           <span className="inds__hint" aria-hidden="true">
-            Scroll <i /> →
+            {t("Scroll")} <i /> →
           </span>
         </div>
       </div>
 
       <div className="inds-scroller" ref={scrollerRef} onScroll={onScroll}>
-        {ENQUO_INDUSTRIES.map((ind, i) => (
+        {industries.map((ind, i) => (
           <Link to="/industries" className="ind-card" key={ind.num}>
             <div className="ind-card__media">
               <span className="ind-card__num">0{i + 1}</span>
@@ -66,14 +69,14 @@ export function HomeIndustries() {
 
         <Link to="/industries" className="ind-card ind-card--cta">
           <div className="ind-card__media ind-card__media--cta">
-            <span className="ind-card__cta-big">Your sector?</span>
+            <span className="ind-card__cta-big">{t("Your sector?")}</span>
           </div>
           <div className="ind-card__row">
-            <h3 className="ind-card__name">All industries</h3>
+            <h3 className="ind-card__name">{t("All industries")}</h3>
             <span className="ind-card__arrow" aria-hidden="true">→</span>
           </div>
           <p className="ind-card__desc">
-            We bridge any business need, no matter how big or small
+            {t("We bridge any business need, no matter how big or small")}
           </p>
         </Link>
       </div>

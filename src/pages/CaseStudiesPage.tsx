@@ -4,6 +4,7 @@ import { CASES, type CaseStudy } from "../data/cases";
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
+import { useLang } from "../i18n/lang";
 
 /* Rich brand tints cycled across the bento tiles (no photos needed). */
 const TINTS = ["violet", "teal", "rose", "orange", "magenta", "indigo"] as const;
@@ -11,6 +12,7 @@ const TINTS = ["violet", "teal", "rose", "orange", "magenta", "indigo"] as const
 function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
   const ref = useReveal<HTMLAnchorElement>();
   const featured = i === 0;
+  const { t } = useLang();
   return (
     <Link
       to={`/case-studies/${s.slug}`}
@@ -40,7 +42,7 @@ function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
 
       <div className="case-tile__body">
         <div className="case-tile__top">
-          <span className="case-tile__num">Case · {s.num}</span>
+          <span className="case-tile__num">{t("Case")} · {s.num}</span>
           <span className="case-tile__industry">{s.industry}</span>
         </div>
 
@@ -50,7 +52,7 @@ function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
           <div className="case-tile__foot">
             <span className="case-tile__duration">{s.duration}</span>
             <span className="case-tile__cta">
-              Read case
+              {t("Read case")}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
@@ -64,28 +66,28 @@ function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
 
 export function CaseStudiesPage() {
   const heroRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const cases = tr(CASES);
   return (
     <>
       <section className="page-hero section" id="top">
         <PageHeroArt src="img/heroes/cases.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§01 · Case Studies</span>
-            <span>Real systems. Real numbers.</span>
+            <span className="num">{t("§01 · Case Studies")}</span>
+            <span>{t("Real systems. Real numbers.")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-hero__inner reveal" ref={heroRef}>
             <h1 className="page-hero__title">
-              The systems we ran are <em>still running</em>.
+              {t("The systems we ran are")} <em>{t("still running")}</em>.
             </h1>
             <p className="page-hero__lead">
-              Each case below names the industry, the outcome, how long we were
-              engaged, and the practices applied.
+              {t("Each case below names the industry, the outcome, how long we were engaged, and the practices applied.")}
             </p>
             <p className="page-hero__statement">
-              <span className="page-hero__statement-mark" /> Every metric on
-              this page came out of production, not a deck.
+              <span className="page-hero__statement-mark" /> {t("Every metric on this page came out of production, not a deck.")}
             </p>
           </div>
         </div>
@@ -94,14 +96,14 @@ export function CaseStudiesPage() {
       <section className="section" id="cases">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§02 · Selected work</span>
-            <span>{CASES.length} cases</span>
+            <span className="num">{t("§02 · Selected work")}</span>
+            <span>{cases.length} {t("cases")}</span>
             <span className="dash" />
           </div>
-          <h2 className="page-cases__title">Selected Case Studies</h2>
+          <h2 className="page-cases__title">{t("Selected Case Studies")}</h2>
 
           <div className="case-bento">
-            {CASES.map((s, i) => (
+            {cases.map((s, i) => (
               <CaseTile key={s.num} s={s} i={i} />
             ))}
           </div>

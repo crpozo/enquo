@@ -146,3 +146,41 @@
 @media (max-width: 860px) {
   .page-partners__intro .page-partners__copy { padding-top: 0; }
 }
+
+/* ============================================================
+   Language switch (EN / ES) in the nav
+   ============================================================ */
+.nav__lang {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 38px; padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-2);
+  background: transparent;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 11px; letter-spacing: 0.14em; font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.nav__lang i { width: 1px; height: 12px; background: var(--hairline-2); }
+.nav__lang span { opacity: 0.55; transition: opacity 150ms ease; }
+.nav__lang span.is-on { opacity: 1; color: var(--ink); }
+.nav__lang:hover { border-color: var(--purple-400); color: var(--ink); }
+:root[data-theme="light"] .nav.is-over-hero .nav__lang { color: #C6C6D0; border-color: rgba(255,255,255,0.22); }
+:root[data-theme="light"] .nav.is-over-hero .nav__lang span.is-on { color: #F4F4F7; }
+:root[data-theme="light"] .nav.is-over-hero .nav__lang i { background: rgba(255,255,255,0.22); }
+
+/* Spanish: title-casing every word is not a Spanish convention, so the
+   banner titles keep sentence case (the copy itself is already cased). */
+:root[lang="es"] .hero__title,
+:root[lang="es"] .cta__title,
+:root[lang="es"] .page-hero__title,
+:root[lang="es"] .stage-hero__statement,
+:root[lang="es"] .combine__title,
+:root[lang="es"] .case-tile__headline,
+:root[lang="es"] .insight-card__title,
+:root[lang="es"] .insight-feat__title,
+:root[lang="es"] .demo-dash__title,
+:root[lang="es"] .how__title,
+:root[lang="es"] .do__title,
+:root[lang="es"] .inds__title { text-transform: none; }

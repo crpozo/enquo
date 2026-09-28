@@ -1,5 +1,6 @@
 import { useReveal } from "../../hooks/useReveal";
 import type { Stage } from "../../data/services";
+import { useLang } from "../../i18n/lang";
 
 /* Design → turquesa · Build → rosado · Run → naranja */
 const TINT: Record<Stage["tag"], "teal" | "rose" | "orange"> = {
@@ -59,6 +60,7 @@ function Motif({ tag }: { tag: Stage["tag"] }) {
 export function StageHero({ stage }: { stage: Stage }) {
   const ref = useReveal<HTMLDivElement>();
   const tint = TINT[stage.tag];
+  const { t } = useLang();
   const mediaSrc = stage.media ? import.meta.env.BASE_URL + stage.media.src : null;
 
   return (
@@ -87,7 +89,7 @@ export function StageHero({ stage }: { stage: Stage }) {
       <div className="stage-hero__content">
         <h2 className="stage-hero__statement">{stage.statement}</h2>
         <div className="stage-hero__result">
-          <span className="stage-hero__result-eyebrow">Result from our work</span>
+          <span className="stage-hero__result-eyebrow">{t("Result from our work")}</span>
           <div className="stage-hero__result-row">
             <strong className="stage-hero__result-value">{stage.metricValue}</strong>
             <span className="stage-hero__result-rule" aria-hidden="true" />

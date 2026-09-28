@@ -1,6 +1,7 @@
 import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
+import { useLang } from "../i18n/lang";
 
 const ART: Record<string, string> = {
   "Essay": "img/insights/essay.webp",
@@ -76,6 +77,7 @@ const INSIGHTS: Insight[] = [
 
 function FeaturedInsight({ ins }: { ins: Insight }) {
   const ref = useReveal<HTMLAnchorElement>();
+  const { t } = useLang();
   return (
     <a className="insight-feat reveal" data-cat={ins.category} ref={ref}>
       <div className="insight-feat__cover" aria-hidden="true">
@@ -92,14 +94,14 @@ function FeaturedInsight({ ins }: { ins: Insight }) {
           </g>
         </svg>
         <span className="insight-feat__num">{ins.num}</span>
-        <span className="insight-card__badge">{ins.category}</span>
+        <span className="insight-card__badge">{t(ins.category)}</span>
       </div>
 
       <div className="insight-feat__body">
         <div className="insight-feat__top">
-          <span className="insight-feat__pill">Featured</span>
+          <span className="insight-feat__pill">{t("Featured")}</span>
           <span className="insight-feat__meta">
-            {ins.date} &middot; {ins.readTime} read
+            {t(ins.date)} &middot; {ins.readTime} {t("read")}
           </span>
         </div>
 
@@ -107,7 +109,7 @@ function FeaturedInsight({ ins }: { ins: Insight }) {
         <p className="insight-feat__dek">{ins.dek}</p>
 
         <span className="insight-feat__cta">
-          Read full essay
+          {t("Read full essay")}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
@@ -121,6 +123,7 @@ function FeaturedInsight({ ins }: { ins: Insight }) {
 
 function InsightCard({ ins }: { ins: Insight }) {
   const ref = useReveal<HTMLAnchorElement>();
+  const { t } = useLang();
   return (
     <a className="insight-card reveal" data-cat={ins.category} ref={ref}>
       <div className="insight-card__cover" aria-hidden="true">
@@ -136,17 +139,17 @@ function InsightCard({ ins }: { ins: Insight }) {
           </g>
         </svg>
         <span className="insight-card__num">{ins.num}</span>
-        <span className="insight-card__badge">{ins.category}</span>
+        <span className="insight-card__badge">{t(ins.category)}</span>
       </div>
       <div className="insight-card__body">
         <div className="insight-card__top">
-          <span className="insight-card__date">{ins.date}</span>
-          <span className="insight-card__read">{ins.readTime} read</span>
+          <span className="insight-card__date">{t(ins.date)}</span>
+          <span className="insight-card__read">{ins.readTime} {t("read")}</span>
         </div>
         <h3 className="insight-card__title">{ins.title}</h3>
         <p className="insight-card__dek">{ins.dek}</p>
         <span className="insight-card__cta">
-          Read
+          {t("Read")}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
@@ -160,8 +163,9 @@ function InsightCard({ ins }: { ins: Insight }) {
 
 export function InsightsPage() {
   const heroRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
 
-  const [featured, ...rest] = INSIGHTS;
+  const [featured, ...rest] = tr(INSIGHTS);
 
   return (
     <>
@@ -169,23 +173,20 @@ export function InsightsPage() {
         <PageHeroArt src="img/heroes/insights.webp" />
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§01 · Insights</span>
-            <span>Field notes, essays, briefs</span>
+            <span className="num">{t("§01 · Insights")}</span>
+            <span>{t("Field notes, essays, briefs")}</span>
             <span className="dash" />
           </div>
 
           <div className="page-hero__inner reveal" ref={heroRef}>
             <h1 className="page-hero__title">
-              The lessons live <em>in production</em>.
+              {t("The lessons live")} <em>{t("in production")}</em>.
             </h1>
             <p className="page-hero__lead">
-              Short essays and field notes from the engagements we run. No
-              think-pieces &mdash; only what we learned because something broke
-              at 02:00 and we had to fix it.
+              {t("Short essays and field notes from the engagements we run. No think-pieces — only what we learned because something broke at 02:00 and we had to fix it.")}
             </p>
             <p className="page-hero__statement">
-              <span className="page-hero__statement-mark" /> If we didn&rsquo;t
-              learn it from a production system, we don&rsquo;t publish it.
+              <span className="page-hero__statement-mark" /> {t("If we didn’t learn it from a production system, we don’t publish it.")}
             </p>
           </div>
         </div>
@@ -194,8 +195,8 @@ export function InsightsPage() {
       <section className="section" id="featured">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§02 · Featured</span>
-            <span>Most recent essay</span>
+            <span className="num">{t("§02 · Featured")}</span>
+            <span>{t("Most recent essay")}</span>
             <span className="dash" />
           </div>
           <FeaturedInsight ins={featured} />
@@ -205,8 +206,8 @@ export function InsightsPage() {
       <section className="section" id="archive">
         <div className="wrap-lg">
           <div className="sec-label">
-            <span className="num">§03 · Archive</span>
-            <span>{INSIGHTS.length} entries</span>
+            <span className="num">{t("§03 · Archive")}</span>
+            <span>{INSIGHTS.length} {t("entries")}</span>
             <span className="dash" />
           </div>
 

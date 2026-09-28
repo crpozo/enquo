@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { STAGES, SERVICE_COUNT } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
+import { useLang } from "../../i18n/lang";
 
 /** Column-top art per stage. */
 const STAGE_MEDIA: Record<string, string> = {
@@ -18,17 +19,19 @@ const STAGE_MEDIA: Record<string, string> = {
 export function WhatWeDo() {
   const headRef = useReveal<HTMLDivElement>();
   const flowRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const stages = tr(STAGES);
 
   return (
     <section className="do section" id="services">
       <div className="px-glow px-glow--do" data-parallax="0.07" aria-hidden="true" />
       <div className="wrap-lg">
         <div className="do__head reveal" ref={headRef}>
-          <span className="do__eyebrow">Services</span>
+          <span className="do__eyebrow">{t("Services")}</span>
           <h2 className="do__title">
-            Integrated capabilities across the
+            {t("Integrated capabilities across the")}
             <br />
-            <em>enterprise lifecycle.</em>
+            <em>{t("enterprise lifecycle.")}</em>
           </h2>
         </div>
 
@@ -39,7 +42,7 @@ export function WhatWeDo() {
         </div>
 
         <div className="do-flow reveal" ref={flowRef}>
-          {STAGES.map((s, i) => (
+          {stages.map((s, i) => (
             <div className="do-stage" data-stage={s.tag} key={s.tag}>
               <figure className="do-stage__media" aria-hidden="true">
                 <img
@@ -48,12 +51,12 @@ export function WhatWeDo() {
                   loading="lazy"
                 />
                 <span className="do-stage__phase">
-                  Phase 0{i + 1} · {s.cards.length} practices
+                  {t("Phase")} 0{i + 1} · {s.cards.length} {t("practices")}
                 </span>
               </figure>
 
               <div className="do-stage__body">
-                <h3 className="do-stage__name">{s.tag}</h3>
+                <h3 className="do-stage__name">{t(s.tag)}</h3>
                 <p className="do-stage__statement">{s.statement}</p>
 
                 <ul className="do-stage__list">
@@ -73,7 +76,7 @@ export function WhatWeDo() {
 
         <div className="do__cta">
           <Link className="btn" to="/services">
-            All {SERVICE_COUNT} capabilities
+            {t("All")} {SERVICE_COUNT} {t("capabilities")}
             <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
