@@ -1,7 +1,14 @@
+import { Link } from "react-router-dom";
+
+import { PARTNERS } from "../data/partners";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
-import { PlatformsStrip } from "../components/sections/PlatformsStrip";
 import { useReveal } from "../hooks/useReveal";
 import { useLang } from "../i18n/lang";
+
+function PartnerMark({ name, logo }: { name: string; logo?: string }) {
+  if (logo) return <img className="partner-card__logo" src={import.meta.env.BASE_URL + `img/partners/${logo}.png`} alt={name} />;
+  return <span className="partner-card__word">{name}</span>;
+}
 
 /**
  * Partnerships — the platforms and companies Enquo works with, and the two
@@ -10,8 +17,10 @@ import { useLang } from "../i18n/lang";
 export function PartnershipsPage() {
   const heroRef = useReveal<HTMLDivElement>();
   const introRef = useReveal<HTMLDivElement>();
+  const gridRef = useReveal<HTMLDivElement>();
   const ctaRef = useReveal<HTMLDivElement>();
-  const { t } = useLang();
+  const { t, tr } = useLang();
+  const partners = tr(PARTNERS);
 
   return (
     <div className="partners-page">
@@ -48,8 +57,34 @@ export function PartnershipsPage() {
         </div>
       </section>
 
-      <section className="page-partners__strip" id="partners">
-        <PlatformsStrip />
+      <section className="section partners-list" id="partners">
+        <div className="wrap-lg">
+          <div className="sec-label">
+            <span className="num">{t("§02 · Our partners")}</span>
+            <span>{t("Alliances, one per platform")}</span>
+            <span className="dash" />
+          </div>
+          <div className="partner-grid reveal" ref={gridRef}>
+            {partners.map((p, i) => (
+              <Link to={`/partnerships/${p.slug}`} className="partner-card" key={p.slug} style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="partner-card__head">
+                  <PartnerMark name={p.name} logo={p.logo} />
+                  <span className={"partner-card__status" + (p.status === "in-progress" ? " is-soon" : "")}>
+                    {p.status === "partner" ? t("Alliance partner") : t("Alliance in progress")}
+                  </span>
+                </div>
+                <p className="partner-card__tagline">{p.tagline}</p>
+                <span className="partner-card__cta">
+                  {t("About the alliance")}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+                </span>
+              </Link>
+            ))}
+            <div className="partner-card partner-card--slot" aria-hidden="true">
+              <span className="partner-card__slot-text">{t("More alliances on the way")}</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="section page-partners__cta" id="contact">
@@ -66,24 +101,19 @@ export function PartnershipsPage() {
                 {t("Whether you’re looking for the right technology partner or exploring what we could build together, we’d like to talk.")}
               </p>
             </div>
-
             <div className="page-partners__doors">
               <a className="page-partners__door" href="mailto:contact@enquo.com?subject=Let%27s%20talk">
                 <span className="page-partners__door-label">{t("For businesses")}</span>
                 <span className="page-partners__door-cta">
                   {t("Let’s talk")}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                 </span>
               </a>
               <a className="page-partners__door" href="mailto:contact@enquo.com?subject=Partner%20with%20Enquo">
                 <span className="page-partners__door-label">{t("For potential partners")}</span>
                 <span className="page-partners__door-cta">
                   {t("Partner with Enquo")}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                 </span>
               </a>
             </div>

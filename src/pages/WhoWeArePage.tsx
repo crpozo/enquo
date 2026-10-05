@@ -1,270 +1,290 @@
-import { FinalCTA } from "../components/sections/FinalCTA";
+import { Link } from "react-router-dom";
+
 import { useReveal } from "../hooks/useReveal";
-import { PageHeroArt } from "../components/sections/PageHeroArt";
 import { useLang } from "../i18n/lang";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 /* ============================================================
-   Data — copy aligned to the commercial deck (pp. 4, 5, 13, 17)
+   Copy — 10/09 board, Who We Are rewrite
    ============================================================ */
-
-/** How we think — Ownership · Outcomes · Reliability · Continuity (deck p.17). */
-const TRUTHS = [
-  {
-    num: "01",
-    title: "Ownership matters more than handoffs.",
-    text: "Critical systems fail when accountability is fragmented.",
-  },
-  {
-    num: "02",
-    title: "Outcomes matter more than deliverables.",
-    text: "Execution should create measurable business clarity.",
-  },
-  {
-    num: "03",
-    title: "Reliability must be engineered from day one.",
-    text: "Operational resilience cannot be retrofitted later.",
-  },
+const BELIEFS = [
+  { num: "01", title: "Stay close to the problem.", text: "The people making technical decisions understand the business context behind them." },
+  { num: "02", title: "Build around outcomes.", text: "Success is measured by what the work improves for the business, not simply by what gets delivered." },
+  { num: "03", title: "Think beyond go-live.", text: "Reliability and operation are considered from the beginning because production is where the work has to prove itself." },
 ];
 
-/** Four things we refuse to do (deck p.5). */
-const REFUSALS = [
-  {
-    label: "Endless pilots",
-    text: "Pilots designed to live forever in proof-of-concept. If it can't ship, we say so.",
-  },
-  {
-    label: "Vendor handoffs",
-    text: "Strategy handed to a different vendor to build, the build to a third to run. Unless you ask.",
-  },
-  {
-    label: "Junior-heavy delivery",
-    text: "Armies of juniors billed against a senior pitch deck.",
-  },
-  {
-    label: "Client lock-in",
-    text: "Platforms or staffing you can't unwind. You keep the code, the data, and the capability.",
-  },
+/* Discover = cyan → Design = blue → Build = magenta → Run = orange */
+const STAGES = [
+  { tag: "Discover", text: "Understand the opportunity.", tone: "cyan" },
+  { tag: "Design", text: "Define the direction.", tone: "blue" },
+  { tag: "Build", text: "Turn it into working systems.", tone: "magenta" },
+  { tag: "Run", text: "Keep it reliable and improving.", tone: "orange" },
 ];
 
-/** Our approach — one continuous lifecycle, one accountable partner (deck p.17). */
-const APPROACH = [
-  { tag: "Design", items: "Strategy · Architecture · Roadmap" },
-  { tag: "Build", items: "Engineering · Integration · Automation" },
-  { tag: "Run", items: "Operations · Performance · Reliability" },
+const PROOF = [
+  { value: "30+", label: "Enterprise clients across 6 industries" },
+  { value: "98%", label: "Client retention through multi-year programs" },
+  { value: "$3B+", label: "Value delivered across engagements" },
 ];
 
-/** Trust — Security · Governance · Compliance · AI Risk (deck p.13). */
-const HARD_QUESTIONS = [
-  {
-    num: "01",
-    tag: "Security",
-    q: "Where does our data live?",
-    a: "Your data stays in your cloud. We build in your VPC, against your IAM, with logging your security team controls. SOC 2 Type II controls applied to every engagement.",
-  },
-  {
-    num: "02",
-    tag: "Governance",
-    q: "What if it doesn't work in production?",
-    a: "Every system ships with monitoring, rollback paths, and acceptance criteria signed off before go-live. No “it worked in dev” handoffs — we stay until it's stable in production.",
-  },
-  {
-    num: "03",
-    tag: "Compliance",
-    q: "Will this pass audit?",
-    a: "GDPR, SOC 2, and sector-specific compliance (HIPAA, PCI, EU AI Act when applicable) designed in from week one. Every decision logged, traceable, and ready for auditors.",
-  },
-  {
-    num: "04",
-    tag: "AI Risk",
-    q: "What if the model is wrong?",
-    a: "Every AI system ships with explainability, drift monitoring, and human-in-the-loop fallback. Confidence thresholds gate every automated decision. EU AI Act controls baked in.",
-  },
+const TRUST = [
+  { tag: "Security", title: "Your data stays under your control.", text: "We work within client environments using the access, logging, and security controls required for the engagement." },
+  { tag: "Reliability", title: "Production is part of the design.", text: "Monitoring, rollback paths, and acceptance criteria are established before go-live so systems are built to operate reliably." },
+  { tag: "Governance & Compliance", title: "Controls are considered from the start.", text: "Applicable regulatory and audit requirements are incorporated into the work early and kept traceable through delivery." },
+  { tag: "Responsible AI", title: "AI needs operational guardrails.", text: "When AI is in scope, explainability, monitoring, confidence thresholds, and human oversight are considered as part of the system." },
 ];
 
-/* ============================================================
-   Page
-   ============================================================ */
+const PLACES = [
+  { city: "New York", country: "United States", lines: ["1270 Ave of the Americas", "New York, NY 10020"] },
+  { city: "Ridgefield Park", country: "United States", lines: ["100 Challenger Road, Suite 101", "Ridgefield Park, NJ 07660"] },
+  { city: "Ecuador Hub", country: "Ecuador", lines: ["Engineering and delivery hub", "Serving clients across the Americas"] },
+];
+
+/* Real Enquo photos go here — collage grid, swap the sources when they land. */
+const COLLAGE = ["img/who/team.webp", "img/heroes/careers.webp", "img/who/founding.webp", "img/heroes/who.webp", "img/how/discover.webp"];
+
+/* ============================================================ */
+
+function Hero() {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="page-hero section who2-hero" id="top">
+      <PageHeroArt src="img/who/team.webp" />
+      <div className="wrap-lg">
+        <div className="sec-label">
+          <span className="num">{t("§01 · Who We Are")}</span>
+          <span>{t("Real team, working")}</span>
+          <span className="dash" />
+        </div>
+        <div className="page-hero__inner reveal" ref={ref}>
+          <h1 className="page-hero__title">
+            {t("One Team. One Partner.")} <em>{t("One Outcome.")}</em>
+          </h1>
+          <p className="page-hero__lead">
+            {t("Enquo brings business and technology teams together to design, build, and run the systems companies depend on.")}
+          </p>
+          <p className="page-hero__lead who2-hero__lead2">
+            {t("Our teams stay involved from the first decisions through production, bringing the context, technical depth, and accountability needed to keep the work moving.")}
+          </p>
+          <a className="btn" href="#believe">
+            {t("Meet Enquo")} <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Believe() {
+  const ref = useReveal<HTMLDivElement>();
+  const listRef = useReveal<HTMLOListElement>();
+  const { t, tr } = useLang();
+  const beliefs = tr(BELIEFS);
+  return (
+    <section className="section who2-block" id="believe">
+      <div className="wrap-lg">
+        <div className="who2-grid reveal" ref={ref}>
+          <div>
+            <span className="who2-label">{t("What we believe")}</span>
+            <h2 className="who2-title">{t("Good technology starts with understanding the business behind it.")}</h2>
+          </div>
+          <p className="who2-prose">
+            {t("Before architecture, platforms, or code, we work to understand how the business operates, where technology is getting in the way, and where better systems can create meaningful value. That context stays with the team throughout the work, from the first design decisions to the systems. That shapes how we work:")}
+          </p>
+        </div>
+        <ol className="who2-beliefs reveal" ref={listRef}>
+          {beliefs.map((b) => (
+            <li key={b.num}>
+              <span className="who2-beliefs__num">{b.num}</span>
+              <h3>{b.title}</h3>
+              <p>{b.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function Together() {
+  const ref = useReveal<HTMLDivElement>();
+  const flowRef = useReveal<HTMLOListElement>();
+  const { t, tr } = useLang();
+  const stages = tr(STAGES);
+  return (
+    <section className="section who2-block who2-block--shade" id="together">
+      <div className="wrap-lg">
+        <div className="who2-grid reveal" ref={ref}>
+          <div>
+            <span className="who2-label">{t("How we work together")}</span>
+            <h2 className="who2-title">{t("One team, from first conversation to production.")}</h2>
+          </div>
+          <p className="who2-prose">
+            {t("Enquo brings together strategists, architects, engineers, data scientists, and operators around the same business problem.")}
+          </p>
+        </div>
+        <ol className="who2-flow reveal" ref={flowRef}>
+          {stages.map((s, i) => (
+            <li key={s.tag} data-tone={s.tone} style={{ transitionDelay: `${i * 120}ms` }}>
+              <span className="who2-flow__node" aria-hidden="true" />
+              <span className="who2-flow__tag">{t(s.tag)}</span>
+              <span className="who2-flow__text">{s.text}</span>
+            </li>
+          ))}
+        </ol>
+        <Link className="btn" to="/services">
+          {t("Explore our services")}
+          <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function People() {
+  const ref = useReveal<HTMLDivElement>();
+  const gridRef = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section who2-block" id="people">
+      <div className="wrap-lg">
+        <div className="who2-grid reveal" ref={ref}>
+          <div>
+            <span className="who2-label">{t("The people behind the work")}</span>
+            <h2 className="who2-title">{t("Business context, hands-on technical experience.")}</h2>
+          </div>
+          <p className="who2-prose">
+            {t("Our teams combine business context with hands-on technical experience, working closely with client teams to make better decisions, solve complex problems, and build systems that can hold up in the real world.")}
+          </p>
+        </div>
+        <div className="who2-collage reveal" ref={gridRef}>
+          {COLLAGE.map((src, i) => (
+            <figure key={src} className={`who2-collage__item who2-collage__item--${i + 1}`} aria-hidden="true">
+              <img src={import.meta.env.BASE_URL + src} alt="" loading="lazy" />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Proof() {
+  const ref = useReveal<HTMLDListElement>();
+  const { t, tr } = useLang();
+  const proof = tr(PROOF);
+  return (
+    <section className="section who2-block who2-block--shade" id="proof">
+      <div className="wrap-lg">
+        <span className="who2-label">{t("Proof")}</span>
+        <h2 className="who2-title">{t("Relationships built through the work.")}</h2>
+        <dl className="who2-proof reveal" ref={ref}>
+          {proof.map((p, i) => (
+            <div key={p.value} style={{ transitionDelay: `${i * 120}ms` }}>
+              <dt>{p.value}</dt>
+              <dd>{p.label}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="who2-proof__note">{t("Measured across Enquo client engagements from 2020–2025.")}</p>
+      </div>
+    </section>
+  );
+}
+
+function Trust() {
+  const ref = useReveal<HTMLDivElement>();
+  const gridRef = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const trust = tr(TRUST);
+  return (
+    <section className="section who2-block" id="trust">
+      <div className="wrap-lg">
+        <div className="who2-grid reveal" ref={ref}>
+          <div>
+            <span className="who2-label">{t("Built into the work")}</span>
+            <h2 className="who2-title">{t("Trust is designed into the work.")}</h2>
+          </div>
+          <p className="who2-prose">
+            {t("Enterprise systems carry real operational responsibility. Security, governance, compliance, and reliability are considered from the beginning and carried through production.")}
+          </p>
+        </div>
+        <div className="who2-trust reveal" ref={gridRef}>
+          {trust.map((x, i) => (
+            <article key={x.tag} style={{ transitionDelay: `${i * 100}ms` }}>
+              <span className="who2-trust__tag">{x.tag}</span>
+              <h3>{x.title}</h3>
+              <p>{x.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Places() {
+  const ref = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const places = tr(PLACES);
+  return (
+    <section className="section who2-block who2-block--shade" id="where">
+      <div className="wrap-lg">
+        <span className="who2-label">{t("Where we are")}</span>
+        <h2 className="who2-title">{t("Global teams, local time.")}</h2>
+        <div className="who2-places reveal" ref={ref}>
+          {places.map((p, i) => (
+            <div className="who2-place" key={p.city} style={{ transitionDelay: `${i * 100}ms` }}>
+              <span className="who2-place__num">0{i + 1}</span>
+              <h3>{p.city}</h3>
+              <span className="who2-place__country">{p.country}</span>
+              <p>{p.lines[0]}<br />{p.lines[1]}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Closing() {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section who2-close" id="contact">
+      <div className="who2-close__art" aria-hidden="true">
+        <img src={import.meta.env.BASE_URL + "img/who/founding.webp"} alt="" loading="lazy" />
+      </div>
+      <div className="wrap-lg">
+        <div className="who2-close__inner reveal" ref={ref}>
+          <h2 className="who2-close__title">
+            {t("The right work starts with")} <em>{t("the right people.")}</em>
+          </h2>
+          <p className="who2-close__copy">
+            {t("Bring us the problem you’re trying to solve. We’ll bring the people who can help move it forward.")}
+          </p>
+          <a className="btn btn--primary" href="mailto:contact@enquo.com">
+            {t("Let’s talk")}
+            <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function WhoWeArePage() {
-  const openingRef = useReveal<HTMLDivElement>();
-  const beliefRef = useReveal<HTMLDivElement>();
-  const truthsRef = useReveal<HTMLDivElement>();
-  const refuseRef = useReveal<HTMLDivElement>();
-  const approachRef = useReveal<HTMLDivElement>();
-  const trustRef = useReveal<HTMLDivElement>();
-  const { t, tr } = useLang();
-  const truths = tr(TRUTHS);
-  const refusals = tr(REFUSALS);
-  const approach = tr(APPROACH);
-  const hardQuestions = tr(HARD_QUESTIONS);
-
   return (
     <>
-      <section className="page-hero section" id="top">
-        <PageHeroArt src="img/heroes/who.webp" />
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§01 · Who We Are")}</span>
-            <span>{t("Philosophy before team")}</span>
-            <span className="dash" />
-          </div>
-
-          <div className="page-who__opening reveal" ref={openingRef}>
-            <div className="page-who__opening-text">
-              <h1 className="page-hero__title">
-                {t("Human-driven")}
-                <br />
-                <em>{t("data solutions.")}</em>
-              </h1>
-              <p className="page-hero__lead">
-                {t("Owned end-to-end by the partner who designed them. Enquo exists for the operators who carry the weight when the deck is gone, the slide closes, and production is live.")}
-              </p>
-              <p className="page-hero__statement">
-                <span className="page-hero__statement-mark" /> {t("We don’t deliver systems. We take responsibility for them.")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section page-who__founding" id="belief">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§02 · Our belief")}</span>
-            <span>{t("Execution depends on connection")}</span>
-            <span className="dash" />
-          </div>
-
-          <figure className="page-who__founding-media" aria-hidden="true">
-            <img
-              src={import.meta.env.BASE_URL + "img/who/founding.webp"}
-              alt=""
-              loading="lazy"
-            />
-          </figure>
-
-          <div className="page-who__founding-text reveal" ref={beliefRef}>
-            <p>
-              {t("Enquo started as a refusal to leave at go-live. The same people who design the architecture run the operations. The same people who build the integrations own the incidents. One continuous lifecycle, one accountable partner.")}
-            </p>
-            <p>
-              {t("We remove complexity so you can focus on impact. We measure ourselves on what stays standing six, twelve, twenty-four months after handoff. That’s the only deliverable we believe in.")}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section page-who__principles" id="how-we-think">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§03 · How we think")}</span>
-            <span>{t("What enterprise execution taught us")}</span>
-            <span className="dash" />
-          </div>
-
-          <div className="page-who__principles-grid" ref={truthsRef}>
-            {truths.map((p) => (
-              <article key={p.num} className="page-who__principle">
-                <span className="page-who__principle-num">{p.num}</span>
-                <div>
-                  <p className="page-who__principle-text">{p.title}</p>
-                  <p className="page-who__principle-sub">{p.text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section page-who__refuse" id="refuse">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§04 · What we refuse to do")}</span>
-            <span>{t("Four things we don’t do")}</span>
-            <span className="dash" />
-          </div>
-
-          <h2 className="page-who__refuse-title">
-            {t("Four things we")} <em>{t("don’t do.")}</em>
-          </h2>
-
-          <div className="page-who__refuse-list reveal" ref={refuseRef}>
-            {refusals.map((r, i) => (
-              <article className="page-who__refusal" key={r.label}>
-                <span className="page-who__refusal-num">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="page-who__refusal-label">{r.label}</h3>
-                <p className="page-who__refusal-text">{r.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section page-who__approach" id="approach">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§05 · Our approach")}</span>
-            <span>{t("One accountable partner")}</span>
-            <span className="dash" />
-          </div>
-
-          <h2 className="page-who__approach-title">
-            {t("One continuous lifecycle.")} <em>{t("One accountable partner.")}</em>
-          </h2>
-
-          <div className="page-who__approach-flow reveal" ref={approachRef}>
-            {approach.map((p, i) => (
-              <div className="page-who__approach-phase" key={p.tag}>
-                <span className="page-who__approach-num">0{i + 1}</span>
-                <h3 className="page-who__approach-tag">{t(p.tag)}</h3>
-                <p className="page-who__approach-items">{p.items}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="page-who__approach-note">
-            {t("We remove complexity so you can focus on")} <em>{t("impact.")}</em>
-          </p>
-        </div>
-      </section>
-
-      <section className="section page-who__trust" id="trust">
-        <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§06 · Trust")}</span>
-            <span>{t("We answer the hard questions before you ask")}</span>
-            <span className="dash" />
-          </div>
-
-          <h2 className="page-who__trust-title">
-            {t("We answer the hard questions —")} <em>{t("before you ask.")}</em>
-          </h2>
-          <p className="page-who__trust-sub">
-            {t("Four risks every CFO and CIO raises. Four answers built into every Enquo engagement — whether you’re hiring us for a dashboard, a data platform, app development, managed services, or production AI.")}
-          </p>
-
-          <div className="page-who__trust-grid" ref={trustRef}>
-            {hardQuestions.map((h) => (
-              <article className="page-who__trust-card" key={h.num}>
-                <div className="page-who__trust-head">
-                  <span className="page-who__trust-num">{h.num}</span>
-                  <span className="page-who__trust-tag">{t(h.tag)}</span>
-                </div>
-                <h3 className="page-who__trust-q">{h.q}</h3>
-                <p className="page-who__trust-a">{h.a}</p>
-              </article>
-            ))}
-          </div>
-
-          <p className="page-who__trust-note">
-            {t("Three risks apply to every engagement. The fourth applies when AI is in scope. Either way, the answer is the same:")} <em>{t("built in, not bolted on.")}</em>
-          </p>
-        </div>
-      </section>
-
-      <FinalCTA />
+      <Hero />
+      <Believe />
+      <Together />
+      <People />
+      <Proof />
+      <Trust />
+      <Places />
+      <Closing />
     </>
   );
 }

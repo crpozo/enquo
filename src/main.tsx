@@ -13,6 +13,7 @@ import { WhoWeArePage } from "./pages/WhoWeArePage";
 import { CareersPage } from "./pages/CareersPage";
 import { DemoPage } from "./pages/DemoPage";
 import { PartnershipsPage } from "./pages/PartnershipsPage";
+import { PartnerPage } from "./pages/PartnerPage";
 
 import "./styles/tokens.css";
 import "./styles/enquo.css";
@@ -43,6 +44,7 @@ const pageRoutes = (
     <Route path="careers" element={<CareersPage />} />
     <Route path="demo" element={<DemoPage />} />
     <Route path="partnerships" element={<PartnershipsPage />} />
+    <Route path="partnerships/:slug" element={<PartnerPage />} />
     {/* Catch-all → home */}
     <Route path="*" element={<HomePage />} />
   </>

@@ -5,13 +5,13 @@ import { useLang } from "../../i18n/lang";
 
 /** The closing CTA is deliberately not on every page — only where a visitor
  *  is most likely ready to talk. Other pages rely on the nav's "Let's talk". */
-const SHOW_ON = ["/", "/services", "/who-we-are"];
+const SHOW_ON = ["/", "/services", "/careers"];
 
 /** A different photo + colour per page so the banner never repeats itself. */
 const VARIANT: Record<string, { art: string; tint: string }> = {
   "/": { art: "img/cta-hand.webp", tint: "violet" },
   "/services": { art: "img/services/design.webp", tint: "teal" },
-  "/who-we-are": { art: "img/who/team.webp", tint: "rose" },
+  "/careers": { art: "img/heroes/who.webp", tint: "rose" },
 };
 
 export function FinalCTA() {
