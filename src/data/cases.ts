@@ -51,7 +51,7 @@ export const CASES: CaseStudy[] = [
       "NCAA needed a faster, more reliable way to turn fragmented data and inconsistent KPIs into executive reporting. Enquo built a governed intelligence platform that gave leadership real-time visibility from a trusted data foundation.",
     capabilities: ["Data Engineering", "KPI Governance", "Executive Reporting", "Analytics"],
     tags: ["Data Engineering", "Analytics", "KPI Governance"],
-    image: "img/heroes/insights.webp",
+    image: "img/cases/01.webp",
     challenge: {
       title: "Reporting took a week. The data behind it was fragmented.",
       bullets: [
@@ -78,7 +78,7 @@ export const CASES: CaseStudy[] = [
       { label: "Data Engineering", text: "Unified the data foundation behind reporting." },
       { label: "Executive Reporting & Analytics", text: "Created the reporting experience that gave leadership real-time visibility." },
     ],
-    technologies: [],
+    technologies: ["Snowflake", "dbt", "Streamlit", "Azure DevOps"],
     businessImpact: {
       title: "Trusted information became available when decisions were being made.",
       text: "Leadership gained a consistent view of performance without waiting days for data reconciliation and reporting preparation.",
@@ -98,7 +98,7 @@ export const CASES: CaseStudy[] = [
       "NCAA needed to standardize executive KPIs across inconsistent data sources and reduce the manual work required to prepare reporting. Enquo created a unified reporting foundation built around consistent metrics and a single source of truth.",
     capabilities: ["KPI Governance", "Data Engineering", "Executive Reporting", "Analytics"],
     tags: ["Data Engineering", "Analytics", "KPI Governance"],
-    image: "img/lifecycle/run.webp",
+    image: "img/cases/02.webp",
     challenge: {
       title: "Executive reporting depended on manual reconciliation.",
       bullets: [
@@ -125,7 +125,7 @@ export const CASES: CaseStudy[] = [
       { label: "Data Engineering", text: "Created the data foundation behind a single trusted source." },
       { label: "Executive Reporting & Analytics", text: "Made consistent information available to leadership with less preparation." },
     ],
-    technologies: [],
+    technologies: ["Snowflake", "dbt", "Streamlit", "Azure DevOps"],
     businessImpact: {
       title: "Less time preparing reports. Faster access to the information behind decisions.",
       text: "A standardized KPI foundation reduced reporting preparation and gave leadership a consistent view of performance.",
@@ -145,7 +145,7 @@ export const CASES: CaseStudy[] = [
       "NCAA needed to modernize a bid lifecycle that depended on legacy systems, spreadsheets, email chains, and fragmented workflows. Enquo built a unified digital portal that brought the process, data, and approvals into one governed environment.",
     capabilities: ["Process Automation", "Application Development", "Data Integration", "Enterprise Integration"],
     tags: ["Process Automation", "Data Integration", "Application Development"],
-    image: "img/industries/sports.webp",
+    image: "img/cases/03.webp",
     challenge: {
       title: "A critical process was spread across systems, spreadsheets, and email.",
       bullets: [
@@ -172,7 +172,7 @@ export const CASES: CaseStudy[] = [
       { label: "Data Integration", text: "Connected data for reporting and analytics." },
       { label: "Enterprise Integration & API Development", text: "Connected the portal with the systems required across the process." },
     ],
-    technologies: ["Pega"],
+    technologies: ["Pega", "Azure", "Snowflake", "Domo"],
     businessImpact: {
       title: "A fragmented process became a connected, transparent digital workflow.",
       text: "Teams gained one environment for managing bids end to end, with less manual processing and greater visibility across the lifecycle.",

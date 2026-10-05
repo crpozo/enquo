@@ -32,6 +32,7 @@ export const PARTNERS: Partner[] = [
     ],
     capabilities: ["BPM Platform Implementation", "Process Automation", "Enterprise Integration & API Development", "Data Integration", "Managed Services"],
     cases: ["ncaa-host-bidding"],
+    logo: "pega",
     site: "https://www.pega.com",
   },
   {

@@ -11,6 +11,26 @@ import { useLang } from "../i18n/lang";
    business impact → next case.
    ============================================================ */
 
+/** Logo files in /public/img/partners for the technologies we name. */
+const TECH_LOGO: Record<string, string> = {
+  Snowflake: "snowflake", dbt: "dbt", Streamlit: "streamlit", "Azure DevOps": "azure-devops",
+  Pega: "pega", Azure: "azure", Domo: "domo", Tableau: "tableau", Salesforce: "salesforce", ServiceNow: "servicenow",
+};
+
+function TechLogos({ items }: { items: string[] }) {
+  return (
+    <ul className="cd-techlogos">
+      {items.map((x) => (
+        <li key={x} title={x}>
+          {TECH_LOGO[x]
+            ? <img src={import.meta.env.BASE_URL + `img/partners/${TECH_LOGO[x]}.png`} alt={x} loading="lazy" />
+            : <span>{x}</span>}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Arrow() {
   return (
     <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
@@ -146,7 +166,7 @@ function Delivered({ c }: { c: CaseStudy }) {
             {c.technologies.length > 0 && (
               <div className="cd-tech">
                 <span className="cd-label cd-label--muted">{t("Technologies")}</span>
-                <ul>{c.technologies.map((x) => <li key={x}>{x}</li>)}</ul>
+                <TechLogos items={c.technologies} />
               </div>
             )}
           </div>
