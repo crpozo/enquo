@@ -135,11 +135,19 @@ function DiscoverSection() {
 /* ============================================================
    Different challenges → combinations + demo
    ============================================================ */
+/** Which stage a capability belongs to (for the stage label in each row). */
+const STAGE_OF: Record<string, string> = Object.fromEntries(
+  STAGES.flatMap((s) => s.cards.map((c) => [c.title, s.tag])),
+);
+
 function Combine() {
   const introRef = useReveal<HTMLDivElement>();
   const rowsRef = useReveal<HTMLDivElement>();
-  const { t, tr } = useLang();
-  const combos = tr(SERVICE_COMBOS);
+  const { t } = useLang();
+  const combos = SERVICE_COMBOS.map((c) => ({
+    problem: t(c.problem),
+    parts: c.combo.split(" + ").map((name) => ({ name: t(name), stage: STAGE_OF[name] ?? "Design" })),
+  }));
   return (
     <section className="combine section" id="combine">
       <div className="px-glow px-glow--combine" data-parallax="0.07" aria-hidden="true" />
@@ -169,14 +177,15 @@ function Combine() {
                     <path d="M5 12h14M13 5l7 7-7 7" />
                   </svg>
                 </span>
-                <span className="combine__combo">
-                  {c.combo.split(" + ").map((part, i) => (
-                    <span key={part}>
-                      {i > 0 && <i className="combine__plus" aria-hidden="true">+</i>}
-                      <span className="combine__chip">{part}</span>
-                    </span>
+                <ol className="combine__stack">
+                  {c.parts.map((p, i) => (
+                    <li key={p.name} data-tone={TONE[p.stage]}>
+                      <span className="combine__stack-num">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="combine__stack-name">{p.name}</span>
+                      <span className="combine__stack-stage">{t(p.stage)}</span>
+                    </li>
                   ))}
-                </span>
+                </ol>
               </div>
             ))}
           </div>
