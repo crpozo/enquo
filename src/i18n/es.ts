@@ -319,6 +319,43 @@ export const ES: Record<string, string> = {
   "Enterprise Architecture + Data Engineering + Managed Services":
     "Arquitectura empresarial + Ingeniería de datos + Servicios gestionados",
 
+  /* ---------- Services page (10/09) ---------- */
+  "§01 · Our services": "§01 · Nuestros servicios",
+  "Let’s build what": "Construyamos lo que",
+  "your business needs.": "tu negocio necesita.",
+  "From defining the right path to building and running the technology behind it, Enquo works with you from wherever you need us.":
+    "Desde definir el camino correcto hasta construir y operar la tecnología que lo sostiene, Enquo trabaja contigo desde donde nos necesites.",
+  "§02 · Operating model": "§02 · Modelo operativo",
+  "One connected system": "Un sistema conectado",
+  "Find the right starting point.": "Encontrar el punto de partida correcto.",
+  "Turn priorities into a production-ready plan.": "Convertir prioridades en un plan listo para producción.",
+  "Bring the right technical teams together to deliver.": "Reunir a los equipos técnicos adecuados para entregar.",
+  "Keep systems reliable, supported, and improving.": "Mantener los sistemas confiables, soportados y en mejora.",
+  "Capabilities": "Capacidades",
+  "Decision-grade roadmap": "Hoja de ruta para decidir",
+  "90-day plan": "Plan a 90 días",
+  "Investment thesis": "Tesis de inversión",
+  "We work with leadership and technical teams to understand your business and technology environment, identify where the most value can be created, and define the path forward.":
+    "Trabajamos con la dirección y los equipos técnicos para entender tu entorno de negocio y tecnología, identificar dónde se puede crear más valor y definir el camino a seguir.",
+  "We translate business priorities into the strategy, processes, and architecture needed to move into execution, with production considered from the start.":
+    "Traducimos las prioridades del negocio en la estrategia, los procesos y la arquitectura necesarios para pasar a la ejecución, con producción en mente desde el inicio.",
+  "Production-ready direction and architecture designed to move into execution.":
+    "Dirección y arquitectura listas para producción, diseñadas para pasar a la ejecución.",
+  "Engineers, data scientists, and SREs work together from day one. Together, they build and integrate the applications, data systems, automation, and AI your business needs.":
+    "Ingenieros, científicos de datos y SREs trabajan juntos desde el primer día. Construyen e integran las aplicaciones, los sistemas de datos, la automatización y la IA que tu negocio necesita.",
+  "Production-ready systems built with operation in mind from day one.":
+    "Sistemas listos para producción, construidos con la operación en mente desde el primer día.",
+  "Enquo stays accountable after go-live, operating and improving the systems the business depends on.":
+    "Enquo sigue siendo responsable después del go-live, operando y mejorando los sistemas de los que depende el negocio.",
+  "Systems that remain reliable, measurable, and supported in production.":
+    "Sistemas que siguen siendo confiables, medibles y soportados en producción.",
+  "Different challenges call for": "Distintos retos exigen",
+  "different capabilities.": "distintas capacidades.",
+  "Most enterprise problems cross systems, teams, and disciplines. Enquo brings together the capabilities the work requires.":
+    "La mayoría de los problemas empresariales cruzan sistemas, equipos y disciplinas. Enquo reúne las capacidades que el trabajo exige.",
+  "Use our demo to explore your needs and see how Enquo could approach them.":
+    "Usa nuestra demo para explorar tus necesidades y ver cómo las abordaría Enquo.",
+
   /* ---------- Services page ---------- */
   "§01 · Services": "§01 · Servicios",
   "Operator statement": "Declaración del operador",

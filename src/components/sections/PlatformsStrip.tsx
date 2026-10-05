@@ -7,19 +7,23 @@ const LOGOS = [
 ];
 
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 import { useLang } from "../../i18n/lang";
 
-export function PlatformsStrip({ label }: { label?: ReactNode }) {
+export function PlatformsStrip({ label, to }: { label?: ReactNode; to?: string }) {
   const { t } = useLang();
   const doubled = [...LOGOS, ...LOGOS];
   return (
     <section className="platforms" aria-label={t("Platforms we build on")}>
       <div className="platforms__label">
-        {label ?? (
-          <>
-            {t("The platforms")} <em>{t("behind our work.")}</em>
-          </>
+        {to ? (
+          <Link to={to} className="platforms__link">
+            {label ?? (<>{t("The platforms")} <em>{t("behind our work.")}</em></>)}
+            <span className="platforms__link-arrow" aria-hidden="true">→</span>
+          </Link>
+        ) : (
+          label ?? (<>{t("The platforms")} <em>{t("behind our work.")}</em></>)
         )}
       </div>
       <div className="platforms__viewport">

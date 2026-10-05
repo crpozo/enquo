@@ -18,6 +18,12 @@ export type Stage = {
   num: string;
   tag: "Design" | "Build" | "Run";
   statement: string;
+  /** One-line promise on the services page operating model. */
+  promise: string;
+  /** Supporting copy for the stage section on /services. */
+  copy: string;
+  /** What the phase leaves behind. */
+  phaseOutcome: string;
   metric: string;
   /** Structured metric for the stage banner: big value + supporting label. */
   metricValue: string;
@@ -33,6 +39,10 @@ export const DISCOVER = {
   num: "01",
   tag: "Discover",
   statement: "Find where the value is and define the path forward.",
+  promise: "Find the right starting point.",
+  phaseOutcomes: ["Decision-grade roadmap", "90-day plan", "Investment thesis"],
+  copy:
+    "We work with leadership and technical teams to understand your business and technology environment, identify where the most value can be created, and define the path forward.",
   description:
     "We work with leadership and technical teams to understand the current environment, identify the right opportunities, and determine what comes next.",
   outcome: "A decision-grade roadmap, a 90-day plan, and an investment thesis.",
@@ -44,6 +54,10 @@ export const STAGES: Stage[] = [
     num: "02",
     tag: "Design",
     statement: "Design with production in mind from the start.",
+    promise: "Turn priorities into a production-ready plan.",
+    copy:
+      "We translate business priorities into the strategy, processes, and architecture needed to move into execution, with production considered from the start.",
+    phaseOutcome: "Production-ready direction and architecture designed to move into execution.",
     metric: "Average delivery confidence improves 3.4× post-design phase",
     metricValue: "3.4×",
     metricLabel: "Average delivery confidence improvement post-design phase.",
@@ -104,6 +118,10 @@ export const STAGES: Stage[] = [
     num: "03",
     tag: "Build",
     statement: "Build with operators involved from day one.",
+    promise: "Bring the right technical teams together to deliver.",
+    copy:
+      "Engineers, data scientists, and SREs work together from day one. Together, they build and integrate the applications, data systems, automation, and AI your business needs.",
+    phaseOutcome: "Production-ready systems built with operation in mind from day one.",
     metric: "Production incidents reduced 62% vs. prior delivery teams",
     metricValue: "62%",
     metricLabel: "Production incidents vs. prior delivery teams.",
@@ -164,6 +182,10 @@ export const STAGES: Stage[] = [
     num: "04",
     tag: "Run",
     statement: "Stay accountable for what happens in production.",
+    promise: "Keep systems reliable, supported, and improving.",
+    copy:
+      "Enquo stays accountable after go-live, operating and improving the systems the business depends on.",
+    phaseOutcome: "Systems that remain reliable, measurable, and supported in production.",
     metric: "Mean time to recovery cut by 71% under our ownership",
     metricValue: "71%",
     metricLabel: "Mean time to recovery under our ownership.",
