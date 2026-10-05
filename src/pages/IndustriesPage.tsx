@@ -1,131 +1,111 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { FinalCTA } from "../components/sections/FinalCTA";
+import { CASES } from "../data/cases";
+import { ENQUO_INDUSTRIES } from "../data/enquo";
 import { useReveal } from "../hooks/useReveal";
-import { PageHeroArt } from "../components/sections/PageHeroArt";
 import { useLang } from "../i18n/lang";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 /* ============================================================
-   Data
+   Data — the six verticals, per the 10/09 board: name, one line of
+   supporting copy and three "where we can help" areas. No pains.
    ============================================================ */
 
-type Industry = {
-  key: string;
-  tag: string;
-  headline: string;
-  sub: string;
-  categories: string[];
-  pains: string[];
-  enters: string;
-};
+type Help = { title: string; text: string };
+type Industry = { key: string; tag: string; sub: string; help: Help[]; image: string };
 
-/* The six verticals from the commercial deck (p.8), in the same order as
-   the home tiles. Focus areas per industry come straight from the deck. */
+const img = (name: string) => ENQUO_INDUSTRIES.find((i) => i.name === name)?.image ?? "";
+
 const INDUSTRIES: Industry[] = [
   {
     key: "healthcare",
     tag: "Healthcare & Pharma",
-    headline: "Clinical-grade data everyone can agree on.",
-    sub: "When the numbers change treatment, they have to be right.",
-    categories: ["Patient Data Platforms", "Real-World Analytics", "Regulatory Reporting"],
-    pains: [
-      "The same KPI carries three definitions across institutions",
-      "Board and clinical reporting take weeks to reconcile",
-      "Disagreement over data delays decisions that matter",
+    sub: "Connect critical healthcare data and turn it into information teams can trust and use.",
+    help: [
+      { title: "Patient Data Platforms", text: "Bring patient data together across systems." },
+      { title: "Real-World Analytics", text: "Turn connected data into useful insights." },
+      { title: "Regulatory Reporting", text: "Build trusted reporting around regulatory requirements." },
     ],
-    enters:
-      "We build the KPI canon and the data foundation beneath it, so the number that changes a treatment plan is one no clinician disputes.",
-  },
-  {
-    key: "sports-media",
-    tag: "Sports & Media",
-    headline: "Operations that hold when 50M people are watching.",
-    sub: "Live events don't tolerate retries.",
-    categories: ["Fan Engagement Platforms", "Content & Rights Management", "Data & Analytics"],
-    pains: [
-      "Systems fail during peak events, the moments that matter most",
-      "Too many vendors, no one accountable end-to-end",
-      "Monetization decisions wait on reconciled numbers",
-    ],
-    enters:
-      "We take ownership of the operational backbone so the platform performs under any condition — every stream, every drop, every spike.",
+    image: img("Healthcare & Pharma"),
   },
   {
     key: "financial-services",
     tag: "Financial Services",
-    headline: "Decisions auditable line by line, system by system.",
-    sub: "Where every action leaves a record, and every record gets read.",
-    categories: ["Risk Data Platforms", "Customer 360", "Compliance & Controls"],
-    pains: [
-      "Audit findings live longer than the systems that caused them",
-      "Reconciliation between systems is a quarterly fire drill",
-      "Risk teams and engineering speak different languages",
+    sub: "Connect data and technology while supporting the controls financial institutions depend on.",
+    help: [
+      { title: "Data Modernization", text: "Modernize how data moves, connects, and is used across the organization." },
+      { title: "Risk & Compliance Platforms", text: "Build trusted systems around risk, compliance, and reporting needs." },
+      { title: "Customer 360 Platforms", text: "Connect customer data across systems to create a more complete view." },
     ],
-    enters:
-      "We design data foundations and controls so the system is audit-ready by default, not by remediation.",
+    image: img("Financial Services"),
+  },
+  {
+    key: "sports-media",
+    tag: "Sports & Media",
+    sub: "Connect the platforms, content, and data behind fan experiences and media operations.",
+    help: [
+      { title: "Fan Engagement Platforms", text: "Build connected experiences around fans and audiences." },
+      { title: "Content & Rights Management", text: "Bring content, rights, and operational information together." },
+      { title: "Data & Analytics Solutions", text: "Turn audience and operational data into information teams can use." },
+    ],
+    image: img("Sports & Media"),
   },
   {
     key: "manufacturing",
     tag: "Manufacturing & Industrial",
-    headline: "The plant floor and the boardroom, one source of truth.",
-    sub: "Where downtime is measured in money per minute.",
-    categories: ["Smart Manufacturing", "IoT & Predictive Maintenance", "Quality & Operations Analytics"],
-    pains: [
-      "Operational data is trapped in machines and proprietary systems",
-      "Maintenance is reactive because the data arrives too late",
-      "Quality issues surface in the field, not on the line",
+    sub: "Bring systems, equipment data, and operational information together to improve how work gets done.",
+    help: [
+      { title: "Smart Manufacturing", text: "Connect production systems and data across operations." },
+      { title: "IoT & Predictive Maintenance", text: "Use connected equipment data to better understand performance and maintenance needs." },
+      { title: "Quality & Operations Analytics", text: "Give teams better visibility into quality and operational performance." },
     ],
-    enters:
-      "We connect operational and enterprise data into one backbone, so maintenance becomes predictive and quality is caught at the source.",
+    image: img("Manufacturing & Industrial"),
+  },
+  {
+    key: "energy",
+    tag: "Energy & Oil & Gas",
+    sub: "Turn complex operational data into better visibility and decisions. Connect the systems and information behind assets, trading, and sustainability initiatives.",
+    help: [
+      { title: "Asset Performance", text: "Bring asset and operational data together to improve visibility into performance." },
+      { title: "Energy Trading", text: "Connect the data and systems that support trading operations and decisions." },
+      { title: "Sustainability & ESG", text: "Organize and connect the information needed for sustainability and ESG reporting." },
+    ],
+    image: img("Energy, Oil & Gas"),
   },
   {
     key: "retail",
     tag: "Retail & Consumer",
-    headline: "Every channel, one customer, numbers that agree.",
-    sub: "Where margins are thin and decisions can't wait for reconciliation.",
-    categories: ["Omnichannel Platforms", "Customer Analytics", "Supply-Chain Visibility"],
-    pains: [
-      "Online and in-store data describe two different customers",
-      "Stockouts and overstock coexist in the same quarter",
-      "Promotions are evaluated on gut feel, not lift",
+    sub: "Bring customer, channel, and operational data together across the business.",
+    help: [
+      { title: "Omnichannel Platforms", text: "Connect customer experiences across channels and systems." },
+      { title: "Customer Analytics", text: "Turn customer data into information teams can use." },
+      { title: "Supply Chain Insights", text: "Bring supply chain data together for better operational visibility." },
     ],
-    enters:
-      "We unify commerce, customer and supply-chain data so stockouts and overstock stop coexisting, and promotions get judged on lift, not gut feel.",
-  },
-  {
-    key: "energy",
-    tag: "Energy, Oil & Gas",
-    headline: "Decisions you can defend, from the field to the board.",
-    sub: "Where downtime and compliance both carry a heavy price.",
-    categories: ["Asset Performance", "Energy Trading", "Sustainability & ESG"],
-    pains: [
-      "Operational data is trapped in legacy and proprietary systems",
-      "Regulatory reporting is a manual, error-prone cycle",
-      "Asset decisions rely on numbers no one fully trusts",
-    ],
-    enters:
-      "We integrate operational and enterprise data so asset decisions stop resting on numbers nobody trusts, and regulatory reporting stops being a manual cycle.",
+    image: img("Retail & Consumer"),
   },
 ];
 
-/* ============================================================
-   Hero — standard page hero with brand backdrop
-   ============================================================ */
+/* ============================================================ */
 
-function ReelHero() {
+function Hero() {
   const ref = useReveal<HTMLDivElement>();
   const { t } = useLang();
   return (
     <section className="page-hero section" id="top">
       <PageHeroArt src="img/heroes/industries.webp" />
       <div className="wrap-lg">
+        <div className="sec-label">
+          <span className="num">{t("§01 · Industries")}</span>
+          <span>{t("Six verticals")}</span>
+          <span className="dash" />
+        </div>
         <div className="page-hero__inner reveal" ref={ref}>
           <h1 className="page-hero__title">
-            {t("Execution across")} <em>{t("complex industries.")}</em>
+            {t("Technology shaped around")} <em>{t("your industry.")}</em>
           </h1>
           <p className="page-hero__lead">
-            {t("Six verticals, one playbook: data, technology, and execution applied to operational outcomes. The pains differ by sector; the discipline that fixes them doesn’t.")}
+            {t("We combine industry knowledge with the technology expertise needed to solve complex business problems.")}
           </p>
         </div>
       </div>
@@ -133,58 +113,93 @@ function ReelHero() {
   );
 }
 
-/* ============================================================
-   Industry tabs, sticky-left + content-right
-   ============================================================ */
+/** Sports & Media only (for now): use cases + insights linked from the sector. */
+function SectorProof() {
+  const { t, tr } = useLang();
+  const cases = tr(CASES);
+  return (
+    <div className="ind2__proof">
+      <span className="ind2__proof-label">{t("Our Sports & Media use cases and insights")}</span>
+      <ul className="ind2__proof-list">
+        {cases.map((c) => (
+          <li key={c.slug}>
+            <Link to={`/case-studies/${c.slug}`} className="ind2__proof-item">
+              <span className="ind2__proof-metric">{c.metricShort}</span>
+              <span className="ind2__proof-title">{c.cardHeadline}</span>
+              <span className="ind2__proof-arrow" aria-hidden="true">→</span>
+            </Link>
+          </li>
+        ))}
+        <li>
+          <Link to="/insights" className="ind2__proof-item ind2__proof-item--more">
+            <span className="ind2__proof-title">{t("Read our latest insights")}</span>
+            <span className="ind2__proof-arrow" aria-hidden="true">→</span>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+}
 
-function IndustryDetail({ ind, index, total }: { ind: Industry; index: number; total: number }) {
-  const stickyRef = useReveal<HTMLDivElement>();
-  const contentRef = useReveal<HTMLDivElement>();
+function IndustryBlock({ ind, index }: { ind: Industry; index: number }) {
+  const leftRef = useReveal<HTMLDivElement>();
+  const rightRef = useReveal<HTMLDivElement>();
   const { t } = useLang();
   return (
-    <article className="page-ind">
-      <div className="page-ind__sticky reveal" ref={stickyRef}>
-        <div className="page-ind__counter">
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-        </div>
-        <h2 className="page-ind__headline">{ind.headline}</h2>
-        <p className="page-ind__sub">{ind.sub}</p>
-        <div className="page-ind__tag-strip">
-          <span className="page-ind__tag-main">{t(ind.tag)}</span>
-          <div className="page-ind__cats">
-            {ind.categories.map((c) => (
-              <span key={c} className="page-ind__cat">
-                {c}
-              </span>
-            ))}
-          </div>
-        </div>
+    <article className="ind2" id={"ind-" + ind.key}>
+      <div className="ind2__lead reveal" ref={leftRef}>
+        <span className="ind2__counter">{String(index + 1).padStart(2, "0")} / {String(INDUSTRIES.length).padStart(2, "0")}</span>
+        <h2 className="ind2__name">{ind.tag}</h2>
+        <p className="ind2__sub">{ind.sub}</p>
       </div>
+      <div className="ind2__body reveal" ref={rightRef}>
+        <figure className="ind2__media" aria-hidden="true">
+          {ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />}
+        </figure>
+        <span className="ind2__help-label">{t("Where we can help")}</span>
+        <ul className="ind2__help">
+          {ind.help.map((h) => (
+            <li key={h.title}>
+              <h3>{h.title}</h3>
+              <p>{h.text}</p>
+            </li>
+          ))}
+        </ul>
+        {ind.key === "sports-media" && <SectorProof />}
+      </div>
+    </article>
+  );
+}
 
-      <div className="page-ind__content reveal" ref={contentRef}>
-        <div className="page-ind__block">
-          <span className="page-ind__block-label">{t("What we hear from your team")}</span>
-          <ul className="page-ind__pains">
-            {ind.pains.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="page-ind__block">
-          <span className="page-ind__block-label">{t("How Enquo helps")}</span>
-          <p className="page-ind__enters">{ind.enters}</p>
-          <div className="page-ind__actions">
+function Closing() {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section ind2-close" id="your-business">
+      <div className="wrap-lg">
+        <div className="ind2-close__inner reveal" ref={ref}>
+          <span className="ind2-close__eyebrow">{t("Your business")}</span>
+          <h2 className="ind2-close__title">
+            {t("Your industry gives us context.")}
+            <br />
+            <em>{t("Your business defines the work.")}</em>
+          </h2>
+          <p className="ind2-close__copy">
+            {t("Every organization has different systems, priorities, and challenges. See how Enquo could approach yours.")}
+          </p>
+          <div className="ind2-close__actions">
+            <Link className="btn btn--primary" to="/demo">
+              {t("Try our demo")}
+              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+            </Link>
             <Link className="btn" to="/services">
-              {t("Explore the services behind it")}
-              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
+              {t("Explore our services")}
+              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </Link>
           </div>
         </div>
       </div>
-    </article>
+    </section>
   );
 }
 
@@ -198,16 +213,10 @@ export function IndustriesPage() {
 
   return (
     <>
-      <ReelHero />
+      <Hero />
 
       <section className="section" id="industries-list">
         <div className="wrap-lg">
-          <div className="sec-label">
-            <span className="num">{t("§02 · Industries")}</span>
-            <span>{t("Where we operate")}</span>
-            <span className="dash" />
-          </div>
-
           <div className="page-ind__tabs" role="tablist">
             <span className="page-ind__tabs-label">{t("Jump to,")} </span>
             {industries.map((i) => (
@@ -226,17 +235,15 @@ export function IndustriesPage() {
             ))}
           </div>
 
-          <div className="page-ind__list">
+          <div className="ind2-list">
             {industries.map((ind, idx) => (
-              <div key={ind.key} id={"ind-" + ind.key}>
-                <IndustryDetail ind={ind} index={idx} total={industries.length} />
-              </div>
+              <IndustryBlock key={ind.key} ind={ind} index={idx} />
             ))}
           </div>
         </div>
       </section>
 
-      <FinalCTA />
+      <Closing />
     </>
   );
 }

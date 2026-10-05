@@ -1,66 +1,81 @@
 import { Link } from "react-router-dom";
 
 import { CASES, type CaseStudy } from "../data/cases";
-import { FinalCTA } from "../components/sections/FinalCTA";
 import { useReveal } from "../hooks/useReveal";
-import { PageHeroArt } from "../components/sections/PageHeroArt";
 import { useLang } from "../i18n/lang";
+import { PageHeroArt } from "../components/sections/PageHeroArt";
 
-/* Rich brand tints cycled across the bento tiles (no photos needed). */
-const TINTS = ["violet", "teal", "rose", "orange", "magenta", "indigo"] as const;
-
-function CaseTile({ s, i }: { s: CaseStudy; i: number }) {
+/* ============================================================
+   Flash cards — CASE · 01 / industry / main metric / headline /
+   practices / READ CASE. Large editorial blocks, image-led.
+   ============================================================ */
+function CaseCard({ s, i }: { s: CaseStudy; i: number }) {
   const ref = useReveal<HTMLAnchorElement>();
-  const featured = i === 0;
   const { t } = useLang();
   return (
-    <Link
-      to={`/case-studies/${s.slug}`}
-      className="case-tile reveal"
-      data-tint={TINTS[i % TINTS.length]}
-      data-feat={featured}
-      ref={ref}
-    >
-      <div className="case-tile__art" aria-hidden="true">
-        <div className="case-tile__grad" />
-        <div className="case-tile__halftone" />
-        <svg className="case-tile__motif" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
-          <g fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1">
-            <circle cx="100" cy="100" r="34" />
-            <circle cx="100" cy="100" r="64" strokeOpacity="0.3" />
-            <circle cx="100" cy="100" r="92" strokeOpacity="0.16" />
-            <circle cx="100" cy="38" r="4" fill="#fff" stroke="none" />
-            <circle cx="158" cy="120" r="4" fill="#fff" stroke="none" />
-            <circle cx="52" cy="142" r="4" fill="#fff" stroke="none" />
-            <path d="M100 38 L100 100 L158 120 M100 100 L52 142" strokeOpacity="0.3" />
-          </g>
-        </svg>
-        <span className="case-tile__watermark">{s.num}</span>
-      </div>
-
-      <div className="case-tile__scrim" aria-hidden="true" />
-
-      <div className="case-tile__body">
-        <div className="case-tile__top">
-          <span className="case-tile__num">{t("Case")} · {s.num}</span>
-          <span className="case-tile__industry">{s.industry}</span>
+    <Link to={`/case-studies/${s.slug}`} className="ccard reveal" ref={ref} style={{ transitionDelay: `${i * 90}ms` }}>
+      <figure className="ccard__media" aria-hidden="true">
+        <img src={import.meta.env.BASE_URL + s.image} alt="" loading="lazy" />
+      </figure>
+      <div className="ccard__body">
+        <div className="ccard__top">
+          <span className="ccard__num">{t("Case")} · {s.num}</span>
+          <span className="ccard__industry">{s.industry}</span>
         </div>
-
-        <h3 className="case-tile__headline">{s.headline}</h3>
-
-        <div className="case-tile__meta">
-          <div className="case-tile__foot">
-            <span className="case-tile__duration">{s.duration}</span>
-            <span className="case-tile__cta">
-              {t("Read case")}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </span>
-          </div>
+        <p className="ccard__metric">{s.metricShort}</p>
+        <h2 className="ccard__headline">{s.cardHeadline}</h2>
+        <div className="ccard__foot">
+          <span className="ccard__meta">{s.tags.join(" · ")}</span>
+          <span className="ccard__cta">
+            {t("Read case")}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+          </span>
         </div>
       </div>
     </Link>
+  );
+}
+
+/* ============================================================
+   Videos — informative videos (e.g. the World Cup piece); slots
+   ready for the files, with a poster until they land.
+   ============================================================ */
+const VIDEOS = [
+  { title: "Mundial", caption: "How a global tournament runs on connected data.", poster: "img/industries/sports.webp" },
+  { title: "Enquo at work", caption: "Design, build and run — in the field.", poster: "img/who/team.webp" },
+];
+
+function Videos() {
+  const ref = useReveal<HTMLDivElement>();
+  const { t, tr } = useLang();
+  const videos = tr(VIDEOS);
+  return (
+    <section className="section cvideos" id="videos">
+      <div className="wrap-lg">
+        <div className="sec-label">
+          <span className="num">{t("§03 · Videos")}</span>
+          <span>{t("The work, on camera")}</span>
+          <span className="dash" />
+        </div>
+        <div className="cvideos__grid reveal" ref={ref}>
+          {videos.map((v) => (
+            <figure className="cvideo" key={v.title}>
+              <div className="cvideo__frame">
+                <img src={import.meta.env.BASE_URL + v.poster} alt="" loading="lazy" />
+                <span className="cvideo__play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+                <span className="cvideo__soon">{t("Coming soon")}</span>
+              </div>
+              <figcaption>
+                <strong>{v.title}</strong>
+                <span>{v.caption}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -78,16 +93,12 @@ export function CaseStudiesPage() {
             <span>{t("Real systems. Real numbers.")}</span>
             <span className="dash" />
           </div>
-
           <div className="page-hero__inner reveal" ref={heroRef}>
             <h1 className="page-hero__title">
-              {t("The systems we ran are")} <em>{t("still running")}</em>.
+              {t("Results you can")} <em>{t("put a number on.")}</em>
             </h1>
             <p className="page-hero__lead">
-              {t("Each case below names the industry, the outcome, how long we were engaged, and the practices applied.")}
-            </p>
-            <p className="page-hero__statement">
-              <span className="page-hero__statement-mark" /> {t("Every metric on this page came out of production, not a deck.")}
+              {t("From faster reporting to more reliable operations, see the measurable impact behind our work.")}
             </p>
           </div>
         </div>
@@ -100,17 +111,15 @@ export function CaseStudiesPage() {
             <span>{cases.length} {t("cases")}</span>
             <span className="dash" />
           </div>
-          <h2 className="page-cases__title">{t("Selected Case Studies")}</h2>
-
-          <div className="case-bento">
+          <div className="ccards">
             {cases.map((s, i) => (
-              <CaseTile key={s.num} s={s} i={i} />
+              <CaseCard key={s.slug} s={s} i={i} />
             ))}
           </div>
         </div>
       </section>
 
-      <FinalCTA />
+      <Videos />
     </>
   );
 }

@@ -1,122 +1,205 @@
 import { Link, useParams } from "react-router-dom";
 
-import { CASES, getCaseBySlug } from "../data/cases";
-import { FinalCTA } from "../components/sections/FinalCTA";
+import { CASES, getCaseBySlug, type CaseStudy } from "../data/cases";
 import { useReveal } from "../hooks/useReveal";
 import { useLang } from "../i18n/lang";
 
-export function CaseStudyDetailPage() {
-  const { slug = "" } = useParams<{ slug: string }>();
-  const { tr } = useLang();
-  const raw = getCaseBySlug(slug);
-  const study = raw ? tr(raw) : undefined;
+/* ============================================================
+   Case detail — hero (metric + headline + intro + capabilities +
+   photo/video slot) → challenge → visual flow → approach →
+   before / after → impact → what we delivered → technologies →
+   business impact → next case.
+   ============================================================ */
 
-  if (!study) return <NotFound />;
-
-  // 2 related cases — same industry first, then fill from the rest.
-  const related = tr([
-    ...CASES.filter((c) => c.slug !== study.slug && c.industry === raw!.industry),
-    ...CASES.filter((c) => c.slug !== study.slug && c.industry !== raw!.industry),
-  ].slice(0, 2));
-
+function Arrow() {
   return (
-    <>
-      <CaseHero study={study} />
-      <CaseSituation study={study} />
-      <CaseApproach study={study} />
-      <CaseOutcomes study={study} />
-      {related.length > 0 && <RelatedCases related={related} />}
-      <FinalCTA />
-    </>
+    <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
   );
 }
 
-/* ============================================================ */
-
-function CaseHero({ study }: { study: ReturnType<typeof getCaseBySlug> & object }) {
+function Hero({ c }: { c: CaseStudy }) {
   const ref = useReveal<HTMLDivElement>();
   const { t } = useLang();
   return (
-    <section className="page-hero section" id="top">
+    <section className="page-hero section cd-hero" id="top">
       <div className="wrap-lg">
         <div className="sec-label">
-          <span className="num">{t("Case")} · {study.num}</span>
-          <span>{study.industry}</span>
+          <span className="num">{t("Case")} · {c.num}</span>
+          <span>{c.client} · {c.industry}</span>
           <span className="dash" />
-          <Link to="/case-studies" className="case-detail__back">
-            ← {t("All cases")}
+          <Link to="/case-studies" className="case-detail__back">← {t("All cases")}</Link>
+        </div>
+        <div className="cd-hero__grid reveal" ref={ref}>
+          <div className="cd-hero__text">
+            <span className="cd-hero__cat">{c.category}</span>
+            <p className="cd-hero__metric">{c.metric}</p>
+            <h1 className="cd-hero__headline">{c.headline}</h1>
+            <p className="cd-hero__intro">{c.intro}</p>
+            <div className="cd-hero__caps">
+              <span className="cd-label">{t("Capabilities")}</span>
+              <ul>{c.capabilities.map((x) => <li key={x}>{x}</li>)}</ul>
+            </div>
+          </div>
+          <figure className="cd-hero__media" aria-hidden="true">
+            <img src={import.meta.env.BASE_URL + c.image} alt="" />
+          </figure>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Challenge({ c }: { c: CaseStudy }) {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section cd-block" id="challenge">
+      <div className="wrap-lg">
+        <div className="cd-grid reveal" ref={ref}>
+          <div>
+            <span className="cd-label">{t("The challenge")}</span>
+            <h2 className="cd-title">{c.challenge.title}</h2>
+          </div>
+          <ol className="cd-bullets">
+            {c.challenge.bullets.map((b, i) => (
+              <li key={b.label}>
+                <span className="cd-bullets__num">0{i + 1}</span>
+                <div>
+                  <strong>{b.label}</strong>
+                  <p>{b.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="cd-flow" aria-label={t("Visual flow")}>
+          {c.flow.map((step, i) => (
+            <div className="cd-flow__step" key={step} style={{ animationDelay: `${i * 120}ms` }}>
+              <span>{step}</span>
+              {i < c.flow.length - 1 && <i className="cd-flow__arrow" aria-hidden="true" />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Approach({ c }: { c: CaseStudy }) {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section cd-block cd-block--shade" id="approach">
+      <div className="wrap-lg">
+        <div className="cd-grid reveal" ref={ref}>
+          <div>
+            <span className="cd-label">{t("The approach")}</span>
+            <h2 className="cd-title">{c.approach.title}</h2>
+          </div>
+          <p className="cd-prose">{c.approach.text}</p>
+        </div>
+        <div className="cd-ba">
+          <div className="cd-ba__col cd-ba__col--before">
+            <span className="cd-label">{t("Before")}</span>
+            <ol>{c.before.map((s) => <li key={s}>{s}</li>)}</ol>
+          </div>
+          <span className="cd-ba__arrow" aria-hidden="true"><Arrow /></span>
+          <div className="cd-ba__col cd-ba__col--after">
+            <span className="cd-label">{t("After")}</span>
+            <ol>{c.after.map((s) => <li key={s}>{s}</li>)}</ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Impact({ c }: { c: CaseStudy }) {
+  const ref = useReveal<HTMLDListElement>();
+  const { t } = useLang();
+  return (
+    <section className="section cd-block" id="impact">
+      <div className="wrap-lg">
+        <span className="cd-label">{t("The impact")}</span>
+        <dl className="cd-impact reveal" ref={ref} data-n={c.impact.length}>
+          {c.impact.map((m) => (
+            <div key={m.label}>
+              <dt>{m.value}</dt>
+              <dd>{m.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+function Delivered({ c }: { c: CaseStudy }) {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section cd-block cd-block--shade" id="delivered">
+      <div className="wrap-lg">
+        <div className="cd-grid reveal" ref={ref}>
+          <div>
+            <span className="cd-label">{t("What we delivered")}</span>
+            {c.technologies.length > 0 && (
+              <div className="cd-tech">
+                <span className="cd-label cd-label--muted">{t("Technologies")}</span>
+                <ul>{c.technologies.map((x) => <li key={x}>{x}</li>)}</ul>
+              </div>
+            )}
+          </div>
+          <ul className="cd-delivered">
+            {c.delivered.map((d) => (
+              <li key={d.label}>
+                <strong>{d.label}</strong>
+                <p>{d.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BusinessImpact({ c }: { c: CaseStudy }) {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section cd-block" id="business-impact">
+      <div className="wrap-lg">
+        <div className="cd-bi reveal" ref={ref}>
+          <span className="cd-label">{t("Business impact")}</span>
+          <h2 className="cd-bi__title">{c.businessImpact.title}</h2>
+          <p className="cd-prose">{c.businessImpact.text}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NextCase({ next }: { next: CaseStudy | undefined }) {
+  const ref = useReveal<HTMLDivElement>();
+  const { t } = useLang();
+  return (
+    <section className="section cd-block cd-block--shade" id="next">
+      <div className="wrap-lg">
+        {next ? (
+          <Link to={`/case-studies/${next.slug}`} className="cd-next reveal" ref={ref as never}>
+            <span className="cd-label">{t("Next case")} →</span>
+            <span className="cd-next__industry">{next.industry}</span>
+            <span className="cd-next__metric">{next.metric}</span>
+            <span className="cd-next__headline">{next.headline}</span>
+            <span className="cd-next__cta">{t("Read next case")} <Arrow /></span>
           </Link>
-        </div>
-
-        <div className="case-detail__hero reveal" ref={ref}>
-          <p className="case-detail__client">{study.client}</p>
-          <h1 className="case-detail__headline">{study.headline}</h1>
-
-          <div className="case-detail__result-band">
-            <span className="case-detail__result-label">{t("Result")}</span>
-            <p className="case-detail__result-text">{study.result}</p>
-          </div>
-
-          <div className="case-detail__meta">
-            <span className="case-detail__duration">{study.duration}</span>
-            <div className="case-detail__tags">
-              {study.tags.map((t) => (
-                <span key={t} className="case-detail__tag">{t}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CaseSituation({ study }: { study: ReturnType<typeof getCaseBySlug> & object }) {
-  const ref = useReveal<HTMLDivElement>();
-  const { t } = useLang();
-  return (
-    <section className="section case-detail__block" id="situation">
-      <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">{t("§01 · Situation")}</span>
-          <span>{t("What we walked into")}</span>
-          <span className="dash" />
-        </div>
-        <div className="case-detail__prose reveal" ref={ref}>
-          {study.situation.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CaseApproach({ study }: { study: ReturnType<typeof getCaseBySlug> & object }) {
-  const ref = useReveal<HTMLDivElement>();
-  const { t } = useLang();
-  return (
-    <section className="section case-detail__block case-detail__block--shade" id="approach">
-      <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">{t("§02 · Approach")}</span>
-          <span>{t("What we did")}</span>
-          <span className="dash" />
-        </div>
-        <div className="case-detail__prose reveal" ref={ref}>
-          {study.approach.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-
-        {study.stack.length > 0 && (
-          <div className="case-detail__stack">
-            <span className="case-detail__stack-label">{t("Stack & methods")}</span>
-            <div className="case-detail__stack-tags">
-              {study.stack.map((s) => (
-                <span key={s} className="case-detail__stack-tag">{s}</span>
-              ))}
-            </div>
+        ) : (
+          <div className="cd-next cd-next--all reveal" ref={ref}>
+            <span className="cd-label">{t("Explore more case studies")} →</span>
+            <span className="cd-next__headline">{t("See what the work delivered.")}</span>
+            <span className="cd-next__copy">{t("Explore measurable outcomes across industries, technologies, and business challenges.")}</span>
+            <Link to="/case-studies" className="btn btn--primary">{t("View all case studies")} <Arrow /></Link>
           </div>
         )}
       </div>
@@ -124,61 +207,25 @@ function CaseApproach({ study }: { study: ReturnType<typeof getCaseBySlug> & obj
   );
 }
 
-function CaseOutcomes({ study }: { study: ReturnType<typeof getCaseBySlug> & object }) {
-  const ref = useReveal<HTMLDivElement>();
-  const { t } = useLang();
-  return (
-    <section className="section case-detail__block" id="outcomes">
-      <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">{t("§03 · Outcomes")}</span>
-          <span>{t("What stayed standing")}</span>
-          <span className="dash" />
-        </div>
-        <div className="case-detail__outcomes" ref={ref}>
-          {study.outcomes.map((o) => (
-            <article key={o.label} className="case-detail__outcome">
-              <span className="case-detail__outcome-metric">{o.metric}</span>
-              <span className="case-detail__outcome-label">{o.label}</span>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+export function CaseStudyDetailPage() {
+  const { slug = "" } = useParams<{ slug: string }>();
+  const { tr } = useLang();
+  const raw = getCaseBySlug(slug);
+  if (!raw) return <NotFound />;
+  const c = tr(raw);
+  const idx = CASES.findIndex((x) => x.slug === raw.slug);
+  const next = idx < CASES.length - 1 ? tr(CASES[idx + 1]) : undefined;
 
-function RelatedCases({ related }: { related: ReturnType<typeof getCaseBySlug>[] & object[] }) {
-  const ref = useReveal<HTMLDivElement>();
-  const { t } = useLang();
   return (
-    <section className="section case-detail__block case-detail__block--shade" id="related">
-      <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">{t("§04 · Related")}</span>
-          <span>{t("Other engagements")}</span>
-          <span className="dash" />
-        </div>
-        <div className="case-detail__related" ref={ref}>
-          {related.map((r) => (
-            <Link key={r!.slug} to={`/case-studies/${r!.slug}`} className="case-detail__related-card">
-              <header>
-                <span className="case-detail__related-num">{t("Case")} · {r!.num}</span>
-                <span className="case-detail__related-industry">{r!.industry}</span>
-              </header>
-              <h3>{r!.headline}</h3>
-              <p>{r!.result}</p>
-              <span className="case-detail__related-cta">
-                {t("Read case")}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </span>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+    <>
+      <Hero c={c} />
+      <Challenge c={c} />
+      <Approach c={c} />
+      <Impact c={c} />
+      <Delivered c={c} />
+      <BusinessImpact c={c} />
+      <NextCase next={next} />
+    </>
   );
 }
 
@@ -199,9 +246,7 @@ function NotFound() {
           {t("The case you’re looking for may have been renamed or removed. Head back to the full archive.")}
         </p>
         <p>
-          <Link to="/case-studies" className="btn btn--primary">
-            ← {t("Browse all cases")}
-          </Link>
+          <Link to="/case-studies" className="btn btn--primary">← {t("Browse all cases")}</Link>
         </p>
       </div>
     </section>
