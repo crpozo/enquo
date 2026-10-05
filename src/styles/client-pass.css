@@ -688,3 +688,32 @@
   .inds-panels__head { grid-template-columns: 1fr; gap: 16px; }
   .inds-panels__sub { justify-self: start; }
 }
+
+/* ---- Journey reveal: stages stay hidden until the line reaches them ---- */
+/* opacity only: a transform on these spans would re-anchor the line and
+   runner pseudo-elements that hang off them */
+.how__tabs--journey .how__tab > .how__tab-glyph,
+.how__tabs--journey .how__tab > .how__tab-num,
+.how__tabs--journey .how__tab > .how__tab-label,
+.how__tabs--journey .how__tab > .how__tab-count {
+  transition: opacity 500ms ease;
+}
+.how__tabs--journey .how__tab > .how__tab-num { transition-delay: 120ms; }
+.how__tabs--journey .how__tab > .how__tab-label { transition-delay: 200ms; }
+.how__tabs--journey .how__tab > .how__tab-count { transition-delay: 320ms; }
+.how__tabs--journey .how__tab.is-hidden > .how__tab-glyph,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-num,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-label,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-count {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+.how__tabs--journey .how__tab.is-hidden::before,
+.how__tabs--journey .how__tab.is-hidden .how__tab-count::after,
+.how__tabs--journey .how__tab.is-hidden.is-last .how__tab-num::after { opacity: 0; }
+.how__tabs--journey .how__tab::before,
+.how__tabs--journey .how__tab .how__tab-count::after,
+.how__tabs--journey .how__tab.is-last .how__tab-num::after { transition: opacity 400ms ease, background 250ms ease, box-shadow 250ms ease; }
+/* nothing moves before the sequence has started */
+.how__tabs--journey[data-started="false"] .how__tab .how__tab-glyph::after,
+.how__tabs--journey[data-started="false"] .how__tab .how__tab-label::after { animation: none; }

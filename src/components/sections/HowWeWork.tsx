@@ -13,7 +13,7 @@ const STAGE_ART: Record<string, string> = {
   Run: "img/how/run.webp",
 };
 
-const AUTO_MS = 3800;
+const AUTO_MS = 2400;
 
 /* Journey glyphs — scattered → ordered → assembled → flowing.
    Pure SVG, tinted by the tab's current colour. */
@@ -69,7 +69,8 @@ function Glyph({ tag }: { tag: string }) {
 export function HowWeWork() {
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(true);
-  const [visible, setVisible] = useState(false);
+  /** Stages revealed so far: -1 = sequence not started, 3 = all shown. */
+  const [revealed, setRevealed] = useState(-1);
   const sectionRef = useRef<HTMLElement | null>(null);
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const headRef = useReveal<HTMLDivElement>();
@@ -83,24 +84,34 @@ export function HowWeWork() {
   ];
   const stage = journey[active];
 
-  // Auto-play: once the stepper is on screen the journey advances on its
-  // own, stage by stage, and settles on the last one. Picking a stage
-  // hands control to the visitor.
+  // Reveal sequence (Hakkōda-style): the first time the stepper scrolls
+  // into view only Discover is shown; the line travels to the next node and
+  // that stage appears, and so on until Run. Picking a stage reveals all
+  // and hands control to the visitor.
+  const last = journey.length - 1;
   useEffect(() => {
     const el = tabsRef.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.6 });
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setRevealed(last); setAuto(false); return;
+    }
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setRevealed((r) => (r < 0 ? 0 : r)); io.disconnect(); }
+    }, { threshold: 0.5 });
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [last]);
   useEffect(() => {
-    if (!auto || !visible) return;
-    if (active >= journey.length - 1) { setAuto(false); return; }
-    const id = window.setTimeout(() => setActive((a) => Math.min(a + 1, journey.length - 1)), AUTO_MS);
+    if (!auto || revealed < 0) return;
+    if (revealed >= last) { setAuto(false); return; }
+    const id = window.setTimeout(() => {
+      setRevealed((r) => Math.min(r + 1, last));
+      setActive((a) => Math.min(a + 1, last));
+    }, AUTO_MS);
     return () => window.clearTimeout(id);
-  }, [auto, visible, active, journey.length]);
+  }, [auto, revealed, last]);
 
-  const pick = (i: number) => { setAuto(false); setActive(i); };
+  const pick = (i: number) => { setAuto(false); setRevealed(last); setActive(i); };
 
   return (
     <section className="how section" id="services" ref={sectionRef}>
@@ -121,14 +132,14 @@ export function HowWeWork() {
           </p>
         </div>
 
-        <div className="how__tabs how__tabs--journey" role="tablist" aria-label={t("Delivery stages")} data-auto={auto} ref={tabsRef}>
+        <div className="how__tabs how__tabs--journey" role="tablist" aria-label={t("Delivery stages")} data-auto={auto} data-started={revealed >= 0} ref={tabsRef}>
           {journey.map((s, i) => (
             <button
               key={s.tag}
               role="tab"
               type="button"
               aria-selected={active === i}
-              className={"how__tab" + (active === i ? " active" : "") + (i < active ? " is-done" : "") + (i === journey.length - 1 ? " is-last" : "")}
+              className={"how__tab" + (active === i ? " active" : "") + (i < active ? " is-done" : "") + (i === last ? " is-last" : "") + (auto && i > revealed ? " is-hidden" : "")}
               onClick={() => pick(i)}
               style={{ "--auto-ms": `${AUTO_MS}ms` } as React.CSSProperties}
             >
