@@ -15,47 +15,64 @@ const STAGE_ART: Record<string, string> = {
 
 const AUTO_MS = 2400;
 
-/* Journey glyphs — scattered → ordered → assembled → flowing.
-   Pure SVG, tinted by the tab's current colour. */
+/* Journey glyphs — Hakkōda-style pixel motifs in the Enquo palette:
+   scattered (Discover) → ordered (Design) → assembled & scanned (Build)
+   → flowing inside the loop (Run). Pure SVG; the pieces animate in when
+   their stage is revealed and keep a slow idle motion afterwards. */
+const CHAOS: Array<[number, number, number, number, string]> = [
+  [6, 18, 16, 14, "l"], [30, 6, 12, 12, "p"], [50, 12, 18, 16, "k"], [74, 20, 10, 10, "t"],
+  [14, 40, 26, 24, "w"], [46, 36, 12, 8, "l"], [62, 32, 20, 20, "p"], [86, 42, 6, 6, "k"],
+  [8, 70, 10, 10, "t"], [28, 68, 16, 20, "k"], [52, 62, 14, 14, "l"], [72, 66, 18, 12, "w"],
+  [40, 86, 8, 6, "p"], [66, 84, 10, 8, "t"],
+];
+const SPARKS: Array<[number, number, number, number]> = [
+  [2, 30, 14, 1], [84, 10, 10, 1], [46, 2, 1, 12], [90, 60, 1, 14], [20, 92, 12, 1], [60, 50, 1, 8],
+];
+const GRID: string[] = [
+  "l", "p", "k", "t", "p", "w", "l", "p", "t", "l", "p", "k", "p", "k", "w", "l",
+];
+
 function Glyph({ tag }: { tag: string }) {
   if (tag === "Discover") {
-    const cells = [
-      [4, 6, 7, 5], [16, 2, 6, 6], [26, 9, 5, 5], [10, 16, 9, 7], [24, 18, 6, 4], [33, 15, 4, 8], [6, 27, 6, 5], [18, 26, 8, 6], [30, 28, 5, 5],
-    ];
     return (
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        {cells.map(([x, y, w, h], i) => (
-          <rect key={i} x={x} y={y} width={w} height={h} rx="0.8" className={`g g-${i % 3}`} />
+      <svg viewBox="0 0 96 96" aria-hidden="true" className="gl gl--chaos">
+        {CHAOS.map(([x, y, w, h, c], i) => (
+          <rect key={i} x={x} y={y} width={w} height={h} className={`px px-${c}`} style={{ "--i": i } as React.CSSProperties} />
+        ))}
+        {SPARKS.map(([x, y, w, h], i) => (
+          <rect key={`s${i}`} x={x} y={y} width={w} height={h} className="spark" style={{ "--i": i } as React.CSSProperties} />
         ))}
       </svg>
     );
   }
   if (tag === "Design") {
     return (
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <rect x="3" y="3" width="34" height="34" rx="1" fill="none" stroke="currentColor" strokeWidth="1.2" />
-        <rect x="6" y="6" width="13" height="13" className="g g-0" />
-        <rect x="21" y="6" width="13" height="13" className="g g-1" />
-        <rect x="6" y="21" width="13" height="13" className="g g-2" />
-        <rect x="21" y="21" width="13" height="13" className="g g-0" />
+      <svg viewBox="0 0 96 96" aria-hidden="true" className="gl gl--order">
+        <rect x="3" y="3" width="90" height="90" className="frame" />
+        <path d="M11 11h34v22h-8v16h-26z" className="px px-w piece" style={{ "--dx": "-30px", "--dy": "-30px" } as React.CSSProperties} />
+        <path d="M45 11h40v30h-16v12h-24v-4h8v-16h-8z" className="px px-p piece" style={{ "--dx": "30px", "--dy": "-30px" } as React.CSSProperties} />
+        <path d="M11 49h26v8h8v12h-8v16h-26z" className="px px-t piece" style={{ "--dx": "-30px", "--dy": "30px" } as React.CSSProperties} />
+        <path d="M45 61h8v-8h16v-12h16v44h-40z" className="px px-l piece" style={{ "--dx": "30px", "--dy": "30px" } as React.CSSProperties} />
       </svg>
     );
   }
   if (tag === "Build") {
     return (
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <rect x="4" y="26" width="32" height="10" className="g g-0" />
-        <rect x="8" y="15" width="24" height="10" className="g g-1" />
-        <rect x="13" y="4" width="14" height="10" className="g g-2" />
+      <svg viewBox="0 0 96 96" aria-hidden="true" className="gl gl--insight">
+        {GRID.map((c, i) => (
+          <rect key={i} x={6 + (i % 4) * 22} y={6 + Math.floor(i / 4) * 22} width="20" height="20" className={`px px-${c}`} style={{ "--i": i } as React.CSSProperties} />
+        ))}
+        <rect x="4" y="4" width="46" height="46" className="scan scan--a" />
+        <rect x="46" y="46" width="46" height="46" className="scan scan--b" />
       </svg>
     );
   }
   return (
-    <svg viewBox="0 0 40 40" aria-hidden="true">
-      {[4, 10, 16, 22, 28, 34].map((x, i) => (
-        <rect key={x} x={x} y={20 - [6, 12, 9, 16, 11, 14][i] / 2} width="4" height={[6, 12, 9, 16, 11, 14][i]} rx="0.8" className={`g g-${i % 3}`} />
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="gl gl--flow">
+      <circle cx="48" cy="48" r="43" className="loop" />
+      {[[16, 30, "t"], [26, 48, "l"], [36, 64, "p"], [46, 40, "w"], [56, 70, "k"], [66, 52, "l"], [76, 34, "p"]].map(([x, h, c], i) => (
+        <rect key={i} x={x as number} y={48 - (h as number) / 2} width="6" height={h as number} className={`px px-${c} bar`} style={{ "--i": i } as React.CSSProperties} />
       ))}
-      <path d="M2 20 H38" stroke="currentColor" strokeWidth="1" strokeDasharray="2 3" opacity="0.6" />
     </svg>
   );
 }
@@ -103,11 +120,11 @@ export function HowWeWork() {
   }, [last]);
   useEffect(() => {
     if (!auto || revealed < 0) return;
-    if (revealed >= last) { setAuto(false); return; }
-    const id = window.setTimeout(() => {
-      setRevealed((r) => Math.min(r + 1, last));
-      setActive((a) => Math.min(a + 1, last));
-    }, AUTO_MS);
+    if (revealed >= last) {
+      const done = window.setTimeout(() => setAuto(false), 1200);
+      return () => window.clearTimeout(done);
+    }
+    const id = window.setTimeout(() => setRevealed((r) => Math.min(r + 1, last)), AUTO_MS);
     return () => window.clearTimeout(id);
   }, [auto, revealed, last]);
 
@@ -139,7 +156,15 @@ export function HowWeWork() {
               role="tab"
               type="button"
               aria-selected={active === i}
-              className={"how__tab" + (active === i ? " active" : "") + (i < active ? " is-done" : "") + (i === last ? " is-last" : "") + (auto && i > revealed ? " is-hidden" : "")}
+              className={
+                "how__tab"
+                + (active === i ? " active" : "")
+                + (i <= revealed ? " is-reached" : "")
+                + (i < revealed ? " is-done" : "")
+                + (auto && i === revealed ? " is-head" : "")
+                + (i === last ? " is-last" : "")
+                + (auto && i > revealed ? " is-hidden" : "")
+              }
               onClick={() => pick(i)}
               style={{ "--auto-ms": `${AUTO_MS}ms` } as React.CSSProperties}
             >

@@ -51,9 +51,9 @@ export function HomeIndustries() {
               <figure className="ind-panel__media" aria-hidden="true">
                 {ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />}
                 <span className="ind-panel__num">0{i + 1}</span>
+                <h3 className="ind-panel__name">{ind.name}</h3>
               </figure>
               <div className="ind-panel__body">
-                <h3 className="ind-panel__name">{ind.name}</h3>
                 <ul className="ind-panel__list">
                   {areas(ind.desc).map((a) => (
                     <li key={a}>

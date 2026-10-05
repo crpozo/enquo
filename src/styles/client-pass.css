@@ -422,7 +422,137 @@
 .do-flow--4 .do-stage__name { font-size: clamp(20px, 1.75vw, 28px); letter-spacing: 0; overflow-wrap: anywhere; }
 
 /* ============================================================
-   Our services · journey stepper (Discover → Design → Build → Run)
+   Proven impact · count-up numbers with a colour bloom
+   ============================================================ */
+.proof__num { opacity: 0; transform: translateY(16px); transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.proof__num.is-in { opacity: 1; transform: translateY(0); }
+.proof__num dt { position: relative; }
+.proof__num-glow {
+  position: absolute;
+  left: -10%; top: 10%;
+  width: 70%; height: 80%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--proof-tint, #C7B6FF), transparent 70%);
+  opacity: 0;
+  filter: blur(28px);
+  z-index: -1;
+  transition: opacity 900ms ease 200ms;
+}
+.proof__num.is-in .proof__num-glow { opacity: 0.32; }
+.proof__num dt { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
+:root[data-theme="light"] .proof__num dt { background: linear-gradient(135deg, #0A0A0F 0%, var(--proof-tint, #7C3AED) 100%); background-clip: text; -webkit-background-clip: text; }
+:root[data-theme="light"] .proof__num.is-in .proof__num-glow { opacity: 0.18; }
+
+/* ============================================================
+   Industries · six image-led tiles, no boxes
+   ============================================================ */
+.inds-panels__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.inds-panels__head .inds__title { margin: 0; }
+.inds-panels__sub {
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 460px;
+  justify-self: end;
+}
+.inds-panels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 3vw, 44px) clamp(20px, 2.4vw, 36px);
+}
+.ind-panel {
+  display: block;
+  color: var(--ink);
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.inds-panels.in .ind-panel { opacity: 1; transform: translateY(0); }
+.ind-panel__media {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-2);
+  isolation: isolate;
+}
+.ind-panel__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1), filter 400ms ease; filter: saturate(0.9); }
+.ind-panel:hover .ind-panel__media img { transform: scale(1.05); filter: saturate(1.1); }
+.ind-panel__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 15, 0) 35%, rgba(10, 10, 15, 0.82) 100%);
+}
+.ind-panel__media::before {
+  /* hairline frame that lights up on hover */
+  content: "";
+  position: absolute; inset: 0; z-index: 2;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+  pointer-events: none;
+}
+.ind-panel:hover .ind-panel__media::before { border-color: rgba(192, 132, 252, 0.6); box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.15), 0 18px 40px -20px rgba(124, 58, 237, 0.6); }
+.ind-panel__num {
+  position: absolute; left: 18px; top: 16px; z-index: 1;
+  font-size: 11px; letter-spacing: 0.2em; color: rgba(255, 255, 255, 0.8); font-weight: 600;
+  font-feature-settings: "tnum" 1;
+}
+.ind-panel__body { padding: 16px 2px 0; }
+.ind-panel__name {
+  position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1;
+  margin: 0;
+  font-size: clamp(17px, 1.3vw, 20px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+.ind-panel__list { list-style: none; margin: 0; padding: 0; }
+.ind-panel__list li {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 14px;
+  color: var(--ink-2);
+  text-transform: capitalize;
+  transition: color 180ms ease, padding-left 180ms ease;
+}
+.ind-panel:hover .ind-panel__list li { color: var(--ink); }
+.ind-panel__arrow { color: #c084fc; font-size: 13px; opacity: 0.6; transition: transform 200ms ease, opacity 200ms ease; }
+.ind-panel:hover .ind-panel__arrow { transform: translateX(4px); opacity: 1; }
+.inds-panels__cta { margin-top: 48px; }
+:root[data-theme="light"] .ind-panel__media::after { background: linear-gradient(180deg, rgba(10,10,15,0) 35%, rgba(10,10,15,0.78) 100%); }
+:root[data-wireframe] .ind-panel__media {
+  background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 12px, #e2e2e2 12px, #e2e2e2 24px) !important;
+  outline: 1px dashed #aaaaaa; outline-offset: -1px;
+}
+:root[data-wireframe] .ind-panel__media img { display: none; }
+:root[data-wireframe] .ind-panel__name { color: #1a1a1a; text-shadow: none; }
+@media (max-width: 1000px) { .inds-panels { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) {
+  .inds-panels { grid-template-columns: 1fr; }
+  .inds-panels__head { grid-template-columns: 1fr; gap: 16px; }
+  .inds-panels__sub { justify-self: start; }
+}
+
+/* ============================================================
+   Our services · journey (Discover → Design → Build → Run)
+   States per stage:
+     is-hidden   not reached yet while the intro sequence runs (invisible)
+     is-reached  the line has arrived: node lit, glyph in colour, idle motion
+     is-done     the segment after it is filled
+     is-head     the segment after it is filling right now (runner)
+     active      the stage whose content shows in the panel
    ============================================================ */
 .how__tabs--journey {
   display: grid;
@@ -432,36 +562,23 @@
   padding-top: 8px;
 }
 .how__tabs--journey .how__tab { padding-bottom: 34px; opacity: 1; }
-.how__tabs--journey .how__tab > * { transition: opacity 250ms ease; }
-.how__tabs--journey .how__tab:not(.active) > .how__tab-num,
-.how__tabs--journey .how__tab:not(.active) > .how__tab-label,
-.how__tabs--journey .how__tab:not(.active) > .how__tab-count { opacity: 0.45; }
-.how__tabs--journey .how__tab:hover > * { opacity: 0.85; }
 .how__tabs--journey .how__tab.active::after { display: none; }
+.how__tabs--journey .how__tab > .how__tab-glyph,
+.how__tabs--journey .how__tab > .how__tab-num,
+.how__tabs--journey .how__tab > .how__tab-label,
+.how__tabs--journey .how__tab > .how__tab-count { transition: opacity 500ms ease; }
+.how__tabs--journey .how__tab > .how__tab-num { transition-delay: 120ms; }
+.how__tabs--journey .how__tab > .how__tab-label { transition-delay: 200ms; }
+.how__tabs--journey .how__tab > .how__tab-count { transition-delay: 320ms; }
+.how__tabs--journey .how__tab:not(.active) > .how__tab-label { opacity: 0.72; }
+.how__tabs--journey .how__tab:not(.active) > .how__tab-count { opacity: 0.6; }
+.how__tabs--journey .how__tab:hover > .how__tab-label { opacity: 1; }
+.how__tabs--journey .how__tab.is-hidden > .how__tab-glyph,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-num,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-label,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-count { opacity: 0; transition-delay: 0ms; }
 
-/* glyph */
-.how__tab-glyph {
-  display: block;
-  width: 44px; height: 44px;
-  margin-bottom: 14px;
-  color: var(--ink-3);
-  transition: color 300ms ease, transform 300ms ease;
-}
-.how__tab-glyph svg { width: 100%; height: 100%; overflow: visible; transition: transform 300ms ease; }
-.how__tab-glyph .g { fill: currentColor; opacity: 0.55; transition: opacity 300ms ease, transform 300ms ease; }
-.how__tab-glyph .g-1 { opacity: 0.8; }
-.how__tab-glyph .g-2 { opacity: 1; }
-.how__tab.active .how__tab-glyph { color: #C7B6FF; }
-.how__tab.active .how__tab-glyph svg { transform: translateY(-2px); }
-.how__tab.is-done .how__tab-glyph { color: var(--purple-400); }
-.how__tab.active .how__tab-glyph .g { animation: glyph-pulse 2.4s ease-in-out infinite; }
-.how__tab.active .how__tab-glyph .g-1 { animation-delay: 0.3s; }
-.how__tab.active .how__tab-glyph .g-2 { animation-delay: 0.6s; }
-@keyframes glyph-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
-
-/* journey line: node under each stage, segment reaching the next one,
-   arrow head after the last. Done segments are filled; the active one
-   fills over the auto-play interval. */
+/* node */
 .how__tabs--journey .how__tab::before {
   content: "";
   position: absolute;
@@ -471,34 +588,29 @@
   background: var(--bg);
   border: 1.5px solid var(--purple-400);
   z-index: 2;
-  transition: background 250ms ease, box-shadow 250ms ease;
+  transition: background 250ms ease, box-shadow 250ms ease, opacity 400ms ease;
 }
-.how__tabs--journey .how__tab.active::before,
-.how__tabs--journey .how__tab.is-done::before {
-  background: #c084fc;
-  box-shadow: 0 0 14px rgba(192, 132, 252, 0.9);
-}
-.how__tab-line,
-.how__tabs--journey .how__tab .how__tab-count::before { display: none; }
+.how__tabs--journey .how__tab.is-reached::before { background: #c084fc; box-shadow: 0 0 14px rgba(192, 132, 252, 0.9); }
+.how__tabs--journey .how__tab.is-hidden::before { opacity: 0; }
+
+/* base track */
 .how__tabs--journey .how__tab .how__tab-count::after {
-  /* base track */
   content: "";
   position: absolute;
   left: 4px; right: calc(-1 * clamp(20px, 3vw, 48px));
   bottom: 12px;
   height: 1.5px;
   background: rgba(124, 58, 237, 0.28);
+  transition: opacity 400ms ease;
 }
-.how__tabs--journey .how__tab.is-last .how__tab-count::after {
-  right: 0;
-  background: linear-gradient(90deg, rgba(124,58,237,0.28), rgba(124,58,237,0));
-}
+.how__tabs--journey .how__tab.is-last .how__tab-count::after { right: 0; }
+.how__tabs--journey .how__tab.is-hidden .how__tab-count::after { opacity: 0; }
+
+/* fill */
 .how__tabs--journey .how__tab .how__tab-glyph::after {
-  /* fill */
   content: "";
   position: absolute;
-  left: 4px;
-  bottom: 12px;
+  left: 4px; bottom: 12px;
   height: 1.5px;
   width: 0;
   background: linear-gradient(90deg, #7C3AED, #C026D3);
@@ -506,13 +618,15 @@
   z-index: 1;
 }
 .how__tabs--journey .how__tab.is-done .how__tab-glyph::after { width: calc(100% - 4px + clamp(20px, 3vw, 48px)); }
-.how__tabs--journey[data-auto="true"] .how__tab.active:not(.is-last) .how__tab-glyph::after {
-  animation: journey-fill var(--auto-ms, 4600ms) linear forwards;
-}
-.how__tabs--journey[data-auto="false"] .how__tab.active .how__tab-glyph::after { width: 0; }
+.how__tabs--journey .how__tab.is-head:not(.is-last) .how__tab-glyph::after { animation: journey-fill var(--auto-ms, 2400ms) linear forwards; }
 @keyframes journey-fill { from { width: 0; } to { width: calc(100% - 4px + clamp(20px, 3vw, 48px)); } }
-/* runner: a glowing head that travels with the fill */
-.how__tabs--journey[data-auto="true"] .how__tab.active:not(.is-last) .how__tab-label::after {
+/* last stretch: to the arrow head */
+.how__tabs--journey .how__tab.is-last.is-reached .how__tab-glyph::after { width: calc(100% - 14px); }
+.how__tabs--journey .how__tab.is-last.is-head .how__tab-glyph::after { animation: journey-fill-last 900ms linear forwards; }
+@keyframes journey-fill-last { from { width: 0; } to { width: calc(100% - 14px); } }
+
+/* runner */
+.how__tabs--journey .how__tab.is-head .how__tab-label::after {
   content: "";
   position: absolute;
   left: 4px; bottom: 9px;
@@ -521,14 +635,14 @@
   background: #fff;
   box-shadow: 0 0 12px #C026D3, 0 0 24px rgba(192, 38, 211, 0.7);
   z-index: 3;
-  animation: journey-run var(--auto-ms, 3800ms) linear forwards;
+  animation: journey-run var(--auto-ms, 2400ms) linear forwards;
 }
+.how__tabs--journey .how__tab.is-head.is-last .how__tab-label::after { animation: journey-run-last 900ms linear forwards, runner-out 300ms ease 900ms forwards; }
 @keyframes journey-run { from { left: 4px; } to { left: calc(100% + clamp(20px, 3vw, 48px) - 4px); } }
-/* glyph "wakes up" as the line reaches it */
-.how__tab .how__tab-glyph svg { animation: none; }
-.how__tab.active .how__tab-glyph svg { animation: glyph-wake 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-@keyframes glyph-wake { from { transform: translateY(4px) scale(0.92); opacity: 0.4; } to { transform: translateY(-2px) scale(1); opacity: 1; } }
-/* arrow head at the end of the journey */
+@keyframes journey-run-last { from { left: 4px; } to { left: calc(100% - 14px); } }
+@keyframes runner-out { to { opacity: 0; } }
+
+/* arrow head */
 .how__tabs--journey .how__tab.is-last .how__tab-num::after {
   content: "";
   position: absolute;
@@ -538,9 +652,12 @@
   border-right: 1.5px solid var(--purple-400);
   transform: rotate(45deg);
   opacity: 0.8;
+  transition: opacity 400ms ease, border-color 300ms ease 800ms, box-shadow 300ms ease 800ms;
 }
+.how__tabs--journey .how__tab.is-last.is-hidden .how__tab-num::after { opacity: 0; }
+.how__tabs--journey .how__tab.is-last.is-reached .how__tab-num::after { border-color: #c084fc; opacity: 1; box-shadow: 2px -2px 10px rgba(192, 132, 252, 0.6); }
 
-/* list label + discover copy */
+/* list label + discover copy (panel) */
 .how__list-label {
   display: block;
   font-size: 11px;
@@ -570,150 +687,67 @@
 .how__discover-outcome em { font-style: normal; color: var(--purple-400); letter-spacing: 0.12em; text-transform: uppercase; font-size: 11px; font-weight: 600; }
 .how .do__close { margin-top: 72px; }
 
+/* ---------- glyphs: large pixel motifs ---------- */
+.how__tab-glyph {
+  display: block;
+  width: clamp(64px, 6.2vw, 96px); height: clamp(64px, 6.2vw, 96px);
+  margin-bottom: 22px;
+  color: var(--ink-3);
+  transition: color 300ms ease;
+}
+.how__tab.is-reached .how__tab-glyph { color: #C7B6FF; }
+.how__tab-glyph svg { width: 100%; height: 100%; overflow: visible; }
+.how__tab-glyph .gl { --g-l: #C7B6FF; --g-p: #7C3AED; --g-k: #EC4899; --g-t: #2DD4BF; --g-w: #F4F4F7; }
+.how__tab-glyph .px { transform-box: fill-box; transform-origin: center; }
+.how__tab-glyph .px-l { fill: var(--g-l); }
+.how__tab-glyph .px-p { fill: var(--g-p); }
+.how__tab-glyph .px-k { fill: var(--g-k); }
+.how__tab-glyph .px-t { fill: var(--g-t); }
+.how__tab-glyph .px-w { fill: var(--g-w); }
+.how__tab:not(.is-reached) .how__tab-glyph .px { fill: var(--ink-3); opacity: 0.5; }
+
+/* Discover · chaos: pieces burst in, then keep drifting; sparks blink */
+.how__tab.is-reached .gl--chaos .px { animation: chaos-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 45ms) both, chaos-drift 3.6s ease-in-out calc(700ms + var(--i) * -300ms) infinite alternate; }
+.how__tab-glyph .spark { fill: var(--g-w); opacity: 0; }
+.how__tab.is-reached .gl--chaos .spark { animation: spark 2.2s ease-in-out calc(var(--i) * 350ms) infinite; }
+@keyframes chaos-in { from { transform: scale(0) rotate(20deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes chaos-drift { from { transform: translate(0, 0); } to { transform: translate(2px, -3px); } }
+@keyframes spark { 0%, 60%, 100% { opacity: 0; } 70% { opacity: 0.9; } }
+
+/* Design · order: four pieces slide in from the corners into the frame */
+.how__tab-glyph .frame { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0.9; transition: stroke 300ms ease; }
+.how__tab.is-reached .how__tab-glyph .frame { stroke: var(--g-w); animation: frame-pulse 2.8s ease-in-out infinite; }
+.how__tab.is-reached .gl--order .piece { animation: order-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.how__tab.is-reached .gl--order .piece:nth-child(3) { animation-delay: 120ms; }
+.how__tab.is-reached .gl--order .piece:nth-child(4) { animation-delay: 240ms; }
+.how__tab.is-reached .gl--order .piece:nth-child(5) { animation-delay: 360ms; }
+@keyframes order-in { from { transform: translate(var(--dx), var(--dy)); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes frame-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+/* Build · insight: the grid pops in, two frames scan across it */
+.how__tab.is-reached .gl--insight .px { animation: pop-in 500ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 40ms) both; }
+@keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: none; opacity: 1; } }
+.how__tab-glyph .scan { fill: none; stroke: var(--g-w); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.how__tab.is-reached .gl--insight .scan { opacity: 0.95; animation: scan-a 3.2s ease-in-out 700ms infinite alternate; }
+.how__tab.is-reached .gl--insight .scan--b { animation-name: scan-b; }
+@keyframes scan-a { from { transform: translate(0, 0); } to { transform: translate(44px, 0); } }
+@keyframes scan-b { from { transform: translate(0, 0); } to { transform: translate(-44px, 0); } }
+
+/* Run · innovation: bars grow and keep breathing inside the turning loop */
+.how__tab-glyph .loop { fill: none; stroke: currentColor; stroke-width: 2; stroke-dasharray: 200 70; stroke-linecap: round; transform-box: fill-box; transform-origin: center; opacity: 0.9; transition: stroke 300ms ease; }
+.how__tab.is-reached .how__tab-glyph .loop { stroke: var(--g-w); animation: loop-spin 9s linear infinite; }
+@keyframes loop-spin { to { transform: rotate(360deg); } }
+.how__tab.is-reached .gl--flow .bar { animation: bar-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 70ms) both, bar-breathe 1.8s ease-in-out calc(600ms + var(--i) * 160ms) infinite alternate; }
+@keyframes bar-in { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes bar-breathe { from { transform: scaleY(0.55); } to { transform: scaleY(1.15); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .how__tab-glyph .px, .how__tab-glyph .spark, .how__tab-glyph .scan, .how__tab-glyph .loop, .how__tab-glyph .frame { animation: none !important; }
+}
 @media (max-width: 900px) {
   .how__tabs--journey { grid-template-columns: repeat(2, 1fr); }
   .how__tabs--journey .how__tab .how__tab-count::after,
   .how__tabs--journey .how__tab .how__tab-glyph::after,
+  .how__tabs--journey .how__tab .how__tab-label::after,
   .how__tabs--journey .how__tab.is-last .how__tab-num::after { display: none; }
 }
-
-/* ============================================================
-   Proven impact · count-up numbers with a colour bloom
-   ============================================================ */
-.proof__num { opacity: 0; transform: translateY(16px); transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1); }
-.proof__num.is-in { opacity: 1; transform: translateY(0); }
-.proof__num dt { position: relative; }
-.proof__num-glow {
-  position: absolute;
-  left: -10%; top: 10%;
-  width: 70%; height: 80%;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, var(--proof-tint, #C7B6FF), transparent 70%);
-  opacity: 0;
-  filter: blur(28px);
-  z-index: -1;
-  transition: opacity 900ms ease 200ms;
-}
-.proof__num.is-in .proof__num-glow { opacity: 0.32; }
-.proof__num dt { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
-:root[data-theme="light"] .proof__num dt { background: linear-gradient(135deg, #0A0A0F 0%, var(--proof-tint, #7C3AED) 100%); background-clip: text; -webkit-background-clip: text; }
-:root[data-theme="light"] .proof__num.is-in .proof__num-glow { opacity: 0.18; }
-
-/* ============================================================
-   Industries · six small panels in the services-panel style
-   ============================================================ */
-.inds-panels__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: 48px;
-  align-items: end;
-  margin-bottom: 44px;
-}
-.inds-panels__head .inds__title { margin: 0; }
-.inds-panels__sub {
-  margin: 0;
-  font-size: clamp(15px, 1.2vw, 17px);
-  line-height: 1.55;
-  color: var(--ink-2);
-  font-weight: 300;
-  max-width: 460px;
-  justify-self: end;
-}
-.inds-panels {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2vw, 28px);
-}
-.ind-panel {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--hairline);
-  border-radius: 16px;
-  overflow: hidden;
-  color: var(--ink);
-  opacity: 0; transform: translateY(18px);
-  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.6, 0.2, 1), border-color 200ms ease;
-}
-.inds-panels.in .ind-panel { opacity: 1; transform: translateY(0); }
-.ind-panel:hover { border-color: rgba(124, 58, 237, 0.55); }
-.ind-panel__media {
-  position: relative;
-  margin: 0;
-  height: clamp(120px, 10vw, 150px);
-  background: var(--bg-2);
-}
-.ind-panel__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1); }
-.ind-panel:hover .ind-panel__media img { transform: scale(1.04); }
-.ind-panel__media::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(12, 10, 20, 0.9) 100%);
-}
-.ind-panel__num {
-  position: absolute; left: 18px; bottom: 12px; z-index: 1;
-  font-size: 11px; letter-spacing: 0.2em; color: #C7B6FF; font-weight: 600;
-  font-feature-settings: "tnum" 1;
-}
-.ind-panel__body { padding: 18px 20px 20px; }
-.ind-panel__name {
-  margin: 0 0 10px;
-  font-size: clamp(16px, 1.25vw, 18px);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-}
-.ind-panel__list { list-style: none; margin: 0; padding: 0; }
-.ind-panel__list li {
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  padding: 9px 0;
-  border-top: 1px solid var(--hairline);
-  font-size: 13.5px;
-  color: var(--ink-2);
-  text-transform: capitalize;
-}
-.ind-panel__arrow { color: #c084fc; font-size: 13px; }
-.inds-panels__cta { margin-top: 44px; }
-:root[data-theme="light"] .ind-panel { background: rgba(10,10,15,0.02); }
-:root[data-theme="light"] .ind-panel__media::after { background: linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.94) 100%); }
-:root[data-theme="light"] .ind-panel__num { color: var(--purple-400); }
-:root[data-wireframe] .ind-panel__media {
-  background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 12px, #e2e2e2 12px, #e2e2e2 24px) !important;
-  outline: 1px dashed #aaaaaa; outline-offset: -1px;
-}
-:root[data-wireframe] .ind-panel__media img { display: none; }
-@media (max-width: 1000px) { .inds-panels { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 760px) {
-  .inds-panels { grid-template-columns: 1fr; }
-  .inds-panels__head { grid-template-columns: 1fr; gap: 16px; }
-  .inds-panels__sub { justify-self: start; }
-}
-
-/* ---- Journey reveal: stages stay hidden until the line reaches them ---- */
-/* opacity only: a transform on these spans would re-anchor the line and
-   runner pseudo-elements that hang off them */
-.how__tabs--journey .how__tab > .how__tab-glyph,
-.how__tabs--journey .how__tab > .how__tab-num,
-.how__tabs--journey .how__tab > .how__tab-label,
-.how__tabs--journey .how__tab > .how__tab-count {
-  transition: opacity 500ms ease;
-}
-.how__tabs--journey .how__tab > .how__tab-num { transition-delay: 120ms; }
-.how__tabs--journey .how__tab > .how__tab-label { transition-delay: 200ms; }
-.how__tabs--journey .how__tab > .how__tab-count { transition-delay: 320ms; }
-.how__tabs--journey .how__tab.is-hidden > .how__tab-glyph,
-.how__tabs--journey .how__tab.is-hidden > .how__tab-num,
-.how__tabs--journey .how__tab.is-hidden > .how__tab-label,
-.how__tabs--journey .how__tab.is-hidden > .how__tab-count {
-  opacity: 0;
-  transition-delay: 0ms;
-}
-.how__tabs--journey .how__tab.is-hidden::before,
-.how__tabs--journey .how__tab.is-hidden .how__tab-count::after,
-.how__tabs--journey .how__tab.is-hidden.is-last .how__tab-num::after { opacity: 0; }
-.how__tabs--journey .how__tab::before,
-.how__tabs--journey .how__tab .how__tab-count::after,
-.how__tabs--journey .how__tab.is-last .how__tab-num::after { transition: opacity 400ms ease, background 250ms ease, box-shadow 250ms ease; }
-/* nothing moves before the sequence has started */
-.how__tabs--journey[data-started="false"] .how__tab .how__tab-glyph::after,
-.how__tabs--journey[data-started="false"] .how__tab .how__tab-label::after { animation: none; }
