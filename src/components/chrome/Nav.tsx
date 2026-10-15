@@ -3,8 +3,12 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../../data/nav";
 import { useTheme } from "../../hooks/useTheme";
-import { useLang } from "../../i18n/lang";
+import { stripPrefix, useLang } from "../../i18n/lang";
 import { EnquoLogo } from "./EnquoLogo";
+
+// Pages whose nav is a solid white bar with dark text, logo and icons,
+// regardless of the hero underneath or the visitor's theme.
+const LIGHT_NAV_PATHS = new Set(["/services", "/industries", "/careers"]);
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,6 +22,7 @@ export function Nav() {
   // it we keep the dark treatment (even in light mode) and only switch to the
   // theme's bar once the hero has scrolled past.
   const [overHero, setOverHero] = useState(true);
+  const lightNav = LIGHT_NAV_PATHS.has(stripPrefix(pathname));
 
   useEffect(() => {
     const onScroll = () => {
@@ -47,7 +52,13 @@ export function Nav() {
   };
 
   return (
-    <nav className={"nav" + (scrolled ? " is-scrolled" : "") + (overHero ? " is-over-hero" : "")}>
+    <nav
+      className={
+        "nav" +
+        (scrolled ? " is-scrolled" : "") +
+        (lightNav ? " nav-light-mode" : overHero ? " is-over-hero" : "")
+      }
+    >
       <EnquoLogo />
 
       <div className="nav__sections">
