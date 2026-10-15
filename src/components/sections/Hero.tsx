@@ -66,7 +66,6 @@ export function Hero({ variant = "manifesto" }: Props) {
 
         {variant === "manifesto" && (
           <h1 className="hero__title hero__title--sentence">
-            <span className="hero__mantra">{t("Design")} · {t("Build")} · {t("Run")}</span>
             <span className="line">
               {t("We")} <em className="accent">{t("design, build, and run")}</em> {t("intelligent systems across your enterprise.")}
             </span>

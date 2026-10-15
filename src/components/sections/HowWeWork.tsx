@@ -75,11 +75,7 @@ function Glyph({ tag }: { tag: string }) {
   );
 }
 
-/** Where the virtual "scroll line" sits, as a fraction of the viewport
- *  height from the top: a block reveals when it crosses it. */
-const SCROLL_LINE = 0.6;
-
-const reducedMotion = () => !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+const AUTO_MS = 2400;
 
 type JourneyStep = {
   tag: string;
@@ -92,84 +88,72 @@ type JourneyStep = {
 };
 
 /**
- * Scrollytelling timeline — a subtle vertical line down the middle that
- * fills as you scroll; each stage fades and slides up the moment the
- * scroll line reaches it, alternating sides.
+ * Journey stepper — Discover → Design → Build → Run on one line, left to
+ * right. The first time it scrolls into view the line travels from stage to
+ * stage, revealing each one; picking a stage reveals all and hands control
+ * to the visitor. The highlighted stage follows the scroll-linked blocks
+ * below, and picking one scrolls to its block.
  */
-function Timeline({ steps }: { steps: JourneyStep[] }) {
+function Journey({ steps, active, onPick }: { steps: JourneyStep[]; active: number; onPick: (i: number) => void }) {
   const { t } = useLang();
-  const listRef = useRef<HTMLOListElement | null>(null);
-  const stepRefs = useRef<Array<HTMLLIElement | null>>([]);
-  /** Highest stage index the scroll line has reached (-1 = none yet). */
-  const [reached, setReached] = useState(-1);
+  const [auto, setAuto] = useState(true);
+  /** Stages revealed so far: -1 = sequence not started, last = all shown. */
+  const [revealed, setRevealed] = useState(-1);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+  const last = steps.length - 1;
 
-  // Reveal: one observer whose root is cut at the scroll line, so a stage
-  // "intersects" exactly when its top crosses that line.
   useEffect(() => {
-    if (reducedMotion()) { setReached(steps.length - 1); return; }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const i = stepRefs.current.indexOf(e.target as HTMLLIElement);
-          // Sequential: reaching a stage also reveals any before it.
-          setReached((r) => Math.max(r, i));
-        });
-      },
-      { rootMargin: `0px 0px -${Math.round((1 - SCROLL_LINE) * 100)}% 0px` },
-    );
-    stepRefs.current.forEach((el) => el && io.observe(el));
-    return () => io.disconnect();
-  }, [steps.length]);
-
-  // Line fill follows the scroll position (CSS variable, no re-render per frame).
-  useEffect(() => {
-    const el = listRef.current;
+    const el = tabsRef.current;
     if (!el) return;
-    if (reducedMotion()) { el.style.setProperty("--tl-progress", "1"); return; }
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const r = el.getBoundingClientRect();
-      const line = window.innerHeight * SCROLL_LINE;
-      const p = Math.min(1, Math.max(0, (line - r.top) / r.height));
-      el.style.setProperty("--tl-progress", p.toFixed(4));
-    };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setRevealed(last); setAuto(false); return;
+    }
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setRevealed((r) => (r < 0 ? 0 : r)); io.disconnect(); }
+    }, { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [last]);
+  useEffect(() => {
+    if (!auto || revealed < 0) return;
+    if (revealed >= last) {
+      const done = window.setTimeout(() => setAuto(false), 1200);
+      return () => window.clearTimeout(done);
+    }
+    const id = window.setTimeout(() => setRevealed((r) => Math.min(r + 1, last)), AUTO_MS);
+    return () => window.clearTimeout(id);
+  }, [auto, revealed, last]);
+
+  const pick = (i: number) => { setAuto(false); setRevealed(last); onPick(i); };
 
   return (
-    <ol className="tl" ref={listRef} aria-label={t("Delivery stages")}>
-      <span className="tl__rail" aria-hidden="true"><span className="tl__fill" /></span>
+    <div className="how__tabs how__tabs--journey" role="tablist" aria-label={t("Delivery stages")} data-auto={auto} data-started={revealed >= 0} ref={tabsRef}>
       {steps.map((s, i) => (
-        <li
+        <button
           key={s.tag}
-          ref={(el) => { stepRefs.current[i] = el; }}
-          className={"tl-step" + (i % 2 ? " tl-step--right" : " tl-step--left") + (i <= reached ? " is-reached" : "")}
+          role="tab"
+          type="button"
+          aria-selected={active === i}
+          className={
+            "how__tab"
+            + (active === i ? " active" : "")
+            + (i <= revealed ? " is-reached" : "")
+            + (i < revealed ? " is-done" : "")
+            + (auto && i === revealed ? " is-head" : "")
+            + (i === last ? " is-last" : "")
+            + (auto && i > revealed ? " is-hidden" : "")
+          }
+          onClick={() => pick(i)}
+          style={{ "--auto-ms": `${AUTO_MS}ms` } as React.CSSProperties}
         >
-          <span className="tl-step__node" aria-hidden="true" />
-          <div className="tl-step__card hover-line">
-            <span className="how__tab-glyph tl-step__glyph"><Glyph tag={s.tag} /></span>
-            <span className="tl-step__kind">{s.cards.length ? t("Capabilities") : t("Entry point")}</span>
-            <h3 className="tl-step__tag">{t(s.tag)}</h3>
-            <p className="tl-step__statement">{s.statement}</p>
-            {s.metric && (
-              <p className="tl-step__metric">
-                {t("Result from our work,")} <em>{s.metric}</em>
-              </p>
-            )}
-          </div>
-        </li>
+          <span className="how__tab-glyph"><Glyph tag={s.tag} /></span>
+          <span className="how__tab-label">{t(s.tag)}</span>
+          <span className="how__tab-count">
+            {s.cards.length ? t("Capabilities") : t("Entry point")}
+          </span>
+        </button>
       ))}
-    </ol>
+    </div>
   );
 }
 
@@ -178,10 +162,18 @@ function Timeline({ steps }: { steps: JourneyStep[] }) {
  * while a sticky, neon-framed visual on the right crossfades to the stage
  * whose block is crossing the middle of the viewport.
  */
-function StageFeatures({ steps }: { steps: JourneyStep[] }) {
+function StageFeatures({
+  steps,
+  active,
+  onActive,
+  blockRefs,
+}: {
+  steps: JourneyStep[];
+  active: number;
+  onActive: (i: number) => void;
+  blockRefs: React.MutableRefObject<Array<HTMLElement | null>>;
+}) {
   const { t } = useLang();
-  const blockRefs = useRef<Array<HTMLElement | null>>([]);
-  const [active, setActive] = useState(0);
 
   useEffect(() => {
     // A thin band across the middle of the viewport: the block inside it is
@@ -189,14 +181,14 @@ function StageFeatures({ steps }: { steps: JourneyStep[] }) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) setActive(blockRefs.current.indexOf(e.target as HTMLElement));
+          if (e.isIntersecting) onActive(blockRefs.current.indexOf(e.target as HTMLElement));
         });
       },
       { rootMargin: "-45% 0px -45% 0px" },
     );
     blockRefs.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
-  }, [steps.length]);
+  }, [steps.length, onActive, blockRefs]);
 
   return (
     <div className="feat">
@@ -256,12 +248,15 @@ function StageFeatures({ steps }: { steps: JourneyStep[] }) {
 }
 
 /**
- * Our Services — Discover → Design → Build → Run told on scroll: a vertical
- * timeline of the stages, then what each stage brings beside a sticky visual.
+ * Our Services — Discover → Design → Build → Run: the journey stepper on
+ * one line, then what each stage brings beside a sticky visual. Both share
+ * the active stage.
  */
 export function HowWeWork() {
   const headRef = useReveal<HTMLDivElement>();
   const closeRef = useReveal<HTMLDivElement>();
+  const [active, setActive] = useState(0);
+  const blockRefs = useRef<Array<HTMLElement | null>>([]);
   const { t, tr } = useLang();
   const discover = tr(DISCOVER);
   const stages = tr(STAGES);
@@ -275,6 +270,11 @@ export function HowWeWork() {
       description: "", outcome: s.phaseOutcome, metric: s.metric, cards: s.cards,
     })),
   ];
+
+  const pick = (i: number) => {
+    setActive(i);
+    blockRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <section className="how section" id="services">
@@ -295,8 +295,8 @@ export function HowWeWork() {
           </p>
         </div>
 
-        <Timeline steps={steps} />
-        <StageFeatures steps={steps} />
+        <Journey steps={steps} active={active} onPick={pick} />
+        <StageFeatures steps={steps} active={active} onActive={setActive} blockRefs={blockRefs} />
 
         <div className="do__close reveal" ref={closeRef}>
           <p className="do__closing">

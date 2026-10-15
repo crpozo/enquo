@@ -6,23 +6,23 @@ import { useTheme } from "../../hooks/useTheme";
 import { stripPrefix, useLang } from "../../i18n/lang";
 import { EnquoLogo } from "./EnquoLogo";
 
-// Pages whose nav is a solid white bar with dark text, logo and icons,
-// regardless of the hero underneath or the visitor's theme.
+// Pages that are always light (white nav and page) whatever the visitor's
+// theme; the theme toggle is hidden there.
 const LIGHT_NAV_PATHS = new Set(["/services", "/industries", "/careers"]);
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const items = NAV_ITEMS;
-  const { theme, toggle } = useTheme();
   const { lang, prefix, t, to, switchLang } = useLang();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const lightNav = LIGHT_NAV_PATHS.has(stripPrefix(pathname));
+  const { theme, toggle } = useTheme(lightNav ? "light" : undefined);
 
   // Every page opens on a dark, imagery-led hero. While the nav floats over
   // it we keep the dark treatment (even in light mode) and only switch to the
   // theme's bar once the hero has scrolled past.
   const [overHero, setOverHero] = useState(true);
-  const lightNav = LIGHT_NAV_PATHS.has(stripPrefix(pathname));
 
   useEffect(() => {
     const onScroll = () => {
@@ -85,7 +85,7 @@ export function Nav() {
           <i aria-hidden="true" />
           <span className={lang === "es" ? "is-on" : ""}>ES</span>
         </button>
-        <button
+        {!lightNav && <button
           type="button"
           className="nav__theme"
           onClick={toggle}
@@ -102,7 +102,7 @@ export function Nav() {
               <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
             </svg>
           )}
-        </button>
+        </button>}
         <a className="btn btn--primary" href="#contact" onClick={onTalk}>
           {t("Let’s talk")}
           <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

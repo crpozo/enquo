@@ -200,16 +200,6 @@
 }
 .hero__title--sentence .line { display: block; }
 .hero__title--sentence .accent { filter: none; }
-.hero__mantra {
-  display: block;
-  font-family: var(--font-body, inherit);
-  font-size: 12px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: #C7B6FF;
-  font-weight: 600;
-  margin-bottom: 26px;
-}
 .hero__lead-text { max-width: 560px; }
 
 /* Our services: supporting copy under the centred head */
@@ -525,7 +515,6 @@
 .ind-panel:hover .ind-panel__list li { color: var(--ink); }
 .ind-panel__arrow { color: #c084fc; font-size: 13px; opacity: 0.6; transition: transform 200ms ease, opacity 200ms ease; }
 .ind-panel:hover .ind-panel__arrow { transform: translateX(4px); opacity: 1; }
-.inds-panels__cta { margin-top: 48px; }
 :root[data-theme="light"] .ind-panel__media::after { background: linear-gradient(180deg, rgba(10,10,15,0) 35%, rgba(10,10,15,0.78) 100%); }
 :root[data-wireframe] .ind-panel__media {
   background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 12px, #e2e2e2 12px, #e2e2e2 24px) !important;
@@ -539,6 +528,115 @@
   .inds-panels__head { grid-template-columns: 1fr; gap: 16px; }
   .inds-panels__sub { justify-self: start; }
 }
+
+/* ============================================================
+   Our services · journey (Discover → Design → Build → Run)
+   States per stage:
+     is-hidden   not reached yet while the intro sequence runs (invisible)
+     is-reached  the line has arrived: node lit, glyph in colour, idle motion
+     is-done     the segment after it is filled
+     is-head     the segment after it is filling right now (runner)
+     active      the stage whose content shows in the panel
+   ============================================================ */
+.how__tabs--journey {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 3vw, 48px);
+  position: relative;
+  padding-top: 8px;
+}
+.how__tabs--journey .how__tab { padding-bottom: 34px; opacity: 1; }
+.how__tabs--journey .how__tab.active::after { display: none; }
+.how__tabs--journey .how__tab > .how__tab-glyph,
+.how__tabs--journey .how__tab > .how__tab-label,
+.how__tabs--journey .how__tab > .how__tab-count { transition: opacity 500ms ease; }
+.how__tabs--journey .how__tab > .how__tab-label { transition-delay: 160ms; }
+.how__tabs--journey .how__tab > .how__tab-count { transition-delay: 320ms; }
+.how__tabs--journey .how__tab:not(.active) > .how__tab-label { opacity: 0.72; }
+.how__tabs--journey .how__tab:not(.active) > .how__tab-count { opacity: 0.6; }
+.how__tabs--journey .how__tab:hover > .how__tab-label { opacity: 1; }
+.how__tabs--journey .how__tab.is-hidden > .how__tab-glyph,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-label,
+.how__tabs--journey .how__tab.is-hidden > .how__tab-count { opacity: 0; transition-delay: 0ms; }
+
+/* node */
+.how__tabs--journey .how__tab::before {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 8px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--purple-400);
+  z-index: 2;
+  transition: background 250ms ease, box-shadow 250ms ease, opacity 400ms ease;
+}
+.how__tabs--journey .how__tab.is-reached::before { background: #c084fc; box-shadow: 0 0 14px rgba(192, 132, 252, 0.9); }
+.how__tabs--journey .how__tab.is-hidden::before { opacity: 0; }
+
+/* base track */
+.how__tabs--journey .how__tab .how__tab-count::after {
+  content: "";
+  position: absolute;
+  left: 4px; right: calc(-1 * clamp(20px, 3vw, 48px));
+  bottom: 12px;
+  height: 1.5px;
+  background: rgba(124, 58, 237, 0.28);
+  transition: opacity 400ms ease;
+}
+.how__tabs--journey .how__tab.is-last .how__tab-count::after { right: 0; }
+.how__tabs--journey .how__tab.is-hidden .how__tab-count::after { opacity: 0; }
+
+/* fill */
+.how__tabs--journey .how__tab .how__tab-glyph::after {
+  content: "";
+  position: absolute;
+  left: 4px; bottom: 12px;
+  height: 1.5px;
+  width: 0;
+  background: linear-gradient(90deg, #7C3AED, #C026D3);
+  box-shadow: 0 0 10px rgba(192, 38, 211, 0.6);
+  z-index: 1;
+}
+.how__tabs--journey .how__tab.is-done .how__tab-glyph::after { width: calc(100% - 4px + clamp(20px, 3vw, 48px)); }
+.how__tabs--journey .how__tab.is-head:not(.is-last) .how__tab-glyph::after { animation: journey-fill var(--auto-ms, 2400ms) linear forwards; }
+@keyframes journey-fill { from { width: 0; } to { width: calc(100% - 4px + clamp(20px, 3vw, 48px)); } }
+/* last stretch: to the arrow head */
+.how__tabs--journey .how__tab.is-last.is-reached .how__tab-glyph::after { width: calc(100% - 14px); }
+.how__tabs--journey .how__tab.is-last.is-head .how__tab-glyph::after { animation: journey-fill-last 900ms linear forwards; }
+@keyframes journey-fill-last { from { width: 0; } to { width: calc(100% - 14px); } }
+
+/* runner */
+.how__tabs--journey .how__tab.is-head .how__tab-label::after {
+  content: "";
+  position: absolute;
+  left: 4px; bottom: 9px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 12px #C026D3, 0 0 24px rgba(192, 38, 211, 0.7);
+  z-index: 3;
+  animation: journey-run var(--auto-ms, 2400ms) linear forwards;
+}
+.how__tabs--journey .how__tab.is-head.is-last .how__tab-label::after { animation: journey-run-last 900ms linear forwards, runner-out 300ms ease 900ms forwards; }
+@keyframes journey-run { from { left: 4px; } to { left: calc(100% + clamp(20px, 3vw, 48px) - 4px); } }
+@keyframes journey-run-last { from { left: 4px; } to { left: calc(100% - 14px); } }
+@keyframes runner-out { to { opacity: 0; } }
+
+/* arrow head */
+.how__tabs--journey .how__tab.is-last .how__tab-count::before {
+  content: "";
+  position: absolute;
+  right: 0; bottom: 8px;
+  width: 8px; height: 8px;
+  border-top: 1.5px solid var(--purple-400);
+  border-right: 1.5px solid var(--purple-400);
+  transform: rotate(45deg);
+  opacity: 0.8;
+  transition: opacity 400ms ease, border-color 300ms ease 800ms, box-shadow 300ms ease 800ms;
+}
+.how__tabs--journey .how__tab.is-last.is-hidden .how__tab-count::before { opacity: 0; }
+.how__tabs--journey .how__tab.is-last.is-reached .how__tab-count::before { border-color: #c084fc; opacity: 1; box-shadow: 2px -2px 10px rgba(192, 132, 252, 0.6); }
 
 /* list label + discover copy (panel) */
 .how__list-label {
@@ -578,7 +676,7 @@
   color: var(--ink-3);
   transition: color 300ms ease;
 }
-.tl-step.is-reached .how__tab-glyph { color: #C7B6FF; }
+.how__tab.is-reached .how__tab-glyph { color: #C7B6FF; }
 .how__tab-glyph svg { width: 100%; height: 100%; overflow: visible; }
 .how__tab-glyph .gl { --g-l: #C7B6FF; --g-p: #7C3AED; --g-k: #EC4899; --g-t: #2DD4BF; --g-w: #F4F4F7; }
 .how__tab-glyph .px { transform-box: fill-box; transform-origin: center; }
@@ -587,44 +685,50 @@
 .how__tab-glyph .px-k { fill: var(--g-k); }
 .how__tab-glyph .px-t { fill: var(--g-t); }
 .how__tab-glyph .px-w { fill: var(--g-w); }
-.tl-step:not(.is-reached) .how__tab-glyph .px { fill: var(--ink-3); opacity: 0.5; }
+.how__tab:not(.is-reached) .how__tab-glyph .px { fill: var(--ink-3); opacity: 0.5; }
 
 /* Discover · chaos: pieces burst in, then keep drifting; sparks blink */
-.tl-step.is-reached .gl--chaos .px { animation: chaos-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 45ms) both, chaos-drift 3.6s ease-in-out calc(700ms + var(--i) * -300ms) infinite alternate; }
+.how__tab.is-reached .gl--chaos .px { animation: chaos-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 45ms) both, chaos-drift 3.6s ease-in-out calc(700ms + var(--i) * -300ms) infinite alternate; }
 .how__tab-glyph .spark { fill: var(--g-w); opacity: 0; }
-.tl-step.is-reached .gl--chaos .spark { animation: spark 2.2s ease-in-out calc(var(--i) * 350ms) infinite; }
+.how__tab.is-reached .gl--chaos .spark { animation: spark 2.2s ease-in-out calc(var(--i) * 350ms) infinite; }
 @keyframes chaos-in { from { transform: scale(0) rotate(20deg); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes chaos-drift { from { transform: translate(0, 0); } to { transform: translate(2px, -3px); } }
 @keyframes spark { 0%, 60%, 100% { opacity: 0; } 70% { opacity: 0.9; } }
 
 /* Design · order: four pieces slide in from the corners into the frame */
 .how__tab-glyph .frame { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0.9; transition: stroke 300ms ease; }
-.tl-step.is-reached .how__tab-glyph .frame { stroke: var(--g-w); animation: frame-pulse 2.8s ease-in-out infinite; }
-.tl-step.is-reached .gl--order .piece { animation: order-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.tl-step.is-reached .gl--order .piece:nth-child(3) { animation-delay: 120ms; }
-.tl-step.is-reached .gl--order .piece:nth-child(4) { animation-delay: 240ms; }
-.tl-step.is-reached .gl--order .piece:nth-child(5) { animation-delay: 360ms; }
+.how__tab.is-reached .how__tab-glyph .frame { stroke: var(--g-w); animation: frame-pulse 2.8s ease-in-out infinite; }
+.how__tab.is-reached .gl--order .piece { animation: order-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.how__tab.is-reached .gl--order .piece:nth-child(3) { animation-delay: 120ms; }
+.how__tab.is-reached .gl--order .piece:nth-child(4) { animation-delay: 240ms; }
+.how__tab.is-reached .gl--order .piece:nth-child(5) { animation-delay: 360ms; }
 @keyframes order-in { from { transform: translate(var(--dx), var(--dy)); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes frame-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 
 /* Build · insight: the grid pops in, two frames scan across it */
-.tl-step.is-reached .gl--insight .px { animation: pop-in 500ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 40ms) both; }
+.how__tab.is-reached .gl--insight .px { animation: pop-in 500ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 40ms) both; }
 @keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: none; opacity: 1; } }
 .how__tab-glyph .scan { fill: none; stroke: var(--g-w); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.tl-step.is-reached .gl--insight .scan { opacity: 0.95; animation: scan-a 3.2s ease-in-out 700ms infinite alternate; }
-.tl-step.is-reached .gl--insight .scan--b { animation-name: scan-b; }
+.how__tab.is-reached .gl--insight .scan { opacity: 0.95; animation: scan-a 3.2s ease-in-out 700ms infinite alternate; }
+.how__tab.is-reached .gl--insight .scan--b { animation-name: scan-b; }
 @keyframes scan-a { from { transform: translate(0, 0); } to { transform: translate(44px, 0); } }
 @keyframes scan-b { from { transform: translate(0, 0); } to { transform: translate(-44px, 0); } }
 
 /* Run · innovation: bars grow and keep breathing inside the turning loop */
 .how__tab-glyph .loop { fill: none; stroke: currentColor; stroke-width: 2; stroke-dasharray: 200 70; stroke-linecap: round; transform-box: fill-box; transform-origin: center; opacity: 0.9; transition: stroke 300ms ease; }
-.tl-step.is-reached .how__tab-glyph .loop { stroke: var(--g-w); animation: loop-spin 9s linear infinite; }
+.how__tab.is-reached .how__tab-glyph .loop { stroke: var(--g-w); animation: loop-spin 9s linear infinite; }
 @keyframes loop-spin { to { transform: rotate(360deg); } }
-.tl-step.is-reached .gl--flow .bar { animation: bar-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 70ms) both, bar-breathe 1.8s ease-in-out calc(600ms + var(--i) * 160ms) infinite alternate; }
+.how__tab.is-reached .gl--flow .bar { animation: bar-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 70ms) both, bar-breathe 1.8s ease-in-out calc(600ms + var(--i) * 160ms) infinite alternate; }
 @keyframes bar-in { from { transform: scaleY(0); } to { transform: none; } }
 @keyframes bar-breathe { from { transform: scaleY(0.55); } to { transform: scaleY(1.15); } }
 
 @media (prefers-reduced-motion: reduce) {
   .how__tab-glyph .px, .how__tab-glyph .spark, .how__tab-glyph .scan, .how__tab-glyph .loop, .how__tab-glyph .frame { animation: none !important; }
+@media (max-width: 900px) {
+  .how__tabs--journey { grid-template-columns: repeat(2, 1fr); }
+  .how__tabs--journey .how__tab .how__tab-count::after,
+  .how__tabs--journey .how__tab .how__tab-glyph::after,
+  .how__tabs--journey .how__tab .how__tab-label::after,
+  .how__tabs--journey .how__tab.is-last .how__tab-count::before { display: none; }
 }
 }

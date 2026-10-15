@@ -1,6 +1,7 @@
 import { useReveal } from "../../hooks/useReveal";
 import type { Stage } from "../../data/services";
 import { useLang } from "../../i18n/lang";
+import { StatCounter } from "./StatCounter";
 
 /* Design → turquesa · Build → rosado · Run → naranja */
 const TINT: Record<Stage["tag"], "teal" | "rose" | "orange"> = {
@@ -91,7 +92,7 @@ export function StageHero({ stage }: { stage: Stage }) {
         <div className="stage-hero__result">
           <span className="stage-hero__result-eyebrow">{t("Result from our work")}</span>
           <div className="stage-hero__result-row">
-            <strong className="stage-hero__result-value">{stage.metricValue}</strong>
+            <strong className="stage-hero__result-value"><StatCounter value={stage.metricValue} /></strong>
             <span className="stage-hero__result-rule" aria-hidden="true" />
             <p className="stage-hero__result-label">{stage.metricLabel}</p>
           </div>
