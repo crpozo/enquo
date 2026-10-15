@@ -13,8 +13,6 @@ const STAGE_ART: Record<string, string> = {
   Run: "img/how/run.webp",
 };
 
-const AUTO_MS = 2400;
-
 /* Journey glyphs — Hakkōda-style pixel motifs in the Enquo palette:
    scattered (Discover) → ordered (Design) → assembled & scanned (Build)
    → flowing inside the loop (Run). Pure SVG; the pieces animate in when
@@ -77,61 +75,209 @@ function Glyph({ tag }: { tag: string }) {
   );
 }
 
+/** Where the virtual "scroll line" sits, as a fraction of the viewport
+ *  height from the top: a block reveals when it crosses it. */
+const SCROLL_LINE = 0.6;
+
+const reducedMotion = () => !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+type JourneyStep = {
+  tag: string;
+  statement: string;
+  promise: string;
+  description: string;
+  outcome: string;
+  metric: string;
+  cards: { title: string; outcome: string }[];
+};
+
 /**
- * Our Services — one continuous journey: Discover → Design → Build → Run.
- * The stages sit on a single line that fills as the journey advances (it
- * auto-plays until the visitor picks a stage); each stage reveals its
- * headline, its art and what we bring to the work.
+ * Scrollytelling timeline — a subtle vertical line down the middle that
+ * fills as you scroll; each stage fades and slides up the moment the
+ * scroll line reaches it, alternating sides.
+ */
+function Timeline({ steps }: { steps: JourneyStep[] }) {
+  const { t } = useLang();
+  const listRef = useRef<HTMLOListElement | null>(null);
+  const stepRefs = useRef<Array<HTMLLIElement | null>>([]);
+  /** Highest stage index the scroll line has reached (-1 = none yet). */
+  const [reached, setReached] = useState(-1);
+
+  // Reveal: one observer whose root is cut at the scroll line, so a stage
+  // "intersects" exactly when its top crosses that line.
+  useEffect(() => {
+    if (reducedMotion()) { setReached(steps.length - 1); return; }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const i = stepRefs.current.indexOf(e.target as HTMLLIElement);
+          // Sequential: reaching a stage also reveals any before it.
+          setReached((r) => Math.max(r, i));
+        });
+      },
+      { rootMargin: `0px 0px -${Math.round((1 - SCROLL_LINE) * 100)}% 0px` },
+    );
+    stepRefs.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
+  }, [steps.length]);
+
+  // Line fill follows the scroll position (CSS variable, no re-render per frame).
+  useEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    if (reducedMotion()) { el.style.setProperty("--tl-progress", "1"); return; }
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const line = window.innerHeight * SCROLL_LINE;
+      const p = Math.min(1, Math.max(0, (line - r.top) / r.height));
+      el.style.setProperty("--tl-progress", p.toFixed(4));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <ol className="tl" ref={listRef} aria-label={t("Delivery stages")}>
+      <span className="tl__rail" aria-hidden="true"><span className="tl__fill" /></span>
+      {steps.map((s, i) => (
+        <li
+          key={s.tag}
+          ref={(el) => { stepRefs.current[i] = el; }}
+          className={"tl-step" + (i % 2 ? " tl-step--right" : " tl-step--left") + (i <= reached ? " is-reached" : "")}
+        >
+          <span className="tl-step__node" aria-hidden="true" />
+          <div className="tl-step__card hover-line">
+            <span className="how__tab-glyph tl-step__glyph"><Glyph tag={s.tag} /></span>
+            <span className="tl-step__kind">{s.cards.length ? t("Capabilities") : t("Entry point")}</span>
+            <h3 className="tl-step__tag">{t(s.tag)}</h3>
+            <p className="tl-step__statement">{s.statement}</p>
+            {s.metric && (
+              <p className="tl-step__metric">
+                {t("Result from our work,")} <em>{s.metric}</em>
+              </p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/**
+ * Scroll-linked features — each stage's capabilities scroll by on the left
+ * while a sticky, neon-framed visual on the right crossfades to the stage
+ * whose block is crossing the middle of the viewport.
+ */
+function StageFeatures({ steps }: { steps: JourneyStep[] }) {
+  const { t } = useLang();
+  const blockRefs = useRef<Array<HTMLElement | null>>([]);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    // A thin band across the middle of the viewport: the block inside it is
+    // the active one.
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(blockRefs.current.indexOf(e.target as HTMLElement));
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+    blockRefs.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
+  }, [steps.length]);
+
+  return (
+    <div className="feat">
+      <div className="feat__list">
+        {steps.map((s, i) => (
+          <section
+            key={s.tag}
+            ref={(el) => { blockRefs.current[i] = el; }}
+            className={"feat__block" + (active === i ? " is-active" : "")}
+            aria-label={t(s.tag)}
+          >
+            {/* inline visual for narrow screens, where the sticky column is hidden */}
+            <figure className="feat__inline-art" aria-hidden="true">
+              <img src={import.meta.env.BASE_URL + STAGE_ART[s.tag]} alt="" loading="lazy" />
+            </figure>
+            <span className="feat__eyebrow">{t(s.tag)}</span>
+            <h3 className="feat__title">{s.promise}</h3>
+            {s.cards.length ? (
+              <>
+                <span className="how__list-label">{t("What we bring to the work:")}</span>
+                <ul className="feat__items">
+                  {s.cards.map((c) => (
+                    <li key={c.title}>
+                      <span className="feat__item-title">{c.title}</span>
+                      <span className="feat__item-outcome">{c.outcome}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <>
+                <p className="feat__text">{s.description}</p>
+                <p className="how__discover-outcome">
+                  <em>{t("Phase outcome")}</em> · {s.outcome}
+                </p>
+              </>
+            )}
+          </section>
+        ))}
+      </div>
+
+      <div className="feat__aside" aria-hidden="true">
+        <figure className="feat__visual">
+          {steps.map((s, i) => (
+            <img
+              key={s.tag}
+              src={import.meta.env.BASE_URL + STAGE_ART[s.tag]}
+              alt=""
+              className={active === i ? "is-active" : ""}
+            />
+          ))}
+          <figcaption className="feat__caption">{t(steps[active].tag)}</figcaption>
+        </figure>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Our Services — Discover → Design → Build → Run told on scroll: a vertical
+ * timeline of the stages, then what each stage brings beside a sticky visual.
  */
 export function HowWeWork() {
-  const [active, setActive] = useState(0);
-  const [auto, setAuto] = useState(true);
-  /** Stages revealed so far: -1 = sequence not started, 3 = all shown. */
-  const [revealed, setRevealed] = useState(-1);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const tabsRef = useRef<HTMLDivElement | null>(null);
   const headRef = useReveal<HTMLDivElement>();
   const closeRef = useReveal<HTMLDivElement>();
   const { t, tr } = useLang();
   const discover = tr(DISCOVER);
   const stages = tr(STAGES);
-  const journey = [
-    { tag: discover.tag, statement: discover.statement, description: discover.description, cards: [] as typeof stages[number]["cards"], metric: "" },
-    ...stages.map((s) => ({ tag: s.tag, statement: s.statement, description: "", cards: s.cards, metric: s.metric })),
+  const steps: JourneyStep[] = [
+    {
+      tag: discover.tag, statement: discover.statement, promise: discover.promise,
+      description: discover.description, outcome: discover.outcome, metric: "", cards: [],
+    },
+    ...stages.map((s) => ({
+      tag: s.tag, statement: s.statement, promise: s.promise,
+      description: "", outcome: s.phaseOutcome, metric: s.metric, cards: s.cards,
+    })),
   ];
-  const stage = journey[active];
-
-  // Reveal sequence (Hakkōda-style): the first time the stepper scrolls
-  // into view only Discover is shown; the line travels to the next node and
-  // that stage appears, and so on until Run. Picking a stage reveals all
-  // and hands control to the visitor.
-  const last = journey.length - 1;
-  useEffect(() => {
-    const el = tabsRef.current;
-    if (!el) return;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setRevealed(last); setAuto(false); return;
-    }
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setRevealed((r) => (r < 0 ? 0 : r)); io.disconnect(); }
-    }, { threshold: 0.5 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [last]);
-  useEffect(() => {
-    if (!auto || revealed < 0) return;
-    if (revealed >= last) {
-      const done = window.setTimeout(() => setAuto(false), 1200);
-      return () => window.clearTimeout(done);
-    }
-    const id = window.setTimeout(() => setRevealed((r) => Math.min(r + 1, last)), AUTO_MS);
-    return () => window.clearTimeout(id);
-  }, [auto, revealed, last]);
-
-  const pick = (i: number) => { setAuto(false); setRevealed(last); setActive(i); };
 
   return (
-    <section className="how section" id="services" ref={sectionRef}>
+    <section className="how section" id="services">
       <div className="px-glow px-glow--how" data-parallax="0.1" aria-hidden="true" />
       <div className="wrap-lg">
         <div className="sec-label">
@@ -149,72 +295,8 @@ export function HowWeWork() {
           </p>
         </div>
 
-        <div className="how__tabs how__tabs--journey" role="tablist" aria-label={t("Delivery stages")} data-auto={auto} data-started={revealed >= 0} ref={tabsRef}>
-          {journey.map((s, i) => (
-            <button
-              key={s.tag}
-              role="tab"
-              type="button"
-              aria-selected={active === i}
-              className={
-                "how__tab"
-                + (active === i ? " active" : "")
-                + (i <= revealed ? " is-reached" : "")
-                + (i < revealed ? " is-done" : "")
-                + (auto && i === revealed ? " is-head" : "")
-                + (i === last ? " is-last" : "")
-                + (auto && i > revealed ? " is-hidden" : "")
-              }
-              onClick={() => pick(i)}
-              style={{ "--auto-ms": `${AUTO_MS}ms` } as React.CSSProperties}
-            >
-              <span className="how__tab-glyph"><Glyph tag={s.tag} /></span>
-              <span className="how__tab-num">0{i + 1}</span>
-              <span className="how__tab-label">{t(s.tag)}</span>
-              <span className="how__tab-count">
-                {s.cards.length ? `${String(s.cards.length).padStart(2, "0")} ${t("capabilities")}` : t("Entry point")}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* keyed on tag → remounts so the entrance animation re-fires per switch */}
-        <div className="how__panel" key={stage.tag}>
-          <div className="how__panel-main">
-            <figure className="how__panel-art" aria-hidden="true">
-              <img src={import.meta.env.BASE_URL + STAGE_ART[stage.tag]} alt="" loading="lazy" />
-            </figure>
-            <span className="how__panel-tag">{t(stage.tag)}</span>
-            <p className="how__statement">{stage.statement}</p>
-            {stage.metric && (
-              <span className="how__metric">
-                {t("Result from our work,")} <em>{stage.metric}</em>
-              </span>
-            )}
-          </div>
-
-          {stage.cards.length ? (
-            <div>
-              <span className="how__list-label">{t("What we bring to the work:")}</span>
-              <ul className="how__list">
-                {stage.cards.map((c, i) => (
-                  <li className="how__list-item" key={c.title} style={{ animationDelay: `${i * 70}ms` }}>
-                    <span className="how__list-num">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="how__list-title">{c.title}</span>
-                    <span className="how__list-outcome">{c.outcome}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <div className="how__discover-copy">
-              <p className="how__discover-text">{stage.description}</p>
-              <p className="how__discover-outcome">
-                <em>{t("Phase outcome")}</em> · {discover.outcome}
-              </p>
-            </div>
-          )}
-        </div>
+        <Timeline steps={steps} />
+        <StageFeatures steps={steps} />
 
         <div className="do__close reveal" ref={closeRef}>
           <p className="do__closing">

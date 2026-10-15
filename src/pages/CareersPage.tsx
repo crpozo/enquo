@@ -139,7 +139,7 @@ export function CareersPage() {
         <div className="wrap-lg">
           <div className="car-hub__grid reveal" ref={hubRef}>
             <figure className="car-hub__media" aria-hidden="true">
-              <img src={import.meta.env.BASE_URL + "img/who/team.webp"} alt="" loading="lazy" />
+              <img src={import.meta.env.BASE_URL + "img/who/team.webp"} alt="" loading="lazy" data-parallax-img />
             </figure>
             <div>
               <span className="car-hub__eyebrow">{t("Ecuador Hub")}</span>

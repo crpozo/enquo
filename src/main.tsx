@@ -22,6 +22,7 @@ import "./styles/pages.css";
 import "./styles/client-pass.css";
 import "./styles/wave2.css";
 import "./styles/theme-light.css";
+import "./styles/motion.css";
 import "./styles/wireframe.css";
 
 // `basename` makes BrowserRouter aware of the GitHub Pages sub-path.

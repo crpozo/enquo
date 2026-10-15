@@ -844,23 +844,15 @@ html.lenis body {
   gap: 64px;
 }
 .fix-item {
-  border-top: 1px solid var(--hairline);
-  padding: 28px 0 0;
+  padding: 0;
 }
 
-.fix-item__num {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--purple-400);
-  font-feature-settings: "tnum" 1;
-}
 .fix-item__name {
   font-size: clamp(20px, 2vw, 26px);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: -0.01em;
-  margin: 28px 0 14px;
+  margin: 0 0 14px;
   line-height: 1.1;
 }
 .fix-item__desc {
@@ -940,13 +932,6 @@ html.lenis body {
   width: 48px; height: 2px;
   background: var(--grad-primary);
 }
-.how__tab-num {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--purple-400);
-  font-feature-settings: "tnum" 1;
-}
 .how__tab-label {
   font-size: clamp(28px, 3.2vw, 48px);
   font-weight: 500;
@@ -971,9 +956,7 @@ html.lenis body {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: 56px;
-  margin-top: 48px;
-  padding-top: 48px;
-  border-top: 1px solid var(--hairline);
+  margin-top: 64px;
   animation: how-panel-in 600ms cubic-bezier(0.2,0.7,0.2,1) both;
 }
 @keyframes how-panel-in {
@@ -1013,9 +996,8 @@ html.lenis body {
 .how__list { list-style: none; margin: 0; padding: 0; }
 .how__list-item {
   display: grid;
-  grid-template-columns: 64px 1fr;
-  grid-template-areas: "num title" ".  outcome";
-  gap: 4px 20px;
+  grid-template-areas: "title" "outcome";
+  gap: 4px;
   padding: 20px 0;
   border-bottom: 1px solid var(--hairline);
   animation: how-item-in 500ms cubic-bezier(0.2,0.7,0.2,1) both;
@@ -1024,15 +1006,6 @@ html.lenis body {
 @keyframes how-item-in {
   from { opacity: 0; transform: translateX(-12px); }
   to   { opacity: 1; transform: translateX(0); }
-}
-.how__list-num {
-  grid-area: num;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--purple-400);
-  font-feature-settings: "tnum" 1;
-  padding-top: 3px;
 }
 .how__list-title {
   grid-area: title;

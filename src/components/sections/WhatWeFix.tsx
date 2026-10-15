@@ -1,5 +1,6 @@
 import { useReveal } from "../../hooks/useReveal";
 import { useLang } from "../../i18n/lang";
+import { StatCounter } from "./StatCounter";
 
 /**
  * The Problem — deck p.4: enterprise execution breaks in three critical
@@ -7,17 +8,14 @@ import { useLang } from "../../i18n/lang";
  */
 const PROBLEMS = [
   {
-    k: "01",
     t: "System fragmentation",
     d: "Systems operate in silos with no connected backbone. Data never reaches decisions, and there is no shared source of truth.",
   },
   {
-    k: "02",
     t: "Context breakdown",
     d: "Data, workflows and context don't travel together. Workflows get stitched by hand, and AI lacks the connected context to help.",
   },
   {
-    k: "03",
     t: "Operational drift",
     d: "Fragmentation compounds over time. Delays stack up, accountability disappears, and the whole enterprise slows down.",
   },
@@ -58,6 +56,7 @@ export function WhatWeFix() {
           </div>
           <figure className="fix__media" aria-hidden="true">
             <img
+              data-parallax-img
               src={import.meta.env.BASE_URL + "img/problem.webp"}
               alt=""
               loading="lazy"
@@ -67,8 +66,7 @@ export function WhatWeFix() {
 
         <div className="fix-grid" ref={gridRef}>
           {problems.map((p) => (
-            <article className="fix-item" key={p.k}>
-              <span className="fix-item__num">{p.k}</span>
+            <article className="fix-item" key={p.t}>
               <h3 className="fix-item__name">{p.t}</h3>
               <p className="fix-item__desc">{p.d}</p>
             </article>
@@ -78,7 +76,7 @@ export function WhatWeFix() {
         <dl className="fix__costs" aria-label={t("The compound cost of disconnected execution")}>
           {costs.map((c) => (
             <div key={c.stat}>
-              <dt>{c.stat}</dt>
+              <dt><StatCounter value={c.stat} /></dt>
               <dd>{c.d}</dd>
             </div>
           ))}

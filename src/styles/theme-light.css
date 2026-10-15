@@ -153,3 +153,28 @@
 :root[data-theme="light"] .cta__sub { color: rgba(244,244,247,0.8); }
 :root[data-theme="light"] .cta .btn { border-color: rgba(244,244,247,0.35); color: #F4F4F7; }
 :root[data-theme="light"] .cta .btn--primary { background: #F4F4F7; color: #0A0A0F; }
+
+/* ==========================================================================
+   NAV LIGHT MODE — Services, Industries, Careers (set in Nav.tsx).
+   A solid white bar with dark text, icons and wordmark in both themes.
+   Re-scoping the tokens on the nav lets every child (links, logo, toggles,
+   CTA) follow without per-element overrides; `:root` keeps it above the
+   `:root[data-theme="light"] .nav` rules.
+   ========================================================================== */
+:root .nav.nav-light-mode {
+  --bg:         #FFFFFF;
+  --hairline:   rgba(10, 10, 15, 0.10);
+  --hairline-2: rgba(10, 10, 15, 0.18);
+  --ink:        #0A0A0F;
+  --ink-2:      #2A2A35;
+  --ink-3:      #3B3B48;
+  --muted:      #6B6B7A;
+  --purple-400: #6D28D9;
+  background: #FFFFFF;
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline);
+}
+:root .nav.nav-light-mode .nav__sections a:hover { background: rgba(10, 10, 15, 0.05); color: var(--ink); }
+:root .nav.nav-light-mode .nav__sections a.active { background: var(--ink); color: #FFFFFF; }
+:root .nav.nav-light-mode .btn--primary { background: var(--ink); color: #FFFFFF; border-color: var(--ink); }
+:root .nav.nav-light-mode .btn--primary:hover { color: #FFFFFF; border-color: var(--purple-500); }
