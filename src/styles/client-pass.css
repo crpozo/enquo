@@ -501,11 +501,6 @@
   pointer-events: none;
 }
 .ind-panel:hover .ind-panel__media::before { border-color: rgba(192, 132, 252, 0.6); box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.15), 0 18px 40px -20px rgba(124, 58, 237, 0.6); }
-.ind-panel__num {
-  position: absolute; left: 18px; top: 16px; z-index: 1;
-  font-size: 11px; letter-spacing: 0.2em; color: rgba(255, 255, 255, 0.8); font-weight: 600;
-  font-feature-settings: "tnum" 1;
-}
 .ind-panel__body { padding: 16px 2px 0; }
 .ind-panel__name {
   position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1;
@@ -564,17 +559,14 @@
 .how__tabs--journey .how__tab { padding-bottom: 34px; opacity: 1; }
 .how__tabs--journey .how__tab.active::after { display: none; }
 .how__tabs--journey .how__tab > .how__tab-glyph,
-.how__tabs--journey .how__tab > .how__tab-num,
 .how__tabs--journey .how__tab > .how__tab-label,
 .how__tabs--journey .how__tab > .how__tab-count { transition: opacity 500ms ease; }
-.how__tabs--journey .how__tab > .how__tab-num { transition-delay: 120ms; }
-.how__tabs--journey .how__tab > .how__tab-label { transition-delay: 200ms; }
+.how__tabs--journey .how__tab > .how__tab-label { transition-delay: 160ms; }
 .how__tabs--journey .how__tab > .how__tab-count { transition-delay: 320ms; }
 .how__tabs--journey .how__tab:not(.active) > .how__tab-label { opacity: 0.72; }
 .how__tabs--journey .how__tab:not(.active) > .how__tab-count { opacity: 0.6; }
 .how__tabs--journey .how__tab:hover > .how__tab-label { opacity: 1; }
 .how__tabs--journey .how__tab.is-hidden > .how__tab-glyph,
-.how__tabs--journey .how__tab.is-hidden > .how__tab-num,
 .how__tabs--journey .how__tab.is-hidden > .how__tab-label,
 .how__tabs--journey .how__tab.is-hidden > .how__tab-count { opacity: 0; transition-delay: 0ms; }
 
@@ -643,7 +635,7 @@
 @keyframes runner-out { to { opacity: 0; } }
 
 /* arrow head */
-.how__tabs--journey .how__tab.is-last .how__tab-num::after {
+.how__tabs--journey .how__tab.is-last .how__tab-count::before {
   content: "";
   position: absolute;
   right: 0; bottom: 8px;
@@ -654,8 +646,8 @@
   opacity: 0.8;
   transition: opacity 400ms ease, border-color 300ms ease 800ms, box-shadow 300ms ease 800ms;
 }
-.how__tabs--journey .how__tab.is-last.is-hidden .how__tab-num::after { opacity: 0; }
-.how__tabs--journey .how__tab.is-last.is-reached .how__tab-num::after { border-color: #c084fc; opacity: 1; box-shadow: 2px -2px 10px rgba(192, 132, 252, 0.6); }
+.how__tabs--journey .how__tab.is-last.is-hidden .how__tab-count::before { opacity: 0; }
+.how__tabs--journey .how__tab.is-last.is-reached .how__tab-count::before { border-color: #c084fc; opacity: 1; box-shadow: 2px -2px 10px rgba(192, 132, 252, 0.6); }
 
 /* list label + discover copy (panel) */
 .how__list-label {
@@ -749,5 +741,5 @@
   .how__tabs--journey .how__tab .how__tab-count::after,
   .how__tabs--journey .how__tab .how__tab-glyph::after,
   .how__tabs--journey .how__tab .how__tab-label::after,
-  .how__tabs--journey .how__tab.is-last .how__tab-num::after { display: none; }
+  .how__tabs--journey .how__tab.is-last .how__tab-count::before { display: none; }
 }

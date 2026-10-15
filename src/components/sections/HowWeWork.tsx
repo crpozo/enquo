@@ -169,10 +169,9 @@ export function HowWeWork() {
               style={{ "--auto-ms": `${AUTO_MS}ms` } as React.CSSProperties}
             >
               <span className="how__tab-glyph"><Glyph tag={s.tag} /></span>
-              <span className="how__tab-num">0{i + 1}</span>
               <span className="how__tab-label">{t(s.tag)}</span>
               <span className="how__tab-count">
-                {s.cards.length ? `${String(s.cards.length).padStart(2, "0")} ${t("capabilities")}` : t("Entry point")}
+                {s.cards.length ? t("Capabilities") : t("Entry point")}
               </span>
             </button>
           ))}
@@ -199,7 +198,6 @@ export function HowWeWork() {
               <ul className="how__list">
                 {stage.cards.map((c, i) => (
                   <li className="how__list-item" key={c.title} style={{ animationDelay: `${i * 70}ms` }}>
-                    <span className="how__list-num">{String(i + 1).padStart(2, "0")}</span>
                     <span className="how__list-title">{c.title}</span>
                     <span className="how__list-outcome">{c.outcome}</span>
                   </li>
