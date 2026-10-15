@@ -18,13 +18,12 @@ const ORDER = [
 const areas = (s: string) => s.replace(/\.$/, "").split(", ");
 
 /**
- * Industries (home) — laid out like the services panels (image header,
- * name, short list of focus areas) but smaller and six-up, so the block
- * gives context without becoming the focus of the page.
+ * Industries (home) — a deck of stacking cards (image, name, short list of
+ * focus areas): each card sticks under the nav and the next one slides up
+ * over it as you scroll.
  */
 export function HomeIndustries() {
   const headRef = useReveal<HTMLDivElement>();
-  const gridRef = useReveal<HTMLDivElement>();
   const { t, tr } = useLang();
   const ordered = ORDER.map((name) => ENQUO_INDUSTRIES.find((i) => i.name === name)!).filter(Boolean);
   const industries = tr(ordered);
@@ -45,14 +44,23 @@ export function HomeIndustries() {
           </p>
         </div>
 
-        <div className="inds-panels reveal" ref={gridRef}>
+        {/* Stacking cards: each card sticks a little lower than the one
+            before it (--i), so the next one slides up and covers it. */}
+        <div className="inds-stack">
           {industries.map((ind, i) => (
-            <Link to="/industries" className="ind-panel" key={ind.num} style={{ transitionDelay: `${i * 60}ms` }}>
-              <figure className="ind-panel__media" aria-hidden="true">
-                {ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />}
-                <h3 className="ind-panel__name">{ind.name}</h3>
+            <Link
+              to="/industries"
+              className="ind-panel ind-panel--stack hover-line"
+              key={ind.num}
+              style={{ "--i": i } as React.CSSProperties}
+            >
+              <figure className="ind-panel__media">
+                {ind.image && (
+                  <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" data-parallax-img />
+                )}
               </figure>
               <div className="ind-panel__body">
+                <h3 className="ind-panel__name">{ind.name}</h3>
                 <ul className="ind-panel__list">
                   {areas(ind.desc).map((a) => (
                     <li key={a}>

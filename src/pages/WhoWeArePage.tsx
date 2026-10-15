@@ -254,7 +254,7 @@ function Closing() {
   return (
     <section className="section who2-close" id="contact">
       <div className="who2-close__art" aria-hidden="true">
-        <img src={import.meta.env.BASE_URL + "img/who/founding.webp"} alt="" loading="lazy" />
+        <img src={import.meta.env.BASE_URL + "img/who/founding.webp"} alt="" loading="lazy" data-parallax-img />
       </div>
       <div className="wrap-lg">
         <div className="who2-close__inner reveal" ref={ref}>

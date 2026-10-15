@@ -6,7 +6,7 @@
 export function PageHeroArt({ src }: { src: string }) {
   return (
     <div className="page-hero__art" aria-hidden="true">
-      <img src={import.meta.env.BASE_URL + src} alt="" />
+      <img src={import.meta.env.BASE_URL + src} alt="" data-parallax-img />
       <div className="page-hero__art-tint" />
     </div>
   );

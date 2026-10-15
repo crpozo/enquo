@@ -1,5 +1,6 @@
 import { useReveal } from "../../hooks/useReveal";
 import { useLang } from "../../i18n/lang";
+import { StatCounter } from "./StatCounter";
 
 /**
  * The Problem — deck p.4: enterprise execution breaks in three critical
@@ -55,6 +56,7 @@ export function WhatWeFix() {
           </div>
           <figure className="fix__media" aria-hidden="true">
             <img
+              data-parallax-img
               src={import.meta.env.BASE_URL + "img/problem.webp"}
               alt=""
               loading="lazy"
@@ -74,7 +76,7 @@ export function WhatWeFix() {
         <dl className="fix__costs" aria-label={t("The compound cost of disconnected execution")}>
           {costs.map((c) => (
             <div key={c.stat}>
-              <dt>{c.stat}</dt>
+              <dt><StatCounter value={c.stat} /></dt>
               <dd>{c.d}</dd>
             </div>
           ))}

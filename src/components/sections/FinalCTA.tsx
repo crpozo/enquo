@@ -29,6 +29,7 @@ export function FinalCTA() {
           src={import.meta.env.BASE_URL + v.art}
           alt=""
           loading="lazy"
+          data-parallax-img
         />
       </div>
       <div className="wrap-lg">

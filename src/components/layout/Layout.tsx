@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { IntroOverlay } from "../IntroOverlay";
 import { Footer } from "../chrome/Footer";
 import { Nav } from "../chrome/Nav";
+import { useImageParallax } from "../../hooks/useImageParallax";
 import { useLenis } from "../../hooks/useLenis";
 import { langFromPath, prefixFromPath, withPrefix } from "../../i18n/lang";
 
@@ -34,6 +35,7 @@ export function Layout() {
   const lang = langFromPath(pathname);
   const prefix = prefixFromPath(pathname);
   useLenis();
+  useImageParallax(pathname);
 
   // Document language follows the URL (/es/...)
   useEffect(() => {
