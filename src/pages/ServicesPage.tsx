@@ -20,8 +20,8 @@ function OperatingModel({ stages }: { stages: Stage[] }) {
   const { t, tr } = useLang();
   const discover = tr(DISCOVER);
   const steps = [
-    { num: "00", tag: discover.tag, promise: discover.promise, id: "discover" },
-    ...stages.map((s, i) => ({ num: `0${i + 1}`, tag: s.tag, promise: s.promise, id: s.tag.toLowerCase() })),
+    { tag: discover.tag, promise: discover.promise, id: "discover" },
+    ...stages.map((s) => ({ tag: s.tag, promise: s.promise, id: s.tag.toLowerCase() })),
   ];
   return (
     <section className="opmodel section" id="operating-model">
@@ -33,10 +33,9 @@ function OperatingModel({ stages }: { stages: Stage[] }) {
         </div>
         <ol className="opmodel__flow reveal" ref={ref}>
           {steps.map((s, i) => (
-            <li className="opmodel__step" data-tone={TONE[s.tag]} key={s.tag} style={{ transitionDelay: `${i * 120}ms` }}>
+            <li className="opmodel__step" data-tone={TONE[s.tag]} key={s.tag} style={{ transitionDelay: `${i * 400}ms`, "--d": `${i * 400}ms` } as React.CSSProperties}>
               <a href={`#${s.id}`} className="opmodel__link">
                 <span className="opmodel__node" aria-hidden="true" />
-                <span className="opmodel__num">{s.num}</span>
                 <span className="opmodel__tag">{t(s.tag)}</span>
                 <span className="opmodel__promise">{s.promise}</span>
               </a>
@@ -74,7 +73,7 @@ function CapabilityRows({ stage }: { stage: Stage }) {
   );
 }
 
-function StageSection({ stage, index }: { stage: Stage; index: number }) {
+function StageSection({ stage }: { stage: Stage }) {
   const ref = useReveal<HTMLDivElement>();
   const { t } = useLang();
   return (
@@ -82,7 +81,6 @@ function StageSection({ stage, index }: { stage: Stage; index: number }) {
       <div className="px-glow px-glow--stage" data-parallax="0.08" aria-hidden="true" />
       <div className="wrap-lg">
         <div className="svc-stage__head">
-          <span className="svc-stage__num">0{index + 1}</span>
           <h2 className="svc-stage__verb">{t(stage.tag)}</h2>
         </div>
         <StageHero stage={stage} />
@@ -109,7 +107,6 @@ function DiscoverSection() {
     <section className="page-stage svc-stage svc-stage--discover section" id="discover" data-stage="Discover" data-tone="lilac">
       <div className="wrap-lg">
         <div className="svc-stage__head">
-          <span className="svc-stage__num">00</span>
           <h2 className="svc-stage__verb">{t(d.tag)}</h2>
         </div>
         <div className="svc-discover reveal" ref={ref}>
@@ -273,8 +270,8 @@ export function ServicesPage() {
       <OperatingModel stages={stages} />
 
       <DiscoverSection />
-      {stages.map((stage, i) => (
-        <StageSection key={stage.tag} stage={stage} index={i} />
+      {stages.map((stage) => (
+        <StageSection key={stage.tag} stage={stage} />
       ))}
 
       <Combine />

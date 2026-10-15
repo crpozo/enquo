@@ -19,22 +19,35 @@
   position: relative;
 }
 .opmodel__flow::before {
-  /* the one line every stage sits on */
+  /* the one line every stage sits on — drawn left → right on reveal */
   content: "";
   position: absolute; left: 5px; right: 0; top: 5px;
   height: 1.5px;
   background: linear-gradient(90deg, #C7B6FF 0%, #2DD4BF 33%, #F472B6 66%, #FB923C 100%);
   opacity: 0.55;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1600ms cubic-bezier(0.45, 0, 0.2, 1);
 }
+.opmodel__flow.in::before { transform: scaleX(1); }
 .opmodel__flow::after {
   content: "";
   position: absolute; right: 0; top: 1px;
   width: 8px; height: 8px;
   border-top: 1.5px solid #FB923C; border-right: 1.5px solid #FB923C;
   transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 300ms ease 1500ms;
 }
+.opmodel__flow.in::after { opacity: 1; }
+/* each stage appears as the line reaches it (delay set per step in TSX) */
 .opmodel__step { position: relative; opacity: 0; transform: translateY(14px); transition: opacity 500ms ease, transform 500ms cubic-bezier(0.2,0.7,0.2,1); }
 .opmodel__flow.in .opmodel__step { opacity: 1; transform: none; }
+.opmodel__node { transform: scale(0); transition: transform 400ms cubic-bezier(0.3, 1.6, 0.5, 1); transition-delay: var(--d, 0ms); }
+.opmodel__flow.in .opmodel__node { transform: scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  .opmodel__flow::before, .opmodel__flow::after, .opmodel__node { transition: none; }
+}
 .opmodel__link { display: block; padding-top: 28px; color: var(--ink); }
 .opmodel__node {
   position: absolute; left: 0; top: 0;
@@ -42,10 +55,9 @@
   background: var(--tone);
   box-shadow: 0 0 16px var(--tone);
 }
-.opmodel__num { display: block; font-size: 12px; letter-spacing: 0.2em; color: var(--tone); font-weight: 600; font-feature-settings: "tnum" 1; }
 .opmodel__tag {
   display: block;
-  margin-top: 8px;
+  margin-top: 4px;
   font-size: clamp(26px, 2.8vw, 40px);
   font-weight: 600;
   text-transform: uppercase;
@@ -59,7 +71,6 @@
 /* ---------- Services · stage sections ---------- */
 .svc-stage { background: var(--bg) !important; }
 .svc-stage__head { display: flex; align-items: baseline; gap: 20px; margin-bottom: 28px; }
-.svc-stage__num { font-size: 13px; letter-spacing: 0.22em; color: var(--tone); font-weight: 600; font-feature-settings: "tnum" 1; }
 .svc-stage__verb {
   margin: 0;
   font-size: clamp(40px, 6vw, 88px);
@@ -135,7 +146,6 @@
 
 /* services · refinements */
 .svc-stage__head { align-items: flex-start; }
-.svc-stage__num { padding-top: 14px; }
 .combine__rows .combine__row,
 .combine__row {
   display: grid;
@@ -459,3 +469,15 @@
 :root[data-theme="light"] .cd-techlogos li { background: #0A0A0F; padding: 8px 12px; border-radius: 8px; }
 .partner-card__logo[src*="pega"] { height: 28px; }
 .cd-tech .cd-techlogos li { border: 0; padding: 0; border-radius: 0; }
+
+/* ---------- Light theme: deeper stage tones so they read on white ---------- */
+:root[data-theme="light"] [data-tone="lilac"]  { --tone: #7C3AED; --tone-soft: rgba(124, 58, 237, 0.10); }
+:root[data-theme="light"] [data-tone="teal"]   { --tone: #0D9488; --tone-soft: rgba(13, 148, 136, 0.10); }
+:root[data-theme="light"] [data-tone="rose"]   { --tone: #DB2777; --tone-soft: rgba(219, 39, 119, 0.10); }
+:root[data-theme="light"] [data-tone="orange"] { --tone: #EA580C; --tone-soft: rgba(234, 88, 12, 0.10); }
+:root[data-theme="light"] .svc-stage__verb { background-image: linear-gradient(90deg, var(--ink) 0%, var(--tone) 100%); }
+:root[data-theme="light"] .opmodel__flow::before {
+  background: linear-gradient(90deg, #7C3AED 0%, #0D9488 33%, #DB2777 66%, #EA580C 100%);
+  opacity: 0.7;
+}
+:root[data-theme="light"] .opmodel__flow::after { border-color: #EA580C; }

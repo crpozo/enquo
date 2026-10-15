@@ -178,3 +178,13 @@
 :root .nav.nav-light-mode .nav__sections a.active { background: var(--ink); color: #FFFFFF; }
 :root .nav.nav-light-mode .btn--primary { background: var(--ink); color: #FFFFFF; border-color: var(--ink); }
 :root .nav.nav-light-mode .btn--primary:hover { color: #FFFFFF; border-color: var(--purple-500); }
+
+/* ==========================================================================
+   ALWAYS-LIGHT PAGES — Services, Industries, Careers (`data-page-theme`,
+   set from Nav.tsx). The light theme applies, on a pure white canvas.
+   ========================================================================== */
+:root[data-page-theme="light"] {
+  --bg: #FFFFFF;
+  --bg-2: #FFFFFF;
+  --bg-3: #F4F4F8;
+}

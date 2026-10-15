@@ -1,105 +1,14 @@
 /* ==========================================================================
-   Scroll motion — home "Our services" timeline + scroll-linked features,
+   Scroll motion — home "Our services" scroll-linked features,
    stacking industry cards, hover lines and photo parallax.
    ========================================================================== */
-
-/* ---------- Our services · scrollytelling timeline ----------
-   A thin centre rail fills with the scroll (--tl-progress, set in
-   HowWeWork.tsx); each stage fades + slides up once the scroll line
-   reaches it (.is-reached), alternating left / right of the rail. */
-.tl {
-  --tl-progress: 0;
-  position: relative;
-  list-style: none;
-  margin: clamp(56px, 8vh, 96px) 0 0;
-  padding: 24px 0;
-  display: grid;
-  gap: clamp(56px, 10vh, 112px);
-}
-.tl__rail {
-  position: absolute;
-  left: 50%; top: 0; bottom: 0;
-  width: 1px;
-  transform: translateX(-50%);
-  background: var(--hairline-2);
-}
-.tl__fill {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, #4E4DFA, #7C3AED 55%, #C458F9);
-  box-shadow: 0 0 12px rgba(124, 58, 237, 0.55);
-  transform-origin: top;
-  transform: scaleY(var(--tl-progress));
-}
-.tl-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: clamp(56px, 9vw, 140px);
-}
-.tl-step__node {
-  position: absolute;
-  left: 50%; top: 34px;
-  width: 11px; height: 11px;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  background: var(--bg);
-  border: 1.5px solid var(--purple-400);
-  z-index: 1;
-  transition: background 300ms ease, box-shadow 300ms ease;
-}
-.tl-step.is-reached .tl-step__node { background: #c084fc; box-shadow: 0 0 14px rgba(192, 132, 252, 0.9); }
-
-.tl-step__card {
-  max-width: 470px;
-  padding-bottom: 18px;
-  opacity: 0;
-  transform: translateY(56px);
-  transition: opacity 700ms ease, transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.tl-step.is-reached .tl-step__card { opacity: 1; transform: none; }
-.tl-step--left .tl-step__card { grid-column: 1; justify-self: end; text-align: right; }
-.tl-step--right .tl-step__card { grid-column: 2; justify-self: start; }
-.tl-step--left .tl-step__glyph { margin-left: auto; }
-
-.tl-step__kind {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.tl-step__tag {
-  margin: 8px 0 14px;
-  font-size: clamp(32px, 3.6vw, 54px);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 1;
-  color: var(--ink);
-  transition: color 400ms ease;
-}
-.tl-step.is-reached .tl-step__tag {
-  background: var(--grad-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.tl-step__statement {
-  margin: 0;
-  font-size: clamp(17px, 1.5vw, 21px);
-  line-height: 1.5;
-  font-weight: 300;
-  color: var(--ink-2);
-}
-.tl-step__metric { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
-.tl-step__metric em { font-style: normal; color: var(--purple-400); }
 
 /* ---------- Our services · scroll-linked features + neon visual ---------- */
 .feat {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(40px, 6vw, 96px);
-  margin-top: clamp(96px, 14vh, 160px);
+  margin-top: clamp(48px, 8vh, 96px);
 }
 .feat__block {
   min-height: 72vh;
@@ -265,13 +174,6 @@
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 900px) {
-  .tl__rail { left: 5px; transform: none; }
-  .tl-step { grid-template-columns: 1fr; padding-left: 36px; }
-  .tl-step__node { left: 0; top: 30px; transform: none; }
-  .tl-step--left .tl-step__card,
-  .tl-step--right .tl-step__card { grid-column: 1; justify-self: start; text-align: left; }
-  .tl-step--left .tl-step__glyph { margin-left: 0; }
-
   .feat { grid-template-columns: 1fr; margin-top: 80px; }
   .feat__aside { display: none; }
   .feat__block { min-height: 0; padding: 0 0 64px; opacity: 1; }
@@ -291,7 +193,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tl-step__card, .feat__visual img, .feat__block { transition: none; }
+  .feat__visual img, .feat__block { transition: none; }
   .hover-line::after, .fix__link::after, .feat__items li::after { transition: none; }
   [data-parallax-img] { scale: none; }
   .inds-stack .ind-panel { transform: none; filter: none; }
