@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 
-import { CASES, getCaseBySlug, type CaseStudy } from "../data/cases";
+import { CASES, getCaseBySlug, imageCut, type CaseStudy } from "../data/cases";
 import { useReveal } from "../hooks/useReveal";
 import { useLang } from "../i18n/lang";
 
@@ -60,7 +60,12 @@ function Hero({ c }: { c: CaseStudy }) {
               <ul>{c.capabilities.map((x) => <li key={x}>{x}</li>)}</ul>
             </div>
           </div>
-          <figure className="cd-hero__media" aria-hidden="true">
+          <figure
+            className="cd-hero__media"
+            aria-hidden="true"
+            data-cut={imageCut(c.image)}
+            style={imageCut(c.image) ? ({ "--cut": imageCut(c.image) } as React.CSSProperties) : undefined}
+          >
             <img src={import.meta.env.BASE_URL + c.image} alt="" />
           </figure>
         </div>

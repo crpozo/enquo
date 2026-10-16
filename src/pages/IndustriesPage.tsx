@@ -207,7 +207,7 @@ function Closing() {
    Jump-to filters — text only; a gradient underline slides to the
    active industry, which also follows the scroll.
    ============================================================ */
-function JumpTabs({ industries }: { industries: Industry[] }) {
+function JumpTabs({ industries, onJump }: { industries: Industry[]; onJump: (key: string) => void }) {
   const [active, setActive] = useState<string>(industries[0].key);
   const { t } = useLang();
   const barRef = useRef<HTMLDivElement | null>(null);
@@ -229,9 +229,15 @@ function JumpTabs({ industries }: { industries: Industry[] }) {
       }
     };
     place();
+    // Re-measure whenever a tab's box changes (font load, resize), so the
+    // indicator never ends up half under one tab and half under another.
+    const ro = new ResizeObserver(place);
+    Object.values(tabRefs.current).forEach((el) => el && ro.observe(el));
     window.addEventListener("resize", place);
-    document.fonts?.ready.then(place);
-    return () => window.removeEventListener("resize", place);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", place);
+    };
   }, [active]);
 
   // Stick right under the nav, whatever its current height.
@@ -273,9 +279,10 @@ function JumpTabs({ industries }: { industries: Industry[] }) {
           aria-selected={active === i.key}
           onClick={() => {
             setActive(i.key);
-            document.getElementById("ind-" + i.key)?.scrollIntoView({ block: "start" });
+            onJump(i.key);
           }}
           className={"page-ind__tab" + (active === i.key ? " active" : "")}
+          data-label={t(i.tag)}
         >
           {t(i.tag)}
         </button>
@@ -291,6 +298,27 @@ function JumpTabs({ industries }: { industries: Industry[] }) {
 export function IndustriesPage() {
   const { tr } = useLang();
   const industries = tr(INDUSTRIES);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const fadeTimer = useRef(0);
+
+  // Picking a filter: the list fades out, the page jumps to the industry
+  // while hidden, then the content fades back in (0.3s).
+  const jumpTo = (key: string) => {
+    const list = listRef.current;
+    const target = document.getElementById("ind-" + key);
+    if (!target) return;
+    if (!list || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      target.scrollIntoView({ block: "start" });
+      return;
+    }
+    window.clearTimeout(fadeTimer.current);
+    list.dataset.switching = "";
+    fadeTimer.current = window.setTimeout(() => {
+      target.scrollIntoView({ block: "start" });
+      delete list.dataset.switching;
+    }, 150);
+  };
+  useEffect(() => () => window.clearTimeout(fadeTimer.current), []);
 
   return (
     <>
@@ -298,9 +326,9 @@ export function IndustriesPage() {
 
       <section className="section" id="industries-list">
         <div className="wrap-lg">
-          <JumpTabs industries={industries} />
+          <JumpTabs industries={industries} onJump={jumpTo} />
 
-          <div className="ind2-list">
+          <div className="ind2-list" ref={listRef}>
             {industries.map((ind, idx) => (
               <IndustryBlock key={ind.key} ind={ind} index={idx} />
             ))}

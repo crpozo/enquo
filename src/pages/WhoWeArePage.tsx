@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useReveal } from "../hooks/useReveal";
 import { useLang } from "../i18n/lang";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
+import { StatCounter } from "../components/sections/StatCounter";
 
 /* ============================================================
    Copy — 10/09 board, Who We Are rewrite
@@ -96,7 +97,6 @@ function Believe() {
         <ol className="who2-beliefs reveal" ref={listRef}>
           {beliefs.map((b) => (
             <li key={b.num}>
-              <span className="who2-beliefs__num">{b.num}</span>
               <h3>{b.title}</h3>
               <p>{b.text}</p>
             </li>
@@ -182,7 +182,7 @@ function Proof() {
         <dl className="who2-proof reveal" ref={ref}>
           {proof.map((p, i) => (
             <div key={p.value} style={{ transitionDelay: `${i * 120}ms` }}>
-              <dt>{p.value}</dt>
+              <dt><StatCounter value={p.value} /></dt>
               <dd>{p.label}</dd>
             </div>
           ))}
@@ -236,7 +236,6 @@ function Places() {
         <div className="who2-places reveal" ref={ref}>
           {places.map((p, i) => (
             <div className="who2-place" key={p.city} style={{ transitionDelay: `${i * 100}ms` }}>
-              <span className="who2-place__num">0{i + 1}</span>
               <h3>{p.city}</h3>
               <span className="who2-place__country">{p.country}</span>
               <p>{p.lines[0]}<br />{p.lines[1]}</p>
