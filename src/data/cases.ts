@@ -36,6 +36,18 @@ export type CaseStudy = {
   businessImpact: { title: string; text: string };
 };
 
+/**
+ * Case photos with a straight vertical cut baked into the picture (the
+ * player's body ends abruptly), as a share of the width from the left edge.
+ * The image frames slide the photo left by this much so the cut sits flush
+ * on the frame's edge instead of floating inside the card.
+ */
+const IMAGE_CUT: Record<string, string> = {
+  "img/cases/02.webp": "5%",
+  "img/cases/03.webp": "30.6%",
+};
+export const imageCut = (image: string): string | undefined => IMAGE_CUT[image];
+
 export const CASES: CaseStudy[] = [
   {
     slug: "ncaa-executive-intelligence",

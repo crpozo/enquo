@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { CASES, type CaseStudy } from "../data/cases";
+import { CASES, imageCut, type CaseStudy } from "../data/cases";
 import { useReveal } from "../hooks/useReveal";
 import { useLang } from "../i18n/lang";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
@@ -14,7 +14,12 @@ function CaseCard({ s, i }: { s: CaseStudy; i: number }) {
   const { t } = useLang();
   return (
     <Link to={`/case-studies/${s.slug}`} className="ccard reveal" ref={ref} style={{ transitionDelay: `${i * 90}ms` }}>
-      <figure className="ccard__media" aria-hidden="true">
+      <figure
+        className="ccard__media"
+        aria-hidden="true"
+        data-cut={imageCut(s.image)}
+        style={imageCut(s.image) ? ({ "--cut": imageCut(s.image) } as React.CSSProperties) : undefined}
+      >
         <img src={import.meta.env.BASE_URL + s.image} alt="" loading="lazy" />
       </figure>
       <div className="ccard__body">
