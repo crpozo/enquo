@@ -285,6 +285,20 @@
 .ccard__media { margin: 0 0 20px; border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 3; position: relative; isolation: isolate; background: var(--bg-2); }
 .ccard__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 900ms cubic-bezier(0.2,0.7,0.2,1); }
 .ccard:hover .ccard__media img { transform: scale(1.05); }
+/* Rounded media frames (cards, case hero, videos): always clip the image to
+   the rounded corners, including in Safari while the image is animating
+   (hover zoom, reveal), where overflow + border-radius alone can leak. */
+.ccard__media,
+.cd-hero__media,
+.cvideo__frame {
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
+}
+.ccard__media img,
+.cd-hero__media img,
+.cvideo__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ccard__media::after { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 1px solid rgba(255,255,255,0.08); transition: border-color 250ms ease, box-shadow 250ms ease; }
 .ccard:hover .ccard__media::after { border-color: rgba(192,132,252,0.6); box-shadow: 0 18px 40px -20px rgba(124,58,237,0.6); }
 .ccard__top { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple-400); font-weight: 600; margin-bottom: 14px; }
@@ -399,10 +413,9 @@
 .who2-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: end; }
 .who2-prose { margin: 0; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6; color: var(--ink-2); font-weight: 300; }
 .who2-beliefs { list-style: none; margin: 56px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 48px); }
-.who2-beliefs li { padding-top: 20px; border-top: 1px solid var(--hairline); opacity: 0; transform: translateY(14px); transition: opacity 500ms ease, transform 500ms ease; }
+.who2-beliefs li { opacity: 0; transform: translateY(14px); transition: opacity 500ms ease, transform 500ms ease; }
 .who2-beliefs.in li { opacity: 1; transform: none; }
 .who2-beliefs.in li:nth-child(2) { transition-delay: 120ms; } .who2-beliefs.in li:nth-child(3) { transition-delay: 240ms; }
-.who2-beliefs__num { display: block; font-size: 12px; letter-spacing: 0.2em; color: var(--purple-400); font-weight: 600; margin-bottom: 14px; }
 .who2-beliefs h3 { margin: 0 0 8px; font-size: clamp(19px, 1.6vw, 24px); font-weight: 500; color: var(--ink); letter-spacing: -0.01em; }
 .who2-beliefs p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); font-weight: 300; }
 /* flow */
@@ -441,9 +454,8 @@
 .who2-trust p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); font-weight: 300; }
 /* places */
 .who2-places { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 48px); }
-.who2-place { padding-top: 20px; border-top: 1px solid var(--hairline); opacity: 0; transform: translateY(14px); transition: opacity 500ms ease, transform 500ms ease; }
+.who2-place { opacity: 0; transform: translateY(14px); transition: opacity 500ms ease, transform 500ms ease; }
 .who2-places.in .who2-place { opacity: 1; transform: none; }
-.who2-place__num { display: block; font-size: 12px; letter-spacing: 0.2em; color: var(--purple-400); font-weight: 600; margin-bottom: 12px; }
 .who2-place h3 { margin: 0; font-size: clamp(22px, 2vw, 30px); font-weight: 500; color: var(--ink); letter-spacing: -0.01em; }
 .who2-place__country { display: block; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 6px 0 14px; }
 .who2-place p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); }
