@@ -649,47 +649,67 @@
   border-radius: 6px;
 }
 
-/* Industry tabs */
+/* Industry tabs — text only, one row, sticky under the nav. A single
+   .active-indicator (gradient underline) slides to the active tab; its
+   translateX / width come from IndustriesPage.tsx. */
 .page-ind__tabs {
+  --tabs-top: 96px; /* nav height; refined in IndustriesPage.tsx */
+  position: sticky;
+  top: var(--tabs-top);
+  z-index: 20;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 64px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid var(--hairline);
+  gap: clamp(18px, 2.4vw, 34px);
+  margin: 0 0 24px;
+  padding-top: 10px;
+  background: var(--bg);
+  /* full-bleed backdrop so content scrolling under the bar never shows */
+  box-shadow: 0 0 0 100vmax var(--bg);
+  clip-path: inset(0 -100vmax);
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.page-ind__tabs::-webkit-scrollbar { display: none; }
 .page-ind__tabs-label {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-right: 14px;
 }
 .page-ind__tab {
   appearance: none;
-  background: transparent;
-  border: 1px solid var(--hairline-2);
-  color: var(--ink-2);
-  padding: 8px 16px;
-  border-radius: 999px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 12px 0 14px;
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 500;
   font-family: var(--font-sans);
   cursor: pointer;
-  transition: all 180ms ease;
+  transition: color 220ms ease;
 }
-.page-ind__tab:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--ink);
+.page-ind__tab:hover { color: var(--ink); }
+.page-ind__tab.active { color: var(--ink); font-weight: 700; }
+.page-ind__tab:focus-visible { outline: 2px solid var(--purple-400); outline-offset: 2px; border-radius: 2px; }
+.active-indicator {
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #4E4DFA, #7C3AED 55%, #C458F9);
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.35);
+  pointer-events: none;
+  transition: transform 0.3s ease, width 0.3s ease;
 }
-.page-ind__tab.active {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
+@media (prefers-reduced-motion: reduce) {
+  .active-indicator { transition: none; }
 }
+/* blocks land below the nav + sticky filters when jumped to */
+.ind2 { scroll-margin-top: 160px; }
 
 /* Industry detail — sticky left, scrolling right */
 .page-ind__list {

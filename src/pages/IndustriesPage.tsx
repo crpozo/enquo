@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CASES } from "../data/cases";
@@ -204,11 +204,92 @@ function Closing() {
 }
 
 /* ============================================================
+   Jump-to filters — text only; a gradient underline slides to the
+   active industry, which also follows the scroll.
+   ============================================================ */
+function JumpTabs({ industries }: { industries: Industry[] }) {
+  const [active, setActive] = useState<string>(industries[0].key);
+  const { t } = useLang();
+  const barRef = useRef<HTMLDivElement | null>(null);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const indicatorRef = useRef<HTMLDivElement | null>(null);
+
+  // Measure the active tab and slide the single indicator under it.
+  useEffect(() => {
+    const place = () => {
+      const tab = tabRefs.current[active];
+      const indicator = indicatorRef.current;
+      if (!tab || !indicator) return;
+      indicator.style.width = `${tab.offsetWidth}px`;
+      indicator.style.transform = `translateX(${tab.offsetLeft}px)`;
+      // On narrow screens the bar scrolls sideways: keep the active tab in view.
+      const bar = barRef.current;
+      if (bar && bar.scrollWidth > bar.clientWidth) {
+        bar.scrollTo({ left: tab.offsetLeft - 16, behavior: "smooth" });
+      }
+    };
+    place();
+    window.addEventListener("resize", place);
+    document.fonts?.ready.then(place);
+    return () => window.removeEventListener("resize", place);
+  }, [active]);
+
+  // Stick right under the nav, whatever its current height.
+  useEffect(() => {
+    const fit = () => {
+      const nav = document.querySelector<HTMLElement>(".nav");
+      if (nav && barRef.current) barRef.current.style.setProperty("--tabs-top", `${nav.offsetHeight}px`);
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, []);
+
+  // Follow the scroll: the industry crossing the upper third is active.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id.replace(/^ind-/, ""));
+        });
+      },
+      { rootMargin: "-30% 0px -65% 0px" },
+    );
+    industries.forEach((i) => {
+      const el = document.getElementById("ind-" + i.key);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [industries]);
+
+  return (
+    <div className="page-ind__tabs" role="tablist" ref={barRef}>
+      <span className="page-ind__tabs-label">{t("Jump to,")} </span>
+      {industries.map((i) => (
+        <button
+          key={i.key}
+          ref={(el) => { tabRefs.current[i.key] = el; }}
+          role="tab"
+          aria-selected={active === i.key}
+          onClick={() => {
+            setActive(i.key);
+            document.getElementById("ind-" + i.key)?.scrollIntoView({ block: "start" });
+          }}
+          className={"page-ind__tab" + (active === i.key ? " active" : "")}
+        >
+          {t(i.tag)}
+        </button>
+      ))}
+      <div className="active-indicator" ref={indicatorRef} aria-hidden="true" />
+    </div>
+  );
+}
+
+/* ============================================================
    Page
    ============================================================ */
 export function IndustriesPage() {
-  const [active, setActive] = useState<string>(INDUSTRIES[0].key);
-  const { t, tr } = useLang();
+  const { tr } = useLang();
   const industries = tr(INDUSTRIES);
 
   return (
@@ -217,23 +298,7 @@ export function IndustriesPage() {
 
       <section className="section" id="industries-list">
         <div className="wrap-lg">
-          <div className="page-ind__tabs" role="tablist">
-            <span className="page-ind__tabs-label">{t("Jump to,")} </span>
-            {industries.map((i) => (
-              <button
-                key={i.key}
-                role="tab"
-                aria-selected={active === i.key}
-                onClick={() => {
-                  setActive(i.key);
-                  document.getElementById("ind-" + i.key)?.scrollIntoView({ block: "start" });
-                }}
-                className={"page-ind__tab" + (active === i.key ? " active" : "")}
-              >
-                {t(i.tag)}
-              </button>
-            ))}
-          </div>
+          <JumpTabs industries={industries} />
 
           <div className="ind2-list">
             {industries.map((ind, idx) => (

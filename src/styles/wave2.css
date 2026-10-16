@@ -82,22 +82,83 @@
   background: linear-gradient(90deg, #fff 0%, var(--tone) 100%);
   background-clip: text; -webkit-background-clip: text; color: transparent;
 }
+/* Stage body: the copy + phase outcome as a full-width header, then the
+   capabilities as a 2-column grid (an odd last card is centred). */
 .svc-stage__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(40px, 6vw, 96px);
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 4vw, 48px);
   margin-top: 48px;
 }
+.svc-stage__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  max-width: 1080px;
+}
+.svc-stage__intro .svc-stage__copy { margin: 0; }
+/* Capability focus: rows dim until they scroll into view (ServicesPage.tsx) */
+.svc-rows__list[data-focusing] .svc-row { opacity: 0.4; }
+.svc-rows__list[data-focusing] .svc-row[data-lit] { opacity: 1; }
 .svc-stage__copy { margin: 0 0 28px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: var(--ink-2); font-weight: 300; }
 .svc-stage__outcome { padding-left: 18px; border-left: 2px solid var(--tone); }
 .svc-stage__outcome-label { display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tone); font-weight: 600; margin-bottom: 8px; }
 .svc-stage__outcome p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink); }
 .svc-rows__label { display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tone); font-weight: 600; margin-bottom: 14px; }
-.svc-rows__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
-.svc-row { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--hairline); }
-.svc-row__num { font-size: 12px; letter-spacing: 0.16em; color: var(--tone); font-weight: 600; padding-top: 5px; font-feature-settings: "tnum" 1; }
-.svc-row__title { margin: 0 0 6px; font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; text-transform: uppercase; letter-spacing: 0.01em; color: var(--ink); }
-.svc-row__outcome { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); font-weight: 300; }
+/* Borderless capabilities: no boxes — text sits on the page, structured
+   by a generous grid and a left rule that takes the tone on hover. One
+   blurred radial glow (.svc-rows__glow) slides behind the hovered item. */
+.svc-rows__stage { position: relative; }
+.svc-rows__glow {
+  position: absolute; left: 0; top: 0;
+  width: 0; height: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--tone) 0%, transparent 100%);
+  filter: blur(100px);
+  opacity: 0;
+  transform-origin: 0 0;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), width 0.6s ease, height 0.6s ease;
+}
+.svc-rows__stage.is-glowing .svc-rows__glow { opacity: 0.2; }
+.svc-rows__list {
+  position: relative; z-index: 1;
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(40px, 4.5vw, 64px) clamp(40px, 6vw, 96px);
+}
+.svc-row {
+  padding: 4px 0 4px 24px;
+  border: none;
+  border-left: 2px solid var(--hairline-2);
+  background: transparent;
+  box-shadow: none;
+  transition: border-color 350ms ease, opacity 500ms ease;
+}
+.svc-row.is-hovered,
+.svc-row:focus-within { border-left-color: var(--tone); }
+/* odd card count: the last item spans both columns, half width, centred */
+.capability-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: calc(50% - clamp(20px, 3vw, 48px));
+  justify-self: center;
+}
+.svc-row__title {
+  margin: 0 0 10px;
+  font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 1.15;
+  color: var(--ink);
+  transition: color 300ms ease;
+}
+.svc-row.is-hovered .svc-row__title { color: var(--tone); }
+.svc-row__outcome { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink-2); font-weight: 300; }
 .svc-row__when { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .svc-row__when li { font-size: 12.5px; color: var(--ink-3); position: relative; padding-left: 12px; }
 .svc-row__when li::before { content: ""; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--tone); opacity: 0.8; }
@@ -142,6 +203,8 @@
   .opmodel__flow { grid-template-columns: repeat(2, 1fr); }
   .opmodel__flow::before, .opmodel__flow::after { display: none; }
   .svc-stage__grid, .svc-discover, .combine__demo { grid-template-columns: 1fr; }
+  .svc-stage__intro, .svc-rows__list { grid-template-columns: 1fr; }
+  .capability-item:last-child:nth-child(odd) { max-width: none; }
 }
 
 /* services · refinements */
@@ -163,7 +226,9 @@
 .combine__combo { background: none !important; border: 0 !important; padding: 0 !important; border-radius: 0 !important; }
 
 /* ---------- Industries page (10/09): name-led blocks, help areas, one closing ---------- */
-.ind2-list { margin-top: 48px; }
+.ind2-list { margin-top: 24px; }
+/* the filters above already separate the list: no rule on the first block */
+.ind2:first-child { border-top: 0; padding-top: 40px; }
 .ind2 {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -171,7 +236,7 @@
   padding: 72px 0;
   border-top: 1px solid var(--hairline);
 }
-.ind2__lead { position: sticky; top: 100px; align-self: start; }
+.ind2__lead { position: sticky; top: 172px; align-self: start; } /* clears nav + sticky filters */
 .ind2__counter { display: block; font-size: 12px; letter-spacing: 0.2em; color: var(--purple-400); font-weight: 600; margin-bottom: 20px; font-feature-settings: "tnum" 1; }
 .ind2__name {
   margin: 0 0 20px;

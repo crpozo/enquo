@@ -143,7 +143,6 @@
   color: var(--purple-400);
   border-color: rgba(124,58,237,0.25);
 }
-:root[data-theme="light"] .page-ind__tab:hover { background: rgba(10,10,15,0.05); }
 :root[data-theme="light"] .nav__sections a:hover { background: transparent; }
 
 /* Closing CTA keeps its deep-violet mood in light mode */
