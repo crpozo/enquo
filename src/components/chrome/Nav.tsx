@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../../data/nav";
@@ -23,6 +23,19 @@ export function Nav() {
   // it we keep the dark treatment (even in light mode) and only switch to the
   // theme's bar once the hero has scrolled past.
   const [overHero, setOverHero] = useState(true);
+  const navRef = useRef<HTMLElement | null>(null);
+
+  // Publish the nav's real height (it grows when items wrap) as --nav-h on
+  // <html>, so pages can keep their content clear of the fixed bar.
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      document.documentElement.style.setProperty("--nav-h", `${el.offsetHeight}px`);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -53,6 +66,7 @@ export function Nav() {
 
   return (
     <nav
+      ref={navRef}
       className={
         "nav" +
         (scrolled ? " is-scrolled" : "") +

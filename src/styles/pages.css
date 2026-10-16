@@ -14,6 +14,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden; /* the parallax photo is oversized: keep it inside the hero */
   pointer-events: none;
 }
 .page-hero__art img {
@@ -2545,13 +2546,23 @@
 
 /* ---- Demo wizard: one step at a time, each filling the viewport ---- */
 .demo-step {
+  position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding-top: 140px;
+  flex-direction: column;
+  justify-content: center;
+  /* clear the fixed nav (real height in --nav-h, set by Nav.tsx) and the
+     step progress rail under it */
+  padding-top: calc(var(--nav-h, 96px) + 88px);
 }
-.demo-step > .wrap-lg { width: 100%; }
-.demo-step--intro { align-items: center; }
+.demo-step > .wrap-lg { width: 100%; position: relative; z-index: 1; }
+/* Intro: the hero photo stays strictly inside the section */
+.demo-step--intro {
+  overflow: hidden;
+  isolation: isolate;
+  padding-top: calc(var(--nav-h, 96px) + 48px);
+}
+.demo-step--intro .page-hero__art { z-index: -1; }
 .demo-step__title {
   margin: 0 0 48px;
   font-size: clamp(30px, 3.6vw, 56px);
@@ -2569,7 +2580,7 @@
 }
 .demo-progress {
   position: fixed;
-  top: 84px;
+  top: calc(var(--nav-h, 96px) + 12px);
   left: var(--pad-x);
   right: var(--pad-x);
   z-index: 30;
