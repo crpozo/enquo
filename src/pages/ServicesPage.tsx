@@ -80,9 +80,8 @@ function CapabilityRows({ stage }: { stage: Stage }) {
     <div className="svc-rows">
       <span className="svc-rows__label">{t("Capabilities")}</span>
       <ol className="svc-rows__list" ref={listRef}>
-        {stage.cards.map((c, i) => (
-          <li className="svc-row" key={c.title}>
-            <span className="svc-row__num">{String(i + 1).padStart(2, "0")}</span>
+        {stage.cards.map((c) => (
+          <li className="svc-row capability-item" key={c.title}>
             <div className="svc-row__main">
               <h3 className="svc-row__title">{c.title}</h3>
               <p className="svc-row__outcome">{c.outcome}</p>

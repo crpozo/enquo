@@ -82,26 +82,51 @@
   background: linear-gradient(90deg, #fff 0%, var(--tone) 100%);
   background-clip: text; -webkit-background-clip: text; color: transparent;
 }
+/* Stage body: the copy + phase outcome as a full-width header, then the
+   capabilities as a 2-column grid (an odd last card is centred). */
 .svc-stage__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(40px, 6vw, 96px);
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 4vw, 48px);
   margin-top: 48px;
 }
-/* Sticky intro: copy + phase outcome stay in view while the capability
-   list scrolls by, instead of leaving a tall empty column. */
-.svc-stage__intro { position: sticky; top: 120px; align-self: start; }
+.svc-stage__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  max-width: 1080px;
+}
+.svc-stage__intro .svc-stage__copy { margin: 0; }
 /* Capability focus: rows dim until they scroll into view (ServicesPage.tsx) */
-.svc-rows__list.is-focusing .svc-row { opacity: 0.4; transition: opacity 500ms ease; }
+.svc-rows__list.is-focusing .svc-row { opacity: 0.4; }
 .svc-rows__list.is-focusing .svc-row.is-lit { opacity: 1; }
 .svc-stage__copy { margin: 0 0 28px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: var(--ink-2); font-weight: 300; }
 .svc-stage__outcome { padding-left: 18px; border-left: 2px solid var(--tone); }
 .svc-stage__outcome-label { display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tone); font-weight: 600; margin-bottom: 8px; }
 .svc-stage__outcome p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink); }
 .svc-rows__label { display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tone); font-weight: 600; margin-bottom: 14px; }
-.svc-rows__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
-.svc-row { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--hairline); }
-.svc-row__num { font-size: 12px; letter-spacing: 0.16em; color: var(--tone); font-weight: 600; padding-top: 5px; font-feature-settings: "tnum" 1; }
+.svc-rows__list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.svc-row {
+  padding: clamp(22px, 2.4vw, 32px);
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  background: linear-gradient(180deg, var(--tone-soft) 0%, transparent 55%), var(--bg-2);
+  transition: border-color 250ms ease, transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 500ms ease;
+}
+.svc-row:hover { border-color: var(--tone); transform: translateY(-3px); }
+/* odd card count: the last card spans both columns, half width, centred */
+.capability-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: calc(50% - 1rem);
+  justify-self: center;
+}
 .svc-row__title { margin: 0 0 6px; font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; text-transform: uppercase; letter-spacing: 0.01em; color: var(--ink); }
 .svc-row__outcome { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); font-weight: 300; }
 .svc-row__when { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
@@ -148,7 +173,8 @@
   .opmodel__flow { grid-template-columns: repeat(2, 1fr); }
   .opmodel__flow::before, .opmodel__flow::after { display: none; }
   .svc-stage__grid, .svc-discover, .combine__demo { grid-template-columns: 1fr; }
-  .svc-stage__intro { position: static; }
+  .svc-stage__intro, .svc-rows__list { grid-template-columns: 1fr; }
+  .capability-item:last-child:nth-child(odd) { max-width: none; }
 }
 
 /* services · refinements */
@@ -180,7 +206,7 @@
   padding: 72px 0;
   border-top: 1px solid var(--hairline);
 }
-.ind2__lead { position: sticky; top: 100px; align-self: start; }
+.ind2__lead { position: sticky; top: 172px; align-self: start; } /* clears nav + sticky filters */
 .ind2__counter { display: block; font-size: 12px; letter-spacing: 0.2em; color: var(--purple-400); font-weight: 600; margin-bottom: 20px; font-feature-settings: "tnum" 1; }
 .ind2__name {
   margin: 0 0 20px;

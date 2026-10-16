@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CASES } from "../data/cases";
@@ -210,23 +210,40 @@ function Closing() {
 function JumpTabs({ industries }: { industries: Industry[] }) {
   const [active, setActive] = useState<string>(industries[0].key);
   const { t } = useLang();
+  const barRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-  const indicatorRef = useRef<HTMLSpanElement | null>(null);
+  const indicatorRef = useRef<HTMLDivElement | null>(null);
 
-  // Place the indicator under the active tab (also on resize / font load).
-  useLayoutEffect(() => {
+  // Measure the active tab and slide the single indicator under it.
+  useEffect(() => {
     const place = () => {
       const tab = tabRefs.current[active];
-      const bar = indicatorRef.current;
-      if (!tab || !bar) return;
-      bar.style.width = `${tab.offsetWidth}px`;
-      bar.style.transform = `translate(${tab.offsetLeft}px, ${tab.offsetTop + tab.offsetHeight}px)`;
+      const indicator = indicatorRef.current;
+      if (!tab || !indicator) return;
+      indicator.style.width = `${tab.offsetWidth}px`;
+      indicator.style.transform = `translateX(${tab.offsetLeft}px)`;
+      // On narrow screens the bar scrolls sideways: keep the active tab in view.
+      const bar = barRef.current;
+      if (bar && bar.scrollWidth > bar.clientWidth) {
+        bar.scrollTo({ left: tab.offsetLeft - 16, behavior: "smooth" });
+      }
     };
     place();
     window.addEventListener("resize", place);
     document.fonts?.ready.then(place);
     return () => window.removeEventListener("resize", place);
   }, [active]);
+
+  // Stick right under the nav, whatever its current height.
+  useEffect(() => {
+    const fit = () => {
+      const nav = document.querySelector<HTMLElement>(".nav");
+      if (nav && barRef.current) barRef.current.style.setProperty("--tabs-top", `${nav.offsetHeight}px`);
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, []);
 
   // Follow the scroll: the industry crossing the upper third is active.
   useEffect(() => {
@@ -246,7 +263,7 @@ function JumpTabs({ industries }: { industries: Industry[] }) {
   }, [industries]);
 
   return (
-    <div className="page-ind__tabs" role="tablist">
+    <div className="page-ind__tabs" role="tablist" ref={barRef}>
       <span className="page-ind__tabs-label">{t("Jump to,")} </span>
       {industries.map((i) => (
         <button
@@ -263,7 +280,7 @@ function JumpTabs({ industries }: { industries: Industry[] }) {
           {t(i.tag)}
         </button>
       ))}
-      <span className="page-ind__indicator" ref={indicatorRef} aria-hidden="true" />
+      <div className="active-indicator" ref={indicatorRef} aria-hidden="true" />
     </div>
   );
 }
