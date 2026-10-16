@@ -691,6 +691,16 @@
   cursor: pointer;
   transition: color 220ms ease;
 }
+/* reserve the bold width so tabs don't shift when one becomes active */
+.page-ind__tab { display: inline-grid; }
+.page-ind__tab::after {
+  content: attr(data-label);
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  font-weight: 700;
+  pointer-events: none;
+}
 .page-ind__tab:hover { color: var(--ink); }
 .page-ind__tab.active { color: var(--ink); font-weight: 700; }
 .page-ind__tab:focus-visible { outline: 2px solid var(--purple-400); outline-offset: 2px; border-radius: 2px; }
@@ -703,10 +713,13 @@
   background: linear-gradient(90deg, #4E4DFA, #7C3AED 55%, #C458F9);
   box-shadow: 0 2px 10px rgba(124, 58, 237, 0.35);
   pointer-events: none;
-  transition: transform 0.3s ease, width 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
+/* Industry content fades out while the page jumps, then back in */
+.ind2-list { transition: opacity 0.3s ease; }
+.ind2-list[data-switching] { opacity: 0; transition-duration: 0.15s; }
 @media (prefers-reduced-motion: reduce) {
-  .active-indicator { transition: none; }
+  .active-indicator, .ind2-list { transition: none; }
 }
 /* blocks land below the nav + sticky filters when jumped to */
 .ind2 { scroll-margin-top: 160px; }

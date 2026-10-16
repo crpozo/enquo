@@ -108,7 +108,7 @@ function CapabilityRows({ stage }: { stage: Stage }) {
         <ol className="svc-rows__list" ref={listRef} onMouseLeave={() => setHovered(null)}>
           {stage.cards.map((c, i) => (
             <li
-              className={"svc-row capability-item" + (hovered === i ? " is-hovered" : "")}
+              className={"svc-row" + (hovered === i ? " is-hovered" : "")}
               key={c.title}
               ref={(el) => { itemRefs.current[i] = el; }}
               onMouseEnter={() => setHovered(i)}

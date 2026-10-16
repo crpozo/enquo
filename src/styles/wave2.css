@@ -140,13 +140,6 @@
 }
 .svc-row.is-hovered,
 .svc-row:focus-within { border-left-color: var(--tone); }
-/* odd card count: the last item spans both columns, half width, centred */
-.capability-item:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  width: 100%;
-  max-width: calc(50% - clamp(20px, 3vw, 48px));
-  justify-self: center;
-}
 .svc-row__title {
   margin: 0 0 10px;
   font-size: clamp(19px, 1.7vw, 24px);
@@ -204,7 +197,6 @@
   .opmodel__flow::before, .opmodel__flow::after { display: none; }
   .svc-stage__grid, .svc-discover, .combine__demo { grid-template-columns: 1fr; }
   .svc-stage__intro, .svc-rows__list { grid-template-columns: 1fr; }
-  .capability-item:last-child:nth-child(odd) { max-width: none; }
 }
 
 /* services · refinements */

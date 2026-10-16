@@ -16,6 +16,29 @@
   margin-bottom: 6px;
 }
 .footer__stage li { padding: 4px 0; font-size: 13.5px; }
+/* Compact footer: Design / Build / Run sit side by side inside the
+   Services column, so the whole footer fits a laptop-height viewport and
+   its first row never ends up hidden behind the fixed nav. Static — no
+   scroll-driven motion on the footer content. */
+.footer { padding-top: 64px; }
+.footer__grid { grid-template-columns: 1.3fr 3fr 0.9fr 0.9fr; gap: 40px; }
+.footer__col--services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+}
+.footer__col--services > h4 { grid-column: 1 / -1; }
+.footer__col--services .footer__stage { margin-bottom: 0; }
+.footer__bottom { margin-top: 56px; }
+@media (max-width: 1180px) {
+  .footer__grid { grid-template-columns: 1fr 1fr 1fr; }
+  .footer__col--services { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 600px) {
+  .footer__grid { grid-template-columns: 1fr; }
+  .footer__col--services { grid-template-columns: 1fr; grid-row: auto; row-gap: 18px; }
+}
 
 /* Case studies list heading */
 .page-cases__title {
