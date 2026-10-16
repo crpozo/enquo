@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useReveal } from "../hooks/useReveal";
@@ -52,19 +52,24 @@ function OperatingModel({ stages }: { stages: Stage[] }) {
    Stage sections — colour-led, capability rows (no boxes)
    ============================================================ */
 /** Rows stay dimmed until the scroll brings them into the upper three
- *  quarters of the viewport, then light up (`.is-lit`). */
+ *  quarters of the viewport, then light up. State lives in data attributes
+ *  (`data-focusing` / `data-lit`) so React re-renders don't wipe it. */
 function useRowFocus(listRef: React.RefObject<HTMLOListElement | null>) {
   useEffect(() => {
     const list = listRef.current;
     if (!list) return;
     const rows = Array.from(list.children) as HTMLElement[];
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      rows.forEach((r) => r.classList.add("is-lit"));
+      rows.forEach((r) => { r.dataset.lit = ""; });
       return;
     }
-    list.classList.add("is-focusing");
+    list.dataset.focusing = "";
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.target.classList.toggle("is-lit", e.isIntersecting)),
+      (entries) => entries.forEach((e) => {
+        const row = e.target as HTMLElement;
+        if (e.isIntersecting) row.dataset.lit = "";
+        else delete row.dataset.lit;
+      }),
       { rootMargin: "0px 0px -25% 0px" },
     );
     rows.forEach((r) => io.observe(r));
@@ -72,26 +77,55 @@ function useRowFocus(listRef: React.RefObject<HTMLOListElement | null>) {
   }, [listRef]);
 }
 
+/**
+ * Capabilities — borderless: plain text on the page, with one soft,
+ * heavily blurred glow in the stage tone behind the grid that glides to
+ * whichever capability is hovered or focused.
+ */
 function CapabilityRows({ stage }: { stage: Stage }) {
   const { t } = useLang();
   const listRef = useRef<HTMLOListElement | null>(null);
+  const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const glowRef = useRef<HTMLDivElement | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
   useRowFocus(listRef);
+
+  // Move the glow onto the hovered item (it keeps its last spot while fading out).
+  useEffect(() => {
+    const glow = glowRef.current;
+    const item = hovered === null ? null : itemRefs.current[hovered];
+    if (!glow || !item) return;
+    glow.style.width = `${item.offsetWidth}px`;
+    glow.style.height = `${item.offsetHeight}px`;
+    glow.style.transform = `translate(${item.offsetLeft}px, ${item.offsetTop}px)`;
+  }, [hovered]);
+
   return (
     <div className="svc-rows">
       <span className="svc-rows__label">{t("Capabilities")}</span>
-      <ol className="svc-rows__list" ref={listRef}>
-        {stage.cards.map((c) => (
-          <li className="svc-row capability-item" key={c.title}>
-            <div className="svc-row__main">
-              <h3 className="svc-row__title">{c.title}</h3>
-              <p className="svc-row__outcome">{c.outcome}</p>
-              <ul className="svc-row__when" aria-label={t("When to buy")}>
-                {c.triggers.map((x) => <li key={x}>{x}</li>)}
-              </ul>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <div className={"svc-rows__stage" + (hovered !== null ? " is-glowing" : "")}>
+        <div className="svc-rows__glow" ref={glowRef} aria-hidden="true" />
+        <ol className="svc-rows__list" ref={listRef} onMouseLeave={() => setHovered(null)}>
+          {stage.cards.map((c, i) => (
+            <li
+              className={"svc-row capability-item" + (hovered === i ? " is-hovered" : "")}
+              key={c.title}
+              ref={(el) => { itemRefs.current[i] = el; }}
+              onMouseEnter={() => setHovered(i)}
+              onFocus={() => setHovered(i)}
+              onBlur={() => setHovered(null)}
+            >
+              <div className="svc-row__main">
+                <h3 className="svc-row__title">{c.title}</h3>
+                <p className="svc-row__outcome">{c.outcome}</p>
+                <ul className="svc-row__when" aria-label={t("When to buy")}>
+                  {c.triggers.map((x) => <li key={x}>{x}</li>)}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }
