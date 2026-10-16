@@ -176,6 +176,9 @@ function Closing() {
   const { t } = useLang();
   return (
     <section className="section ind2-close" id="your-business">
+      <div className="ind2-close__art" aria-hidden="true">
+        <img src={import.meta.env.BASE_URL + "img/heroes/industries.webp"} alt="" loading="lazy" data-parallax-img />
+      </div>
       <div className="wrap-lg">
         <div className="ind2-close__inner reveal" ref={ref}>
           <span className="ind2-close__eyebrow">{t("Your business")}</span>
