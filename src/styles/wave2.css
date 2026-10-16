@@ -88,6 +88,12 @@
   gap: clamp(40px, 6vw, 96px);
   margin-top: 48px;
 }
+/* Sticky intro: copy + phase outcome stay in view while the capability
+   list scrolls by, instead of leaving a tall empty column. */
+.svc-stage__intro { position: sticky; top: 120px; align-self: start; }
+/* Capability focus: rows dim until they scroll into view (ServicesPage.tsx) */
+.svc-rows__list.is-focusing .svc-row { opacity: 0.4; transition: opacity 500ms ease; }
+.svc-rows__list.is-focusing .svc-row.is-lit { opacity: 1; }
 .svc-stage__copy { margin: 0 0 28px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: var(--ink-2); font-weight: 300; }
 .svc-stage__outcome { padding-left: 18px; border-left: 2px solid var(--tone); }
 .svc-stage__outcome-label { display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tone); font-weight: 600; margin-bottom: 8px; }
@@ -142,6 +148,7 @@
   .opmodel__flow { grid-template-columns: repeat(2, 1fr); }
   .opmodel__flow::before, .opmodel__flow::after { display: none; }
   .svc-stage__grid, .svc-discover, .combine__demo { grid-template-columns: 1fr; }
+  .svc-stage__intro { position: static; }
 }
 
 /* services · refinements */
@@ -163,7 +170,9 @@
 .combine__combo { background: none !important; border: 0 !important; padding: 0 !important; border-radius: 0 !important; }
 
 /* ---------- Industries page (10/09): name-led blocks, help areas, one closing ---------- */
-.ind2-list { margin-top: 48px; }
+.ind2-list { margin-top: 24px; }
+/* the filters above already separate the list: no rule on the first block */
+.ind2:first-child { border-top: 0; padding-top: 40px; }
 .ind2 {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);

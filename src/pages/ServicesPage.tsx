@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { useReveal } from "../hooks/useReveal";
@@ -50,12 +51,35 @@ function OperatingModel({ stages }: { stages: Stage[] }) {
 /* ============================================================
    Stage sections — colour-led, capability rows (no boxes)
    ============================================================ */
+/** Rows stay dimmed until the scroll brings them into the upper three
+ *  quarters of the viewport, then light up (`.is-lit`). */
+function useRowFocus(listRef: React.RefObject<HTMLOListElement | null>) {
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const rows = Array.from(list.children) as HTMLElement[];
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      rows.forEach((r) => r.classList.add("is-lit"));
+      return;
+    }
+    list.classList.add("is-focusing");
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.target.classList.toggle("is-lit", e.isIntersecting)),
+      { rootMargin: "0px 0px -25% 0px" },
+    );
+    rows.forEach((r) => io.observe(r));
+    return () => io.disconnect();
+  }, [listRef]);
+}
+
 function CapabilityRows({ stage }: { stage: Stage }) {
   const { t } = useLang();
+  const listRef = useRef<HTMLOListElement | null>(null);
+  useRowFocus(listRef);
   return (
     <div className="svc-rows">
       <span className="svc-rows__label">{t("Capabilities")}</span>
-      <ol className="svc-rows__list">
+      <ol className="svc-rows__list" ref={listRef}>
         {stage.cards.map((c, i) => (
           <li className="svc-row" key={c.title}>
             <span className="svc-row__num">{String(i + 1).padStart(2, "0")}</span>

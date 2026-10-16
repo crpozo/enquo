@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CASES } from "../data/cases";
@@ -204,11 +204,75 @@ function Closing() {
 }
 
 /* ============================================================
+   Jump-to filters — text only; a gradient underline slides to the
+   active industry, which also follows the scroll.
+   ============================================================ */
+function JumpTabs({ industries }: { industries: Industry[] }) {
+  const [active, setActive] = useState<string>(industries[0].key);
+  const { t } = useLang();
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const indicatorRef = useRef<HTMLSpanElement | null>(null);
+
+  // Place the indicator under the active tab (also on resize / font load).
+  useLayoutEffect(() => {
+    const place = () => {
+      const tab = tabRefs.current[active];
+      const bar = indicatorRef.current;
+      if (!tab || !bar) return;
+      bar.style.width = `${tab.offsetWidth}px`;
+      bar.style.transform = `translate(${tab.offsetLeft}px, ${tab.offsetTop + tab.offsetHeight}px)`;
+    };
+    place();
+    window.addEventListener("resize", place);
+    document.fonts?.ready.then(place);
+    return () => window.removeEventListener("resize", place);
+  }, [active]);
+
+  // Follow the scroll: the industry crossing the upper third is active.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id.replace(/^ind-/, ""));
+        });
+      },
+      { rootMargin: "-30% 0px -65% 0px" },
+    );
+    industries.forEach((i) => {
+      const el = document.getElementById("ind-" + i.key);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [industries]);
+
+  return (
+    <div className="page-ind__tabs" role="tablist">
+      <span className="page-ind__tabs-label">{t("Jump to,")} </span>
+      {industries.map((i) => (
+        <button
+          key={i.key}
+          ref={(el) => { tabRefs.current[i.key] = el; }}
+          role="tab"
+          aria-selected={active === i.key}
+          onClick={() => {
+            setActive(i.key);
+            document.getElementById("ind-" + i.key)?.scrollIntoView({ block: "start" });
+          }}
+          className={"page-ind__tab" + (active === i.key ? " active" : "")}
+        >
+          {t(i.tag)}
+        </button>
+      ))}
+      <span className="page-ind__indicator" ref={indicatorRef} aria-hidden="true" />
+    </div>
+  );
+}
+
+/* ============================================================
    Page
    ============================================================ */
 export function IndustriesPage() {
-  const [active, setActive] = useState<string>(INDUSTRIES[0].key);
-  const { t, tr } = useLang();
+  const { tr } = useLang();
   const industries = tr(INDUSTRIES);
 
   return (
@@ -217,23 +281,7 @@ export function IndustriesPage() {
 
       <section className="section" id="industries-list">
         <div className="wrap-lg">
-          <div className="page-ind__tabs" role="tablist">
-            <span className="page-ind__tabs-label">{t("Jump to,")} </span>
-            {industries.map((i) => (
-              <button
-                key={i.key}
-                role="tab"
-                aria-selected={active === i.key}
-                onClick={() => {
-                  setActive(i.key);
-                  document.getElementById("ind-" + i.key)?.scrollIntoView({ block: "start" });
-                }}
-                className={"page-ind__tab" + (active === i.key ? " active" : "")}
-              >
-                {t(i.tag)}
-              </button>
-            ))}
-          </div>
+          <JumpTabs industries={industries} />
 
           <div className="ind2-list">
             {industries.map((ind, idx) => (
