@@ -43,25 +43,15 @@ export function Footer() {
           ))}
         </div>
         <div className="footer__col">
-          <h4>{t("Products")}</h4>
-          <ul>
-            <li>Harmony</li>
-            <li>Elevate</li>
-            <li>VisionX</li>
-            <li>Sentinel ADV</li>
-            <li>EACS</li>
-            <li>DataFuse</li>
-            <li>GovernX</li>
-          </ul>
-        </div>
-        <div className="footer__col">
           <h4>{t("Contact")}</h4>
           <ul>
             <li>contact@enquo.com</li>
             <li>(551) 258-4342</li>
             <li>Fax (551) 258-2451</li>
           </ul>
-          <h4 style={{ marginTop: 28 }}>{t("Follow")}</h4>
+        </div>
+        <div className="footer__col">
+          <h4>{t("Follow")}</h4>
           <ul>
             <li>LinkedIn</li>
             <li>Facebook</li>

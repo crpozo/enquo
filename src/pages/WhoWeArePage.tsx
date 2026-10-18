@@ -41,8 +41,8 @@ const PLACES = [
   { city: "Ecuador Hub", country: "Ecuador", lines: ["Engineering and delivery hub", "Serving clients across the Americas"] },
 ];
 
-/* Real Enquo photos go here — collage grid, swap the sources when they land. */
-const COLLAGE = ["img/who/team.webp", "img/heroes/careers.webp", "img/who/founding.webp", "img/heroes/who.webp", "img/how/discover.webp"];
+/* Collage grid: 1 = main (left, two rows tall), 2 = top right, 3 and 4 fill the bottom-right row. */
+const COLLAGE = ["img/who/people-1.png", "img/who/people-2.png", "img/who/businessman-analyzing.jpg", "img/who/close-up-compute.jpg"];
 
 /* ============================================================ */
 
@@ -253,7 +253,7 @@ function Closing() {
   return (
     <section className="section who2-close" id="contact">
       <div className="who2-close__art" aria-hidden="true">
-        <img src={import.meta.env.BASE_URL + "img/who/founding.webp"} alt="" loading="lazy" data-parallax-img />
+        <img src={import.meta.env.BASE_URL + "img/who/city-skyscrapers.jpg"} alt="" loading="lazy" data-parallax-img />
       </div>
       <div className="wrap-lg">
         <div className="who2-close__inner reveal" ref={ref}>

@@ -13,9 +13,10 @@ import { PageHeroArt } from "../components/sections/PageHeroArt";
    ============================================================ */
 
 type Help = { title: string; text: string };
-type Industry = { key: string; tag: string; sub: string; help: Help[]; image: string };
+type Industry = { key: string; tag: string; sub: string; help: Help[]; image: string; video: string };
 
 const img = (name: string) => ENQUO_INDUSTRIES.find((i) => i.name === name)?.image ?? "";
+const vid = (name: string) => ENQUO_INDUSTRIES.find((i) => i.name === name)?.video ?? "";
 
 const INDUSTRIES: Industry[] = [
   {
@@ -28,6 +29,7 @@ const INDUSTRIES: Industry[] = [
       { title: "Regulatory Reporting", text: "Build trusted reporting around regulatory requirements." },
     ],
     image: img("Healthcare & Pharma"),
+    video: vid("Healthcare & Pharma"),
   },
   {
     key: "financial-services",
@@ -39,6 +41,7 @@ const INDUSTRIES: Industry[] = [
       { title: "Customer 360 Platforms", text: "Connect customer data across systems to create a more complete view." },
     ],
     image: img("Financial Services"),
+    video: vid("Financial Services"),
   },
   {
     key: "sports-media",
@@ -50,6 +53,7 @@ const INDUSTRIES: Industry[] = [
       { title: "Data & Analytics Solutions", text: "Turn audience and operational data into information teams can use." },
     ],
     image: img("Sports & Media"),
+    video: vid("Sports & Media"),
   },
   {
     key: "manufacturing",
@@ -61,6 +65,7 @@ const INDUSTRIES: Industry[] = [
       { title: "Quality & Operations Analytics", text: "Give teams better visibility into quality and operational performance." },
     ],
     image: img("Manufacturing & Industrial"),
+    video: vid("Manufacturing & Industrial"),
   },
   {
     key: "energy",
@@ -72,6 +77,7 @@ const INDUSTRIES: Industry[] = [
       { title: "Sustainability & ESG", text: "Organize and connect the information needed for sustainability and ESG reporting." },
     ],
     image: img("Energy, Oil & Gas"),
+    video: vid("Energy, Oil & Gas"),
   },
   {
     key: "retail",
@@ -83,6 +89,7 @@ const INDUSTRIES: Industry[] = [
       { title: "Supply Chain Insights", text: "Bring supply chain data together for better operational visibility." },
     ],
     image: img("Retail & Consumer"),
+    video: vid("Retail & Consumer"),
   },
 ];
 
@@ -154,7 +161,19 @@ function IndustryBlock({ ind, index }: { ind: Industry; index: number }) {
       </div>
       <div className="ind2__body reveal" ref={rightRef}>
         <figure className="ind2__media" aria-hidden="true">
-          {ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />}
+          {ind.video ? (
+            <video
+              src={import.meta.env.BASE_URL + ind.video}
+              poster={ind.image ? import.meta.env.BASE_URL + ind.image : undefined}
+              autoPlay
+              loop
+              muted
+              playsInline
+              disablePictureInPicture
+            />
+          ) : (
+            ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />
+          )}
         </figure>
         <span className="ind2__help-label">{t("Where we can help")}</span>
         <ul className="ind2__help">

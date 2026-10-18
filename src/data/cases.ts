@@ -43,8 +43,7 @@ export type CaseStudy = {
  * on the frame's edge instead of floating inside the card.
  */
 const IMAGE_CUT: Record<string, string> = {
-  "img/cases/02.webp": "5%",
-  "img/cases/03.webp": "30.6%",
+  // The current photos (athletes / basket / stadium) have no baked-in cut.
 };
 export const imageCut = (image: string): string | undefined => IMAGE_CUT[image];
 
@@ -63,7 +62,7 @@ export const CASES: CaseStudy[] = [
       "NCAA needed a faster, more reliable way to turn fragmented data and inconsistent KPIs into executive reporting. Enquo built a governed intelligence platform that gave leadership real-time visibility from a trusted data foundation.",
     capabilities: ["Data Engineering", "KPI Governance", "Executive Reporting", "Analytics"],
     tags: ["Data Engineering", "Analytics", "KPI Governance"],
-    image: "img/cases/01.webp",
+    image: "img/cases/athletes.jpg",
     challenge: {
       title: "Reporting took a week. The data behind it was fragmented.",
       bullets: [
@@ -110,7 +109,7 @@ export const CASES: CaseStudy[] = [
       "NCAA needed to standardize executive KPIs across inconsistent data sources and reduce the manual work required to prepare reporting. Enquo created a unified reporting foundation built around consistent metrics and a single source of truth.",
     capabilities: ["KPI Governance", "Data Engineering", "Executive Reporting", "Analytics"],
     tags: ["Data Engineering", "Analytics", "KPI Governance"],
-    image: "img/cases/02.webp",
+    image: "img/cases/basket.jpg",
     challenge: {
       title: "Executive reporting depended on manual reconciliation.",
       bullets: [
@@ -157,7 +156,7 @@ export const CASES: CaseStudy[] = [
       "NCAA needed to modernize a bid lifecycle that depended on legacy systems, spreadsheets, email chains, and fragmented workflows. Enquo built a unified digital portal that brought the process, data, and approvals into one governed environment.",
     capabilities: ["Process Automation", "Application Development", "Data Integration", "Enterprise Integration"],
     tags: ["Process Automation", "Data Integration", "Application Development"],
-    image: "img/cases/03.webp",
+    image: "img/cases/stadium.jpg",
     challenge: {
       title: "A critical process was spread across systems, spreadsheets, and email.",
       bullets: [
