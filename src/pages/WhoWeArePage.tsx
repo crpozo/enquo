@@ -42,7 +42,7 @@ const PLACES = [
 ];
 
 /* Collage grid: 1 = main (left, two rows tall), 2 = top right, 3 and 4 fill the bottom-right row. */
-const COLLAGE = ["img/who/people-1.png", "img/who/people-2.png", "img/who/businessman-analyzing.jpg", "img/who/close-up-compute.jpg"];
+const COLLAGE = ["img/who/people-1.png", "img/who/who.webp", "img/who/people-2.png", "img/who/people_3.png"];
 
 /* ============================================================ */
 
