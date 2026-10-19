@@ -15,7 +15,8 @@
   font-weight: 500;
   margin-bottom: 6px;
 }
-.footer__stage li { padding: 4px 0; font-size: 13.5px; }
+.footer__stage li { padding: 6px 0; font-size: 14px; }
+.footer__stage-name { font-size: 14px; }
 /* Compact footer: Design / Build / Run sit side by side inside the
    Services column, so the whole footer fits a laptop-height viewport and
    its first row never ends up hidden behind the fixed nav. Static — no
@@ -181,7 +182,7 @@
   background: transparent;
   color: var(--ink-3);
   font: inherit;
-  font-size: 11px; letter-spacing: 0.14em; font-weight: 600;
+  font-size: 12px; letter-spacing: 0.14em; font-weight: 600;
   cursor: pointer;
   transition: color 150ms ease, border-color 150ms ease;
 }
@@ -245,7 +246,7 @@
 }
 .do-stage__label {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--purple-400);
@@ -666,7 +667,7 @@
 /* list label + discover copy (panel) */
 .how__list-label {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--purple-400);
@@ -690,7 +691,7 @@
   color: var(--ink-2);
   animation: how-item-in 500ms 120ms cubic-bezier(0.2,0.7,0.2,1) both;
 }
-.how__discover-outcome em { font-style: normal; color: var(--purple-400); letter-spacing: 0.12em; text-transform: uppercase; font-size: 11px; font-weight: 600; }
+.how__discover-outcome em { font-style: normal; color: var(--purple-400); letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; font-weight: 600; }
 .how .do__close { margin-top: 72px; }
 
 /* ---------- glyphs: large pixel motifs ---------- */
@@ -749,11 +750,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .how__tab-glyph .px, .how__tab-glyph .spark, .how__tab-glyph .scan, .how__tab-glyph .loop, .how__tab-glyph .frame { animation: none !important; }
+}
+/* Two-up journey on narrow screens (this block used to sit inside the
+   reduced-motion query above, so phones still got four px-wide columns). */
 @media (max-width: 900px) {
-  .how__tabs--journey { grid-template-columns: repeat(2, 1fr); }
+  .how__tabs--journey { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .how__tabs--journey .how__tab { min-width: 0; }
   .how__tabs--journey .how__tab .how__tab-count::after,
   .how__tabs--journey .how__tab .how__tab-glyph::after,
   .how__tabs--journey .how__tab .how__tab-label::after,
   .how__tabs--journey .how__tab.is-last .how__tab-count::before { display: none; }
 }
+@media (max-width: 760px) {
+  .how__tabs--journey { gap: 16px 12px; }
+  .how__tabs--journey .how__tab-label { overflow-wrap: anywhere; hyphens: auto; }
+  :root[lang="es"] .how__tabs--journey .how__tab-label { font-size: 22px; }
 }

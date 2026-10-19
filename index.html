@@ -9,8 +9,14 @@
          + Switzer (body, neutral grotesque) — deliberately not the
          Inter/General Sans family every AI site ships with. -->
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <!-- One request per family: Fontshare's combined CSS silently omits
+         Switzer, which left the body text on the system font. -->
     <link
-      href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&f[]=switzer@200,300,400,500,600,700&display=swap"
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700&display=swap"
       rel="stylesheet"
     />
 

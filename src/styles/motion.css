@@ -21,7 +21,7 @@
 }
 .feat__block.is-active { opacity: 1; }
 .feat__eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 600;
@@ -81,7 +81,7 @@
   background: rgba(10, 10, 15, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 600;

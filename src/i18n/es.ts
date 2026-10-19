@@ -13,6 +13,8 @@ export const ES: Record<string, string> = {
   "Partnerships": "Alianzas",
   "Demo": "Demo",
   "Let’s talk": "Hablemos",
+  "Menu": "Menú",
+  "Close menu": "Cerrar menú",
   "Switch to light mode": "Cambiar a modo claro",
   "Switch to dark mode": "Cambiar a modo oscuro",
   "Light mode": "Modo claro",

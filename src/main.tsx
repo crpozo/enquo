@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Layout } from "./components/layout/Layout";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { HomePage } from "./pages/HomePage";
 import { ServicesPage } from "./pages/ServicesPage";
 import { IndustriesPage } from "./pages/IndustriesPage";
@@ -55,6 +56,7 @@ const pageRoutes = (
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter basename={basename || "/"}>
+      <ScrollToTop />
       <Routes>
         <Route path="/wireframe" element={<Layout />}>
           {pageRoutes}
