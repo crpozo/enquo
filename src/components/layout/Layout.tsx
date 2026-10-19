@@ -29,7 +29,7 @@ const DEFAULTS: Theme = {
  */
 export function Layout() {
   const progressRef = useRef<HTMLDivElement | null>(null);
-  const { pathname, hash } = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const isWireframe = pathname === "/wireframe" || pathname.startsWith("/wireframe/");
   const lang = langFromPath(pathname);
@@ -72,19 +72,6 @@ export function Layout() {
       window.removeEventListener("resize", tick);
     };
   }, []);
-
-  // Reset scroll on route change (Lenis handles its own state); if the new
-  // location carries a hash, jump to that element once it has rendered.
-  useEffect(() => {
-    if (hash) {
-      const id = hash.slice(1);
-      const t = window.setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 60);
-      return () => window.clearTimeout(t);
-    }
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [pathname, hash]);
 
   // In wireframe or Spanish mode, keep internal navigation inside the
   // current prefix so the whole site can be walked through without leaving it.

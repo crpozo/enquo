@@ -62,6 +62,11 @@
 :root[data-density="compact"]  { --pad-section: 96px; }
 :root[data-density="spacious"] { --pad-section: clamp(72px, 8vw, 112px); }
 :root[data-density="oversized"]{ --pad-section: 220px; }
+/* Phones: two stacked paddings made 140-220px gaps between sections.
+   40px each side keeps the gap at 80px at most, whatever the density. */
+@media (max-width: 760px) {
+  :root, :root[data-density] { --pad-section: 40px; }
+}
 
 /* Accent tweak — overrides --purple-500 / --grad-primary */
 :root[data-accent="violet"] {
@@ -84,6 +89,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0;
+  overflow-x: clip; /* safety net: nothing may widen the layout viewport */
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
@@ -114,7 +120,7 @@ body {
 }
 .display--med { font-weight: 500; }
 .eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;

@@ -32,6 +32,8 @@ export type Industry = {
   /** Optional real cover image under /public (e.g. "img/industries/retail.webp");
    *  falls back to themed art when missing or failing to load. */
   image?: string;
+  /** Optional looping background video under /public; `image` doubles as its poster. */
+  video?: string;
 };
 
 export type Pillar = {
@@ -124,12 +126,12 @@ export const ENQUO_PRODUCTS: Product[] = [
 ];
 
 export const ENQUO_INDUSTRIES: Industry[] = [
-  { num: "01", name: "Healthcare & Pharma",          desc: "Patient data platforms, real-world analytics, regulatory reporting.", viz: "pulse", image: "img/industries/health.webp" },
-  { num: "02", name: "Sports & Media",               desc: "Fan engagement platforms, content & rights management, live data & analytics.", viz: "arc", image: "img/industries/sports.webp" },
-  { num: "03", name: "Financial Services",           desc: "Risk data platforms, Customer 360, audit-ready reporting and controls.", viz: "candles", image: "img/industries/financial.webp" },
-  { num: "04", name: "Manufacturing & Industrial",   desc: "Smart manufacturing, IoT & predictive maintenance, quality & operations analytics.", viz: "grid", image: "img/industries/manufacturing.webp" },
-  { num: "05", name: "Retail & Consumer",            desc: "Omnichannel platforms, customer analytics, supply-chain visibility.", viz: "wave", image: "img/industries/retail.webp" },
-  { num: "06", name: "Energy, Oil & Gas",            desc: "Asset performance, energy trading, sustainability & ESG.", viz: "bars", image: "img/industries/energy.webp" },
+  { num: "01", name: "Healthcare & Pharma",          desc: "Patient data platforms, real-world analytics, regulatory reporting.", viz: "pulse", image: "img/industries/health.webp", video: "videos/industries/healthcare-pharma.mp4" },
+  { num: "02", name: "Sports & Media",               desc: "Fan engagement platforms, content & rights management, live data & analytics.", viz: "arc", image: "img/industries/sports.webp", video: "videos/industries/sports-media.mp4" },
+  { num: "03", name: "Financial Services",           desc: "Risk data platforms, Customer 360, audit-ready reporting and controls.", viz: "candles", image: "img/industries/financial.webp", video: "videos/industries/financial-services.mp4" },
+  { num: "04", name: "Manufacturing & Industrial",   desc: "Smart manufacturing, IoT & predictive maintenance, quality & operations analytics.", viz: "grid", image: "img/industries/manufacturing.webp", video: "videos/industries/manufacturing-industrial.mp4" },
+  { num: "05", name: "Retail & Consumer",            desc: "Omnichannel platforms, customer analytics, supply-chain visibility.", viz: "wave", image: "img/industries/retail.webp", video: "videos/industries/retail-consumer.mp4" },
+  { num: "06", name: "Energy, Oil & Gas",            desc: "Asset performance, energy trading, sustainability & ESG.", viz: "bars", image: "img/industries/energy.webp", video: "videos/industries/energy-oil-gas.mp4" },
 ];
 
 export const ENQUO_PILLARS: Pillar[] = [

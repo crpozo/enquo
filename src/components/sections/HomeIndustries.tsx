@@ -103,8 +103,22 @@ export function HomeIndustries() {
               style={{ "--i": i, "--row": Math.floor(i / COLS) } as React.CSSProperties}
             >
               <figure className="ind-panel__media">
-                {ind.image && (
-                  <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" data-parallax-img />
+                {ind.video ? (
+                  <video
+                    src={import.meta.env.BASE_URL + ind.video}
+                    poster={ind.image ? import.meta.env.BASE_URL + ind.image : undefined}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    disablePictureInPicture
+                    aria-hidden="true"
+                    data-parallax-img
+                  />
+                ) : (
+                  ind.image && (
+                    <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" data-parallax-img />
+                  )
                 )}
               </figure>
               <div className="ind-panel__body">

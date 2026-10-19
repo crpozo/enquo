@@ -8,7 +8,7 @@ import { EnquoLogo } from "./EnquoLogo";
 
 // Pages that are always light (white nav and page) whatever the visitor's
 // theme; the theme toggle is hidden there.
-const LIGHT_NAV_PATHS = new Set(["/services", "/industries", "/careers"]);
+const LIGHT_NAV_PATHS = new Set(["/services", "/industries", "/careers", "/who-we-are"]);
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -24,6 +24,16 @@ export function Nav() {
   // theme's bar once the hero has scrolled past.
   const [overHero, setOverHero] = useState(true);
   const navRef = useRef<HTMLElement | null>(null);
+
+  // Mobile menu (burger): closes on navigation and on Escape.
+  const [isOpen, setOpen] = useState(false);
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
   // Publish the nav's real height (it grows when items wrap) as --nav-h on
   // <html>, so pages can keep their content clear of the fixed bar.
@@ -64,27 +74,54 @@ export function Nav() {
     navigate((prefix || "/") + "#contact");
   };
 
+  const themeToggle = !lightNav && (
+    <button
+      type="button"
+      className="nav__theme"
+      onClick={toggle}
+      aria-label={theme === "dark" ? t("Switch to light mode") : t("Switch to dark mode")}
+      title={theme === "dark" ? t("Light mode") : t("Dark mode")}
+    >
+      {theme === "dark" ? (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      )}
+    </button>
+  );
+
   return (
     <nav
       ref={navRef}
       className={
         "nav" +
         (scrolled ? " is-scrolled" : "") +
+        (isOpen ? " is-open" : "") +
         (lightNav ? " nav-light-mode" : overHero ? " is-over-hero" : "")
       }
     >
       <EnquoLogo />
 
-      <div className="nav__sections">
+      {/* Section links: a centred row on wide screens; below 1320px a panel
+          under the bar, opened by the burger. */}
+      <div className="nav__sections" id="nav-sections">
         {items.map((item) => (
           <NavLink
             key={item.path}
             to={to(item.path)}
             className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setOpen(false)}
           >
             {t(item.label)}
           </NavLink>
         ))}
+        {/* On phones the theme toggle moves from the bar into the panel. */}
+        {themeToggle && <div className="nav__panel-tools">{themeToggle}</div>}
       </div>
 
       <div className="nav__cta">
@@ -99,30 +136,31 @@ export function Nav() {
           <i aria-hidden="true" />
           <span className={lang === "es" ? "is-on" : ""}>ES</span>
         </button>
-        {!lightNav && <button
-          type="button"
-          className="nav__theme"
-          onClick={toggle}
-          aria-label={theme === "dark" ? t("Switch to light mode") : t("Switch to dark mode")}
-          title={theme === "dark" ? t("Light mode") : t("Dark mode")}
-        >
-          {theme === "dark" ? (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-            </svg>
-          ) : (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-            </svg>
-          )}
-        </button>}
+        {themeToggle}
         <a className="btn btn--primary" href="#contact" onClick={onTalk}>
           {t("Let’s talk")}
           <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
         </a>
+        <button
+          type="button"
+          className="nav__burger"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={isOpen}
+          aria-controls="nav-sections"
+          aria-label={isOpen ? t("Close menu") : t("Menu")}
+        >
+          {isOpen ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          )}
+        </button>
       </div>
     </nav>
   );

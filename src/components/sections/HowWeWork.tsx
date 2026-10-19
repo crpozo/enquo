@@ -5,12 +5,12 @@ import { DISCOVER, STAGES } from "../../data/services";
 import { useReveal } from "../../hooks/useReveal";
 import { useLang } from "../../i18n/lang";
 
-/** Per-stage brand art from the deck. */
+/** Per-stage photography (Build keeps the deck art until its photo lands). */
 const STAGE_ART: Record<string, string> = {
-  Discover: "img/how/discover.webp",
-  Design: "img/how/design.webp",
+  Discover: "img/how/discover.jpg",
+  Design: "img/how/design.jpg",
   Build: "img/how/build.webp",
-  Run: "img/how/run.webp",
+  Run: "img/how/run.jpg",
 };
 
 /* Journey glyphs — Hakkōda-style pixel motifs in the Enquo palette:

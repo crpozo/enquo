@@ -108,7 +108,7 @@ em.accent,
   color: var(--muted);
   padding: 8px 14px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
@@ -411,7 +411,7 @@ html.lenis body {
   align-items: center;
   gap: 8px;
   padding: 7px 12px;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink);
@@ -435,7 +435,7 @@ html.lenis body {
   align-items: center;
   gap: 6px;
   padding: 7px 10px;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-2);
@@ -476,7 +476,7 @@ html.lenis body {
 }
 .chapter__watch-label {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
@@ -502,8 +502,8 @@ html.lenis body {
   .chapter__watch-label { display: none; }
   .chapter__hint { font-size: 12px; max-width: 60%; }
   .chapter__badge { font-size: 8px; padding: 4px 7px; }
-  .chapter__tag { padding: 5px 9px; font-size: 9px; }
-  .chapter__time { padding: 5px 8px; font-size: 9px; }
+  .chapter__tag { padding: 5px 9px; font-size: 12px; }
+  .chapter__time { padding: 5px 8px; font-size: 12px; }
 }
 
 /* Bottom strip — hint caption + preview badge */
@@ -528,7 +528,7 @@ html.lenis body {
 }
 .chapter__badge {
   flex-shrink: 0;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
@@ -623,7 +623,7 @@ html.lenis body {
   align-items: center;
   gap: 8px;
   padding: 7px 12px;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink);
@@ -643,7 +643,7 @@ html.lenis body {
   animation: pulse 2s ease-in-out infinite;
 }
 .team__count {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -683,7 +683,7 @@ html.lenis body {
   font-variant-numeric: tabular-nums;
 }
 .team__stat-badge .l {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
@@ -946,7 +946,7 @@ html.lenis body {
   color: transparent;
 }
 .how__tab-count {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -965,7 +965,7 @@ html.lenis body {
 }
 .how__panel-tag {
   display: inline-block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -1056,7 +1056,7 @@ html.lenis body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 28px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -1157,7 +1157,7 @@ html.lenis body {
 }
 .case-feat__badge {
   position: absolute; top: 22px; left: 22px;
-  font-size: 11px; font-weight: 600;
+  font-size: 12px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
   padding: 7px 13px; border-radius: 999px;
   background: rgba(10,10,15,0.55);
@@ -1193,7 +1193,7 @@ html.lenis body {
 }
 .case-feat__result-label {
   display: block;
-  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--purple-400); margin-bottom: 8px;
 }
 .case-feat__result p {
@@ -1226,7 +1226,7 @@ html.lenis body {
 }
 .case-row:hover { background: linear-gradient(90deg, rgba(124,58,237,0.07), transparent 70%); padding-left: 18px; }
 .case-row__num { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; color: var(--purple-400); font-feature-settings: "tnum" 1; }
-.case-row__sector { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.case-row__sector { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 .case-row__headline { font-size: clamp(15px, 1.5vw, 18px); font-weight: 400; line-height: 1.35; }
 .case-row__result { font-size: 13px; font-weight: 300; color: var(--ink-2); line-height: 1.4; }
 .case-row__arrow { color: var(--muted); transition: transform 200ms ease, color 200ms ease; }
@@ -1345,7 +1345,7 @@ html.lenis body {
 }
 .ind-sq__num {
   position: absolute; top: 16px; left: 16px;
-  font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
   color: var(--purple-200);
   font-feature-settings: "tnum" 1;
   z-index: 2;
@@ -1390,7 +1390,7 @@ html.lenis body {
 }
 .ind-sq__cta {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--purple-200);
 }
 .ind-sq__cta svg { width: 14px; height: 14px; }
@@ -1603,7 +1603,7 @@ html.lenis body {
   font-weight: 600;
 }
 .how__discover-badge {
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1722,7 +1722,7 @@ html.lenis body {
   left: 24px;
   bottom: 14px;
   z-index: 1;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #c7b6ff;

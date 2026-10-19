@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+/** The live Lenis instance (null until the Layout mounts), for ScrollToTop. */
+export const lenisRef: { current: Lenis | null } = { current: null };
+
 /**
  * Wires up Lenis momentum scrolling for the whole page.
  *
@@ -22,6 +25,7 @@ export function useLenis() {
       wheelMultiplier: 1,
       touchMultiplier: 1.4,
     });
+    lenisRef.current = lenis;
 
     let rafId = 0;
     const raf = (time: number) => {
@@ -49,6 +53,7 @@ export function useLenis() {
       document.removeEventListener("click", onClick);
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      if (lenisRef.current === lenis) lenisRef.current = null;
     };
   }, []);
 }

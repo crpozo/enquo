@@ -37,6 +37,8 @@
 :root[data-theme="light"] .nav.is-over-hero .nav__logo { color: #F4F4F7; }
 :root[data-theme="light"] .nav.is-over-hero .nav__theme { color: #C6C6D0; border-color: rgba(255,255,255,0.22); }
 :root[data-theme="light"] .nav.is-over-hero .nav__theme:hover { color: #F4F4F7; }
+:root[data-theme="light"] .nav.is-over-hero .nav__burger { color: #F4F4F7; border-color: rgba(255,255,255,0.22); }
+:root[data-theme="light"] .nav.is-over-hero.is-open .nav__sections { background: #0A0A0F; border-top-color: rgba(255,255,255,0.1); }
 :root[data-theme="light"] .nav.is-over-hero .btn--primary { background: #F4F4F7; color: #0A0A0F; border-color: #F4F4F7; }
 :root[data-theme="light"] .nav.is-over-hero .btn--primary:hover { background: var(--purple-500); color: #fff; border-color: var(--purple-500); }
 :root[data-theme="light"] .btn--primary { color: #fff; }
@@ -154,7 +156,7 @@
 :root[data-theme="light"] .cta .btn--primary { background: #F4F4F7; color: #0A0A0F; }
 
 /* ==========================================================================
-   NAV LIGHT MODE — Services, Industries, Careers (set in Nav.tsx).
+   NAV LIGHT MODE — Services, Industries, Careers, Who We Are (set in Nav.tsx).
    A solid white bar with dark text, icons and wordmark in both themes.
    Re-scoping the tokens on the nav lets every child (links, logo, toggles,
    CTA) follow without per-element overrides; `:root` keeps it above the
@@ -179,7 +181,7 @@
 :root .nav.nav-light-mode .btn--primary:hover { color: #FFFFFF; border-color: var(--purple-500); }
 
 /* ==========================================================================
-   ALWAYS-LIGHT PAGES — Services, Industries, Careers (`data-page-theme`,
+   ALWAYS-LIGHT PAGES — Services, Industries, Careers, Who We Are (`data-page-theme`,
    set from Nav.tsx). The light theme applies, on a pure white canvas.
    ========================================================================== */
 :root[data-page-theme="light"] {
