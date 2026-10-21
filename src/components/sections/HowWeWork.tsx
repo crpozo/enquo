@@ -299,12 +299,15 @@ export function HowWeWork() {
         <Journey steps={steps} active={active} onPick={pick} />
         <StageFeatures steps={steps} active={active} onActive={setActive} blockRefs={blockRefs} />
 
-        <div className="do__close cta-card reveal" ref={closeRef}>
-          <p className="do__closing">
-            {t("Different challenges call for different capabilities. We bring the right expertise together based on your business priorities.")}
-          </p>
-          <div className="do__cta-row">
-            <span className="do__cta-q">{t("Want to see what Enquo could do for your business?")}</span>
+        {/* Demo band — full-bleed violet, edge to edge of the viewport. */}
+        <div className="do__close do-band reveal" ref={closeRef}>
+          <div className="do-band__text">
+            <h3 className="do-band__title">{t("Want to see what Enquo could do for your business?")}</h3>
+            <p className="do-band__copy">
+              {t("Different challenges call for different capabilities. We bring the right expertise together based on your business priorities.")}
+            </p>
+          </div>
+          <div className="do-band__cta">
             <Link className="btn btn--primary" to="/demo">
               {t("Try our demo")}
               <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

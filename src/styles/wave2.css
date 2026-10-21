@@ -171,12 +171,33 @@
 .combine__combo > span { display: inline-flex; align-items: center; gap: 6px; }
 .combine__chip { font-size: 13.5px; color: var(--ink); padding: 6px 12px; border-radius: 999px; background: rgba(124, 58, 237, 0.14); }
 .combine__plus { font-style: normal; color: var(--purple-400); }
-.combine__demo {
-  margin-top: 64px;
-  display: grid; grid-template-columns: minmax(0, 1.3fr) auto; gap: 40px; align-items: center;
+/* Services demo strip — closes the stage journey (between #run and #combine):
+   Discover → Design → Build → Run → Demo, flat violet like every /demo CTA. */
+.svc-demo { position: relative; padding: 0 var(--pad-x); }
+.combine__demo { padding: clamp(28px, 4vw, 48px); border-radius: 6px; background: #5B21B6; color: #F4F4F7; }
+.combine__demo-steps { list-style: none; margin: 0 0 clamp(24px, 3vw, 36px); padding: 0; display: flex; align-items: center; }
+.combine__demo-steps li {
+  --step: #F4F4F7;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; white-space: nowrap; color: #F4F4F7;
 }
-.combine__demo-title { margin: 0 0 10px; font-size: clamp(20px, 2vw, 30px); line-height: 1.2; letter-spacing: -0.02em; font-weight: 400; color: var(--ink); }
-.combine__demo-copy { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); font-weight: 300; max-width: 520px; }
+.combine__demo-steps li::before { content: ""; flex: none; width: 8px; height: 8px; background: var(--step); }
+.combine__demo-steps li:not(:last-child) { flex: 1; }
+.combine__demo-steps li:not(:last-child)::after { content: ""; flex: 1; min-width: 16px; height: 1px; margin: 0 14px; background: rgba(244, 244, 247, 0.35); }
+.combine__demo-steps [data-tone="lilac"]  { --step: #C7B6FF; }
+.combine__demo-steps [data-tone="teal"]   { --step: #2DD4BF; }
+.combine__demo-steps [data-tone="rose"]   { --step: #F472B6; }
+.combine__demo-steps [data-tone="orange"] { --step: #FB923C; }
+.combine__demo-row { display: grid; grid-template-columns: minmax(0, 1.3fr) auto; gap: 40px; align-items: end; }
+.combine__demo-title { margin: 0 0 12px; font-family: var(--font-display); font-size: clamp(22px, 2.2vw, 34px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 400; color: #F4F4F7; }
+.combine__demo-copy { margin: 0; font-size: 16px; line-height: 1.55; color: #C7B6FF; font-weight: 300; max-width: 560px; }
+@media (max-width: 760px) {
+  .combine__demo-row { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 600px) {
+  .combine__demo-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  .combine__demo-steps li:not(:last-child)::after { display: none; }
+}
 
 /* platforms label as a link */
 .platforms__link { color: inherit; display: inline-flex; align-items: center; gap: 10px; transition: color 200ms ease; }
@@ -195,7 +216,7 @@
 @media (max-width: 960px) {
   .opmodel__flow { grid-template-columns: repeat(2, 1fr); }
   .opmodel__flow::before, .opmodel__flow::after { display: none; }
-  .svc-stage__grid, .svc-discover, .combine__demo { grid-template-columns: 1fr; }
+  .svc-stage__grid, .svc-discover { grid-template-columns: 1fr; }
   .svc-stage__intro, .svc-rows__list { grid-template-columns: 1fr; }
 }
 

@@ -54,6 +54,7 @@ export function Proof() {
   const [active, setActive] = useState(false);
   const { t, tr } = useLang();
   const points = tr(POINTS);
+  const [from, to] = t("7 days → <1 hour").split(" → ");
 
   useEffect(() => {
     const el = numsRef.current;
@@ -83,21 +84,30 @@ export function Proof() {
           ))}
         </dl>
 
-        <div className="proof__tease cta-card reveal" ref={teaseRef}>
-          <div>
+        {/* Evidence panel — the before → after number is the visual; the
+            headline already says it, so the figure is hidden from readers. */}
+        <div className="proof__tease reveal" ref={teaseRef}>
+          <div className="proof__tease-fig" aria-hidden="true">
+            <p className="proof__tease-metric">
+              <span className="proof__tease-from">{from}</span>{" "}
+              <span className="proof__tease-arrow">→</span>{" "}
+              <span className="proof__tease-to">{to}</span>
+            </p>
+          </div>
+          <div className="proof__tease-body">
             <h3 className="proof__tease-title">
               {t("Want to see how 7 days of reporting became less than an hour?")}
             </h3>
             <p className="proof__tease-copy">
               {t("Explore the work behind the results and see how Enquo solves complex enterprise challenges in practice.")}
             </p>
+            <Link className="btn btn--primary proof__tease-btn" to="/case-studies">
+              {t("Explore our case studies")}
+              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
-          <Link className="btn btn--primary" to="/case-studies">
-            {t("Explore our case studies")}
-            <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </Link>
         </div>
       </div>
     </section>
