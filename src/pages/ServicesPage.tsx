@@ -245,7 +245,7 @@ function Combine() {
           </div>
         </div>
 
-        <div className="combine__demo">
+        <div className="combine__demo cta-card">
           <div>
             <h3 className="combine__demo-title">{t("Want to see what Enquo could do for your business?")}</h3>
             <p className="combine__demo-copy">{t("Use our demo to explore your needs and see how Enquo could approach them.")}</p>

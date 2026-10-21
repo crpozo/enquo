@@ -25,7 +25,7 @@ export function PartnershipsPage() {
   return (
     <div className="partners-page">
       <section className="page-hero section" id="top">
-        <PageHeroArt src="img/who/team.webp" />
+        <PageHeroArt src="img/heroes/partnerships.webp" position="78% 45%" />
         <div className="wrap-lg">
           <div className="page-hero__inner reveal" ref={heroRef}>
             <h1 className="page-hero__title">
@@ -66,21 +66,36 @@ export function PartnershipsPage() {
           </div>
           <div className="partner-grid reveal" ref={gridRef}>
             {partners.map((p, i) => (
-              <Link to={`/partnerships/${p.slug}`} className="partner-card" key={p.slug} style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className="partner-card__head">
-                  <PartnerMark name={p.name} logo={p.logo} />
-                  <span className={"partner-card__status" + (p.status === "in-progress" ? " is-soon" : "")}>
-                    {p.status === "partner" ? t("Alliance partner") : t("Alliance in progress")}
-                  </span>
+              <Link to={`/partnerships/${p.slug}`} className="partner-card" data-brand={p.slug} key={p.slug} style={{ transitionDelay: `${i * 100}ms` }}>
+                {/* Flash card: logo + status on the front, tagline + CTA on the
+                    back. It flips on hover / focus where a mouse is available;
+                    on touch and with reduced motion both faces show stacked. */}
+                <div className="partner-card__inner">
+                  <div className="partner-card__face partner-card__face--front">
+                    <div className="partner-card__head">
+                      <span className={"partner-card__status" + (p.status === "in-progress" ? " is-soon" : "")}>
+                        {p.status === "partner" ? t("Alliance partner") : t("Alliance in progress")}
+                      </span>
+                      <svg className="partner-card__flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3M18 3v3.7h-3.7M6 21v-3.7h3.7" />
+                      </svg>
+                    </div>
+                    <PartnerMark name={p.name} logo={p.logo} />
+                  </div>
+                  <div className="partner-card__face partner-card__face--back">
+                    <p className="partner-card__tagline">{p.tagline}</p>
+                    <span className="partner-card__cta">
+                      {t("About the alliance")}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+                    </span>
+                  </div>
                 </div>
-                <p className="partner-card__tagline">{p.tagline}</p>
-                <span className="partner-card__cta">
-                  {t("About the alliance")}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-                </span>
               </Link>
             ))}
             <div className="partner-card partner-card--slot" aria-hidden="true">
+              <span className="partner-card__plus">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+              </span>
               <span className="partner-card__slot-text">{t("More alliances on the way")}</span>
             </div>
           </div>

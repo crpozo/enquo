@@ -25,9 +25,28 @@ function TechLogos({ items }: { items: string[] }) {
           {TECH_LOGO[x]
             ? <img src={import.meta.env.BASE_URL + `img/partners/${TECH_LOGO[x]}.png`} alt={x} loading="lazy" />
             : <span>{x}</span>}
+          {TECH_LOGO[x] && <span className="cd-techlogos__name" aria-hidden="true">{x}</span>}
         </li>
       ))}
     </ul>
+  );
+}
+
+/** Two-line metric: "7 days → <1 hour" reads "7 days →" over "<1 hour". */
+function MetricValue({ value }: { value: string }) {
+  const [from, to] = value.split(" → ");
+  if (to === undefined) return <>{value}</>;
+  return (
+    <>
+      <span className="cd-impact__line">{from} →</span>
+      <span className="cd-impact__line">{to}</span>
+    </>
+  );
+}
+
+function Check() {
+  return (
+    <svg className="cd-ba__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
   );
 }
 
@@ -116,22 +135,22 @@ function Approach({ c }: { c: CaseStudy }) {
   return (
     <section className="section cd-block cd-block--shade" id="approach">
       <div className="wrap-lg">
-        <div className="cd-grid reveal" ref={ref}>
-          <div>
+        <div className="cd-approach reveal" ref={ref}>
+          <div className="cd-approach__text">
             <span className="cd-label">{t("The approach")}</span>
             <h2 className="cd-title">{c.approach.title}</h2>
+            <p className="cd-prose">{c.approach.text}</p>
           </div>
-          <p className="cd-prose">{c.approach.text}</p>
-        </div>
-        <div className="cd-ba">
-          <div className="cd-ba__col cd-ba__col--before">
-            <span className="cd-label">{t("Before")}</span>
-            <ol>{c.before.map((s) => <li key={s}>{s}</li>)}</ol>
-          </div>
-          <span className="cd-ba__arrow" aria-hidden="true"><Arrow /></span>
-          <div className="cd-ba__col cd-ba__col--after">
-            <span className="cd-label">{t("After")}</span>
-            <ol>{c.after.map((s) => <li key={s}>{s}</li>)}</ol>
+          <div className="cd-ba">
+            <div className="cd-ba__col cd-ba__col--before">
+              <span className="cd-label">{t("Before")}</span>
+              <ol>{c.before.map((s) => <li key={s}>{s}</li>)}</ol>
+            </div>
+            <span className="cd-ba__arrow" aria-hidden="true"><Arrow /></span>
+            <div className="cd-ba__col cd-ba__col--after">
+              <span className="cd-label">{t("After")}</span>
+              <ol>{c.after.map((s) => <li key={s}><Check />{s}</li>)}</ol>
+            </div>
           </div>
         </div>
       </div>
@@ -149,7 +168,10 @@ function Impact({ c }: { c: CaseStudy }) {
         <dl className="cd-impact reveal" ref={ref} data-n={c.impact.length}>
           {c.impact.map((m) => (
             <div key={m.label}>
-              <dt>{m.value}</dt>
+              <dt>
+                <span className="cd-impact__glow" aria-hidden="true" />
+                <MetricValue value={m.value} />
+              </dt>
               <dd>{m.label}</dd>
             </div>
           ))}
@@ -195,10 +217,15 @@ function BusinessImpact({ c }: { c: CaseStudy }) {
   return (
     <section className="section cd-block" id="business-impact">
       <div className="wrap-lg">
-        <div className="cd-bi reveal" ref={ref}>
-          <span className="cd-label">{t("Business impact")}</span>
-          <h2 className="cd-bi__title">{c.businessImpact.title}</h2>
-          <p className="cd-prose">{c.businessImpact.text}</p>
+        <div className="cd-bi cd-bi--photo reveal" ref={ref}>
+          <div className="cd-bi__text">
+            <span className="cd-label">{t("Business impact")}</span>
+            <h2 className="cd-bi__title">{c.businessImpact.title}</h2>
+            <p className="cd-prose">{c.businessImpact.text}</p>
+          </div>
+          <figure className="cd-bi__media">
+            <img src={import.meta.env.BASE_URL + c.closingImage} alt={c.closingAlt} loading="lazy" />
+          </figure>
         </div>
       </div>
     </section>
