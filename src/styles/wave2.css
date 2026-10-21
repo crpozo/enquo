@@ -734,19 +734,31 @@
   .combine__stack-stage { grid-column: 2; justify-self: start; font-size: 12px; }
 }
 
-/* technologies as logo tiles: equal squares, dark in both themes (the logos are white) */
-.cd-tech .cd-techlogos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 380px; }
-.cd-tech .cd-techlogos li {
-  position: relative; aspect-ratio: 1; display: grid; place-items: center; padding: 0;
-  border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.14);
-  background: radial-gradient(120% 90% at 30% 0%, rgba(124, 58, 237, 0.18), transparent 60%), linear-gradient(160deg, #1A1A26 0%, #101018 100%);
-  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+/* technologies: a 2×2 table of square cells sharing 1px borders, flat
+   background, logos at a per-brand optical height (--logo-h, in px at a 184px
+   cell) that scales with the cell */
+.cd-tech .cd-techlogos {
+  list-style: none; margin: 0; padding: 0; max-width: 380px;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0;
+  border-top: 1px solid var(--hairline-2); border-left: 1px solid var(--hairline-2); border-radius: 6px; overflow: hidden;
 }
-.cd-tech .cd-techlogos li:hover { border-color: rgba(167, 139, 250, 0.7); box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 14px 32px -16px rgba(124, 58, 237, 0.7); transform: translateY(-2px); }
-.cd-techlogos img { display: block; width: auto; height: auto; max-width: 70%; max-height: 40%; object-fit: contain; }
-.cd-techlogos span { font-size: 14px; font-weight: 600; color: #F4F4F7; }
-.cd-tech .cd-techlogos .cd-techlogos__name { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244, 244, 247, 0.6); }
-@media (prefers-reduced-motion: reduce) { .cd-tech .cd-techlogos li { transition: none; } .cd-tech .cd-techlogos li:hover { transform: none; } }
+.cd-tech .cd-techlogos li {
+  --logo-h: 30;
+  container-type: inline-size; aspect-ratio: 1; padding: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  border: 0; border-right: 1px solid var(--hairline-2); border-bottom: 1px solid var(--hairline-2); border-radius: 0;
+  background: var(--bg-2);
+  transition: background-color 200ms ease;
+}
+.cd-tech .cd-techlogos li:hover { background: var(--bg-3); }
+.cd-techlogos img { display: block; width: auto; height: calc(var(--logo-h) * 100cqi / 184); max-width: 78%; object-fit: contain; }
+.cd-techlogos span { font-size: 14px; font-weight: 600; color: var(--ink); }
+.cd-techlogos .cd-techlogos__label { font-size: 14px; font-weight: 500; color: var(--ink); letter-spacing: 0; }
+.cd-techlogos__img--on-light { display: none !important; }
+:root[data-theme="light"] .cd-techlogos__img--on-dark { display: none !important; }
+:root[data-theme="light"] .cd-techlogos__img--on-light { display: block !important; }
+:root[data-theme="light"] .cd-techlogos img[data-mono] { filter: brightness(0); }
+@media (prefers-reduced-motion: reduce) { .cd-tech .cd-techlogos li { transition: none; } }
 
 /* ---------- Who We Are on white (always-light page) ---------- */
 :root[data-page-theme="light"] .who2-block--shade { background: var(--bg-3); }
