@@ -11,35 +11,62 @@ import { useLang } from "../i18n/lang";
    business impact → next case.
    ============================================================ */
 
-/** Logo files in /public/img/partners for the technologies we name. */
-const TECH_LOGO: Record<string, string> = {
-  Snowflake: "snowflake", dbt: "dbt", Streamlit: "streamlit", "Azure DevOps": "azure-devops",
-  Pega: "pega", Azure: "azure", Domo: "domo", Tableau: "tableau", Salesforce: "salesforce", ServiceNow: "servicenow",
+/**
+ * Logo files in /public/img/partners for the technologies we name. `h` is the
+ * optical height (px) in a 184px tile; `mono` marks white logos, shown in a
+ * single dark tone on the light theme; `dark` is a dark-wordmark variant;
+ * `label` sets a name beside a logo that is only an icon.
+ */
+type TechLogo = { file: string; h: number; mono?: boolean; dark?: string; label?: string };
+const TECH_LOGO: Record<string, TechLogo> = {
+  Snowflake: { file: "snowflake", h: 34 },
+  dbt: { file: "dbt", h: 34, dark: "dbt-dark" },
+  Streamlit: { file: "streamlit", h: 28, mono: true },
+  "Azure DevOps": { file: "azure-devops-icon", h: 40, label: "Azure DevOps" },
+  Pega: { file: "pega", h: 30, mono: true },
+  Azure: { file: "azure", h: 34 },
+  Domo: { file: "domo", h: 30, mono: true },
+  Tableau: { file: "tableau", h: 30 },
+  Salesforce: { file: "salesforce", h: 34 },
+  ServiceNow: { file: "servicenow", h: 26 },
 };
 
 function TechLogos({ items }: { items: string[] }) {
+  const src = (file: string) => import.meta.env.BASE_URL + `img/partners/${file}.png`;
   return (
     <ul className="cd-techlogos">
-      {items.map((x) => (
-        <li key={x} title={x}>
-          {TECH_LOGO[x]
-            ? <img src={import.meta.env.BASE_URL + `img/partners/${TECH_LOGO[x]}.png`} alt={x} loading="lazy" />
-            : <span>{x}</span>}
-          {TECH_LOGO[x] && <span className="cd-techlogos__name" aria-hidden="true">{x}</span>}
-        </li>
-      ))}
+      {items.map((x) => {
+        const logo = TECH_LOGO[x];
+        return (
+          <li key={x} title={x} style={logo ? ({ "--logo-h": logo.h } as React.CSSProperties) : undefined}>
+            {!logo && <span>{x}</span>}
+            {logo && (
+              <img
+                className={logo.dark ? "cd-techlogos__img--on-dark" : undefined}
+                src={src(logo.file)}
+                alt={logo.label ? "" : x}
+                loading="lazy"
+                data-mono={logo.mono || undefined}
+              />
+            )}
+            {logo?.dark && <img className="cd-techlogos__img--on-light" src={src(logo.dark)} alt={x} loading="lazy" />}
+            {logo?.label && <span className="cd-techlogos__label">{logo.label}</span>}
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
-/** Two-line metric: "7 days → <1 hour" reads "7 days →" over "<1 hour". */
+/** Before → after metric on one line: "7 days" (muted) → "<1 hour" (neon). */
 function MetricValue({ value }: { value: string }) {
   const [from, to] = value.split(" → ");
   if (to === undefined) return <>{value}</>;
   return (
     <>
-      <span className="cd-impact__line">{from} →</span>
-      <span className="cd-impact__line">{to}</span>
+      <span className="cd-impact__from">{from}</span>{" "}
+      <span className="cd-impact__arrow" aria-hidden="true">→</span>{" "}
+      <span className="cd-impact__to">{to}</span>
     </>
   );
 }
@@ -161,14 +188,15 @@ function Approach({ c }: { c: CaseStudy }) {
 function Impact({ c }: { c: CaseStudy }) {
   const ref = useReveal<HTMLDListElement>();
   const { t } = useLang();
+  const isBa = (m: CaseStudy["impact"][number]) => m.value.includes(" → ");
   return (
     <section className="section cd-block" id="impact">
       <div className="wrap-lg">
         <span className="cd-label">{t("The impact")}</span>
-        <dl className="cd-impact reveal" ref={ref} data-n={c.impact.length}>
+        <dl className="cd-impact reveal" ref={ref} data-n={c.impact.length} data-ba={c.impact.some(isBa) || undefined}>
           {c.impact.map((m) => (
-            <div key={m.label}>
-              <dt>
+            <div key={m.label} className={isBa(m) ? "cd-impact__item--ba" : undefined}>
+              <dt aria-label={isBa(m) ? m.spoken : undefined}>
                 <span className="cd-impact__glow" aria-hidden="true" />
                 <MetricValue value={m.value} />
               </dt>

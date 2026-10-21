@@ -1,6 +1,6 @@
 /* ==========================================================================
    Enquo — "wow" layer
-   Page-load intro overlay, living-aurora hero backdrop.
+   Page-load intro overlay, video hero backdrop.
    Loaded after enquo.css so these override the static hero bg.
    ========================================================================== */
 
@@ -163,9 +163,8 @@ em.accent,
    Layer order (bottom → top):
      1. .hero__video      — full-bleed looping video (real imagery)
      2. .hero__video-tint — purple brand tint + bottom darken for legibility
-     3. .hero__aurora     — animated color washes (lower opacity now, just tints)
-     4. .hero__grain      — surface texture
-     5. .hero__grid       — faint grid mask
+     3. .hero__grain      — surface texture
+     4. .hero__grid       — faint grid mask
 */
 
 /* Neutralize the legacy static blurred blobs from enquo.css. */
@@ -210,65 +209,29 @@ em.accent,
     linear-gradient(to bottom, rgba(5, 5, 9, 0.25) 0%, rgba(5, 5, 9, 0) 35%, rgba(5, 5, 9, 0.7) 100%);
 }
 
-.hero__aurora {
-  position: absolute;
-  inset: -20%;
-  z-index: 1;
-  pointer-events: none;
-  filter: blur(70px) saturate(110%);
-  /* Barely-there ambient hue — the black of the video carries the frame. */
-  opacity: 0.07;
-  mix-blend-mode: screen;
-}
-.hero__aurora-layer {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-.hero__aurora-layer--a {
-  background: conic-gradient(
-    from 0deg at 60% 40%,
-    rgba(124, 58, 237, 0.55) 0deg,
-    rgba(192, 38, 211, 0.45) 90deg,
-    rgba(244, 114, 182, 0.35) 180deg,
-    rgba(91, 33, 182, 0.4)   270deg,
-    rgba(124, 58, 237, 0.55) 360deg
-  );
-  animation: aurora-spin-a 28s linear infinite, aurora-float-a 22s ease-in-out infinite alternate;
-}
-.hero__aurora-layer--b {
-  background: radial-gradient(circle at 30% 70%, rgba(192, 38, 211, 0.55), transparent 55%),
-              radial-gradient(circle at 75% 30%, rgba(99, 102, 241, 0.4),  transparent 55%);
-  animation: aurora-float-b 26s ease-in-out infinite alternate;
-}
-.hero__aurora-layer--c {
-  background: conic-gradient(
-    from 180deg at 40% 60%,
-    rgba(244, 114, 182, 0.2) 0deg,
-    rgba(124, 58, 237, 0.35) 120deg,
-    rgba(91, 33, 182, 0.25) 240deg,
-    rgba(244, 114, 182, 0.2) 360deg
-  );
-  animation: aurora-spin-b 44s linear infinite reverse, aurora-float-a 30s ease-in-out infinite alternate-reverse;
-  opacity: 0.7;
+/* On phones the copy sits over the middle of the frame: deepen the tint so
+   the lead text holds 4.5:1 even on the brightest frames (~27s). */
+@media (max-width: 760px) {
+  .hero__video-tint {
+    background:
+      linear-gradient(to right, rgba(5, 5, 9, 0.85) 0%, rgba(5, 5, 9, 0.45) 38%, rgba(5, 5, 9, 0) 65%),
+      linear-gradient(to bottom, rgba(5, 5, 9, 0.55), rgba(5, 5, 9, 0.8));
+  }
 }
 
-@keyframes aurora-spin-a {
-  to { transform: rotate(360deg); }
+/* Pause / play for the background video (WCAG 2.2.2). */
+.hero__video-toggle {
+  /* bottom-right corner of the hero, in the padding outside the content, so
+     it never sits on the CTAs */
+  position: absolute; right: 16px; bottom: 16px; z-index: 3;
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--hairline-2); border-radius: 6px;
+  background: rgba(10, 10, 15, 0.6); color: #F4F4F7; cursor: pointer;
+  transition: border-color 150ms ease;
 }
-@keyframes aurora-spin-b {
-  to { transform: rotate(360deg); }
-}
-@keyframes aurora-float-a {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(4%, -3%) scale(1.08); }
-}
-@keyframes aurora-float-b {
-  0%   { transform: translate(0, 0) scale(1.02); }
-  100% { transform: translate(-5%, 4%) scale(0.96); }
-}
+.hero__video-toggle:hover { border-color: rgba(244, 244, 247, 0.5); }
+.hero__video-toggle:focus-visible { outline: 2px solid #F4F4F7; outline-offset: 3px; }
+.hero__video-toggle svg { width: 18px; height: 18px; }
 
 /* Star trails — radial (kept for optional use; not currently mounted) */
 .star-trails,

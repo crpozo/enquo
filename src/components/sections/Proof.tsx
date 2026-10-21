@@ -83,8 +83,9 @@ export function Proof() {
           ))}
         </dl>
 
-        <div className="proof__tease cta-card reveal" ref={teaseRef}>
-          <div>
+        {/* Case-studies teaser — a quiet full-bleed band. */}
+        <div className="proof__tease reveal" ref={teaseRef}>
+          <div className="proof__tease-body">
             <h3 className="proof__tease-title">
               {t("Want to see how 7 days of reporting became less than an hour?")}
             </h3>
@@ -92,7 +93,7 @@ export function Proof() {
               {t("Explore the work behind the results and see how Enquo solves complex enterprise challenges in practice.")}
             </p>
           </div>
-          <Link className="btn btn--primary" to="/case-studies">
+          <Link className="btn btn--primary proof__tease-btn" to="/case-studies">
             {t("Explore our case studies")}
             <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M13 5l7 7-7 7" />

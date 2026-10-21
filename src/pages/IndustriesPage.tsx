@@ -5,6 +5,7 @@ import { CASES } from "../data/cases";
 import { ENQUO_INDUSTRIES } from "../data/enquo";
 import { useReveal } from "../hooks/useReveal";
 import { useLang } from "../i18n/lang";
+import { LazyVideo } from "../components/LazyVideo";
 import { PageHeroArt } from "../components/sections/PageHeroArt";
 
 /* ============================================================
@@ -162,14 +163,9 @@ function IndustryBlock({ ind, index }: { ind: Industry; index: number }) {
       <div className="ind2__body reveal" ref={rightRef}>
         <figure className="ind2__media" aria-hidden="true">
           {ind.video ? (
-            <video
+            <LazyVideo
               src={import.meta.env.BASE_URL + ind.video}
               poster={ind.image ? import.meta.env.BASE_URL + ind.image : undefined}
-              autoPlay
-              loop
-              muted
-              playsInline
-              disablePictureInPicture
             />
           ) : (
             ind.image && <img src={import.meta.env.BASE_URL + ind.image} alt="" loading="lazy" />

@@ -245,16 +245,6 @@ function Combine() {
           </div>
         </div>
 
-        <div className="combine__demo cta-card">
-          <div>
-            <h3 className="combine__demo-title">{t("Want to see what Enquo could do for your business?")}</h3>
-            <p className="combine__demo-copy">{t("Use our demo to explore your needs and see how Enquo could approach them.")}</p>
-          </div>
-          <Link className="btn btn--primary" to="/demo">
-            {t("Try our demo")}
-            <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-          </Link>
-        </div>
       </div>
     </section>
   );
@@ -263,6 +253,37 @@ function Combine() {
 /* ============================================================
    Foundational enablers — present across every stage
    ============================================================ */
+/** Close of the stage journey: Discover → Design → Build → Run → Demo, then
+ *  the invitation to try the demo. */
+function DemoStrip() {
+  const { t } = useLang();
+  const steps = ["Discover", "Design", "Build", "Run"];
+  return (
+    <section className="svc-demo" id="try-demo">
+      <div className="wrap-lg">
+        <div className="combine__demo">
+          <ol className="combine__demo-steps" aria-hidden="true">
+            {steps.map((s) => (
+              <li key={s} data-tone={TONE[s]}>{t(s)}</li>
+            ))}
+            <li className="is-demo">{t("Demo")}</li>
+          </ol>
+          <div className="combine__demo-row">
+            <div>
+              <h3 className="combine__demo-title">{t("Want to see what Enquo could do for your business?")}</h3>
+              <p className="combine__demo-copy">{t("Use our demo to explore your needs and see how Enquo could approach them.")}</p>
+            </div>
+            <Link className="btn btn--primary" to="/demo">
+              {t("Try our demo")}
+              <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Enablers() {
   const gridRef = useReveal<HTMLParagraphElement>();
   const { t, tr } = useLang();
@@ -331,6 +352,7 @@ export function ServicesPage() {
         <StageSection key={stage.tag} stage={stage} />
       ))}
 
+      <DemoStrip />
       <Combine />
       <Enablers />
 

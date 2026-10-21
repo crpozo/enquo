@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { ENQUO_INDUSTRIES } from "../../data/enquo";
+import { LazyVideo } from "../LazyVideo";
 import { useReveal } from "../../hooks/useReveal";
 import { useLang } from "../../i18n/lang";
 
@@ -104,14 +105,9 @@ export function HomeIndustries() {
             >
               <figure className="ind-panel__media">
                 {ind.video ? (
-                  <video
+                  <LazyVideo
                     src={import.meta.env.BASE_URL + ind.video}
                     poster={ind.image ? import.meta.env.BASE_URL + ind.image : undefined}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    disablePictureInPicture
                     aria-hidden="true"
                     data-parallax-img
                   />

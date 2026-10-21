@@ -48,7 +48,6 @@
 /* Atmosphere layers off. */
 :root[data-wireframe] .intro,
 :root[data-wireframe] .px-glow,
-:root[data-wireframe] .hero__aurora,
 :root[data-wireframe] .hero__grain,
 :root[data-wireframe] .hero__video-tint,
 :root[data-wireframe] .hero__bg,
