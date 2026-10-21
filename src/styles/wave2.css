@@ -427,7 +427,23 @@
   background: linear-gradient(135deg, #fff 0%, var(--proof-tint) 100%);
   background-clip: text; -webkit-background-clip: text; color: transparent;
 }
-.cd-impact__line { display: block; white-space: nowrap; }
+/* before → after metric: one line, sized to its column (the 22px is the rule's
+   padding, moved onto dt/dd so 100cqi is the item's full width) */
+.cd-impact > .cd-impact__item--ba { container-type: inline-size; padding-left: 0; }
+.cd-impact__item--ba > dt, .cd-impact__item--ba > dd { padding-left: 22px; }
+.cd-impact .cd-impact__item--ba dt {
+  white-space: nowrap;
+  font-size: min(clamp(34px, 3.8vw, 58px), calc((100cqi - 22px) / 8.4));
+  background: none; color: var(--muted);
+}
+.cd-impact__arrow { color: var(--purple-400); }
+.cd-impact__to { background: linear-gradient(135deg, #fff 0%, var(--proof-tint) 100%); background-clip: text; -webkit-background-clip: text; color: transparent; }
+:root[data-theme="light"] .cd-impact .cd-impact__item--ba dt { background: none; }
+:root[data-theme="light"] .cd-impact__to { background: linear-gradient(135deg, #0A0A0F 0%, var(--proof-tint) 100%); background-clip: text; -webkit-background-clip: text; }
+@media (min-width: 961px) {
+  .cd-impact[data-ba] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .cd-impact[data-ba] > .cd-impact__item--ba { grid-column: span 2; }
+}
 .cd-impact__glow { position: absolute; left: -10%; top: 0; width: 80%; height: 100%; border-radius: 50%; background: radial-gradient(closest-side, var(--proof-tint), transparent 70%); filter: blur(28px); opacity: 0; z-index: -1; transition: opacity 900ms ease 200ms; pointer-events: none; }
 .cd-impact.in .cd-impact__glow { opacity: 0.32; }
 .cd-impact dd { margin: 14px 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); line-height: 1.4; }
@@ -470,10 +486,16 @@
   .cd-ba__col li { padding: 10px 12px; }
   .cd-ba__arrow { transform: rotate(90deg); }
   .cd-ba__arrow svg { width: 20px; height: 20px; }
+  .cd-impact, .cd-impact[data-n="3"] { grid-template-columns: 1fr 1fr; }
+  /* before → after metric on its own row, the other three below */
+  .cd-impact[data-ba] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cd-impact[data-ba] > .cd-impact__item--ba { grid-column: 1 / -1; order: -1; }
 }
 @media (max-width: 600px) {
   .cd-impact dt { font-size: 30px; }
-  .cd-impact, .cd-impact[data-n="3"] { grid-template-columns: 1fr 1fr; }
+  /* equal columns: long Spanish labels ("PRODUCTIVIDAD") hyphenate instead of widening the grid */
+  .cd-impact, .cd-impact[data-n="3"], .cd-impact[data-ba] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cd-impact dd { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
 }
 
 /* ---------- Who we are (10/09 rewrite) ---------- */

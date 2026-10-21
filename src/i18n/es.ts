@@ -558,6 +558,8 @@ export const ES: Record<string, string> = {
   "Real-time executive visibility": "Visibilidad ejecutiva en tiempo real",
   "Faster decision-making": "Decisiones más rápidas",
   "7 days → <1 hour": "7 días → <1 hora",
+  "7 days to less than 1 hour": "De 7 días a menos de 1 hora",
+  "5 to 7 days to less than 2 days": "De 5 a 7 días a menos de 2 días",
   "Business professionals in suits at the starting line of a stadium running track.":
     "Profesionales de traje en la línea de salida de la pista de atletismo de un estadio.",
   "A professional with a laptop overseeing operations in a data control room.":

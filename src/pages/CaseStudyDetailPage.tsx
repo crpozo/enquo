@@ -32,14 +32,15 @@ function TechLogos({ items }: { items: string[] }) {
   );
 }
 
-/** Two-line metric: "7 days → <1 hour" reads "7 days →" over "<1 hour". */
+/** Before → after metric on one line: "7 days" (muted) → "<1 hour" (neon). */
 function MetricValue({ value }: { value: string }) {
   const [from, to] = value.split(" → ");
   if (to === undefined) return <>{value}</>;
   return (
     <>
-      <span className="cd-impact__line">{from} →</span>
-      <span className="cd-impact__line">{to}</span>
+      <span className="cd-impact__from">{from}</span>{" "}
+      <span className="cd-impact__arrow" aria-hidden="true">→</span>{" "}
+      <span className="cd-impact__to">{to}</span>
     </>
   );
 }
@@ -161,14 +162,15 @@ function Approach({ c }: { c: CaseStudy }) {
 function Impact({ c }: { c: CaseStudy }) {
   const ref = useReveal<HTMLDListElement>();
   const { t } = useLang();
+  const isBa = (m: CaseStudy["impact"][number]) => m.value.includes(" → ");
   return (
     <section className="section cd-block" id="impact">
       <div className="wrap-lg">
         <span className="cd-label">{t("The impact")}</span>
-        <dl className="cd-impact reveal" ref={ref} data-n={c.impact.length}>
+        <dl className="cd-impact reveal" ref={ref} data-n={c.impact.length} data-ba={c.impact.some(isBa) || undefined}>
           {c.impact.map((m) => (
-            <div key={m.label}>
-              <dt>
+            <div key={m.label} className={isBa(m) ? "cd-impact__item--ba" : undefined}>
+              <dt aria-label={isBa(m) ? m.spoken : undefined}>
                 <span className="cd-impact__glow" aria-hidden="true" />
                 <MetricValue value={m.value} />
               </dt>

@@ -4,7 +4,8 @@
 
 export type Step = string;
 export type Bullet = { label: string; text: string };
-export type Metric = { value: string; label: string };
+/** `spoken` reads a before → after value aloud (the arrow is hidden from screen readers). */
+export type Metric = { value: string; label: string; spoken?: string };
 
 export type CaseStudy = {
   slug: string;
@@ -82,7 +83,7 @@ export const CASES: CaseStudy[] = [
     before: ["Disconnected data", "Manual KPI validation", "Inconsistent metrics", "Delayed executive decisions"],
     after: ["Unified data", "Consistent KPIs", "Real-time executive visibility", "Faster decision-making"],
     impact: [
-      { value: "7 days → <1 hour", label: "Executive reporting time" },
+      { value: "7 days → <1 hour", label: "Executive reporting time", spoken: "7 days to less than 1 hour" },
       { value: "90%", label: "Reduction in reporting time" },
       { value: "$420K", label: "Annual productivity savings" },
       { value: "1", label: "Trusted KPI framework" },
@@ -132,7 +133,7 @@ export const CASES: CaseStudy[] = [
     after: ["Single source of truth", "Standardized executive KPIs", "Real-time visibility", "Faster decisions"],
     impact: [
       { value: "65%", label: "Reduction in reporting preparation time" },
-      { value: "5–7 days → <2 days", label: "Reporting preparation" },
+      { value: "5–7 days → <2 days", label: "Reporting preparation", spoken: "5 to 7 days to less than 2 days" },
       { value: "$420K", label: "Annual productivity savings" },
       { value: "1", label: "Trusted source for executive KPIs" },
     ],
