@@ -203,6 +203,7 @@ function StageFeatures({
             {/* inline visual for narrow screens, where the sticky column is hidden */}
             <figure className="feat__inline-art" aria-hidden="true">
               <img src={import.meta.env.BASE_URL + STAGE_ART[s.tag]} alt="" loading="lazy" />
+              <figcaption className="feat__caption feat__caption--inline">{t(s.tag)}</figcaption>
             </figure>
             <span className="feat__eyebrow">{t(s.tag)}</span>
             <h3 className="feat__title">{s.promise}</h3>
@@ -298,7 +299,7 @@ export function HowWeWork() {
         <Journey steps={steps} active={active} onPick={pick} />
         <StageFeatures steps={steps} active={active} onActive={setActive} blockRefs={blockRefs} />
 
-        <div className="do__close reveal" ref={closeRef}>
+        <div className="do__close cta-card reveal" ref={closeRef}>
           <p className="do__closing">
             {t("Different challenges call for different capabilities. We bring the right expertise together based on your business priorities.")}
           </p>

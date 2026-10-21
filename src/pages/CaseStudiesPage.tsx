@@ -41,49 +41,6 @@ function CaseCard({ s, i }: { s: CaseStudy; i: number }) {
   );
 }
 
-/* ============================================================
-   Videos — informative videos (e.g. the World Cup piece); slots
-   ready for the files, with a poster until they land.
-   ============================================================ */
-const VIDEOS = [
-  { title: "Mundial", caption: "How a global tournament runs on connected data.", poster: "img/industries/sports.webp" },
-  { title: "Enquo at work", caption: "Design, build and run — in the field.", poster: "img/who/team.webp" },
-];
-
-function Videos() {
-  const ref = useReveal<HTMLDivElement>();
-  const { t, tr } = useLang();
-  const videos = tr(VIDEOS);
-  return (
-    <section className="section cvideos" id="videos">
-      <div className="wrap-lg">
-        <div className="sec-label">
-          <span className="num">{t("§03 · Videos")}</span>
-          <span>{t("The work, on camera")}</span>
-          <span className="dash" />
-        </div>
-        <div className="cvideos__grid reveal" ref={ref}>
-          {videos.map((v) => (
-            <figure className="cvideo" key={v.title}>
-              <div className="cvideo__frame">
-                <img src={import.meta.env.BASE_URL + v.poster} alt="" loading="lazy" />
-                <span className="cvideo__play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                </span>
-                <span className="cvideo__soon">{t("Coming soon")}</span>
-              </div>
-              <figcaption>
-                <strong>{v.title}</strong>
-                <span>{v.caption}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function CaseStudiesPage() {
   const heroRef = useReveal<HTMLDivElement>();
   const { t, tr } = useLang();
@@ -123,8 +80,6 @@ export function CaseStudiesPage() {
           </div>
         </div>
       </section>
-
-      <Videos />
     </>
   );
 }

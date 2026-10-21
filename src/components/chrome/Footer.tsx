@@ -3,6 +3,41 @@ import { Link } from "react-router-dom";
 import { STAGES } from "../../data/services";
 import { useLang } from "../../i18n/lang";
 
+/** Enquo's social profiles (Follow column). */
+const SOCIAL = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/enquotech",
+    icon: (
+      <>
+        <rect x="3" y="3" width="18" height="18" rx="4" />
+        <path d="M8 10.5V16M8 7.75v.01M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.4-2.6s2.1 1 2.1 2.6V16" />
+      </>
+    ),
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61572075207952",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M13.2 21v-7.6h2.3M10.4 13.4h5.1M13.2 21V9.8c0-1.3.8-2 2-2h1.3" />
+      </>
+    ),
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/enquotech/",
+    icon: (
+      <>
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <path d="M17.3 6.7v.01" />
+      </>
+    ),
+  },
+];
+
 export function Footer() {
   const { t, tr } = useLang();
   const stages = tr(STAGES);
@@ -52,9 +87,17 @@ export function Footer() {
         </div>
         <div className="footer__col">
           <h4>{t("Follow")}</h4>
-          <ul>
-            <li>LinkedIn</li>
-            <li>Facebook</li>
+          <ul className="footer__social">
+            {SOCIAL.map((n) => (
+              <li key={n.name}>
+                <a href={n.href} target="_blank" rel="noopener noreferrer" aria-label={t(`Enquo on ${n.name}`)}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {n.icon}
+                  </svg>
+                  {n.name}
+                </a>
+              </li>
+            ))}
             <li>{t("Newsletter")}</li>
           </ul>
         </div>

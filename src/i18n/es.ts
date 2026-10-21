@@ -28,6 +28,9 @@ export const ES: Record<string, string> = {
   "Contact": "Contacto",
   "Follow": "Síguenos",
   "Newsletter": "Boletín",
+  "Enquo on LinkedIn": "Enquo en LinkedIn",
+  "Enquo on Facebook": "Enquo en Facebook",
+  "Enquo on Instagram": "Enquo en Instagram",
   "Human driven data solutions": "Soluciones de datos con enfoque humano",
   "Cookies": "Cookies",
   "Privacy": "Privacidad",
@@ -508,12 +511,6 @@ export const ES: Record<string, string> = {
   "put a number on.": "medir con un número.",
   "From faster reporting to more reliable operations, see the measurable impact behind our work.":
     "De reportes más rápidos a operaciones más confiables: mira el impacto medible detrás de nuestro trabajo.",
-  "§03 · Videos": "§03 · Videos",
-  "The work, on camera": "El trabajo, en cámara",
-  "Coming soon": "Próximamente",
-  "How a global tournament runs on connected data.": "Cómo un torneo global funciona con datos conectados.",
-  "Enquo at work": "Enquo en acción",
-  "Design, build and run — in the field.": "Diseñar, construir y operar, en el terreno.",
   "Executive Intelligence": "Inteligencia ejecutiva",
   "Executive Reporting": "Reportes ejecutivos",
   "The challenge": "El reto",
@@ -561,6 +558,12 @@ export const ES: Record<string, string> = {
   "Real-time executive visibility": "Visibilidad ejecutiva en tiempo real",
   "Faster decision-making": "Decisiones más rápidas",
   "7 days → <1 hour": "7 días → <1 hora",
+  "Business professionals in suits at the starting line of a stadium running track.":
+    "Profesionales de traje en la línea de salida de la pista de atletismo de un estadio.",
+  "A professional with a laptop overseeing operations in a data control room.":
+    "Un profesional con una laptop supervisando la operación en una sala de control de datos.",
+  "Fans cheering for their team in the stands of a packed stadium.":
+    "Aficionados alentando a su equipo en las gradas de un estadio lleno.",
   "Executive reporting time": "Tiempo de reporte ejecutivo",
   "Reduction in reporting time": "Reducción del tiempo de reporte",
   "Annual productivity savings": "Ahorro anual en productividad",

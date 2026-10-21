@@ -889,6 +889,17 @@
   cursor: pointer; transition: color 150ms ease;
 }
 .footer__col li:hover { color: var(--ink); }
+.footer__social li { display: flex; align-items: center; min-height: 36px; padding: 0; }
+.footer__social a {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 36px; color: inherit; text-decoration: none;
+}
+.footer__social a:hover, .footer__social a:focus-visible { color: var(--ink); }
+.footer__social svg { width: 18px; height: 18px; flex: none; }
+@media (max-width: 768px) {
+  .footer__social { display: grid; gap: 8px; }
+  .footer__social li, .footer__social a { min-height: 44px; }
+}
 .footer__addr {
   font-size: 14px; font-weight: 300; color: var(--ink-2); line-height: 1.7;
   margin-top: 8px;

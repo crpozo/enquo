@@ -83,7 +83,7 @@ export function Proof() {
           ))}
         </dl>
 
-        <div className="proof__tease reveal" ref={teaseRef}>
+        <div className="proof__tease cta-card reveal" ref={teaseRef}>
           <div>
             <h3 className="proof__tease-title">
               {t("Want to see how 7 days of reporting became less than an hour?")}

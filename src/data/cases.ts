@@ -34,6 +34,9 @@ export type CaseStudy = {
   delivered: Bullet[];
   technologies: string[];
   businessImpact: { title: string; text: string };
+  /** Photo that closes the case, beside the business impact. */
+  closingImage: string;
+  closingAlt: string;
 };
 
 /**
@@ -94,6 +97,8 @@ export const CASES: CaseStudy[] = [
       title: "Trusted information became available when decisions were being made.",
       text: "Leadership gained a consistent view of performance without waiting days for data reconciliation and reporting preparation.",
     },
+    closingImage: "img/cases/ncaa-executive-intelligence-closing.webp",
+    closingAlt: "Business professionals in suits at the starting line of a stadium running track.",
   },
   {
     slug: "ncaa-executive-reporting",
@@ -141,6 +146,8 @@ export const CASES: CaseStudy[] = [
       title: "Less time preparing reports. Faster access to the information behind decisions.",
       text: "A standardized KPI foundation reduced reporting preparation and gave leadership a consistent view of performance.",
     },
+    closingImage: "img/cases/ncaa-executive-reporting-closing.webp",
+    closingAlt: "A professional with a laptop overseeing operations in a data control room.",
   },
   {
     slug: "ncaa-host-bidding",
@@ -188,6 +195,8 @@ export const CASES: CaseStudy[] = [
       title: "A fragmented process became a connected, transparent digital workflow.",
       text: "Teams gained one environment for managing bids end to end, with less manual processing and greater visibility across the lifecycle.",
     },
+    closingImage: "img/cases/ncaa-host-bidding-closing.webp",
+    closingAlt: "Fans cheering for their team in the stands of a packed stadium.",
   },
 ];
 

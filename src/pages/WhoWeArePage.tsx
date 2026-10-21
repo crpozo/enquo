@@ -51,7 +51,7 @@ function Hero() {
   const { t } = useLang();
   return (
     <section className="page-hero section who2-hero" id="top">
-      <PageHeroArt src="img/who/team.webp" />
+      <PageHeroArt src="img/who/who-hero.webp" position="86% 40%" />
       <div className="wrap-lg">
         <div className="sec-label">
           <span className="num">{t("§01 · Who We Are")}</span>

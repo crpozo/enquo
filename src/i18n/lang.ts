@@ -32,7 +32,7 @@ export function withPrefix(prefix: string, path: string): string {
 /** Keys that hold identifiers / asset paths — never translated by `tr`. */
 const SKIP_KEYS = new Set([
   "slug", "key", "id", "src", "image", "logo", "media", "viz", "cat", "team",
-  "category", "tag", "path", "num", "icon", "accent", "stack",
+  "category", "tag", "path", "num", "icon", "accent", "stack", "closingImage",
 ]);
 
 function translate(lang: Lang, s: string): string {
