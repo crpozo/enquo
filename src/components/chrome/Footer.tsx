@@ -105,11 +105,12 @@ export function Footer() {
 
       <div className="footer__bottom">
         <span className="meta">© 2026 Enquo · {t("Human driven data solutions")}</span>
+        {/* No legal pages exist yet: plain text until they have URLs. */}
         <div className="links">
-          <a>{t("Cookies")}</a>
-          <a>{t("Privacy")}</a>
-          <a>{t("Terms")}</a>
-          <a>{t("Accessibility")}</a>
+          <span>{t("Cookies")}</span>
+          <span>{t("Privacy")}</span>
+          <span>{t("Terms")}</span>
+          <span>{t("Accessibility")}</span>
         </div>
       </div>
     </footer>
