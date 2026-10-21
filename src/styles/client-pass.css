@@ -359,65 +359,49 @@
   color: var(--ink-2);
   font-weight: 500;
 }
-/* Evidence panel (home) — flat lavender, inverse of the page; the
-   before → after figure is the visual. Things that lead to cases are #F3EEFF. */
+/* Case-studies teaser (home) — a quiet full-bleed band, barely off the page
+   black, hairlines top and bottom: it reads as a pause, not another card.
+   A solid 4px violet bar marks the copy; the button is the only light shape.
+   Same dark band on the light theme. */
 .proof__tease {
   margin-top: 72px;
+  margin-inline: calc(50% - 50vw);
+  padding: clamp(32px, 4vw, 48px) calc(50vw - 50%);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  gap: 48px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 40px;
   align-items: center;
-  padding: clamp(28px, 4vw, 56px);
-  border-radius: 6px;
-  background: #F3EEFF;
+  background: #16121F;
+  border-top: 1px solid #2A2238;
+  border-bottom: 1px solid #2A2238;
 }
-.proof__tease-fig { container-type: inline-size; min-width: 0; }
-.proof__tease-metric {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  font-size: min(clamp(32px, 5vw, 72px), calc(100cqi / 8.4));
-  font-feature-settings: "tnum" 1;
-}
-.proof__tease-from { color: #6B6B7A; }
-.proof__tease-arrow { color: #5B21B6; }
-.proof__tease-to { color: #0A0A0F; }
+.proof__tease-body { padding-left: 24px; border-left: 4px solid #7C3AED; }
 .proof__tease-title {
   margin: 0;
-  font-size: clamp(22px, 2.2vw, 34px);
-  line-height: 1.2;
+  font-size: clamp(20px, 1.9vw, 28px);
+  line-height: 1.25;
   letter-spacing: -0.02em;
   font-weight: 400;
-  color: #0A0A0F;
+  color: #FFFFFF;
 }
 .proof__tease-copy {
-  margin: 14px 0 28px;
+  margin: 10px 0 0;
   font-size: 15px;
   line-height: 1.55;
-  color: #3B3B48;
+  color: #B9B1C9;
   font-weight: 300;
-  max-width: 560px;
+  max-width: 600px;
 }
-/* button: inverse of the panel; hover only nudges the arrow */
-.proof__tease .proof__tease-btn,
-.proof__tease .proof__tease-btn:hover { background: #0A0A0F; color: #F4F4F7; border-color: #0A0A0F; box-shadow: none; }
+/* button: white with black text in both themes; hover only nudges the arrow */
+:root[data-theme] .proof__tease .proof__tease-btn,
+:root[data-theme] .proof__tease .proof__tease-btn:hover { background: #FFFFFF; color: #0A0A0F; border-color: #FFFFFF; box-shadow: none; }
 .proof__tease .proof__tease-btn::after { display: none; }
 .proof__tease .proof__tease-btn:hover .arrow { transform: translateX(4px); }
-.proof__tease .proof__tease-btn:focus-visible { outline: 2px solid #5B21B6; outline-offset: 3px; }
-:root[data-theme="light"] .proof__tease { background: #0F0F18; }
-:root[data-theme="light"] .proof__tease-from { color: #8A8A98; }
-:root[data-theme="light"] .proof__tease-arrow { color: #C7B6FF; }
-:root[data-theme="light"] .proof__tease-to,
-:root[data-theme="light"] .proof__tease-title { color: #F4F4F7; }
-:root[data-theme="light"] .proof__tease-copy { color: #C6C6D0; }
-:root[data-theme="light"] .proof__tease .proof__tease-btn,
-:root[data-theme="light"] .proof__tease .proof__tease-btn:hover { background: #F4F4F7; color: #0A0A0F; border-color: #F4F4F7; }
-:root[data-theme="light"] .proof__tease .proof__tease-btn:focus-visible { outline-color: #C7B6FF; }
+.proof__tease .proof__tease-btn:focus-visible { outline: 2px solid #A78BFA; outline-offset: 3px; }
 @media (max-width: 760px) {
   .proof__tease, .do-band { grid-template-columns: 1fr; gap: 28px; }
+  .proof__tease { justify-items: start; }
+  .proof__tease-body { padding-left: 18px; }
   .do-band { align-items: start; }
 }
 
