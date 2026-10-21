@@ -20,16 +20,9 @@ const HERO_MEDIA = {
   wide: { video: BASE + "videos/hero.mp4", poster: BASE + "img/heroes/home-hero.webp" },
   narrow: { video: BASE + "videos/hero-720.mp4", poster: BASE + "img/heroes/home-hero-960.webp" },
 };
-/** Visitor's pause choice for this session ("1" paused, "0" playing). */
-const PAUSE_KEY = "enquo-hero-video-paused";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-
-function readPaused(): boolean {
-  if (prefersReducedMotion()) return true;
-  try { return sessionStorage.getItem(PAUSE_KEY) === "1"; } catch { return false; }
-}
 
 export function Hero({ variant = "manifesto" }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -37,17 +30,16 @@ export function Hero({ variant = "manifesto" }: Props) {
   const [media] = useState(() =>
     typeof window !== "undefined" && window.matchMedia?.(NARROW).matches ? HERO_MEDIA.narrow : HERO_MEDIA.wide,
   );
-  // Reduced motion: never autoplays, the poster stands in (WCAG 2.2.2 /
-  // 2.3.3). Otherwise it plays unless the visitor paused it this session.
-  const [paused, setPaused] = useState(readPaused);
+  // Reduced motion: never autoplays, the poster stands in. Otherwise it
+  // always plays.
+  const [paused] = useState(prefersReducedMotion);
 
   // Some browsers (esp. Safari) won't honor `autoplay` when the element is
   // hidden during mount or wrapped in transitions; calling play() once the
-  // video is ready fixes those cases. Pausing is applied the same way.
+  // video is ready fixes those cases.
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
-    if (paused) { v.pause(); return; }
+    if (!v || paused) return;
     const tryPlay = () => {
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => { /* ignore */ });
@@ -56,13 +48,6 @@ export function Hero({ variant = "manifesto" }: Props) {
     v.addEventListener("canplay", tryPlay, { once: true });
     return () => v.removeEventListener("canplay", tryPlay);
   }, [paused]);
-
-  const togglePaused = () => {
-    setPaused((was) => {
-      try { sessionStorage.setItem(PAUSE_KEY, was ? "0" : "1"); } catch { /* storage unavailable */ }
-      return !was;
-    });
-  };
 
   return (
     <section className="hero section" id="intro">
@@ -132,19 +117,6 @@ export function Hero({ variant = "manifesto" }: Props) {
           <span>{t("Scroll to see the lifecycle")}</span>
         </div>
       </div>
-
-      <button
-        type="button"
-        className="hero__video-toggle"
-        onClick={togglePaused}
-        aria-label={paused ? t("Play background video") : t("Pause background video")}
-      >
-        {paused ? (
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" /></svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
-        )}
-      </button>
     </section>
   );
 }

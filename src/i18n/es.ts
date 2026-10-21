@@ -28,8 +28,6 @@ export const ES: Record<string, string> = {
   "Contact": "Contacto",
   "Follow": "Síguenos",
   "Newsletter": "Boletín",
-  "Pause background video": "Pausar video de fondo",
-  "Play background video": "Reproducir video de fondo",
   "Enquo on LinkedIn": "Enquo en LinkedIn",
   "Enquo on Facebook": "Enquo en Facebook",
   "Enquo on Instagram": "Enquo en Instagram",

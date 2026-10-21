@@ -219,20 +219,6 @@ em.accent,
   }
 }
 
-/* Pause / play for the background video (WCAG 2.2.2). */
-.hero__video-toggle {
-  /* bottom-right corner of the hero, in the padding outside the content, so
-     it never sits on the CTAs */
-  position: absolute; right: 16px; bottom: 16px; z-index: 3;
-  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
-  border: 1px solid var(--hairline-2); border-radius: 6px;
-  background: rgba(10, 10, 15, 0.6); color: #F4F4F7; cursor: pointer;
-  transition: border-color 150ms ease;
-}
-.hero__video-toggle:hover { border-color: rgba(244, 244, 247, 0.5); }
-.hero__video-toggle:focus-visible { outline: 2px solid #F4F4F7; outline-offset: 3px; }
-.hero__video-toggle svg { width: 18px; height: 18px; }
-
 /* Star trails — radial (kept for optional use; not currently mounted) */
 .star-trails,
 .concentric-pulse,
